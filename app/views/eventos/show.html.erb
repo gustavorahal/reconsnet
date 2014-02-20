@@ -1,0 +1,36 @@
+<dl class="dl-horizontal">
+  <dt>Nome:</dt>
+  <dd><%= @evento.nome %></dd>
+
+  <dt>Tipo:</dt>
+  <dd><%= @evento.tipo %></dd>
+
+  <dt>Descrição:</dt>
+  <dd><%= @evento.descricao %></dd>
+
+  <dt>Início:</dt>
+  <dd><%= @evento.inicio %></dd>
+
+  <dt>Fim:</dt>
+  <dd><%= @evento.fim %></dd>
+</dl>
+
+<h4>Participantes</h4>
+<%= link_to 'Adicionar participação', new_participacao_path(@evento.id), class: 'btn btn-primary' %>
+<table class="table table-striped">
+  <tr>
+    <th>Nome</th>
+    <th>Participação</th>
+    <th>Ações</th>
+  </tr>
+  <% @evento_pessoas.each do |ep| %>
+      <tr>
+        <td><%= ep.pessoa.nome %></td>
+        <td><%= ep.tipo_participacao %></td>
+        <td>
+          <%= link_to 'Deletar participação', destroy_participacao_path(@evento.id, ep.id), class: 'btn btn-xs btn-danger',
+                      method: :delete, data: { confirm: "Você tem certeza que deseja deletar?" } %>
+        </td>
+      </tr>
+  <% end %>
+</table>

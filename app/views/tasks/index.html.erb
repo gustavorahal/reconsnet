@@ -1,0 +1,19 @@
+
+<% content_for :content_panel do %>
+
+
+	<%= render partial: 'section_title', locals: { title: 'Cadastro' } %>
+	<div class='row'>
+      <%= render partial: 'entry', locals: { title:  'Pessoas',
+                                               r_link_to: pessoas_path,
+                                               description: ''} %>
+      <%= render partial: 'entry', locals: { title:  'Eventos',
+                                             r_link_to: eventos_path,
+                                             description: ''} %>
+
+    </div>
+
+
+
+<% end %>
+

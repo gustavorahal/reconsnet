@@ -1,0 +1,36 @@
+<%= form_for @evento do |f| %>
+
+    <% if @evento.errors.any? %>
+        <%= render partial: 'common/error', locals: { objeto: @evento } %>
+    <% end %>
+
+
+    <div class="form-group">
+      <%= f.label :nome %>
+      <%= f.text_field :nome, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :tipo %><br>
+      <%= f.select :tipo, options_for_select(Evento.tipos_de_evento), class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :descricao %><br>
+      <%= f.text_area :descricao, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :inicio %><br>
+      <%= f.text_field :inicio, class: 'form-control datetimepicker' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :fim %><br>
+      <%= f.text_field :fim, class: 'form-control datetimepicker' %>
+    </div>
+
+    <div>
+      <%= f.submit 'Salvar', class: 'btn btn-primary' %>
+    </div>
+<% end %>

@@ -1,0 +1,31 @@
+<h2>Eventos</h2>
+
+
+<%= link_to 'Adicionar', new_evento_path, class: 'btn btn-primary' %>
+
+<table class="table table-striped">
+  <tr>
+    <th>Nome</th>
+    <th>Tipo</th>
+    <th>Descrição</th>
+    <th>Inicio</th>
+    <th>Fim</th>
+    <th>Ações</th>
+  </tr>
+
+  <% @eventos.each do |evento| %>
+      <tr>
+        <td><%= evento.nome %></td>
+        <td><%= evento.tipo %></td>
+        <td><%= evento.descricao %></td>
+        <td><%= evento.inicio %></td>
+        <td><%= evento.fim %></td>
+        <td>
+          <%= link_to 'Ver', evento_path(evento), class: 'btn btn-xs btn-primary' %>
+          <%= link_to 'Alterar', edit_evento_path(evento), class: 'btn btn-xs btn-primary' %>
+          <%= link_to 'Deletar', evento_path(evento), class: 'btn btn-xs btn-danger',
+                      method: :delete, data: { confirm: "Você tem certeza que deseja deletar '#{evento.nome}'?" } %>
+        </td>
+      </tr>
+  <% end %>
+</table>

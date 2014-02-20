@@ -1,0 +1,31 @@
+
+<h4><%= link_to "&laquo; Voltar ao evento #{@evento.nome}".html_safe, evento_path(@evento)%></h4>
+
+<%= form_for @evento_pessoa, url: create_participacao_path(@evento.id) do |f| %>
+
+    <% if @evento_pessoa.errors.any? %>
+        <%= render partial: 'common/error', locals: { objeto: @evento_pessoa } %>
+    <% end %>
+
+    <%= hidden_field_tag :evento_id, @evento.id %>
+
+    <div class="form-group">
+      <%= f.label 'Evento' %>
+      <p class="form-control-static"><%= @evento.nome %></p>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :pessoa %><br>
+      <%= f.select :pessoa_id, options_for_select(@pessoas.pluck(:nome, :id)), class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :tipo_participacao %><br>
+      <%= f.select :tipo_participacao, options_for_select(EventoPessoa.tipos_de_participacao), class: 'form-control' %>
+    </div>
+
+
+    <div>
+      <%= f.submit 'Salvar', class: 'btn btn-primary' %>
+    </div>
+<% end %>
