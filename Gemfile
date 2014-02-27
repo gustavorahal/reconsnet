@@ -13,6 +13,7 @@ gem 'gon'
 
 # UI/Web
 gem 'bootstrap-sass', '3.1.1'
+gem 'bootstrap_form'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 

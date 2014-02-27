@@ -16,20 +16,23 @@
 </dl>
 
 <h4>Participantes</h4>
-<%= link_to 'Adicionar participação', new_participacao_path(@evento.id), class: 'btn btn-primary' %>
+<%= link_to 'Adicionar participação', evento_pessoa_path(@evento.id), class: 'btn btn-primary' %>
 <table class="table table-striped">
   <tr>
     <th>Nome</th>
     <th>Participação</th>
+    <th>Status</th>
     <th>Ações</th>
   </tr>
   <% @evento_pessoas.each do |ep| %>
       <tr>
         <td><%= ep.pessoa.nome %></td>
         <td><%= ep.tipo_participacao %></td>
+        <td><%= ep.status %></td>
         <td>
-          <%= link_to 'Deletar participação', destroy_participacao_path(@evento.id, ep.id), class: 'btn btn-xs btn-danger',
+          <%= link_to 'Deletar participação', evento_pessoa_path(ep.id), class: 'btn btn-xs btn-danger',
                       method: :delete, data: { confirm: "Você tem certeza que deseja deletar?" } %>
+          <%= link_to 'Editar participação', edit_evento_pessoa_path(ep.id), class: 'btn btn-xs btn-warning' %>
         </td>
       </tr>
   <% end %>

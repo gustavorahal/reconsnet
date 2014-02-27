@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20140219013251) do
     t.integer  "evento_id",         null: false
     t.integer  "pessoa_id",         null: false
     t.string   "tipo_participacao", null: false
+    t.string   "status",            null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -38,11 +39,12 @@ ActiveRecord::Schema.define(version: 20140219013251) do
   end
 
   create_table "pessoas", force: true do |t|
-    t.string   "nome",            null: false
+    t.string   "nome",                      null: false
+    t.string   "sexo",            limit: 1
     t.string   "email"
     t.date     "data_nascimento"
-    t.string   "tel_resid",                    array: true
-    t.string   "tel_cel",                      array: true
+    t.string   "tel_resid",                              array: true
+    t.string   "tel_cel",                                array: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

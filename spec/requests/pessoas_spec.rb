@@ -7,7 +7,7 @@ describe 'Pessoas' do
     visit pessoas_path
     click_on 'Adicionar'
     fill_in 'Nome', with: pessoa.nome
-    fill_in 'Email', with: pessoa.email
+    fill_in 'E-mail', with: pessoa.email
     click_on 'Salvar'
 
   end
@@ -17,7 +17,7 @@ describe 'Pessoas' do
     visit pessoas_path
     page.should have_content(pessoa.email)
     click_on 'Editar'
-    fill_in 'Email', with: 'novo@email.com'
+    fill_in 'E-mail', with: 'novo@email.com'
     click_on 'Salvar'
     page.should have_content('novo@email.com')
   end

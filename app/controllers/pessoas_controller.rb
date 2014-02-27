@@ -10,7 +10,7 @@ class PessoasController < ApplicationController
   end
 
   def create
-    @pessoa = Pessoa.new(params.require(:pessoa).permit(:nome, :email))
+    @pessoa = Pessoa.new(params.require(:pessoa).permit(:nome, :email, :sexo))
 
     if @pessoa.save
       redirect_to pessoas_path

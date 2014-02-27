@@ -12,7 +12,7 @@
 
     <div class="form-group">
       <%= f.label :tipo %><br>
-      <%= f.select :tipo, options_for_select(Evento.tipos_de_evento), class: 'form-control' %>
+      <%= f.select :tipo, options_for_select(Evento.tipos_de_evento), {}, class: 'form-control' %>
     </div>
 
     <div class="form-group">
@@ -30,7 +30,7 @@
       <%= f.text_field :fim, class: 'form-control datetimepicker' %>
     </div>
 
-    <div>
+    <div class="form-group">
       <%= f.submit 'Salvar', class: 'btn btn-primary' %>
     </div>
 <% end %>

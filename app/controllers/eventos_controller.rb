@@ -52,41 +52,4 @@ class EventosController < ApplicationController
   end
 
 
-
-  #
-  # Operações para Participação
-  #
-
-  def new_participacao
-    @evento = Evento.find(params[:evento_id])
-    @evento_pessoa = EventoPessoa.new
-
-    participantes = EventoPessoa.where(evento: @evento)
-    # Exclua as pessoas que já fazem parte do evento
-    @pessoas = Pessoa.where.not(id: participantes.pluck(:pessoa_id))
-  end
-
-
-  def create_participacao
-    data = params.require(:evento_pessoa).permit(:pessoa_id, :tipo_participacao)
-
-    @evento_pessoa = EventoPessoa.new(evento_id: params[:evento_id],
-                                      pessoa_id: data[:pessoa_id],
-                                      tipo_participacao: data[:tipo_participacao])
-
-    if @evento_pessoa.save
-      redirect_to evento_path(@evento_pessoa.evento)
-    else
-      render 'new_participacao'
-    end
-  end
-
-
-  def destroy_participacao
-    @ep = EventoPessoa.find(params[:id])
-    @ep.destroy
-
-    redirect_to evento_path(params[:evento_id])
-  end
-
 end

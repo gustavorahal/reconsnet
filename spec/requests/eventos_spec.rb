@@ -39,9 +39,5 @@ describe 'Eventos' do
 
   end
 
-  it 'adiciona participante' do
-
-  end
-
 
 end
