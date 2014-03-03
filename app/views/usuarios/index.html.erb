@@ -1,0 +1,22 @@
+<%= render partial: 'common/titulo_pagina', locals: { titulo: 'Usuários' } %>
+
+<table class="table table-striped">
+  <tr>
+    <th>Nome</th>
+    <th>uid</th>
+    <th>Provider</th>
+    <th>Ações</th>
+  </tr>
+
+  <% @usuarios.each do |usuario| %>
+      <tr>
+        <td><%= usuario.nome %></td>
+        <td><%= usuario.uid %></td>
+        <td><%= usuario.provider %></td>
+        <td>
+          <%= link_to 'Deletar', usuario_path(usuario), class: 'btn btn-xs btn-danger',
+                      method: :delete, data: { confirm: "Você tem certeza que deseja deletar '#{usuario.nome}'?" } %>
+        </td>
+      </tr>
+  <% end %>
+</table>

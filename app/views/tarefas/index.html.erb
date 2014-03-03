@@ -1,0 +1,22 @@
+
+<%= render partial: 'section_title', locals: { title: 'Cadastro' } %>
+<div class='row'>
+  <%= render partial: 'entry', locals: { title:  'Pessoas',
+                                           r_link_to: pessoas_path,
+                                           description: ''} %>
+  <%= render partial: 'entry', locals: { title:  'Eventos',
+                                         r_link_to: eventos_path,
+                                         description: ''} %>
+  <%= render partial: 'entry', locals: { title:  'Divulgação',
+                                         r_link_to: divulgacao_path,
+                                         description: ''} %>
+</div>
+
+<%= render partial: 'section_title', locals: { title: 'Admin' } %>
+<div class='row'>
+  <%= render partial: 'entry', locals: { title:  'Usuários',
+                                         r_link_to: usuarios_path,
+                                         btn_class: 'btn-danger',
+                                         description: ''} %>
+</div>
+

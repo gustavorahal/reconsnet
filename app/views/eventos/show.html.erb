@@ -1,7 +1,13 @@
-<dl class="dl-horizontal">
-  <dt>Nome:</dt>
-  <dd><%= @evento.nome %></dd>
 
+<%= render partial: 'common/titulo_pagina', locals: { titulo: "Evento #{@evento.nome}" } %>
+
+<% content_for :actions do %>
+    <%= render partial: 'common/btn_editar', locals: { url: edit_evento_path(@evento) } %>
+    <%= render partial: 'common/btn_deletar', locals: { url: evento_path(@evento) } %>
+<% end %>
+
+
+<dl class="dl-horizontal">
   <dt>Tipo:</dt>
   <dd><%= @evento.tipo %></dd>
 
@@ -15,25 +21,44 @@
   <dd><%= @evento.fim %></dd>
 </dl>
 
-<h4>Participantes</h4>
-<%= link_to 'Adicionar participação', evento_pessoa_path(@evento.id), class: 'btn btn-primary' %>
-<table class="table table-striped">
-  <tr>
-    <th>Nome</th>
-    <th>Participação</th>
-    <th>Status</th>
-    <th>Ações</th>
-  </tr>
-  <% @evento_pessoas.each do |ep| %>
+
+<!-- Participantes -->
+<div class="well">
+
+    <div class="row">
+      <div class="col-lg-6">
+        <h4>Participantes</h4>
+      </div>
+      <div class="col-lg-6">
+        <h4><!-- O hX deve ser o mesmo do titulo da pagina para os dois ficarem alinhados horizontalmente-->
+          <div class="pull-right">
+            <%= render partial: 'common/btn_adicionar', locals: { url: new_evento_participacao_path(@evento.id), size: 'btn-sm' } %>
+            <%= link_to 'Lista de emails', emails_evento_participacoes_path(@evento.id), class: 'btn btn-sm btn-link' %>
+          </div>
+        </h4>
+      </div>
+    </div>
+    <br/>
+
+    <table class="table table-striped">
       <tr>
-        <td><%= ep.pessoa.nome %></td>
-        <td><%= ep.tipo_participacao %></td>
-        <td><%= ep.status %></td>
-        <td>
-          <%= link_to 'Deletar participação', evento_pessoa_path(ep.id), class: 'btn btn-xs btn-danger',
-                      method: :delete, data: { confirm: "Você tem certeza que deseja deletar?" } %>
-          <%= link_to 'Editar participação', edit_evento_pessoa_path(ep.id), class: 'btn btn-xs btn-warning' %>
-        </td>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th>Participação</th>
+        <th>Status</th>
+        <th>Ações</th>
       </tr>
-  <% end %>
-</table>
+      <% @participacoes.each do |participacao| %>
+          <tr>
+            <td><%= link_to participacao.pessoa.nome, pessoa_path(participacao.pessoa.id) %></td>
+            <td><%= participacao.pessoa.email %></td>
+            <td><%= participacao.tipo %></td>
+            <td><%= participacao.status %></td>
+            <td>
+              <%= render partial: 'common/btn_editar', locals: { url: edit_evento_participacao_path(@evento, participacao), size: 'btn-xs' } %>
+              <%= render partial: 'common/btn_deletar', locals: { url: evento_participacao_path(@evento, participacao), size: 'btn-xs' } %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+</div>

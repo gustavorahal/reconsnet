@@ -1,0 +1,4 @@
+<% defined? size ? true : size = '' %>
+<%= link_to '<span class="glyphicon glyphicon-remove"></span>
+    Deletar'.html_safe, url, class: "btn #{size} btn-danger", method: :delete,
+            data: { confirm: 'Você tem certeza que deseja deletar?' } %>

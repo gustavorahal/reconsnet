@@ -1,5 +1,5 @@
 
-class TasksController < ApplicationController
+class TarefasController < ApplicationController
 
   before_filter( :set_layout_vars )
 

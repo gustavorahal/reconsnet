@@ -13,7 +13,7 @@ class PessoasController < ApplicationController
     @pessoa = Pessoa.new(params.require(:pessoa).permit(:nome, :email, :sexo))
 
     if @pessoa.save
-      redirect_to pessoas_path
+      redirect_to pessoas_path, notice: "Pessoa '#{@pessoa.nome}' adicionada com sucesso!"
     else
       render 'new'
     end
@@ -24,7 +24,7 @@ class PessoasController < ApplicationController
     @pessoa = Pessoa.find(params[:id])
 
     if @pessoa.update(params[:pessoa].permit(:nome, :email))
-      redirect_to @pessoa
+      redirect_to @pessoa, notice: "Pessoa '#{@pessoa.nome}' atualizada com sucesso!"
     else
       render 'edit'
     end
@@ -37,14 +37,21 @@ class PessoasController < ApplicationController
 
   def show
     @pessoa = Pessoa.find(params[:id])
-    @pessoa_eventos = EventoPessoa.where(pessoa: @pessoa)
+    @participacoes = Participacao.where(pessoa: @pessoa)
   end
 
   def destroy
     @pessoa = Pessoa.find(params[:id])
-    @pessoa.destroy
 
-    redirect_to pessoas_path
+    @participacoes = Participacao.where(pessoa: @pessoa)
+    if @participacoes
+      flash.now[:alert] = 'Esta pessoa tem participação em eventos, não pode ser deletada'
+      render 'show'
+    else
+      @pessoa.destroy
+      redirect_to pessoas_path, notice: "Pessoa '#{@pessoa.nome}' deletada com sucesso!"
+    end
+
   end
 
 end

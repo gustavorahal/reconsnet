@@ -1,3 +1,11 @@
+
+<%= render partial: 'common/titulo_pagina', locals: { titulo: "Pessoa '#{@pessoa.nome}'" } %>
+
+<% content_for :actions do %>
+    <%= render partial: 'common/btn_editar', locals: {url: edit_pessoa_path(@pessoa)} %>
+    <%= render partial: 'common/btn_deletar', locals: {url: pessoa_path(@pessoa)} %>
+<% end %>
+
 <dl class="dl-horizontal">
   <dt>Nome:</dt>
   <dd><%= @pessoa.nome %></dd>
@@ -6,20 +14,22 @@
   <dd><%= @pessoa.email %></dd>
 </dl>
 
-<h4>Participação em eventos</h4>
 
-<table class="table table-striped">
-  <tr>
-    <th>Evento</th>
-    <th>Tipo Participação</th>
-    <th>Data</th>
-  </tr>
-  <% @pessoa_eventos.each do |ep| %>
+<div class="well">
+    <h4>Participação em eventos</h4>
+    <br/>
+    <table class="table table-striped">
       <tr>
-        <td><%= ep.evento.nome %></td>
-        <td><%= ep.tipo_participacao %></td>
-        <td><%= ep.evento.inicio %></td>
+        <th>Evento</th>
+        <th>Tipo Participação</th>
+        <th>Data</th>
       </tr>
-  <% end %>
-</table>
-
+      <% @participacoes.each do |ep| %>
+          <tr>
+            <td><%= link_to ep.evento.nome, evento_path(ep.evento) %></td>
+            <td><%= ep.tipo %></td>
+            <td><%= ep.evento.inicio %></td>
+          </tr>
+      <% end %>
+    </table>
+</div>

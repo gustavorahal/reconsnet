@@ -11,22 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140219013251) do
+ActiveRecord::Schema.define(version: 20140227221736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "evento_pessoas", force: true do |t|
-    t.integer  "evento_id",         null: false
-    t.integer  "pessoa_id",         null: false
-    t.string   "tipo_participacao", null: false
-    t.string   "status",            null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "evento_pessoas", ["evento_id"], name: "index_evento_pessoas_on_evento_id", using: :btree
-  add_index "evento_pessoas", ["pessoa_id"], name: "index_evento_pessoas_on_pessoa_id", using: :btree
 
   create_table "eventos", force: true do |t|
     t.string   "nome",       null: false
@@ -37,6 +25,28 @@ ActiveRecord::Schema.define(version: 20140219013251) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "eventos", ["nome"], name: "index_eventos_on_nome", using: :btree
+
+  create_table "identities", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "participacoes", force: true do |t|
+    t.integer  "evento_id",  null: false
+    t.integer  "pessoa_id",  null: false
+    t.string   "tipo",       null: false
+    t.string   "status",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "participacoes", ["evento_id"], name: "index_participacoes_on_evento_id", using: :btree
+  add_index "participacoes", ["pessoa_id"], name: "index_participacoes_on_pessoa_id", using: :btree
 
   create_table "pessoas", force: true do |t|
     t.string   "nome",                      null: false
@@ -50,5 +60,13 @@ ActiveRecord::Schema.define(version: 20140219013251) do
   end
 
   add_index "pessoas", ["nome"], name: "index_pessoas_on_nome", unique: true, using: :btree
+
+  create_table "usuarios", force: true do |t|
+    t.string   "nome"
+    t.string   "uid"
+    t.string   "provider"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

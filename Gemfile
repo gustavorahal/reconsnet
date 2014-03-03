@@ -13,7 +13,7 @@ gem 'gon'
 
 # UI/Web
 gem 'bootstrap-sass', '3.1.1'
-gem 'bootstrap_form'
+gem 'bootstrap_form', :git => 'git://github.com/bootstrap-ruby/rails-bootstrap-forms', :branch => 'master'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 
@@ -22,6 +22,10 @@ gem 'annotate', group: :development
 
 gem 'turbolinks'
 gem 'jquery-turbolinks'
+
+
+gem 'omniauth'
+gem 'omniauth-identity'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'

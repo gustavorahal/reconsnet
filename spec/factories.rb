@@ -13,11 +13,11 @@ FactoryGirl.define do
     fim Time.now
   end
 
-  factory :evento_pessoa do
+  factory :participacao do
     pessoa
     evento
     status 'Inscrito'
-    tipo_participacao 'Professor'
+    tipo 'Professor'
   end
 
 

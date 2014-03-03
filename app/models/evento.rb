@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  nome       :string(255)      not null
-#  descricao  :text
+#  descricao  :string(255)
 #  tipo       :string(255)
 #  inicio     :datetime         not null
 #  fim        :datetime         not null
@@ -12,17 +12,19 @@
 #  updated_at :datetime
 #
 
-EVENTO_TIPOS = %w(Curso Simpósio)
+TIPOS = %w(Curso Simpósio)
 
 class Evento < ActiveRecord::Base
 
   validates :nome, presence: true, length: { minimum: 5 }
-  validates :tipo, inclusion: { in: EVENTO_TIPOS }
+  validates :inicio, presence: true
+  validates :fim, presence: true
+  validates :tipo, inclusion: { in: TIPOS }
 
   has_many :pessoas
 
-  def self.tipos_de_evento
-    EVENTO_TIPOS
+  def self.tipos
+    TIPOS
   end
 
 end

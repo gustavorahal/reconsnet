@@ -1,6 +1,4 @@
 
-<h4><%= link_to '&laquo; Voltar'.html_safe, eventos_path %></h4>
-
-<h2>Adicionar Evento</h2>
+<%= render partial: 'common/titulo_pagina', locals: { titulo: 'Adicionar evento' } %>
 
 <%= render 'form' %>

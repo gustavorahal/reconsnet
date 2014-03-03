@@ -1,15 +1,32 @@
 Recons::Application.routes.draw do
 
-  root 'tasks#index'
+  root 'tarefas#index'
 
-  get 'tasks', to: 'tasks#index', as: :tasks
+  post '/auth/:provider/callback', to: 'sessions#create'
+  get '/auth/failure', to: 'sessions#failure'
+  get '/logout', to: 'sessions#destroy'
+  get '/login', to: 'sessions#new'
+
+  resources :identities
+  resources :usuarios
+  
+  
+  #get 'logout' => 'application#logout', :as => :logout
+  #get 'login' => 'application#login', :as => :login
+  #post 'login' => 'application#post_login', :as => :post_login
+
+  get 'tarefas', to: 'tarefas#index'
+
+  get 'divulgacao', to: 'divulgacao#index'
 
   resources :pessoas
-  resources :eventos
-  resources :evento_pessoas
+  resources :eventos do
+    resources :participacoes do
+      collection do
+        get 'emails'
+      end
+    end
 
-  #get 'eventos/:evento_id/participacao', to: 'eventos#new_participacao', as: :new_participacao
-  #post 'eventos/:evento_id/participacao', to: 'eventos#create_participacao', as: :create_participacao
-  #delete 'eventos/:evento_id/participacao/:id', to: 'eventos#destroy_participacao', as: :destroy_participacao
+  end
 
 end

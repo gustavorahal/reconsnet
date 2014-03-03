@@ -1,25 +1,20 @@
-<h2>Pessoas</h2>
 
+<%= render partial: 'common/titulo_pagina', locals: { titulo: 'Pessoas' } %>
 
-<%= link_to 'Adicionar', new_pessoa_path, class: 'btn btn-primary' %>
+<% content_for :actions do %>
+    <%= render partial: 'common/btn_adicionar', locals: {url: new_pessoa_path} %>
+<% end %>
 
 <table class="table table-striped">
   <tr>
     <th>Nome</th>
     <th>Email</th>
-    <th>Ações</th>
   </tr>
 
   <% @pessoas.each do |pessoa| %>
       <tr>
-        <td><%= pessoa.nome %></td>
+        <td><%= link_to pessoa.nome, pessoa_path(pessoa) %></td>
         <td><%= pessoa.email %></td>
-        <td>
-          <%= link_to 'Info', pessoa_path(pessoa), class: 'btn btn-xs btn-primary' %>
-          <%= link_to 'Editar', edit_pessoa_path(pessoa), class: 'btn btn-xs btn-primary' %>
-          <%= link_to 'Deletar', pessoa_path(pessoa), class: 'btn btn-xs btn-danger',
-                      method: :delete, data: { confirm: "Você tem certeza que deseja deletar '#{pessoa.nome}'?" } %>
-        </td>
       </tr>
   <% end %>
 </table>

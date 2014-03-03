@@ -4,6 +4,7 @@
 #
 #  id              :integer          not null, primary key
 #  nome            :string(255)      not null
+#  sexo            :string(1)
 #  email           :string(255)
 #  data_nascimento :date
 #  tel_resid       :string(255)
@@ -19,5 +20,6 @@ class Pessoa < ActiveRecord::Base
   validates :sexo, inclusion: { :in => %w( M F) }
 
   has_many :eventos
+  has_many :participacoes
 
 end

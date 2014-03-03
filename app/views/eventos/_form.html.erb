@@ -1,36 +1,20 @@
-<%= form_for @evento do |f| %>
 
-    <% if @evento.errors.any? %>
-        <%= render partial: 'common/error', locals: { objeto: @evento } %>
+<%= bootstrap_form_for @evento, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
+
+    <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
+
+    <%= f.text_field :nome %>
+    <%= f.select :tipo, Evento.tipos, control_col: 'col-sm-3' %>
+    <%= f.text_area :descricao %>
+    <%= f.text_field :inicio, class: 'datetimepicker', control_col: 'col-sm-3' %>
+    <%= f.text_field :fim, class: 'datetimepicker', control_col: 'col-sm-3' %>
+    <%= f.submit 'Salvar' %>
+
+    <% if action_name == 'edit' %>
+        <% link = evento_path(@evento) %>
+    <% else %>
+        <% link = eventos_path %>
     <% end %>
+    <%= link_to 'Cancelar', link, class: 'btn btn-link' %>
 
-
-    <div class="form-group">
-      <%= f.label :nome %>
-      <%= f.text_field :nome, class: 'form-control' %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :tipo %><br>
-      <%= f.select :tipo, options_for_select(Evento.tipos_de_evento), {}, class: 'form-control' %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :descricao %><br>
-      <%= f.text_area :descricao, class: 'form-control' %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :inicio %><br>
-      <%= f.text_field :inicio, class: 'form-control datetimepicker' %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :fim %><br>
-      <%= f.text_field :fim, class: 'form-control datetimepicker' %>
-    </div>
-
-    <div class="form-group">
-      <%= f.submit 'Salvar', class: 'btn btn-primary' %>
-    </div>
 <% end %>

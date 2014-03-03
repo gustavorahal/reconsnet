@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-describe 'EventosPessoas' do
+describe 'Participacoes' do
 
   it 'adiciona participante' do
     evento = create :evento
     pessoa = create :pessoa
-    visit new_participacao_path(evento.id)
+    visit new_evento_participacao_path(evento.id)
     select pessoa.nome, from: 'Pessoa'
     select 'Inscrito', from: 'Status'
-    select 'Professor', from: 'Tipo participacao'
+    select 'Professor', from: 'Tipo'
   end
 
 end

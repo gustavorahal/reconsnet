@@ -1,0 +1,29 @@
+<%= bootstrap_form_for [@evento, @participacao],
+                       layout: :horizontal,
+                       label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
+
+    <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
+
+    <%= hidden_field_tag :evento_id, @evento.id %>
+
+    <%= f.static_control nil, label: 'Evento' do %>
+        <%= @evento.nome %>
+    <% end %>
+
+    <% if action_name == 'new' %>
+        <%= f.collection_select :pessoa, Pessoa.all, :id, :nome, control_col: 'col-sm-3' %>
+    <% else %> <!--edit -->
+        <%= hidden_field_tag :pessoa_id, @participacao.pessoa.id %>
+        <%= f.static_control nil, label: 'Pessoa' do %>
+            <%= @participacao.pessoa.nome %>
+        <% end %>
+    <% end %>
+
+    <%= f.select :status, Participacao.statuses, control_col: 'col-sm-3' %>
+    <%= f.select :tipo, Participacao.tipos, control_col: 'col-sm-3' %>
+
+    <%= f.submit 'Salvar' %>
+    <%= link_to 'Cancelar', evento_path(@evento), class: 'btn btn-link' %>
+
+<% end %>
+
