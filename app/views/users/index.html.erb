@@ -1,0 +1,22 @@
+<%= render partial: 'common/titulo_pagina', locals: { titulo: 'Usuários' } %>
+
+<table class="table table-striped">
+  <tr>
+    <th>uid</th>
+    <th>Nome</th>
+    <th>Papel</th>
+    <th>Ações</th>
+  </tr>
+
+  <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.email %></td>
+        <td><%= user.role %></td>
+        <td>
+          <%= render partial: 'common/btn_editar', locals: { recurso: user, size: 'btn-xs' } %>
+          <%= render partial: 'common/btn_deletar', locals: { recurso: user, size: 'btn-xs' } %>
+        </td>
+      </tr>
+  <% end %>
+</table>

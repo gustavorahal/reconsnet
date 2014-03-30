@@ -1,25 +1,15 @@
 ReconsNet::Application.routes.draw do
 
-  root 'tarefas#index'
+  devise_for :users
 
-  post '/auth/:provider/callback', to: 'sessions#create'
-  get '/auth/failure', to: 'sessions#failure'
-  get '/logout', to: 'sessions#destroy'
-  get '/login', to: 'sessions#new'
-
-  #resources :identities
-  #resources :usuarios
-  
-  
-  #get 'logout' => 'application#logout', :as => :logout
-  #get 'login' => 'application#login', :as => :login
-  #post 'login' => 'application#post_login', :as => :post_login
+  root to: 'tarefas#index'
 
   get 'tarefas', to: 'tarefas#index'
 
   get 'divulgacao', to: 'divulgacao#index'
 
   resources :people
+  resources :users
   resources :events do
     resources :participations do
       collection do
