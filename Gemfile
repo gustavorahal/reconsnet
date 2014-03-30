@@ -23,9 +23,7 @@ gem 'annotate', group: :development
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 
-
-gem 'omniauth'
-gem 'omniauth-identity'
+gem 'pundit'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
@@ -39,17 +37,10 @@ gem 'rspec-rails', :group => [:test, :development]
 group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'launchy' # for save_and_open_page
   gem 'guard-rspec'
 end
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.1.2'
 
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]

@@ -1,8 +1,8 @@
 class DivulgacaoController < ApplicationController
 
   def index
-    #@alunos = Pessoa.joins(:participacoes).uniq(:pessoa)
-    @pessoas = Pessoa.all
+    #@alunos = Person.joins(:participacoes).uniq(:pessoa)
+    @pessoas = Person.all
   end
 
 end

@@ -2,7 +2,7 @@
 
     <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
 
-    <%= f.text_field :nome %>
+    <%= f.text_field :name %>
     <%= f.email_field :email, label: 'E-mail', control_col: 'col-sm-3' %>
     <%= f.select :sexo, [%w(Masculino M), %w(Feminino F)], control_col: 'col-sm-3' %>
     <%= f.submit 'Salvar' %>

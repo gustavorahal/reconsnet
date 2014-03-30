@@ -11,62 +11,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140227221736) do
+ActiveRecord::Schema.define(version: 20140330210756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "eventos", force: true do |t|
-    t.string   "nome",       null: false
-    t.string   "descricao"
-    t.string   "tipo"
-    t.datetime "inicio",     null: false
-    t.datetime "fim",        null: false
+  create_table "events", force: true do |t|
+    t.string   "name",        null: false
+    t.string   "description"
+    t.string   "type"
+    t.datetime "start",       null: false
+    t.datetime "finish",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "eventos", ["nome"], name: "index_eventos_on_nome", using: :btree
+  add_index "events", ["name"], name: "index_events_on_name", using: :btree
 
-  create_table "identities", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "password_digest"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "participacoes", force: true do |t|
-    t.integer  "evento_id",  null: false
-    t.integer  "pessoa_id",  null: false
-    t.string   "tipo",       null: false
+  create_table "participations", force: true do |t|
+    t.integer  "event_id",   null: false
+    t.integer  "person_id",  null: false
+    t.string   "type",       null: false
     t.string   "status",     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "participacoes", ["evento_id"], name: "index_participacoes_on_evento_id", using: :btree
-  add_index "participacoes", ["pessoa_id"], name: "index_participacoes_on_pessoa_id", using: :btree
+  add_index "participations", ["event_id"], name: "index_participations_on_event_id", using: :btree
+  add_index "participations", ["person_id"], name: "index_participations_on_person_id", using: :btree
 
-  create_table "pessoas", force: true do |t|
-    t.string   "nome",                      null: false
-    t.string   "sexo",            limit: 1
+  create_table "people", force: true do |t|
+    t.string   "name",          null: false
+    t.string   "gender"
     t.string   "email"
-    t.date     "data_nascimento"
-    t.string   "tel_resid",                              array: true
-    t.string   "tel_cel",                                array: true
+    t.date     "date_of_birth"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "pessoas", ["nome"], name: "index_pessoas_on_nome", unique: true, using: :btree
-
-  create_table "usuarios", force: true do |t|
-    t.string   "nome"
-    t.string   "uid"
-    t.string   "provider"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "people", ["name"], name: "index_people_on_name", unique: true, using: :btree
 
 end

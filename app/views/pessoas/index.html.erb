@@ -2,7 +2,7 @@
 <%= render partial: 'common/titulo_pagina', locals: { titulo: 'Pessoas' } %>
 
 <% content_for :actions do %>
-    <%= render partial: 'common/btn_adicionar', locals: {url: new_pessoa_path} %>
+    <%= render partial: 'common/btn_adicionar', locals: { recurso: Person.new } %>
 <% end %>
 
 <table class="table table-striped">
@@ -13,7 +13,7 @@
 
   <% @pessoas.each do |pessoa| %>
       <tr>
-        <td><%= link_to pessoa.nome, pessoa_path(pessoa) %></td>
+        <td><%= link_to pessoa.name, pessoa_path(pessoa) %></td>
         <td><%= pessoa.email %></td>
       </tr>
   <% end %>

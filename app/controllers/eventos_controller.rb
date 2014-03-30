@@ -1,20 +1,21 @@
-class EventosController < ApplicationController
+class EventsController < ApplicationController
 
   def index
-    @eventos = Evento.all
+    @eventos = Event.all
+    authorize @eventos
   end
 
 
   def new
-    @evento = Evento.new
+    @evento = Event.new
   end
 
 
   def create
-    @evento = Evento.new(params.require(:evento).permit(:nome, :descricao, :tipo, :inicio, :fim))
+    @evento = Event.new(params.require(:evento).permit(:name, :descricao, :tipo, :inicio, :fim))
 
     if @evento.save
-      redirect_to eventos_path, notice: "Evento '#{@evento.nome}' adicionado com sucesso!"
+      redirect_to eventos_path, notice: "Event '#{@evento.name}' adicionado com sucesso!"
     else
       render 'new'
     end
@@ -22,10 +23,10 @@ class EventosController < ApplicationController
 
 
   def update
-    @evento = Evento.find(params[:id])
+    @evento = Event.find(params[:id])
 
-    if @evento.update(params[:evento].permit(:nome, :descricao, :tipo, :inicio, :fim))
-      redirect_to @evento, notice: "Evento '#{@evento.nome}' atualizado com sucesso!"
+    if @evento.update(params[:evento].permit(:name, :descricao, :tipo, :inicio, :fim))
+      redirect_to @evento, notice: "Event '#{@evento.name}' atualizado com sucesso!"
     else
       render 'edit'
     end
@@ -34,21 +35,23 @@ class EventosController < ApplicationController
 
 
   def edit
-    @evento = Evento.find(params[:id])
+    @evento = Event.find(params[:id])
+    authorize @evento
   end
 
 
   def show
-    @evento = Evento.find(params[:id])
-    @participacoes = Participacao.where(evento: @evento)
+    @evento = Event.find(params[:id])
+    authorize @evento
+    @participacoes = Participation.where(evento: @evento)
   end
 
 
   def destroy
-    @evento = Evento.find(params[:id])
+    @evento = Event.find(params[:id])
     @evento.destroy
 
-    redirect_to eventos_path, notice: "Evento '#{@evento.nome}' deletado com sucesso!"
+    redirect_to eventos_path, notice: "Evento '#{@evento.name}' deletado com sucesso!"
   end
 
 

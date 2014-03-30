@@ -1,23 +1,37 @@
 FactoryGirl.define do
 
-  factory :pessoa do
-    nome 'Gustavo Matheus Rahal'
-    email 'grahal@me.com'
-    sexo 'M'
+  #factory :identity do
+  #  sequence(:name) { |n| "João n. #{n}" }
+  #  sequence(:email) { |n| "joao#{n}@email.com" }
+  #  password '123456'
+  #end
+
+  #factory :usuario do
+  #  papel 'Admin'
+  #  sequence(:name) { |n| "João n. #{n}" }
+  #  sequence(:email) { |n| "joao#{n}@email.com" }
+  #  sequence(:identity_uid) { |n| n.to_s }
+  #end
+
+
+  factory :person do
+    sequence(:name) { |n| "João n. #{n}" }
+    sequence(:email) { |n| "joao#{n}@email.com" }
+    gender 'Masculino'
   end
 
-  factory :evento do
-    nome 'Imersão Parametodológica'
-    tipo 'Curso'
-    inicio Time.now
-    fim Time.now
+  factory :event do
+    name 'Imersão Parametodológica'
+    type 'Curso'
+    start Time.now
+    finish Time.now
   end
 
-  factory :participacao do
-    pessoa
-    evento
+  factory :participation do
+    person { |c| c.association(:person) }
+    event { |c| c.association(:event) }
     status 'Inscrito'
-    tipo 'Professor'
+    type 'Professor'
   end
 
 

@@ -1,10 +1,5 @@
 
-<h2>Login</h2>
-
-<% if flash[:alert] %>
-    <div class="notice"><%= flash[:alert] %></div>
-<% end %>
-
+<h2>Faça o Login</h2>
 
 <%= form_tag '/auth/identity/callback', class: 'form-horizontal' do |f| %>
 
@@ -29,3 +24,5 @@
     </div>
 
 <% end %>
+
+<h4>Ou crie uma <%= link_to 'nova conta', new_identity_path %></h4>

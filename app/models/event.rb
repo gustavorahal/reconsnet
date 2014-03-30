@@ -12,19 +12,17 @@
 #  updated_at :datetime
 #
 
-TIPOS = %w(Curso Simpósio)
 
-class Evento < ActiveRecord::Base
+class Event < ActiveRecord::Base
 
-  validates :nome, presence: true, length: { minimum: 5 }
+  TIPOS = %w(Curso Simpósio)
+
+  validates :name, presence: true, length: { minimum: 5 }
   validates :inicio, presence: true
   validates :fim, presence: true
   validates :tipo, inclusion: { in: TIPOS }
 
-  has_many :pessoas
-
-  def self.tipos
-    TIPOS
-  end
+  has_many :participations, dependent: :destroy
+  has_many :people, through: :participations
 
 end

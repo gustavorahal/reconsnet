@@ -12,8 +12,9 @@
 #
 
 
+class Participation < ActiveRecord::Base
 
-TIPO = %w(
+  TIPOS = %w(
 Aluno
 Escriba Mediador
 Meste\ de\ Cerimônia
@@ -23,22 +24,13 @@ Professor
 Professor\ Introdução
 Professor\ Temático)
 
-STATUS = %w(Inscrito Interessado Pré-Inscrito)
+  STATUS = %w(Inscrito Interessado Pré-Inscrito)
 
-class Participacao < ActiveRecord::Base
 
-  validates :tipo, inclusion: { in: TIPO }
+  validates :type, inclusion: { in: TIPOS }
   validates :status, inclusion: { in: STATUS }
 
-  belongs_to :evento
-  belongs_to :pessoa
-
-  def self.statuses
-    STATUS
-  end
-
-  def self.tipos
-    TIPO
-  end
+  belongs_to :event
+  belongs_to :person
 
 end

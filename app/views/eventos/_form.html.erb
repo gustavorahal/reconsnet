@@ -3,8 +3,8 @@
 
     <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
 
-    <%= f.text_field :nome %>
-    <%= f.select :tipo, Evento.tipos, control_col: 'col-sm-3' %>
+    <%= f.text_field :name %>
+    <%= f.select :tipo, Event::TIPOS, control_col: 'col-sm-3' %>
     <%= f.text_area :descricao %>
     <%= f.text_field :inicio, class: 'datetimepicker', control_col: 'col-sm-3' %>
     <%= f.text_field :fim, class: 'datetimepicker', control_col: 'col-sm-3' %>

@@ -7,20 +7,20 @@
     <%= hidden_field_tag :evento_id, @evento.id %>
 
     <%= f.static_control nil, label: 'Evento' do %>
-        <%= @evento.nome %>
+        <%= @evento.name %>
     <% end %>
 
     <% if action_name == 'new' %>
-        <%= f.collection_select :pessoa, Pessoa.all, :id, :nome, control_col: 'col-sm-3' %>
+        <%= f.collection_select :pessoa, Person.all, :id, :name, control_col: 'col-sm-3' %>
     <% else %> <!--edit -->
         <%= hidden_field_tag :pessoa_id, @participacao.pessoa.id %>
         <%= f.static_control nil, label: 'Pessoa' do %>
-            <%= @participacao.pessoa.nome %>
+            <%= @participacao.pessoa.name %>
         <% end %>
     <% end %>
 
-    <%= f.select :status, Participacao.statuses, control_col: 'col-sm-3' %>
-    <%= f.select :tipo, Participacao.tipos, control_col: 'col-sm-3' %>
+    <%= f.select :status, Participation::STATUS, control_col: 'col-sm-3' %>
+    <%= f.select :tipo, Participation::TIPOS, control_col: 'col-sm-3' %>
 
     <%= f.submit 'Salvar' %>
     <%= link_to 'Cancelar', evento_path(@evento), class: 'btn btn-link' %>

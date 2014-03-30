@@ -1,4 +1,4 @@
-Recons::Application.routes.draw do
+ReconsNet::Application.routes.draw do
 
   root 'tarefas#index'
 
@@ -7,8 +7,8 @@ Recons::Application.routes.draw do
   get '/logout', to: 'sessions#destroy'
   get '/login', to: 'sessions#new'
 
-  resources :identities
-  resources :usuarios
+  #resources :identities
+  #resources :usuarios
   
   
   #get 'logout' => 'application#logout', :as => :logout
@@ -19,9 +19,9 @@ Recons::Application.routes.draw do
 
   get 'divulgacao', to: 'divulgacao#index'
 
-  resources :pessoas
-  resources :eventos do
-    resources :participacoes do
+  resources :people
+  resources :events do
+    resources :participations do
       collection do
         get 'emails'
       end

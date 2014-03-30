@@ -1,14 +1,15 @@
 
-<%= render partial: 'common/titulo_pagina', locals: { titulo: "Pessoa '#{@pessoa.nome}'" } %>
+<%= render partial: 'common/titulo_pagina', locals: { titulo: "Pessoa '#{@pessoa.name}'" } %>
 
 <% content_for :actions do %>
-    <%= render partial: 'common/btn_editar', locals: {url: edit_pessoa_path(@pessoa)} %>
-    <%= render partial: 'common/btn_deletar', locals: {url: pessoa_path(@pessoa)} %>
+    <%= render partial: 'common/btn_editar', locals: { recurso: @pessoa } %>
+    <%= render partial: 'common/btn_deletar', locals: { disabled: @participacoes.any? ? true : false,
+                                                        recurso: @pessoa } %>
 <% end %>
 
 <dl class="dl-horizontal">
   <dt>Nome:</dt>
-  <dd><%= @pessoa.nome %></dd>
+  <dd><%= @pessoa.name %></dd>
 
   <dt>Email:</dt>
   <dd><%= @pessoa.email %></dd>
@@ -26,7 +27,7 @@
       </tr>
       <% @participacoes.each do |ep| %>
           <tr>
-            <td><%= link_to ep.evento.nome, evento_path(ep.evento) %></td>
+            <td><%= link_to ep.evento.name, evento_path(ep.evento) %></td>
             <td><%= ep.tipo %></td>
             <td><%= ep.evento.inicio %></td>
           </tr>

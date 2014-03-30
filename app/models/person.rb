@@ -13,13 +13,13 @@
 #  updated_at      :datetime
 #
 
-class Pessoa < ActiveRecord::Base
+class Person < ActiveRecord::Base
 
-  validates :nome, presence: true, length: { minimum: 5 }
+  validates :name, presence: true, length: { minimum: 5 }
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
-  validates :sexo, inclusion: { :in => %w( M F) }
+  validates :gender, inclusion: { :in => %w( Masculino Feminino) }
 
-  has_many :eventos
-  has_many :participacoes
+  has_many :events
+  has_many :participations
 
 end

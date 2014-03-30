@@ -2,20 +2,22 @@
 
 <table class="table table-striped">
   <tr>
-    <th>Nome</th>
     <th>uid</th>
+    <th>Nome</th>
+    <th>Papel</th>
     <th>Provider</th>
     <th>Ações</th>
   </tr>
 
   <% @usuarios.each do |usuario| %>
       <tr>
-        <td><%= usuario.nome %></td>
-        <td><%= usuario.uid %></td>
+        <td><%= usuario.identity_uid %></td>
+        <td><%= usuario.name %></td>
+        <td><%= usuario.papel %></td>
         <td><%= usuario.provider %></td>
         <td>
-          <%= link_to 'Deletar', usuario_path(usuario), class: 'btn btn-xs btn-danger',
-                      method: :delete, data: { confirm: "Você tem certeza que deseja deletar '#{usuario.nome}'?" } %>
+          <%= render partial: 'common/btn_editar', locals: { recurso: usuario, size: 'btn-xs' } %>
+          <%= render partial: 'common/btn_deletar', locals: { recurso: usuario, size: 'btn-xs' } %>
         </td>
       </tr>
   <% end %>

@@ -1,24 +1,24 @@
 
-class ParticipacoesController < ApplicationController
+class ParticipationsController < ApplicationController
 
 
   def new
-    @evento = Evento.find(params[:evento_id])
-    @participacao = Participacao.new
+    @evento = Event.find(params[:evento_id])
+    @participacao = Participation.new
 
-    participantes = Participacao.where(evento: @evento)
+    participantes = Participation.where(evento: @evento)
     # Exclua as pessoas que já fazem parte do evento
-    @pessoas = Pessoa.where.not(id: participantes.pluck(:pessoa_id))
+    @pessoas = Person.where.not(id: participantes.pluck(:pessoa_id))
   end
 
   def edit
-    @evento = Evento.find(params[:evento_id])
-    @participacao = Participacao.find(params[:id])
+    @evento = Event.find(params[:evento_id])
+    @participacao = Participation.find(params[:id])
   end
 
 
   def update
-    @participacao = Participacao.find(params[:id])
+    @participacao = Participation.find(params[:id])
 
     if @participacao.update(params[:participacao].permit(:pessoa_id, :status, :tipo))
       redirect_to evento_path(params[:evento_id]), notice: 'Participação alterada com sucesso!'
@@ -32,7 +32,7 @@ class ParticipacoesController < ApplicationController
   def create
     data = params.require(:participacao).permit(:pessoa, :tipo, :status)
 
-    @participacao = Participacao.new(evento_id: params[:evento_id],
+    @participacao = Participation.new(evento_id: params[:evento_id],
                                       pessoa_id: data[:pessoa],
                                       status: data[:status],
                                       tipo: data[:tipo])
@@ -46,7 +46,7 @@ class ParticipacoesController < ApplicationController
 
 
   def destroy
-    @ep = Participacao.find(params[:id])
+    @ep = Participation.find(params[:id])
     @ep.destroy
 
     redirect_to evento_path(params[:evento_id]), notice: 'Participação deletada com sucesso!'
@@ -54,8 +54,8 @@ class ParticipacoesController < ApplicationController
 
 
   def emails
-    @evento = Evento.find(params[:evento_id])
-    @participacoes = Participacao.includes(:pessoa).where(evento: @evento)
+    @evento = Event.find(params[:evento_id])
+    @participacoes = Participation.includes(:pessoa).where(evento: @evento)
   end
 
 end
