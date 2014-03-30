@@ -1,0 +1,73 @@
+
+<%= render partial: 'common/titulo_pagina', locals: { titulo: "Evento #{@event.name}" } %>
+
+<% content_for :actions do %>
+    <%= render partial: 'common/btn_editar', locals: { recurso: @event } %>
+    <%= render partial: 'common/btn_deletar', locals: { recurso: @event } %>
+<% end %>
+
+
+<dl class="dl-horizontal">
+  <dt>Tipo:</dt>
+  <dd><%= @event.event_type %></dd>
+
+  <dt>Descrição:</dt>
+  <dd><%= @event.description %></dd>
+
+  <dt>Início:</dt>
+  <dd><%= @event.start %></dd>
+
+  <dt>Fim:</dt>
+  <dd><%= @event.finish %></dd>
+</dl>
+
+
+<!-- Participantes -->
+<div class="well">
+
+    <div class="row">
+      <div class="col-lg-6">
+        <h4>Participantes</h4>
+      </div>
+      <div class="col-lg-6">
+        <h4><!-- O hX deve ser o mesmo do titulo da pagina para os dois ficarem alinhados horizontalmente-->
+          <div class="pull-right">
+            <%= render partial: 'common/btn_adicionar', locals: { url: new_event_participation_path(@event.id),
+                                                                  size: 'btn-sm', recurso: @event } %>
+            <%= link_to 'Lista de emails', emails_event_participations_path(@event.id), class: 'btn btn-sm btn-link' %>
+          </div>
+        </h4>
+      </div>
+    </div>
+    <br/>
+
+    <table class="table table-striped">
+      <tr>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th>Participação</th>
+        <th>Status</th>
+        <% if policy(@event).edit? %>
+            <th>Ações</th>
+        <% end %>
+      </tr>
+      <% @participations.each do |participation| %>
+          <tr>
+            <td><%= link_to participation.person.name, person_path(participation.person.id) %></td>
+            <td><%= participation.person.email %></td>
+            <td><%= participation.participation_type %></td>
+            <td><%= participation.status %></td>
+            <!--A checagem de permissão é feita aqui para a coluna ser ou não gerada e ficar consistente-->
+            <!--com o cabeçalho-->
+            <% if policy(@event).edit? %>
+                <td>
+                  <%= render partial: 'common/btn_editar', locals: { url: edit_event_participation_path(@event, participation),
+                                                                     size: 'btn-xs', recurso: @event } %>
+                  <%= render partial: 'common/btn_deletar', locals: { url: event_participation_path(@event, participation),
+                                                                      size: 'btn-xs', recurso: @event } %>
+                </td>
+            <% end %>
+          </tr>
+      <% end %>
+    </table>
+</div>

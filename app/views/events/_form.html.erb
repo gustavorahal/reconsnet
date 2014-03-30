@@ -1,0 +1,20 @@
+
+<%= bootstrap_form_for @event, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
+
+    <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
+
+    <%= f.text_field :name %>
+    <%= f.select :event_type, Event::TYPES, control_col: 'col-sm-3' %>
+    <%= f.text_area :description %>
+    <%= f.text_field :start, class: 'datetimepicker', control_col: 'col-sm-3' %>
+    <%= f.text_field :finish, class: 'datetimepicker', control_col: 'col-sm-3' %>
+    <%= f.submit 'Salvar' %>
+
+    <% if action_name == 'edit' %>
+        <% link = event_path(@event) %>
+    <% else %>
+        <% link = events_path %>
+    <% end %>
+    <%= link_to 'Cancelar', link, class: 'btn btn-link' %>
+
+<% end %>

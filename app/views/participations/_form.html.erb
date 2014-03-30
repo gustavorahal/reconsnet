@@ -1,29 +1,29 @@
-<%= bootstrap_form_for [@evento, @participacao],
+<%= bootstrap_form_for [@event, @participation],
                        layout: :horizontal,
                        label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
 
     <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
 
-    <%= hidden_field_tag :evento_id, @evento.id %>
+    <%= hidden_field_tag :event_id, @event.id %>
 
     <%= f.static_control nil, label: 'Evento' do %>
-        <%= @evento.name %>
+        <%= @event.name %>
     <% end %>
 
     <% if action_name == 'new' %>
-        <%= f.collection_select :pessoa, Person.all, :id, :name, control_col: 'col-sm-3' %>
+        <%= f.collection_select :person, Person.all, :id, :name, control_col: 'col-sm-3' %>
     <% else %> <!--edit -->
-        <%= hidden_field_tag :pessoa_id, @participacao.pessoa.id %>
+        <%= hidden_field_tag :person_id, @participation.person.id %>
         <%= f.static_control nil, label: 'Pessoa' do %>
-            <%= @participacao.pessoa.name %>
+            <%= @participation.person.name %>
         <% end %>
     <% end %>
 
     <%= f.select :status, Participation::STATUS, control_col: 'col-sm-3' %>
-    <%= f.select :tipo, Participation::TIPOS, control_col: 'col-sm-3' %>
+    <%= f.select :participation_type, Participation::TYPES, control_col: 'col-sm-3' %>
 
     <%= f.submit 'Salvar' %>
-    <%= link_to 'Cancelar', evento_path(@evento), class: 'btn btn-link' %>
+    <%= link_to 'Cancelar', event_path(@event), class: 'btn btn-link' %>
 
 <% end %>
 

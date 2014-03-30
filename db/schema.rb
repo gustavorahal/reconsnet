@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20140330210756) do
   create_table "events", force: true do |t|
     t.string   "name",        null: false
     t.string   "description"
-    t.string   "type"
+    t.string   "event_type"
     t.datetime "start",       null: false
     t.datetime "finish",      null: false
     t.datetime "created_at"
@@ -29,10 +29,10 @@ ActiveRecord::Schema.define(version: 20140330210756) do
   add_index "events", ["name"], name: "index_events_on_name", using: :btree
 
   create_table "participations", force: true do |t|
-    t.integer  "event_id",   null: false
-    t.integer  "person_id",  null: false
-    t.string   "type",       null: false
-    t.string   "status",     null: false
+    t.integer  "event_id",           null: false
+    t.integer  "person_id",          null: false
+    t.string   "participation_type", null: false
+    t.string   "status",             null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

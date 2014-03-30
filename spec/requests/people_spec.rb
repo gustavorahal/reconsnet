@@ -4,7 +4,7 @@ describe 'Persons' do
 
   it 'adiciona nova person' do
     person = build(:person)
-    visit persons_path
+    visit people_path
     click_on 'Adicionar'
     fill_in 'Nome', with: person.name
     fill_in 'E-mail', with: person.email
@@ -32,7 +32,7 @@ describe 'Persons' do
     page.should have_content("Pessoa '#{person.name}' deletada com sucesso!")
   end
 
-  it 'não pode deletar uma person se participa de eventos' do
+  it 'não pode deletar uma person se participa de events' do
     person = create(:person)
     create(:participation, person: person)
     visit person_path(person)
@@ -40,11 +40,11 @@ describe 'Persons' do
     find_link('Deletar')[:disabled].should eq "disabled"
   end
 
-  it 'visualiza participações em evento' do
+  it 'visualiza participações em event' do
     participation = create(:participation)
     visit person_path(participation.person)
-    page.should have_content(participation.evento.name)
-    page.should have_content(participation.tipo)
+    page.should have_content(participation.event.name)
+    page.should have_content(participation.participation_type)
   end
 
 

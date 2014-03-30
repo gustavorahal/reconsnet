@@ -1,20 +1,19 @@
 # == Schema Information
 #
-# Table name: participacoes
+# Table name: participations
 #
-#  id         :integer          not null, primary key
-#  evento_id  :integer          not null
-#  pessoa_id  :integer          not null
-#  tipo       :string(255)      not null
-#  status     :string(255)      not null
-#  created_at :datetime
-#  updated_at :datetime
+#  id                 :integer          not null, primary key
+#  event_id           :integer          not null
+#  person_id          :integer          not null
+#  participation_type :string(255)      not null
+#  status             :string(255)      not null
+#  created_at         :datetime
+#  updated_at         :datetime
 #
-
 
 class Participation < ActiveRecord::Base
 
-  TIPOS = %w(
+  TYPES = %w(
 Aluno
 Escriba Mediador
 Meste\ de\ Cerimônia
@@ -27,7 +26,7 @@ Professor\ Temático)
   STATUS = %w(Inscrito Interessado Pré-Inscrito)
 
 
-  validates :type, inclusion: { in: TIPOS }
+  validates :participation_type, inclusion: { in: TYPES }
   validates :status, inclusion: { in: STATUS }
 
   belongs_to :event

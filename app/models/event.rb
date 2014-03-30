@@ -1,26 +1,25 @@
 # == Schema Information
 #
-# Table name: eventos
+# Table name: events
 #
-#  id         :integer          not null, primary key
-#  nome       :string(255)      not null
-#  descricao  :string(255)
-#  tipo       :string(255)
-#  inicio     :datetime         not null
-#  fim        :datetime         not null
-#  created_at :datetime
-#  updated_at :datetime
+#  id          :integer          not null, primary key
+#  name        :string(255)      not null
+#  description :string(255)
+#  event_type  :string(255)
+#  start       :datetime         not null
+#  finish      :datetime         not null
+#  created_at  :datetime
+#  updated_at  :datetime
 #
-
 
 class Event < ActiveRecord::Base
 
-  TIPOS = %w(Curso Simpósio)
+  TYPES = %w(Curso Simpósio)
 
   validates :name, presence: true, length: { minimum: 5 }
-  validates :inicio, presence: true
-  validates :fim, presence: true
-  validates :tipo, inclusion: { in: TIPOS }
+  validates :start, presence: true
+  validates :finish, presence: true
+  validates :event_type, inclusion: { in: TYPES }
 
   has_many :participations, dependent: :destroy
   has_many :people, through: :participations

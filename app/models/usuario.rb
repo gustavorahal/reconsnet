@@ -15,7 +15,7 @@ class Usuario < ActiveRecord::Base
 
   PAPEIS = %w(Admin Financeiro Voluntariado)
 
-  has_one :pessoa
+  has_one :person
 
   def admin?
     #papel == 'Admin'

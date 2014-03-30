@@ -1,0 +1,27 @@
+
+<%= render partial: 'common/titulo_pagina', locals: { titulo: 'Eventos' } %>
+
+<% content_for :actions do %>
+    <%= render partial: 'common/btn_adicionar', locals: { url: new_event_path, recurso: Event.new } %>
+<% end %>
+
+
+<table class="table table-striped">
+  <tr>
+    <th>Nome</th>
+    <th>Tipo</th>
+    <th>Descrição</th>
+    <th>Inicio</th>
+    <th>Fim</th>
+  </tr>
+
+  <% @events.each do |event| %>
+      <tr>
+        <td><%= link_to event.name, event_path(event) %></td>
+        <td><%= event.event_type %></td>
+        <td><%= event.description %></td>
+        <td><%= event.start %></td>
+        <td><%= event.finish %></td>
+      </tr>
+  <% end %>
+</table>

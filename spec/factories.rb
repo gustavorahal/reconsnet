@@ -22,7 +22,7 @@ FactoryGirl.define do
 
   factory :event do
     name 'Imersão Parametodológica'
-    type 'Curso'
+    event_type 'Curso'
     start Time.now
     finish Time.now
   end
@@ -31,7 +31,7 @@ FactoryGirl.define do
     person { |c| c.association(:person) }
     event { |c| c.association(:event) }
     status 'Inscrito'
-    type 'Professor'
+    participation_type 'Professor'
   end
 
 

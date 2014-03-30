@@ -7,10 +7,10 @@ describe 'Events' do
     event = build(:event)
     visit events_path
     click_on 'Adicionar'
-    fill_in 'Nome', with: event.name
-    select event.tipo, from: 'Tipo'
-    fill_in 'Inicio', with: event.inicio
-    fill_in 'Fim', with: event.fim
+    fill_in 'Name', with: event.name
+    select event.event_type, from: 'Event type'
+    fill_in 'Start', with: event.start
+    fill_in 'Finish', with: event.finish
     click_on 'Salvar'
 
     current_path.should eq(events_path)
@@ -28,7 +28,7 @@ describe 'Events' do
   end
 
 
-  it 'deleta um event deve deletar todas as participacoes' do
+  it 'deleta um event deve deletar todas as participations' do
     event = create :event
     visit event_path(event)
     page.should have_content(event.name)
@@ -46,9 +46,9 @@ describe 'Events' do
     event = create(:event)
     visit event_path(event)
     click_on 'Editar'
-    find_field('Nome').value().should eq(event.name)
+    find_field('Name').value().should eq(event.name)
     desc_txt = 'Uma nova descrição'
-    fill_in 'Descricao', with: desc_txt
+    fill_in 'Description', with: desc_txt
     click_on 'Salvar'
     page.should have_content("Evento '#{event.name}' atualizado com sucesso!")
 
