@@ -9,7 +9,6 @@ gem 'coffee-rails', '~> 4.0.0'
 
 gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
-gem 'gon'
 
 # UI/Web
 gem 'bootstrap-sass', '3.1.1'

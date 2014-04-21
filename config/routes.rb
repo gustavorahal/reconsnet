@@ -1,10 +1,10 @@
 ReconsNet::Application.routes.draw do
 
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => 'registrations' }
 
-  root to: 'tarefas#index'
+  root to: 'tasks#index'
 
-  get 'tarefas', to: 'tarefas#index'
+  get 'tasks', to: 'tasks#index'
 
   get 'divulgacao', to: 'divulgacao#index'
 

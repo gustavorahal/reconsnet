@@ -1,0 +1,17 @@
+
+<%= render partial: 'common/titulo_pagina', locals: { titulo: 'Crie uma conta para acessar mais áreas da Reconscientia' } %>
+
+<%= bootstrap_form_for(resource, :as => resource_name, :url => registration_path(resource_name),
+                       layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-4') do |f| %>
+
+  <%= devise_error_messages! %>
+
+  <%= f.text_field :name, label: 'Nome' %>
+  <%= f.email_field :email %>
+  <%= f.password_field :password, label: 'Senha', control_col: 'col-sm-2' %>
+  <%= f.password_field :password_confirmation, label: 'Confirmar senha', control_col: 'col-sm-2' %>
+
+  <%= f.submit 'Criar conta', class: 'btn btn-success' %>
+
+<% end %>
+

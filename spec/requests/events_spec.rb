@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe 'Events' do
 
+  before :each do
+    sign_in(create :user)
+  end
 
   it 'adiciona novo event' do
     event = build(:event)

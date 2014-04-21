@@ -78,9 +78,6 @@ GEM
       railties (>= 3.0.0)
     ffi (1.9.3)
     formatador (0.2.4)
-    gon (5.0.4)
-      actionpack (>= 2.3.0)
-      json
     guard (2.4.0)
       formatador (>= 0.2.4)
       listen (~> 2.1)
@@ -227,7 +224,6 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   factory_girl_rails
-  gon
   guard-rspec
   jbuilder (~> 1.2)
   jquery-rails

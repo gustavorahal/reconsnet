@@ -1,35 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ReconsNet</title>
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
-  <%= yield :stylesheets %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 <body>
-
-    <!-- Need to place gon in the body since turbolinks does not reload the head info -->
-    <%= include_gon %>
-
 
     <!-- Navbar -->
     <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
       <div class="container">
-        <a href="<%= tarefas_path %>" class="navbar-brand">ReconsNet</a>
+        <a href="<%= tasks_path %>" class="navbar-brand">ReconsNet</a>
         <ul class="nav navbar-nav pull-right">
 
           <% if user_signed_in? %>
-              <li><%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %></li>
+              <li><%= link_to 'Sair', destroy_user_session_path, :method =>'delete' %></li>
           <% else %>
-              <li><%= link_to 'Login', new_user_session_path %></li>
+              <li><%= link_to 'Entrar', new_user_session_path %></li>
           <% end %>
 
           <% if user_signed_in? %>
-              <li><%= link_to 'Edit account', edit_user_registration_path %></li>
+              <li><%= link_to 'Editar conta', edit_user_registration_path %></li>
           <% else %>
-              <li><%= link_to 'Sign up', new_user_registration_path %></li>
+              <li><%= link_to 'Criar conta', new_user_registration_path %></li>
           <% end %>
 
         </ul>

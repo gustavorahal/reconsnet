@@ -1,18 +1,14 @@
 FactoryGirl.define do
 
-  #factory :identity do
-  #  sequence(:name) { |n| "João n. #{n}" }
-  #  sequence(:email) { |n| "joao#{n}@email.com" }
-  #  password '123456'
-  #end
-
-  #factory :usuario do
-  #  papel 'Admin'
-  #  sequence(:name) { |n| "João n. #{n}" }
-  #  sequence(:email) { |n| "joao#{n}@email.com" }
-  #  sequence(:identity_uid) { |n| n.to_s }
-  #end
-
+  factory :user do
+    name 'Test User'
+    email 'example@example.com'
+    role 'Admin'
+    password 'changeme'
+    password_confirmation 'changeme'
+    # required if the Devise Confirmable module is used
+    # confirmed_at Time.now
+  end
 
   factory :person do
     sequence(:name) { |n| "João n. #{n}" }
