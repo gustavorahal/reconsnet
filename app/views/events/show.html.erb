@@ -1,5 +1,5 @@
 
-<%= render partial: 'common/titulo_pagina', locals: { titulo: "Evento #{@event.name}" } %>
+<%= render partial: 'common/titulo_pagina', locals: { titulo: "Evento <em>#{@event.name}</em>".html_safe } %>
 
 <% content_for :actions do %>
     <%= render partial: 'common/btn_editar', locals: { recurso: @event } %>

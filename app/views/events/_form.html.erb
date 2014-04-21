@@ -3,18 +3,20 @@
 
     <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
 
-    <%= f.text_field :name %>
-    <%= f.select :event_type, Event::TYPES, control_col: 'col-sm-3' %>
-    <%= f.text_area :description %>
-    <%= f.text_field :start, class: 'datetimepicker', control_col: 'col-sm-3' %>
-    <%= f.text_field :finish, class: 'datetimepicker', control_col: 'col-sm-3' %>
-    <%= f.submit 'Salvar' %>
+    <%= f.text_field :name, label: 'Nome' %>
+    <%= f.select :event_type, Event::TYPES, label: 'Tipo de evento', control_col: 'col-sm-3' %>
+    <%= f.text_area :description, label: 'Descrição' %>
+    <%= f.text_field :start, label: 'Inicio', class: 'datetimepicker', control_col: 'col-sm-3' %>
+    <%= f.text_field :finish, label: 'Fim', class: 'datetimepicker', control_col: 'col-sm-3' %>
 
-    <% if action_name == 'edit' %>
-        <% link = event_path(@event) %>
-    <% else %>
-        <% link = events_path %>
+    <%= f.form_group do %>
+        <%= f.submit 'Salvar' %>
+        <% if action_name == 'edit' %>
+            <% link = event_path(@event) %>
+        <% else %>
+            <% link = events_path %>
+        <% end %>
+        <%= link_to 'Cancelar', link, class: 'btn btn-link' %>
     <% end %>
-    <%= link_to 'Cancelar', link, class: 'btn btn-link' %>
 
 <% end %>

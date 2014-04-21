@@ -1,27 +1,40 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
-<p><%= f.label :name %><br />
-<%= f.text_field :name %></p>
+<%= render partial: 'common/titulo_pagina', locals: { titulo: 'Editar conta' } %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+<%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put },
+                       layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-4') do |f| %>
 
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password, :autocomplete => "off" %></div>
+    <%= devise_error_messages! %>
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
+    <%= f.static_control :name, label: 'Nome' %>
 
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></div>
+    <%= f.email_field :email, autocomplete: 'off' %>
 
-  <div><%= f.submit "Update" %></div>
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <%= f.password_field :password, label: 'Nova senha', control_col: 'col-sm-3',
+                         help: 'deixa em branco se você não quiser mudar sua senha',
+                         autocomplete: 'off' %>
+    <%= f.password_field :password_confirmation, label: 'Confirmar nova senha', control_col: 'col-sm-3',
+                         autocomplete: 'off' %>
+
+    <%= f.password_field :current_password, label: 'Senha atual', autocomplete: 'off', control_col: 'col-sm-3',
+                         help: 'precisamos de sua senha atual para confirmar as mudanças' %>
+
+    <%= f.form_group do %>
+        <%= f.submit 'Salvar', class: 'btn btn-success' %>
+        <%= link_to 'Cancelar', :back, class: 'btn btn-link' %>
+    <% end %>
+
 <% end %>
 
-<h3>Cancel my account</h3>
+<br/>
+<h3>Cancelar conta</h3>
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
-
-<%= link_to "Back", :back %>
+Se por qualquer razão deseja cancelar sua conta clique no botão a seguir.
+<p><%= button_to 'Cancelar minha conta', registration_path(resource_name),
+                 class: 'btn btn-danger',
+                 data: { confirm: 'Você tem certeza que deseja cancelar sua conta?' },
+                 method: :delete %></p>
