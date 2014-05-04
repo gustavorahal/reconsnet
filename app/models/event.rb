@@ -14,7 +14,8 @@
 
 class Event < ActiveRecord::Base
 
-  TYPES = %w(Curso Simpósio)
+  # Deixar lista em ordem alfabética
+  TYPES = %w(Curso Reunião Simpósio)
 
   validates :name, presence: true, length: { minimum: 5 }
   validates :start, presence: true

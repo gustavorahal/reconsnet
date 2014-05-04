@@ -1,5 +1,12 @@
 
+<% back_url = local_assigns.fetch :back_url, nil %>
+
 <% content_for :titulo_pagina do %>
-    <h2><%= titulo %></h2>
+    <h2>
+        <% if back_url %>
+            <smal><%= link_to "<span class=\"glyphicon glyphicon-circle-arrow-left\"></span>".html_safe, back_url %></smal>
+        <% end %>
+        <%= titulo %>
+    </h2>
     <br/>
 <% end %>

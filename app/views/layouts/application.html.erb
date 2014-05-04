@@ -61,9 +61,9 @@
       <div class="row">
         <% if @left_panel %>
             <div class="col-lg-4"><%= yield :left_panel %></div>
-            <div class="col-lg-8"><%= content_for?(:content_panel) ? yield(:content_panel) : yield %></div>
+            <div class="col-lg-8"><%= yield %></div>
         <% else %>
-            <div class="col-lg-12"><%= content_for?(:content_panel) ? yield(:content_panel) : yield %></div>
+            <div class="col-lg-12"><%= yield %></div>
         <% end %>
       </div>
 

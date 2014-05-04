@@ -6,9 +6,10 @@ describe 'Participations' do
     event = create :event
     person = create :person
     visit new_event_participation_path(event.id)
-    select person.name, from: 'Person'
+    select person.name, from: 'Pessoa'
     select 'Inscrito', from: 'Status'
-    select 'Professor', from: 'Participation type'
+    select 'Professor', from: 'Tipo de participação'
+    click_on 'Salvar'
   end
 
 end

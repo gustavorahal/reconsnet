@@ -1,5 +1,7 @@
 
-<%= render partial: 'common/titulo_pagina', locals: { titulo: "Pessoa '#{@person.name}'" } %>
+<%= render partial: 'common/titulo_pagina', locals: {
+        titulo: "Pessoa <em>#{@person.name}</em>".html_safe,
+        back_url: people_path } %>
 
 <% content_for :actions do %>
     <%= render partial: 'common/btn_editar', locals: { recurso: @person } %>
@@ -15,22 +17,29 @@
   <dd><%= @person.email %></dd>
 </dl>
 
+<% if @participations.empty? %>
+  <br/>
+  <p class="text-muted">Não participou de nenhum evento da <em>Reconscientia</em></p>
 
-<div class="well">
-    <h4>Participação em events</h4>
-    <br/>
-    <table class="table table-striped">
-      <tr>
-        <th>Evento</th>
-        <th>Tipo Participação</th>
-        <th>Data</th>
-      </tr>
-      <% @participations.each do |ep| %>
+<% else  %>
+    <div class="well">
+        <h4>Participação em eventos <small>(últimos eventos aparecem primeiro)</small></h4>
+        <br/>
+        <table class="table table-striped">
           <tr>
-            <td><%= link_to ep.event.name, event_path(ep.event) %></td>
-            <td><%= ep.participation_type %></td>
-            <td><%= ep.event.start %></td>
+            <th>Evento</th>
+            <th>Tipo Participação</th>
+            <th>Última atualização</th>
+            <th>Data evento</th>
           </tr>
-      <% end %>
-    </table>
-</div>
+          <% @participations.each do |participation| %>
+              <tr>
+                <td><%= link_to participation.event.name, event_path(participation.event) %></td>
+                <td><%= participation.participation_type %></td>
+                <td><%= date_display participation.updated_at %></td>
+                <td><%= date_display participation.event.start %></td>
+              </tr>
+          <% end %>
+        </table>
+    </div>
+<% end %>

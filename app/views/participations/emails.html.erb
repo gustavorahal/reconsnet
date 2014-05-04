@@ -1,7 +1,8 @@
 
 
 <%= render partial: 'common/titulo_pagina', locals:
-        { titulo: "E-mails dos participantes do event #{@event.name}" } %>
+        { titulo: "E-mails dos participantes do evento <em>#{@event.name}</em>".html_safe,
+          back_url: event_path(@event)} %>
 
 <% @participations.each do |p| %>
     <%= p.person.email %>

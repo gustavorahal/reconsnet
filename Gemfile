@@ -11,7 +11,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 
 # UI/Web
-gem 'bootstrap-sass', '3.1.1'
+gem 'bootstrap-sass', '~> 3.1.1'
 gem 'bootstrap_form', :git => 'git://github.com/bootstrap-ruby/rails-bootstrap-forms', :branch => 'master'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
@@ -42,5 +42,5 @@ group :test do
 end
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.1.2'
+gem 'bcrypt', '~> 3.1.2'
 

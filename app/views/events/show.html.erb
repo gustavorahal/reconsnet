@@ -1,5 +1,7 @@
 
-<%= render partial: 'common/titulo_pagina', locals: { titulo: "Evento <em>#{@event.name}</em>".html_safe } %>
+<%= render partial: 'common/titulo_pagina', locals: {
+                                                titulo: "Evento <em>#{@event.name}</em>".html_safe,
+                                                back_url: events_path } %>
 
 <% content_for :actions do %>
     <%= render partial: 'common/btn_editar', locals: { recurso: @event } %>
@@ -15,10 +17,10 @@
   <dd><%= @event.description %></dd>
 
   <dt>Início:</dt>
-  <dd><%= @event.start %></dd>
+  <dd><%= date_display @event.start %></dd>
 
   <dt>Fim:</dt>
-  <dd><%= @event.finish %></dd>
+  <dd><%= date_display @event.finish %></dd>
 </dl>
 
 

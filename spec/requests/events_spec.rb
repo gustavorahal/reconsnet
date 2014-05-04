@@ -10,10 +10,10 @@ describe 'Events' do
     event = build(:event)
     visit events_path
     click_on 'Adicionar'
-    fill_in 'Name', with: event.name
-    select event.event_type, from: 'Event type'
-    fill_in 'Start', with: event.start
-    fill_in 'Finish', with: event.finish
+    fill_in 'Nome', with: event.name
+    select event.event_type, from: 'Tipo de evento'
+    fill_in 'Início', with: event.start
+    fill_in 'Fim', with: event.finish
     click_on 'Salvar'
 
     current_path.should eq(events_path)
@@ -49,9 +49,9 @@ describe 'Events' do
     event = create(:event)
     visit event_path(event)
     click_on 'Editar'
-    find_field('Name').value().should eq(event.name)
+    find_field('Nome').value().should eq(event.name)
     desc_txt = 'Uma nova descrição'
-    fill_in 'Description', with: desc_txt
+    fill_in 'Descrição', with: desc_txt
     click_on 'Salvar'
     page.should have_content("Evento '#{event.name}' atualizado com sucesso!")
 
