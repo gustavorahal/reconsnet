@@ -11,10 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140330221728) do
+ActiveRecord::Schema.define(version: 20140504200031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
+
+  create_table "addresses", force: true do |t|
+    t.string   "line1"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.integer  "addressable_id"
+    t.string   "addressable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "addresses", ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id", unique: true, using: :btree
 
   create_table "events", force: true do |t|
     t.string   "name",        null: false
@@ -41,12 +55,19 @@ ActiveRecord::Schema.define(version: 20140330221728) do
   add_index "participations", ["person_id"], name: "index_participations_on_person_id", using: :btree
 
   create_table "people", force: true do |t|
-    t.string   "name",          null: false
+    t.string   "name",             null: false
     t.string   "gender"
     t.string   "email"
     t.date     "date_of_birth"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "profession"
+    t.string   "nationality"
+    t.integer  "address_id"
+    t.string   "landline_number"
+    t.string   "mobile_number"
+    t.boolean  "marketing"
+    t.hstore   "marketing_optout"
   end
 
   add_index "people", ["name"], name: "index_people_on_name", unique: true, using: :btree

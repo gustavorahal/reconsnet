@@ -13,6 +13,9 @@ FactoryGirl.define do
   factory :person do
     sequence(:name) { |n| "João n. #{n}" }
     sequence(:email) { |n| "joao#{n}@email.com" }
+    # adicionar telefones já normalizados de acordo com o que o phony espera
+    mobile_number '554599440907'
+    landline_number '554535755578'
     gender 'Masculino'
   end
 

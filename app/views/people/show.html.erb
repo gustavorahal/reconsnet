@@ -15,6 +15,17 @@
 
   <dt>Email:</dt>
   <dd><%= @person.email %></dd>
+
+  <% if @person.landline_number  %>
+    <dt>Telefone Fixo:</dt>
+    <dd><%= @person.landline_number.phony_formatted %></dd>
+  <% end %>
+
+  <% if @person.mobile_number %>
+    <dt>Telefone Celular:</dt>
+    <dd><%= @person.mobile_number.phony_formatted %></dd>
+  <% end  %>
+
 </dl>
 
 <% if @participations.empty? %>
