@@ -20,8 +20,9 @@ ActiveRecord::Schema.define(version: 20140504200031) do
   create_table "addresses", force: true do |t|
     t.string   "line1"
     t.string   "city"
-    t.string   "state"
+    t.string   "state_code"
     t.string   "zip"
+    t.string   "country_code"
     t.integer  "addressable_id"
     t.string   "addressable_type"
     t.datetime "created_at"

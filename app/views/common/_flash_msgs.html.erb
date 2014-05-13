@@ -1,5 +1,5 @@
 
-<% flash2type = { alert: 'danger', notice: 'success' } %>
+<% flash2type = { 'alert' => 'danger', 'notice' => 'success' } %>
 
 <% flash.map do |name, msg| %>
     <div class="alert alert-<%= flash2type[name] %> alert-dismissable">

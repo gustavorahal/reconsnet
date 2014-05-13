@@ -1,21 +1,36 @@
 
-<%= render partial: 'section_title', locals: { title: 'Cadastro' } %>
 <div class='row'>
-  <%= render partial: 'entry', locals: { title:  'Pessoas',
-                                           r_link_to: people_path,
-                                           description: ''} %>
-  <%= render partial: 'entry', locals: { title:  'Eventos',
-                                         r_link_to: events_path,
-                                         description: ''} %>
-  <%= render partial: 'entry', locals: { title:  'Divulgação',
-                                         r_link_to: divulgacao_path,
-                                         description: ''} %>
+
+  <div class="well col-lg-3 tasks-box">
+    <h4>Cadastro Geral</h4>
+    <p>Gerencie o cadastro de pessoas editando seus dados aqui.</p>
+    <p><a class="btn btn-primary" role="button" href="<%= people_path %>">Pessoas &raquo;</a></p>
+  </div>
+
+  <div class="well col-lg-3 tasks-box">
+    <h4>Eventos</h4>
+    <p>Adicione eventos, gerencie participações etc...</p>
+    <p><a class="btn btn-primary" role="button" href="<%= events_path %>">Eventos &raquo;</a></p>
+  </div>
+
+  <div class="well col-lg-3 tasks-box">
+    <h4>Divulgação</h4>
+    <p>Listas de email para divulgação dos cursos e eventos da <em>Reconscientia</em>.</p>
+    <p><a class="btn btn-primary" role="button" href="<%= divulgacao_path %>">Divulgação &raquo;</a></p>
+  </div>
+
 </div>
 
-<%= render partial: 'section_title', locals: { title: 'Admin' } %>
+
 <div class='row'>
-  <%= render partial: 'entry', locals: { title:  'Usuários',
-                                         r_link_to: users_path,
-                                         description: ''} %>
+
+  <div class="well col-lg-3 tasks-box">
+    <h4>Administrador</h4>
+    <p>Diversas tarefas relacionadas a gestão deste site.</p>
+    <p><a class="btn btn-danger" role="button" href="<%= users_path %>">Usuários &raquo;</a></p>
+  </div>
+
 </div>
+
+
 

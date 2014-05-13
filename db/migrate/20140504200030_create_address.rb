@@ -3,8 +3,9 @@ class CreateAddress < ActiveRecord::Migration
     create_table :addresses do |t|
       t.string :line1
       t.string :city
-      t.string :state
+      t.string :state_code
       t.string :zip
+      t.string :country_code
       t.integer :addressable_id
       t.string :addressable_type
 

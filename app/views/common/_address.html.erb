@@ -1,5 +1,10 @@
 
-<%= f.text_field :line1 %>
-<%= f.text_field :city %>
-<%= f.text_field :state, size: 2 %>
-<%= f.text_field :zip %>
+<%= f.text_field :line1, label: 'Endereço' %>
+<%= f.text_field :city, label: 'Cidade', control_col: 'col-sm-3' %>
+<%= f.text_field :zip, label: 'CEP', control_col: 'col-sm-2' %>
+<%= f.form_group :state_code, label: { text: 'Estado'}, control_col: 'col-sm-3' do %>
+    <%= f.subregion_select :state_code, 'BR', { priority: %w(PR) }, class: 'form-control' %>
+<% end %>
+<%= f.form_group :country_code, label: { text: 'País'}, control_col: 'col-sm-3' do %>
+    <%= f.country_select :country_code, { priority: %w(BR) }, class: 'form-control' %>
+<% end %>

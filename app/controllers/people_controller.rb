@@ -33,6 +33,9 @@ class PeopleController < ApplicationController
 
   def edit
     @person = Person.find(params[:id])
+    if @person.address.nil?
+      @person.build_address
+    end
   end
 
   def show
@@ -58,7 +61,9 @@ class PeopleController < ApplicationController
 
   def secure_params
     params.require(:person).permit(:name, :email, :gender, :date_of_birth,
-                                   :mobile_number, :landline_number)
+                                   :mobile_number, :landline_number,
+                                   address_attributes: [:line1, :zip, :city, :state_code, :country_code])
   end
+
 
 end

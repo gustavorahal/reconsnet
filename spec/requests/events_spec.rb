@@ -45,7 +45,7 @@ describe 'Events' do
   end
 
 
-  it 'altera um event' do
+  it 'altera um evento' do
     event = create(:event)
     visit event_path(event)
     click_on 'Editar'

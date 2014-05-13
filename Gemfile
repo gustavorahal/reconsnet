@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.4'
+gem 'rails', '4.1.0'
 gem 'pg'
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
@@ -25,7 +25,10 @@ gem 'jquery-turbolinks'
 gem 'pundit'
 gem 'devise'
 
+# para manipulação de números de telefone
 gem 'phony_rails'
+# para manipulação de nomes de países e seus estados
+gem 'carmen-rails', '~> 1.0.0'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
@@ -35,12 +38,15 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'rspec-rails', :group => [:test, :development]
-group :test do
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'spring'
+  gem 'spring-commands-rspec'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy' # for save_and_open_page
   gem 'guard-rspec'
+  gem 'rb-fsevent' if `uname` =~ /Darwin/ # para OS X
 end
 
 # Use ActiveModel has_secure_password

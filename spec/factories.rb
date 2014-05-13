@@ -19,6 +19,14 @@ FactoryGirl.define do
     gender 'Masculino'
   end
 
+  factory :address do
+    line1 'Rua Diamantina, 439'
+    zip '85868-210'
+    city 'Foz do Iguaçu'
+    state_code 'PR'
+    country_code 'BR'
+  end
+
   factory :event do
     name 'Imersão Parametodológica'
     event_type 'Curso'

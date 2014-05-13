@@ -9,24 +9,39 @@
                                                         recurso: @person } %>
 <% end %>
 
-<dl class="dl-horizontal">
-  <dt>Nome:</dt>
-  <dd><%= @person.name %></dd>
-
-  <dt>Email:</dt>
-  <dd><%= @person.email %></dd>
-
-  <% if @person.landline_number  %>
-    <dt>Telefone Fixo:</dt>
-    <dd><%= @person.landline_number.phony_formatted %></dd>
+<address>
+  <strong>Dados gerais</strong><br>
+  <%= @person.name %><br>
+  <a href="mailto:#"><%= @person.email %></a><br>
+  <%= @person.gender %>, <%= @person.age %> anos<br>
+  <% if @person.date_of_birth %>
+   <%= date_display @person.date_of_birth %> <small>(faltam <%= @person.days_until_birthday %> para seu aniversário)</small><br>
   <% end %>
-
-  <% if @person.mobile_number %>
-    <dt>Telefone Celular:</dt>
-    <dd><%= @person.mobile_number.phony_formatted %></dd>
+  <% if @person.landline_number  %>
+      Fixo: <%= @person.landline_number.phony_formatted %>
   <% end  %>
+  <% if @person.mobile_number  %>
+      Cel: <%= @person.mobile_number.phony_formatted %>
+  <% end %>
+</address>
 
-</dl>
+<% unless @person.address.nil? %>
+  <address>
+    <strong>Endereço</strong><br>
+      <% unless @person.address.line1.empty? %>
+        <%= @person.address.line1 %><br>
+      <% end %>
+      <% unless @person.address.zip.empty? %>
+         CEP <%= @person.address.zip %><br>
+      <% end  %>
+      <% unless @person.address.city.empty? %>
+         <%= @person.address.city %> - <%= @person.address.state_name %><br>
+      <% end  %>
+      <% if @person.address.country_code %>
+          <%= @person.address.country_name %><br>
+      <% end  %>
+  </address>
+<% end  %>
 
 <% if @participations.empty? %>
   <br/>
