@@ -11,34 +11,42 @@
 
 <address>
   <strong>Dados gerais</strong><br>
-  <%= @person.name %><br>
-  <a href="mailto:#"><%= @person.email %></a><br>
+
+  <%= @person.name %> (<a href="mailto:#"><%= @person.email %></a>)<br>
+
   <%= @person.gender %>, <%= @person.age %> anos<br>
-  <% if @person.date_of_birth %>
+
+  <% if @person.occupation.present? %>
+    <%= @person.occupation %><br>
+  <% end %>
+
+  <% unless @person.nationality == 'Brasileiro' %>
+    <%= @person.nationality %><br>
+  <% end %>
+
+  <% if @person.date_of_birth.present? %>
    <%= date_display @person.date_of_birth %> <small>(faltam <%= @person.days_until_birthday %> para seu aniversário)</small><br>
   <% end %>
-  <% if @person.landline_number  %>
-      Fixo: <%= @person.landline_number.phony_formatted %>
+
+  <% @person.phone_numbers.each do |phone| %>
+    <%= phone.phone_type %>: <%= phone.number.phony_formatted %> <%= "(#{phone.provider})" if phone.provider %><br>
   <% end  %>
-  <% if @person.mobile_number  %>
-      Cel: <%= @person.mobile_number.phony_formatted %>
-  <% end %>
 </address>
 
-<% unless @person.address.nil? %>
+<% @person.addresses.each do |address| %>
   <address>
     <strong>Endereço</strong><br>
-      <% unless @person.address.line1.empty? %>
-        <%= @person.address.line1 %><br>
+      <% if address.line1.present? %>
+        <%= address.line1 %><br>
       <% end %>
-      <% unless @person.address.zip.empty? %>
-         CEP <%= @person.address.zip %><br>
+      <% if address.zip.present? %>
+         CEP <%= address.zip %><br>
       <% end  %>
-      <% unless @person.address.city.empty? %>
-         <%= @person.address.city %> - <%= @person.address.state_name %><br>
+      <% if address.city.present? %>
+         <%= address.city %> - <%= address.state_name %><br>
       <% end  %>
-      <% if @person.address.country_code %>
-          <%= @person.address.country_name %><br>
+      <% if address.country_code.present? %>
+          <%= address.country_name %><br>
       <% end  %>
   </address>
 <% end  %>

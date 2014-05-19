@@ -11,27 +11,31 @@
 #  updated_at       :datetime
 #  profession       :string(255)
 #  nationality      :string(255)
-#  address_id       :integer
-#  landline_number  :string(255)
-#  mobile_number    :string(255)
 #  marketing        :boolean
 #  marketing_optout :hstore
 #
 
 class Person < ActiveRecord::Base
 
+  # manter em ordem alfabética
+  OCCUPATIONS = %w(Aposentado Dentista Engenheiro Fonoaudiólogo Médico Professor Psicólogo)
+  NATIONALITIES = %w(Argentino Brasileiro Paraguaio)
+  GENDERS = %w(Masculino Feminino)
+
   validates :name, presence: true, uniqueness: true, length: { minimum: 5 }
   validates :email, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
-  validates :gender, inclusion: { :in => %w( Masculino Feminino) }
-  validates_plausible_phone :mobile_number, :landline_number
+  validates :gender, inclusion: { in:  GENDERS }
+  validates_inclusion_of :occupation, in: OCCUPATIONS, allow_nil: true, allow_blank: true
+  validates_inclusion_of :nationality, in: NATIONALITIES, allow_nil: true, allow_blank: true
 
   has_many :events
   has_many :participations
-  has_one :address, :as => :addressable, dependent: :destroy
-  accepts_nested_attributes_for :address, allow_destroy: true
+  has_many :addresses, as: :addressable, dependent: :destroy
+  has_many :phone_numbers, as: :phonable, dependent: :destroy
 
-  phony_normalize :landline_number, :default_country_code => 'BR'
-  phony_normalize :mobile_number, :default_country_code => 'BR'
+  accepts_nested_attributes_for :addresses, allow_destroy: true, reject_if: lambda {|attributes| attributes['line1'].blank?}
+  accepts_nested_attributes_for :phone_numbers, allow_destroy: true, reject_if: lambda {|attributes| attributes['number'].blank?}
+
 
   def age
     if date_of_birth

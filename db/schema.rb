@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20140504200031) do
   enable_extension "hstore"
 
   create_table "addresses", force: true do |t|
+    t.string   "label"
     t.string   "line1"
     t.string   "city"
     t.string   "state_code"
@@ -29,7 +30,7 @@ ActiveRecord::Schema.define(version: 20140504200031) do
     t.datetime "updated_at"
   end
 
-  add_index "addresses", ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id", unique: true, using: :btree
+  add_index "addresses", ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id", using: :btree
 
   create_table "events", force: true do |t|
     t.string   "name",        null: false
@@ -62,16 +63,29 @@ ActiveRecord::Schema.define(version: 20140504200031) do
     t.date     "date_of_birth"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "profession"
-    t.string   "nationality"
     t.integer  "address_id"
     t.string   "landline_number"
     t.string   "mobile_number"
+    t.string   "occupation"
+    t.string   "nationality"
     t.boolean  "marketing"
     t.hstore   "marketing_optout"
   end
 
   add_index "people", ["name"], name: "index_people_on_name", unique: true, using: :btree
+
+  create_table "phone_numbers", force: true do |t|
+    t.string   "label"
+    t.string   "number",        null: false
+    t.string   "provider"
+    t.string   "phone_type",    null: false
+    t.integer  "phonable_id"
+    t.string   "phonable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "phone_numbers", ["phonable_type", "phonable_id"], name: "index_phone_numbers_on_phonable_type_and_phonable_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

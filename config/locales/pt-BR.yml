@@ -209,22 +209,4 @@ pt-BR:
   activerecord:
     errors:
       <<: *errors
-      models:
-        person:
-          attributes:
-            landline_number:
-              improbable_phone: 'Número de telefone inválido'
-            mobile_number:
-              improbable_phone: 'Número de telefone inválido'
-
-  world:
-    br:
-      ac:
-        name: 'Acre'
-      am:
-        name: 'Amazonas'
-      al:
-        name: 'Alagoas'
-      pr:
-        name: 'Paraná'
 

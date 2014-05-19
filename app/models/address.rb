@@ -3,6 +3,7 @@
 # Table name: addresses
 #
 #  id               :integer          not null, primary key
+#  label            :string(255)
 #  line1            :string(255)
 #  city             :string(255)
 #  state_code       :string(255)

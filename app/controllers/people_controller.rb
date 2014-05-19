@@ -6,7 +6,8 @@ class PeopleController < ApplicationController
 
   def new
     @person = Person.new
-    @person.build_address
+    2.times { @person.phone_numbers.build }
+    1.times { @person.addresses.build }
   end
 
   def create
@@ -33,8 +34,11 @@ class PeopleController < ApplicationController
 
   def edit
     @person = Person.find(params[:id])
-    if @person.address.nil?
-      @person.build_address
+    if @person.addresses.empty?
+      @person.addresses.build
+    end
+    if @person.phone_numbers.empty?
+      2.times { @person.phone_numbers.build }
     end
   end
 
@@ -60,9 +64,10 @@ class PeopleController < ApplicationController
   private
 
   def secure_params
-    params.require(:person).permit(:name, :email, :gender, :date_of_birth,
-                                   :mobile_number, :landline_number,
-                                   address_attributes: [:line1, :zip, :city, :state_code, :country_code])
+    params.require(:person).permit(:name, :email, :gender, :date_of_birth, :occupation, :nationality,
+                                   addresses_attributes: [:id, :label, :line1, :zip, :city, :state_code,
+                                                          :country_code],
+                                   phone_numbers_attributes: [:id, :label, :number, :phone_type, :provider])
   end
 
 

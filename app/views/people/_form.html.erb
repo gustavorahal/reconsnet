@@ -1,33 +1,22 @@
-<%= bootstrap_form_for @person, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
+<%= bootstrap_form_for @person, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-7' do |f| %>
 
     <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
 
     <%= f.text_field :name, label: 'Nome' %>
     <%= f.email_field :email, label: 'E-mail', control_col: 'col-sm-3' %>
-    <%= f.select :gender, %w(Masculino Feminino), label: 'Gênero', control_col: 'col-sm-3' %>
+    <%= f.select :gender, Person::GENDERS, label: 'Gênero', control_col: 'col-sm-3' %>
     <%= f.date_select :date_of_birth, label: 'Data de nascimento',
                       start_year: 1930, end_year: Date.today.year, include_blank: true, control_col: 'col-sm-3' %>
+    <%= f.select :occupation, Person::OCCUPATIONS, include_blank: true, label: 'Ocupação', control_col: 'col-sm-3' %>
+    <%= f.select :nationality, Person::NATIONALITIES, selected: 'Brasileiro', label: 'Nacionalidade', control_col: 'col-sm-3' %>
 
 
-    <% if @person.landline_number %>
-        <!-- O número de telefone é armazenado normalizado no banco (por conta da gem phony)
-        portanto aqui mostramos um formato amigável ao usuário -->
-        <%= f.text_field :landline_number, value: @person.landline_number.phony_formatted,
-                         label: 'Telefone Fixo', help: 'colocar com DDD', control_col: 'col-sm-3' %>
-    <% else  %>
-        <%= f.text_field :landline_number, label: 'Telefone Fixo', help: 'colocar com DDD', control_col: 'col-sm-3' %>
-    <% end  %>
+      <%= f.fields_for :phone_numbers do |phone_form| %>
+        <%= render :partial => 'common/phone_number', :locals => {:f => phone_form} %>
+      <% end %>
 
-
-    <% if @person.mobile_number %>
-        <%= f.text_field :mobile_number, value: @person.mobile_number.phony_formatted,
-                         label: 'Telefone Celular', help: 'colocar com DDD', control_col: 'col-sm-3' %>
-    <% else  %>
-        <%= f.text_field :mobile_number, label: 'Telefone Celular', help: 'colocar com DDD', control_col: 'col-sm-3' %>
-    <% end  %>
-
-    <%= f.fields_for :address do |address| %>
-        <%= render :partial => 'common/address', :locals => {:f => address} %>
+    <%= f.fields_for :addresses do |address_form| %>
+        <%= render :partial => 'common/address', :locals => {:f => address_form} %>
     <% end %>
 
     <%= f.form_group do %>
