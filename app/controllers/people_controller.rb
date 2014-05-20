@@ -65,6 +65,7 @@ class PeopleController < ApplicationController
 
   def secure_params
     params.require(:person).permit(:name, :email, :gender, :date_of_birth, :occupation, :nationality,
+                                   :original_updated_at,
                                    addresses_attributes: [:id, :label, :line1, :zip, :city, :state_code,
                                                           :country_code],
                                    phone_numbers_attributes: [:id, :label, :number, :phone_type, :provider])

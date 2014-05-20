@@ -131,6 +131,21 @@ describe 'Persons' do
     page.should have_content(participation.participation_type)
   end
 
+  it 'avisa usuário em caso de conflito' do
+    person = create :person
+    visit edit_person_path(person)
+    sleep 0.5
+    in_browser(:two) do
+      #sign_in(create :user, email: 'novoemail@email.com') # need to sign in here
+      visit edit_person_path(person)
+      fill_in 'Nome', with: 'Novo nome da pessoa'
+      click_on 'Salvar'
+    end
 
+    fill_in 'Nome', with: 'Um outro nome da pessoa'
+    click_on 'Salvar'
+    page.should have_content('Este registro mudou enquanto você estava editando-o')
+    page.should have_content('era Novo nome da pessoa')
+  end
 
 end

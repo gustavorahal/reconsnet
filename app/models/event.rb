@@ -14,6 +14,8 @@
 
 class Event < ActiveRecord::Base
 
+  include ConflictResolutionable
+
   # Deixar lista em ordem alfabética
   TYPES = %w(Curso Reunião Simpósio)
 
@@ -21,6 +23,7 @@ class Event < ActiveRecord::Base
   validates :start, presence: true
   validates :finish, presence: true
   validates :event_type, inclusion: { in: TYPES }
+  validate :handle_conflict, only: :update
 
   has_many :participations, dependent: :destroy
   has_many :people, through: :participations

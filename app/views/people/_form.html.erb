@@ -1,6 +1,12 @@
 <%= bootstrap_form_for @person, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-7' do |f| %>
 
-    <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
+    <% if @person.errors[:base].present? %>
+        <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo. ' + @person.errors[:base][0] %>
+    <% else %>
+        <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
+    <% end %>
+
+    <%= f.hidden_field :original_updated_at %>
 
     <%= f.text_field :name, label: 'Nome' %>
     <%= f.email_field :email, label: 'E-mail', control_col: 'col-sm-3' %>
@@ -10,10 +16,9 @@
     <%= f.select :occupation, Person::OCCUPATIONS, include_blank: true, label: 'Ocupação', control_col: 'col-sm-3' %>
     <%= f.select :nationality, Person::NATIONALITIES, selected: 'Brasileiro', label: 'Nacionalidade', control_col: 'col-sm-3' %>
 
-
-      <%= f.fields_for :phone_numbers do |phone_form| %>
-        <%= render :partial => 'common/phone_number', :locals => {:f => phone_form} %>
-      <% end %>
+    <%= f.fields_for :phone_numbers do |phone_form| %>
+    <%= render :partial => 'common/phone_number', :locals => {:f => phone_form} %>
+    <% end %>
 
     <%= f.fields_for :addresses do |address_form| %>
         <%= render :partial => 'common/address', :locals => {:f => address_form} %>
@@ -21,10 +26,10 @@
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>
-        <% if action_name == 'edit' %>
-            <% link = person_path(@person) %>
-        <% else %>
+        <% if action_name == 'new' %>
             <% link = people_path %>
+        <% else %>
+            <% link = person_path(@person) %>
         <% end %>
         <%= link_to 'Cancelar', link, class: 'btn btn-link' %>
     <% end %>

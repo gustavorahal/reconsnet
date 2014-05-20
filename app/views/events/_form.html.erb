@@ -1,7 +1,13 @@
 
 <%= bootstrap_form_for @event, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
 
-    <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
+    <% if @event.errors[:base].present? %>
+        <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo. ' + @event.errors[:base][0] %>
+    <% else %>
+        <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
+    <% end %>
+
+    <%= f.hidden_field :original_updated_at %>
 
     <%= f.text_field :name, label: 'Nome' %>
     <%= f.select :event_type, Event::TYPES, label: 'Tipo de evento', control_col: 'col-sm-3' %>

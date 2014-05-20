@@ -20,7 +20,7 @@ class ParticipationsController < ApplicationController
   def update
     @participation = Participation.find(params[:id])
 
-    if @participation.update(params[:participation].permit(:person_id, :status, :participation_type))
+    if @participation.update(secure_params)
       redirect_to event_path(params[:event_id]), notice: 'Participação alterada com sucesso!'
     else
       render 'edit'
@@ -30,7 +30,7 @@ class ParticipationsController < ApplicationController
 
 
   def create
-    data = params.require(:participation).permit(:person, :participation_type, :status)
+    data = secure_params
 
     @participation = Participation.new(event_id: params[:event_id],
                                       person_id: data[:person],
@@ -56,6 +56,12 @@ class ParticipationsController < ApplicationController
   def emails
     @event = Event.find(params[:event_id])
     @participations = Participation.includes(:person, :event).where(event: @event).order('event.start DESC')
+  end
+
+  private
+
+  def secure_params
+    params.require(:participation).permit(:person, :participation_type, :status, :original_updated_at)
   end
 
 end

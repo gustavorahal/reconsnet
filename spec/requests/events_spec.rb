@@ -57,5 +57,22 @@ describe 'Events' do
 
   end
 
+  it 'avisa usuário em caso de conflito' do
+    event = create(:event)
+    visit edit_event_path(event)
+    sleep 0.5
+    in_browser(:two) do
+      sign_in(create :user, email: 'novoemail@email.com') # need to sign in here
+      visit edit_event_path(event)
+      fill_in 'Nome', with: 'Meu evento que mudou de nome'
+      click_on 'Salvar'
+    end
+
+    fill_in 'Nome', with: 'Meu evento com outro nome'
+    click_on 'Salvar'
+    page.should have_content('Este registro mudou enquanto você estava editando-o')
+    page.should have_content('era Meu evento que mudou de nome')
+  end
+
 
 end

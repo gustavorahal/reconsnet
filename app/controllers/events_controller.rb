@@ -14,7 +14,7 @@ class EventsController < ApplicationController
 
 
   def create
-    @event = Event.new(params.require(:event).permit(:name, :description, :event_type, :start, :finish))
+    @event = Event.new(secure_params)
 
     if @event.save
       redirect_to events_path, notice: "Evento '#{@event.name}' adicionado com sucesso!"
@@ -27,7 +27,7 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
 
-    if @event.update(params[:event].permit(:name, :description, :event_type, :start, :finish))
+    if @event.update(secure_params)
       redirect_to @event, notice: "Evento '#{@event.name}' atualizado com sucesso!"
     else
       render 'edit'
@@ -56,5 +56,10 @@ class EventsController < ApplicationController
     redirect_to events_path, notice: "Evento '#{@event.name}' deletado com sucesso!"
   end
 
+  private
+
+  def secure_params
+    params.require(:event).permit(:name, :description, :event_type, :start, :finish, :original_updated_at)
+  end
 
 end

@@ -17,6 +17,8 @@
 
 class Person < ActiveRecord::Base
 
+  include ConflictResolutionable
+
   # manter em ordem alfabética
   OCCUPATIONS = %w(Aposentado Dentista Engenheiro Fonoaudiólogo Médico Professor Psicólogo)
   NATIONALITIES = %w(Argentino Brasileiro Paraguaio)
@@ -27,6 +29,7 @@ class Person < ActiveRecord::Base
   validates :gender, inclusion: { in:  GENDERS }
   validates_inclusion_of :occupation, in: OCCUPATIONS, allow_nil: true, allow_blank: true
   validates_inclusion_of :nationality, in: NATIONALITIES, allow_nil: true, allow_blank: true
+  validate :handle_conflict, only: :update
 
   has_many :events
   has_many :participations
