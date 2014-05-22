@@ -16,3 +16,7 @@ pt-BR:
         name: 'Alagoas'
       pr:
         name: 'Paraná'
+
+  will_paginate:
+    next_label: 'Próximo'
+    previous_label: 'Anterior'

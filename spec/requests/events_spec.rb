@@ -49,7 +49,7 @@ describe 'Events' do
     event = create(:event)
     visit event_path(event)
     click_on 'Editar'
-    find_field('Nome').value().should eq(event.name)
+    find_field('Nome').value.should eq(event.name)
     desc_txt = 'Uma nova descrição'
     fill_in 'Descrição', with: desc_txt
     click_on 'Salvar'

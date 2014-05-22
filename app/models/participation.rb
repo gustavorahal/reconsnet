@@ -32,4 +32,8 @@ Professor\ Temático)
   belongs_to :event
   belongs_to :person
 
+  def to_s
+    "#{person.name}"
+  end
+
 end

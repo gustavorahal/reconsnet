@@ -28,4 +28,8 @@ class Event < ActiveRecord::Base
   has_many :participations, dependent: :destroy
   has_many :people, through: :participations
 
+  def to_s
+    "#{name}"
+  end
+
 end

@@ -6,6 +6,6 @@
 <% if policy(recurso).destroy? %>
     <%= link_to "<span class=\"glyphicon glyphicon-remove\"></span> #{btn_label}".html_safe,
             url, class: "btn #{size} btn-danger", method: :delete,
-            data: { confirm: 'Você tem certeza que deseja deletar?' },
+            data: { confirm: "Você tem certeza que deseja deletar \"#{recurso.to_s}\"?" },
             disabled: disabled %>
 <% end %>

@@ -9,7 +9,7 @@
 #  date_of_birth    :date
 #  created_at       :datetime
 #  updated_at       :datetime
-#  profession       :string(255)
+#  occupation       :string(255)
 #  nationality      :string(255)
 #  marketing        :boolean
 #  marketing_optout :hstore
@@ -26,7 +26,7 @@ class Person < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 5 }
   validates :email, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
-  validates :gender, inclusion: { in:  GENDERS }
+  validates_inclusion_of :gender, in:  GENDERS, allow_nil: true, allow_blank: true
   validates_inclusion_of :occupation, in: OCCUPATIONS, allow_nil: true, allow_blank: true
   validates_inclusion_of :nationality, in: NATIONALITIES, allow_nil: true, allow_blank: true
   validate :handle_conflict, only: :update
@@ -39,6 +39,10 @@ class Person < ActiveRecord::Base
   accepts_nested_attributes_for :addresses, allow_destroy: true, reject_if: lambda {|attributes| attributes['line1'].blank?}
   accepts_nested_attributes_for :phone_numbers, allow_destroy: true, reject_if: lambda {|attributes| attributes['number'].blank?}
 
+
+  def to_s
+    "#{name}"
+  end
 
   def age
     if date_of_birth

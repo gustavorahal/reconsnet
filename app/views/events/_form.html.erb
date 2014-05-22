@@ -17,12 +17,7 @@
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>
-        <% if action_name == 'edit' %>
-            <% link = event_path(@event) %>
-        <% else %>
-            <% link = events_path %>
-        <% end %>
-        <%= link_to 'Cancelar', link, class: 'btn btn-link' %>
+        <%= link_to 'Cancelar', :back, class: 'btn btn-link' %>
     <% end %>
 
 <% end %>

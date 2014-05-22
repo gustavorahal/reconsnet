@@ -1,7 +1,7 @@
 
 <%= render partial: 'common/titulo_pagina', locals: {
-        titulo: "Pessoa <em>#{@person.name}</em>".html_safe,
-        back_url: people_path } %>
+        titulo: "<em>#{@person.name}</em>".html_safe,
+        back_url: people_path(page: params[:page]) } %>
 
 <% content_for :actions do %>
     <%= render partial: 'common/btn_editar', locals: { recurso: @person } %>
@@ -10,11 +10,15 @@
 <% end %>
 
 <address>
-  <strong>Dados gerais</strong><br>
-
   <%= @person.name %> (<a href="mailto:#"><%= @person.email %></a>)<br>
 
-  <%= @person.gender %>, <%= @person.age %> anos<br>
+  <% if @person.gender %>
+    <%= @person.gender %>
+  <% end  %>
+  <% if @person.age  %>
+      , <%= @person.age %> anos
+  <% end  %>
+  <br>
 
   <% if @person.occupation.present? %>
     <%= @person.occupation %><br>

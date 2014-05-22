@@ -1,20 +1,50 @@
 
-<%= render partial: 'common/titulo_pagina', locals: { titulo: 'Pessoas' } %>
+<%= render partial: 'common/titulo_pagina', locals: { titulo: "Pessoas <small>total #{@people.count}</small>".html_safe } %>
 
 <% content_for :actions do %>
     <%= render partial: 'common/btn_adicionar', locals: { recurso: Person.new } %>
 <% end %>
 
+
+<%= form_tag '/people', method: :get do %>
+    <div class="input-group">
+      <%= text_field_tag 'people_search_str', nil, class: 'form-control',
+                         placeholder: 'Procurar...',
+                         value: @people_search_str %>
+      <span class="input-group-btn">
+          <button class="btn btn-default" type="submit" id="btn-search-attrib">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+
+          <%= link_to "<span class=\"glyphicon glyphicon-remove\"></span>".html_safe,
+                    people_path, class: 'btn btn-default' %>
+      </span>
+    </div>
+<% end %>
+<br/>
+
 <table class="table table-striped">
   <tr>
     <th>Nome</th>
     <th>Email</th>
+    <th>Telefones</th>
+    <th>Ações</th>
   </tr>
 
-  <% @persons.each do |person| %>
+  <% @people.each do |person| %>
       <tr>
-        <td><%= link_to person.name, person_path(person) %></td>
+        <td><%= link_to person.name, person_path(person, page: params[:page]) %></td>
         <td><%= person.email %></td>
+        <td>
+          <% phones = person.phone_numbers.map { |phone| "#{phone.number.phony_formatted}" } %>
+          <%= phones.join(' | ') %>
+        </td>
+        <td><%= render partial: 'common/btn_editar', locals: { recurso: person,
+                                                               size: 'btn-xs', btn_label: '' } %>
+          <%= render partial: 'common/btn_deletar', locals: { recurso: person,
+                                                             size: 'btn-xs', btn_label: '' } %>
+        </td>
       </tr>
   <% end %>
 </table>
+<%= will_paginate @people, renderer: BootstrapPagination::Rails %>

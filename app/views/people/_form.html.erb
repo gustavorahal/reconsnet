@@ -10,11 +10,11 @@
 
     <%= f.text_field :name, label: 'Nome' %>
     <%= f.email_field :email, label: 'E-mail', control_col: 'col-sm-3' %>
-    <%= f.select :gender, Person::GENDERS, label: 'Gênero', control_col: 'col-sm-3' %>
+    <%= f.select :gender, Person::GENDERS, include_blank: true, label: 'Gênero', control_col: 'col-sm-3' %>
     <%= f.date_select :date_of_birth, label: 'Data de nascimento',
                       start_year: 1930, end_year: Date.today.year, include_blank: true, control_col: 'col-sm-3' %>
     <%= f.select :occupation, Person::OCCUPATIONS, include_blank: true, label: 'Ocupação', control_col: 'col-sm-3' %>
-    <%= f.select :nationality, Person::NATIONALITIES, selected: 'Brasileiro', label: 'Nacionalidade', control_col: 'col-sm-3' %>
+    <%= f.select :nationality, Person::NATIONALITIES, include_blank: true, label: 'Nacionalidade', control_col: 'col-sm-3' %>
 
     <%= f.fields_for :phone_numbers do |phone_form| %>
     <%= render :partial => 'common/phone_number', :locals => {:f => phone_form} %>
@@ -26,12 +26,7 @@
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>
-        <% if action_name == 'new' %>
-            <% link = people_path %>
-        <% else %>
-            <% link = person_path(@person) %>
-        <% end %>
-        <%= link_to 'Cancelar', link, class: 'btn btn-link' %>
+        <%= link_to 'Cancelar', :back, class: 'btn btn-link' %>
     <% end %>
 
 <% end %>

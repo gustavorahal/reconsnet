@@ -1,7 +1,13 @@
 class PeopleController < ApplicationController
 
   def index
-    @persons = Person.all
+    if params[:people_search_str]
+      @people_search_str = params[:people_search_str]
+      @people = Person.order('name ASC').where('lower(name) LIKE ?', "%#{@people_search_str.downcase}%").
+                                                  paginate(:page => params[:page], :per_page => 15)
+    else
+      @people = Person.order('name ASC').paginate(:page => params[:page], :per_page => 15)
+    end
   end
 
   def new
@@ -25,7 +31,7 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id])
 
     if @person.update(secure_params)
-      redirect_to @person, notice: "Pessoa '#{@person.name}' atualizada com sucesso!"
+      redirect_to session[:last_page] || @person
     else
       render 'edit'
     end
@@ -40,6 +46,8 @@ class PeopleController < ApplicationController
     if @person.phone_numbers.empty?
       2.times { @person.phone_numbers.build }
     end
+
+    session[:last_page] = request.env['HTTP_X_XHR_REFERER']
   end
 
   def show
@@ -49,14 +57,13 @@ class PeopleController < ApplicationController
 
   def destroy
     @person = Person.find(params[:id])
-
     @participations = Participation.where(person: @person)
     if @participations.any?
-      flash.now[:alert] = 'Esta person tem participação em events, não pode ser deletada'
+      flash.now[:alert] = 'Esta pessoa tem participação em eventos portanto não pode ser deletada'
       render 'show'
     else
       @person.destroy
-      redirect_to people_path, notice: "Pessoa '#{@person.name}' deletada com sucesso!"
+      redirect_to :back
     end
 
   end
@@ -65,6 +72,7 @@ class PeopleController < ApplicationController
 
   def secure_params
     params.require(:person).permit(:name, :email, :gender, :date_of_birth, :occupation, :nationality,
+                                   :return_to,
                                    :original_updated_at,
                                    addresses_attributes: [:id, :label, :line1, :zip, :city, :state_code,
                                                           :country_code],

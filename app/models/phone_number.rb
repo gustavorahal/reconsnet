@@ -21,8 +21,8 @@ class PhoneNumber < ActiveRecord::Base
   PHONE_TYPES = %w(Fixo Celular)
 
   validates_presence_of :number, :phone_type
-  validates :provider, inclusion: { in: PROVIDERS }
-  validates :phone_type, inclusion: { in: PHONE_TYPES }
+  validates_inclusion_of :provider, in: PROVIDERS, allow_nil: true, allow_blank: true
+  validates_inclusion_of :phone_type, in: PHONE_TYPES
   validates_plausible_phone :number
 
   phony_normalize :number, :default_country_code => 'BR'
