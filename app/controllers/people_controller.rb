@@ -1,13 +1,8 @@
 class PeopleController < ApplicationController
 
   def index
-    if params[:people_search_str]
-      @people_search_str = params[:people_search_str]
-      @people = Person.order('name ASC').where('lower(name) LIKE ?', "%#{@people_search_str.downcase}%").
-                                                  paginate(:page => params[:page], :per_page => 15)
-    else
-      @people = Person.order('name ASC').paginate(:page => params[:page], :per_page => 15)
-    end
+    @query = params[:query]
+    @people = Person.text_search(params[:query]).order('name ASC').page(params[:page]).per(15)
   end
 
   def new

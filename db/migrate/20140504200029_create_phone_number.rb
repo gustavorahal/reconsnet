@@ -13,5 +13,6 @@ class CreatePhoneNumber < ActiveRecord::Migration
     end
 
     add_index :phone_numbers, [:phonable_type, :phonable_id]
+    add_index :phone_numbers, :number
   end
 end

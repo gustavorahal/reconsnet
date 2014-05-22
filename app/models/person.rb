@@ -44,6 +44,15 @@ class Person < ActiveRecord::Base
     "#{name}"
   end
 
+
+  def self.text_search(query)
+    if query.present?
+      joins(:phone_numbers).where('name ilike :q or email ilike :q or occupation ilike :q or phone_numbers.number ilike :q', q: "%#{query}%").references(:phone_numbers).uniq
+    else
+      all
+    end
+  end
+
   def age
     if date_of_birth
       now = Time.now.utc.to_date

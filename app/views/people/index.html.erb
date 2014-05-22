@@ -1,5 +1,5 @@
 
-<%= render partial: 'common/titulo_pagina', locals: { titulo: "Pessoas <small>total #{@people.count}</small>".html_safe } %>
+<%= render partial: 'common/titulo_pagina', locals: { titulo: 'Pessoas' } %>
 
 <% content_for :actions do %>
     <%= render partial: 'common/btn_adicionar', locals: { recurso: Person.new } %>
@@ -8,9 +8,9 @@
 
 <%= form_tag '/people', method: :get do %>
     <div class="input-group">
-      <%= text_field_tag 'people_search_str', nil, class: 'form-control',
+      <%= text_field_tag 'query', nil, class: 'form-control',
                          placeholder: 'Procurar...',
-                         value: @people_search_str %>
+                         value: @query %>
       <span class="input-group-btn">
           <button class="btn btn-default" type="submit" id="btn-search-attrib">
             <span class="glyphicon glyphicon-search"></span>
@@ -22,6 +22,7 @@
     </div>
 <% end %>
 <br/>
+<span class="text-muted"><%= page_entries_info @people %></span>
 
 <table class="table table-striped">
   <tr>
@@ -47,4 +48,4 @@
       </tr>
   <% end %>
 </table>
-<%= will_paginate @people, renderer: BootstrapPagination::Rails %>
+<%= paginate @people, entry_name: 'pessoas' %>

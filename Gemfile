@@ -13,8 +13,8 @@ gem 'jquery-rails'
 # UI/Web
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'bootstrap_form', :git => 'git://github.com/bootstrap-ruby/rails-bootstrap-forms', :branch => 'master'
-gem 'will_paginate'
-gem 'will_paginate-bootstrap'
+gem 'kaminari' # will_paginate, rails 4.1 e pg_search não estavam funcionando bem juntos então a opção pelo kaminari
+gem 'kaminari-bootstrap'
 
 gem 'pry-rails', group: :development
 gem 'annotate', group: :development

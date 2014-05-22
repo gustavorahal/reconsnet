@@ -1,7 +1,6 @@
 
 <%= render partial: 'common/titulo_pagina', locals: {
-        titulo: "<em>#{@person.name}</em>".html_safe,
-        back_url: people_path(page: params[:page]) } %>
+        titulo: "<em>#{@person.name}</em>".html_safe } %>
 
 <% content_for :actions do %>
     <%= render partial: 'common/btn_editar', locals: { recurso: @person } %>
@@ -12,19 +11,19 @@
 <address>
   <%= @person.name %> (<a href="mailto:#"><%= @person.email %></a>)<br>
 
-  <% if @person.gender %>
-    <%= @person.gender %>
+  <% if @person.gender.present? %>
+    <%= @person.gender %><br>
   <% end  %>
-  <% if @person.age  %>
-      , <%= @person.age %> anos
+
+  <% if @person.age.present? %>
+    <%= @person.age %> anos<br>
   <% end  %>
-  <br>
 
   <% if @person.occupation.present? %>
     <%= @person.occupation %><br>
   <% end %>
 
-  <% unless @person.nationality == 'Brasileiro' %>
+  <% if @person.nationality.present? and not @person.nationality == 'Brasileiro' %>
     <%= @person.nationality %><br>
   <% end %>
 
@@ -33,7 +32,7 @@
   <% end %>
 
   <% @person.phone_numbers.each do |phone| %>
-    <%= phone.phone_type %>: <%= phone.number.phony_formatted %> <%= "(#{phone.provider})" if phone.provider %><br>
+    <%= phone.phone_type %>: <%= phone.number.phony_formatted %> <%= "(#{phone.provider})" if phone.provider.present? %><br>
   <% end  %>
 </address>
 
