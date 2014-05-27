@@ -2,7 +2,7 @@ class PeopleController < ApplicationController
 
   def index
     @query = params[:query]
-    @people = Person.text_search(params[:query]).order('name ASC').page(params[:page]).per(15)
+    @people = Person.text_search(params[:query]).order('LOWER(name)').page(params[:page]).per(15)
   end
 
   def new
@@ -15,7 +15,7 @@ class PeopleController < ApplicationController
     @person = Person.new(secure_params)
 
     if @person.save
-      redirect_to people_path, notice: "Pessoa '#{@person.name}' adicionada com sucesso!"
+      redirect_to person_path(@person)
     else
       render 'new'
     end
@@ -58,7 +58,7 @@ class PeopleController < ApplicationController
       render 'show'
     else
       @person.destroy
-      redirect_to :back
+      redirect_to people_path(page: params[:page])
     end
 
   end

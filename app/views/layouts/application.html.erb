@@ -36,12 +36,10 @@
 
     <!-- Actual content -->
     <div class="container">
-        <div class="row col-lg-12">
-          <%= yield :back_link %>
-        </div>
         <div class="row">
             <div class="col-lg-6">
-              <%= yield :titulo_pagina %>
+              <%= yield :back_link %>
+              <%= yield :page_title %>
             </div>
             <div class="col-lg-6">
               <h3><!-- O hX deve ser o mesmo do titulo da pagina para os dois ficarem alinhados horizontalmente-->

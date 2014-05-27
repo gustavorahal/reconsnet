@@ -25,7 +25,7 @@ class Person < ActiveRecord::Base
   GENDERS = %w(Masculino Feminino)
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 5 }
-  validates :email, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }
+  validates :email, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }, allow_blank: true
   validates_inclusion_of :gender, in:  GENDERS, allow_nil: true, allow_blank: true
   validates_inclusion_of :occupation, in: OCCUPATIONS, allow_nil: true, allow_blank: true
   validates_inclusion_of :nationality, in: NATIONALITIES, allow_nil: true, allow_blank: true
@@ -47,9 +47,10 @@ class Person < ActiveRecord::Base
 
   def self.text_search(query)
     if query.present?
-      joins(:phone_numbers).where('name ilike :q or email ilike :q or occupation ilike :q or phone_numbers.number ilike :q', q: "%#{query}%").references(:phone_numbers).uniq
+      joins("LEFT JOIN phone_numbers ON phone_numbers.phonable_id = people.id AND phone_numbers.phonable_type = 'Person'").
+          where('name ilike :q or email ilike :q or occupation ilike :q or phone_numbers.number ilike :q', q: "%#{query}%").references(:phone_numbers).uniq
     else
-      all
+      includes(:phone_numbers, :addresses).all
     end
   end
 

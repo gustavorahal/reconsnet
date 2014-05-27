@@ -1,3 +1,4 @@
+<%= render partial: 'common/back_link', locals: { destino: 'Pessoas', url: people_path(page: params[:page]) } %>
 
 <%= render partial: 'common/titulo_pagina', locals: {
         titulo: "<em>#{@person.name}</em>".html_safe } %>

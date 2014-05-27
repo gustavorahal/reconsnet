@@ -6,7 +6,7 @@ describe 'Events' do
     sign_in(create :user)
   end
 
-  it 'adiciona novo event' do
+  it 'adiciona novo evento' do
     event = build(:event)
     visit events_path
     click_on 'Adicionar'
@@ -16,32 +16,32 @@ describe 'Events' do
     fill_in 'Fim', with: event.finish
     click_on 'Salvar'
 
-    current_path.should eq(events_path)
+    expect(current_path).to eq(events_path)
 
-    page.should have_content("Evento '#{event.name}' adicionado com sucesso!")
+    expect(page).to have_content("Evento '#{event.name}' adicionado com sucesso!")
   end
 
 
-  it 'deleta um event' do
+  it 'deleta um evento' do
     event = create(:event)
     visit event_path(event)
-    page.should have_content(event.name)
+    expect(page).to have_content(event.name)
     click_on 'Deletar'
-    page.should have_content("Evento '#{event.name}' deletado com sucesso!")
+    expect(page).to have_content("Evento '#{event.name}' deletado com sucesso!")
   end
 
 
-  it 'deleta um event deve deletar todas as participations' do
+  it 'deleta um evento deve deletar todas as participations' do
     event = create :event
     visit event_path(event)
-    page.should have_content(event.name)
+    expect(page).to have_content(event.name)
 
     create :participation, person: create(:person), event: event
     create :participation, person: create(:person), event: event
     click_on 'Deletar'
-    page.should have_content("Evento '#{event.name}' deletado com sucesso!")
+    expect(page).to have_content("Evento '#{event.name}' deletado com sucesso!")
 
-    Participation.where(event: event).should be_empty
+    expect(Participation.where(event: event)).to be_empty
   end
 
 
@@ -49,11 +49,11 @@ describe 'Events' do
     event = create(:event)
     visit event_path(event)
     click_on 'Editar'
-    find_field('Nome').value.should eq(event.name)
+    expect(find_field('Nome').value).to eq(event.name)
     desc_txt = 'Uma nova descrição'
     fill_in 'Descrição', with: desc_txt
     click_on 'Salvar'
-    page.should have_content("Evento '#{event.name}' atualizado com sucesso!")
+    expect(page).to have_content("Evento '#{event.name}' atualizado com sucesso!")
 
   end
 
@@ -70,8 +70,8 @@ describe 'Events' do
 
     fill_in 'Nome', with: 'Meu evento com outro nome'
     click_on 'Salvar'
-    page.should have_content('Este registro mudou enquanto você estava editando-o')
-    page.should have_content('era Meu evento que mudou de nome')
+    expect(page).to have_content('Este registro mudou enquanto você estava editando-o')
+    expect(page).to have_content('era Meu evento que mudou de nome')
   end
 
 

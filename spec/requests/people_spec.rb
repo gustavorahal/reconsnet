@@ -9,7 +9,9 @@ describe 'Persons' do
     fill_in 'Nome', with: person.name
     fill_in 'E-mail', with: person.email
     click_on 'Salvar'
-    page.should have_content("Pessoa '#{person.name}' adicionada com sucesso!")
+
+    expect(page).to have_content person.email
+    expect(page).to have_content person.name
   end
 
   it 'edita email da pessoa' do
@@ -17,8 +19,7 @@ describe 'Persons' do
     visit edit_person_path(person)
     fill_in 'E-mail', with: 'novo@email.com'
     click_on 'Salvar'
-    page.should have_content('novo@email.com')
-    page.should have_content("Pessoa '#{person.name}' atualizada com sucesso!")
+    expect(page).to have_content('novo@email.com')
   end
 
 
@@ -32,8 +33,8 @@ describe 'Persons' do
 
     click_on 'Salvar'
     # os zeros na frente e espaços foram adicionados pelo phony_rails (ou seja, números foram normalizados)
-    page.should have_content('Fixo: 045 3575 5578')
-    page.should have_content('Celular: 045 9944 0907')
+    expect(page).to have_content('Fixo: 045 3575 5578')
+    expect(page).to have_content('Celular: 045 9944 0907')
   end
 
   it 'adiciona um telefone fixo e celular inválido' do
@@ -42,7 +43,7 @@ describe 'Persons' do
     fill_in 'number_1', with: '35755578' # sem DDD
     fill_in 'number_2', with: '99440907' # sem DDD
     click_on 'Salvar'
-    page.should have_content('Número de telefone inválido')
+    expect(page).to have_content('Número de telefone inválido')
   end
 
   it 'edita telefone fixo e celular' do
@@ -56,8 +57,8 @@ describe 'Persons' do
 
     click_on 'Salvar'
     # os zeros na frente e espaços foram adicionados pelo phony_rails (ou seja, números foram normalizados)
-    page.should have_content('Fixo: 045 3575 5566')
-    page.should have_content('Celular: 045 9944 0988')
+    expect(page).to have_content('Fixo: 045 3575 5566')
+    expect(page).to have_content('Celular: 045 9944 0988')
   end
 
   it 'adiciona pessoa junto com seu endereço' do
@@ -73,19 +74,19 @@ describe 'Persons' do
     select 'Paraná', from: 'state_code_1', :match => :first
     select 'Brasil', from: 'country_code_1', :match => :first
     click_on 'Salvar'
-    page.should have_content("Pessoa '#{person.name}' adicionada com sucesso!")
 
-    Address.where(addressable_id: Person.find_by(name: person.name).id).should exist
-
+    expect(page).to have_content(person.email)
+    expect(page).to have_content(person.name)
+    expect(page).to have_content(address.line1)
   end
 
   it 'deleta uma pessoa sem endereço' do
     person = create(:person)
     visit person_path(person)
-    page.should have_content(person.name)
+    expect(page).to have_content(person.name)
     click_on 'Deletar'
-    page.should_not have_content(person.email)
-    page.should have_content("Pessoa '#{person.name}' deletada com sucesso!")
+    expect(page).to_not have_content(person.email)
+    expect(page).to_not have_content(person.name)
   end
 
   it 'delete uma pessoa com endereço' do
@@ -93,12 +94,12 @@ describe 'Persons' do
     person_id = person.id
     address = create :address, addressable_id: person_id, addressable_type: 'Person'
     visit person_path(person)
-    page.should have_content(person.name)
+    expect(page).to have_content(person.name)
     click_on 'Deletar'
-    page.should_not have_content(person.email)
-    page.should have_content("Pessoa '#{person.name}' deletada com sucesso!")
+    expect(page).to_not have_content(person.email)
+    expect(page).to_not have_content(person.name)
 
-    Address.where(addressable_id: person_id).should_not exist
+    expect(Address.where(addressable_id: person_id)).to_not exist
   end
 
   it 'adiciona endereço a uma pessoa que já existe' do
@@ -112,7 +113,7 @@ describe 'Persons' do
     select 'Paraná', from: 'state_code_1', :match => :first
     select 'Brasil', from: 'country_code_1', :match => :first
     click_on 'Salvar'
-    page.should have_content("Pessoa '#{person.name}' atualizada com sucesso!")
+    expect(page).to have_content address.line1
   end
 
 
@@ -120,15 +121,15 @@ describe 'Persons' do
     person = create(:person)
     create(:participation, person: person)
     visit person_path(person)
-    page.should have_content(person.name)
-    find_link('Deletar')[:disabled].should eq "disabled"
+    expect(page).to have_content(person.name)
+    expect(find_link('Deletar')[:disabled]).to eq 'disabled'
   end
 
   it 'visualiza participações em eventos' do
     participation = create(:participation)
     visit person_path(participation.person)
-    page.should have_content(participation.event.name)
-    page.should have_content(participation.participation_type)
+    expect(page).to have_content(participation.event.name)
+    expect(page).to have_content(participation.participation_type)
   end
 
   it 'avisa usuário em caso de conflito' do
@@ -144,8 +145,8 @@ describe 'Persons' do
 
     fill_in 'Nome', with: 'Um outro nome da pessoa'
     click_on 'Salvar'
-    page.should have_content('Este registro mudou enquanto você estava editando-o')
-    page.should have_content('era Novo nome da pessoa')
+    expect(page).to have_content('Este registro mudou enquanto você estava editando-o')
+    expect(page).to have_content('era Novo nome da pessoa')
   end
 
 end
