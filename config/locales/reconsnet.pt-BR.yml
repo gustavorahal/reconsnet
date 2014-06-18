@@ -6,17 +6,6 @@ pt-BR:
           attributes:
             number:
               improbable_phone: 'Número de telefone inválido'
-  world:
-    br:
-      ac:
-        name: 'Acre'
-      am:
-        name: 'Amazonas'
-      al:
-        name: 'Alagoas'
-      pr:
-        name: 'Paraná'
-
   views:
     pagination:
       first: '&laquo; Primeiro'

@@ -4,9 +4,9 @@ class CreateAddress < ActiveRecord::Migration
       t.string :label
       t.string :line1
       t.string :city
-      t.string :state_code
+      t.string :state
       t.string :zip
-      t.string :country_code
+      t.string :country
       t.integer :addressable_id
       t.string :addressable_type
 

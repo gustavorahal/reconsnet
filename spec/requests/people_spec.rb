@@ -71,8 +71,8 @@ describe 'Persons' do
     fill_in 'line1_1', with: address.line1
     fill_in 'city_1', with: address.city
     fill_in 'zip_1', with: address.zip
-    select 'Paraná', from: 'state_code_1', :match => :first
-    select 'Brasil', from: 'country_code_1', :match => :first
+    fill_in 'state_1', with: address.state
+    fill_in 'country_1', with: address.country
     click_on 'Salvar'
 
     expect(page).to have_content(person.email)
@@ -110,8 +110,8 @@ describe 'Persons' do
     fill_in 'line1_1', with: address.line1
     fill_in 'city_1', with: address.city
     fill_in 'zip_1', with: address.zip
-    select 'Paraná', from: 'state_code_1', :match => :first
-    select 'Brasil', from: 'country_code_1', :match => :first
+    fill_in 'state_1', with: address.state
+    fill_in 'country_1', with: address.country
     click_on 'Salvar'
     expect(page).to have_content address.line1
   end

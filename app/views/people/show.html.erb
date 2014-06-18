@@ -47,10 +47,10 @@
          CEP <%= address.zip %><br>
       <% end  %>
       <% if address.city.present? %>
-         <%= address.city %> - <%= address.state_name %><br>
+         <%= address.city %> - <%= address.state %><br>
       <% end  %>
-      <% if address.country_code.present? %>
-          <%= address.country_name %><br>
+      <% if address.country.present? %>
+          <%= address.country %><br>
       <% end  %>
   </address>
 <% end  %>

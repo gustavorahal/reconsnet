@@ -27,8 +27,6 @@ gem 'devise'
 
 # para manipulação de números de telefone
 gem 'phony_rails'
-# para manipulação de nomes de países e seus estados
-gem 'carmen-rails', '~> 1.0.0'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'

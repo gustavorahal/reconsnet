@@ -28,8 +28,8 @@ FactoryGirl.define do
     line1 'Rua Diamantina, 439'
     zip '85868-210'
     city 'Foz do Iguaçu'
-    state_code 'PR'
-    country_code 'BR'
+    state 'Paraná'
+    country 'Brasil'
   end
 
   factory :event do
