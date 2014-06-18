@@ -43,6 +43,8 @@ group :development, :test do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'poltergeist'
   gem 'capybara'
   gem 'launchy' # for save_and_open_page
   gem 'guard-rspec'

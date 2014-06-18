@@ -17,11 +17,13 @@
     <%= f.select :nationality, Person::NATIONALITIES, include_blank: true, label: 'Nacionalidade', control_col: 'col-sm-3' %>
 
     <%= f.fields_for :phone_numbers do |phone_form| %>
-    <%= render :partial => 'common/phone_number', :locals => {:f => phone_form} %>
+        <%= render :partial => 'common/phone_number_fields', :locals => {:f => phone_form} %>
     <% end %>
+    <%= link_to_add_fields 'Adicionar telefone', f, :phone_numbers %>
+
 
     <%= f.fields_for :addresses do |address_form| %>
-        <%= render :partial => 'common/address', :locals => {:f => address_form} %>
+        <%= render :partial => 'common/address_fields', :locals => {:f => address_form} %>
     <% end %>
 
     <%= f.form_group do %>

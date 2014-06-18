@@ -1,11 +1,11 @@
 <%= render partial: 'common/back_link', locals: { destino: 'Pessoas', url: people_path(page: params[:page]) } %>
 
-<%= render partial: 'common/titulo_pagina', locals: {
+<%= render partial: 'common/page_title', locals: {
         titulo: "<em>#{@person.name}</em>".html_safe } %>
 
 <% content_for :actions do %>
-    <%= render partial: 'common/btn_editar', locals: { recurso: @person } %>
-    <%= render partial: 'common/btn_deletar', locals: { disabled: @participations.any? ? true : false,
+    <%= render partial: 'common/btn_edit', locals: { recurso: @person } %>
+    <%= render partial: 'common/btn_delete', locals: { disabled: @participations.any? ? true : false,
                                                         recurso: @person } %>
 <% end %>
 

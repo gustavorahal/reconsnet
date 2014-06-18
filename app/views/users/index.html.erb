@@ -1,4 +1,4 @@
-<%= render partial: 'common/titulo_pagina', locals: { titulo: 'Usuários' } %>
+<%= render partial: 'common/page_title', locals: { titulo: 'Usuários' } %>
 
 <table class="table table-striped">
   <tr>
@@ -16,8 +16,8 @@
         <td><%= user.email %></td>
         <td><%= user.role %></td>
         <td>
-          <%= render partial: 'common/btn_editar', locals: { recurso: user, size: 'btn-xs' } %>
-          <%= render partial: 'common/btn_deletar', locals: { recurso: user, size: 'btn-xs' } %>
+          <%= render partial: 'common/btn_edit', locals: { recurso: user, size: 'btn-xs' } %>
+          <%= render partial: 'common/btn_delete', locals: { recurso: user, size: 'btn-xs' } %>
         </td>
       </tr>
   <% end %>

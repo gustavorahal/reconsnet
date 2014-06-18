@@ -16,7 +16,7 @@ ReconsNet::Application.routes.draw do
         get 'emails'
       end
     end
-
   end
+  resources :tmks
 
 end

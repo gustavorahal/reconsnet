@@ -7,12 +7,12 @@ class PeopleController < ApplicationController
 
   def new
     @person = Person.new
-    2.times { @person.phone_numbers.build }
-    1.times { @person.addresses.build }
+    @person.phone_numbers.build
+    @person.addresses.build
   end
 
   def create
-    @person = Person.new(secure_params)
+    @person = Person.new secure_params
 
     if @person.save
       redirect_to person_path(@person)
@@ -23,7 +23,7 @@ class PeopleController < ApplicationController
   end
 
   def update
-    @person = Person.find(params[:id])
+    @person = Person.find params[:id]
 
     if @person.update(secure_params)
       redirect_to session[:last_page] || @person
@@ -34,7 +34,7 @@ class PeopleController < ApplicationController
   end
 
   def edit
-    @person = Person.find(params[:id])
+    @person = Person.find params[:id]
     if @person.addresses.empty?
       @person.addresses.build
     end
@@ -46,13 +46,13 @@ class PeopleController < ApplicationController
   end
 
   def show
-    @person = Person.find(params[:id])
-    @participations = Participation.where(person: @person)
+    @person = Person.find params[:id]
+    @participations = @person.participations
   end
 
   def destroy
-    @person = Person.find(params[:id])
-    @participations = Participation.where(person: @person)
+    @person = Person.find params[:id]
+    @participations = @person.participations
     if @participations.any?
       flash.now[:alert] = 'Esta pessoa tem participação em eventos portanto não pode ser deletada'
       render 'show'
@@ -70,8 +70,9 @@ class PeopleController < ApplicationController
                                    :return_to,
                                    :original_updated_at,
                                    addresses_attributes: [:id, :label, :line1, :zip, :city, :state_code,
-                                                          :country_code],
-                                   phone_numbers_attributes: [:id, :label, :number, :phone_type, :provider])
+                                                          :country_code, :_destroy],
+                                   phone_numbers_attributes: [:id, :label, :number, :phone_type,
+                                                              :provider, :_destroy])
   end
 
 

@@ -1,11 +1,11 @@
 
-<%= render partial: 'common/titulo_pagina', locals: {
+<%= render partial: 'common/page_title', locals: {
                                                 titulo: "Evento <em>#{@event.name}</em>".html_safe,
                                                 back_url: events_path } %>
 
 <% content_for :actions do %>
-    <%= render partial: 'common/btn_editar', locals: { recurso: @event } %>
-    <%= render partial: 'common/btn_deletar', locals: { recurso: @event } %>
+    <%= render partial: 'common/btn_edit', locals: { recurso: @event } %>
+    <%= render partial: 'common/btn_delete', locals: { recurso: @event } %>
 <% end %>
 
 
@@ -34,7 +34,7 @@
       <div class="col-lg-6">
         <h4><!-- O hX deve ser o mesmo do titulo da pagina para os dois ficarem alinhados horizontalmente-->
           <div class="pull-right">
-            <%= render partial: 'common/btn_adicionar', locals: { url: new_event_participation_path(@event.id),
+            <%= render partial: 'common/btn_add', locals: { url: new_event_participation_path(@event.id),
                                                                   size: 'btn-sm', recurso: @event } %>
             <%= link_to 'Lista de emails', emails_event_participations_path(@event.id), class: 'btn btn-sm btn-link' %>
           </div>
@@ -63,9 +63,9 @@
             <!--com o cabeçalho-->
             <% if policy(@event).edit? %>
                 <td>
-                  <%= render partial: 'common/btn_editar', locals: { url: edit_event_participation_path(@event, participation),
+                  <%= render partial: 'common/btn_edit', locals: { url: edit_event_participation_path(@event, participation),
                                                                      size: 'btn-xs', recurso: @event } %>
-                  <%= render partial: 'common/btn_deletar', locals: { url: event_participation_path(@event, participation),
+                  <%= render partial: 'common/btn_delete', locals: { url: event_participation_path(@event, participation),
                                                                       size: 'btn-xs', recurso: @event } %>
                 </td>
             <% end %>

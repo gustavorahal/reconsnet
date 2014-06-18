@@ -234,6 +234,42 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: tmks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE tmks (
+    id integer NOT NULL,
+    with_who_id integer NOT NULL,
+    from_who_id integer NOT NULL,
+    event_id integer NOT NULL,
+    "when" timestamp without time zone,
+    contact_type character varying(255),
+    notes character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: tmks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE tmks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: tmks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE tmks_id_seq OWNED BY tmks.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -314,6 +350,13 @@ ALTER TABLE ONLY phone_numbers ALTER COLUMN id SET DEFAULT nextval('phone_number
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY tmks ALTER COLUMN id SET DEFAULT nextval('tmks_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
@@ -355,6 +398,14 @@ ALTER TABLE ONLY people
 
 ALTER TABLE ONLY phone_numbers
     ADD CONSTRAINT phone_numbers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tmks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY tmks
+    ADD CONSTRAINT tmks_pkey PRIMARY KEY (id);
 
 
 --
@@ -415,6 +466,27 @@ CREATE INDEX index_phone_numbers_on_phonable_type_and_phonable_id ON phone_numbe
 
 
 --
+-- Name: index_tmks_on_event_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_tmks_on_event_id ON tmks USING btree (event_id);
+
+
+--
+-- Name: index_tmks_on_from_who_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_tmks_on_from_who_id ON tmks USING btree (from_who_id);
+
+
+--
+-- Name: index_tmks_on_with_who_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_tmks_on_with_who_id ON tmks USING btree (with_who_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -458,4 +530,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140504200029');
 INSERT INTO schema_migrations (version) VALUES ('20140504200030');
 
 INSERT INTO schema_migrations (version) VALUES ('20140504200031');
+
+INSERT INTO schema_migrations (version) VALUES ('20140601175536');
 
