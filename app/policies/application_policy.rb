@@ -1,5 +1,9 @@
-class ApplicationPolicy
-  attr_reader :user, :record
+
+##
+# Classe de permissão base. A ideia é que ela seja super restritiva e seletivamente
+# as subclasses vão relaxando as permissões.
+
+class ApplicationPolicy < Struct.new(:user, :record)
 
   self::Scope = Struct.new(:user, :scope) do
     def resolve
@@ -14,39 +18,32 @@ class ApplicationPolicy
     end
   end
 
-  def initialize(user, record)
-    @user = user
-    @record = record
-  end
-
   def index?
-    true
+    user.volunteer? or user.admin?
   end
 
   def show?
-    scope.where(:id => record.id).exists?
+    user.volunteer? or user.admin?
   end
 
   def create?
-    true
+    user.admin?
   end
 
   def new?
-    true
+    user.admin?
   end
 
   def update?
-    true
+    user.admin?
   end
 
   def edit?
-    #return false if @user.nil?
-    #true if @user.admin?
-    true
+    user.admin?
   end
 
   def destroy?
-    true
+    user.admin?
   end
 
   def scope

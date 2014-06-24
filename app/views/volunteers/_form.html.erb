@@ -1,0 +1,21 @@
+
+<%= bootstrap_form_for @volunteer, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
+
+    <% if @volunteer.errors[:base].present? %>
+        <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo. ' + @volunteer.errors[:base][0] %>
+    <% else %>
+        <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
+    <% end %>
+
+    <%= f.collection_select :person_id, Person.all.order('name'), :id, :name, label: 'Pessoa',
+                            control_col: 'col-sm-3' %>
+    <%= f.date_select :admission, label: 'Admissão' %>
+    <%= f.select :area_of_operation, Volunteer::AREAS, label: 'Área de atuação', control_col: 'col-sm-3' %>
+
+    <%= f.form_group do %>
+        <%= f.submit 'Salvar' %>
+        <%= link_to 'Cancelar', :back, class: 'btn btn-link' %>
+    <% end %>
+
+<% end %>
+

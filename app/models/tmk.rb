@@ -3,16 +3,15 @@
 # Table name: tmks
 #
 #  id           :integer          not null, primary key
-#  with_who_id  :integer
-#  from_who_id  :integer
-#  event_id     :integer
+#  with_who_id  :integer          not null
+#  from_who_id  :integer          not null
+#  event_id     :integer          not null
+#  when         :datetime
 #  contact_type :string(255)
 #  notes        :string(255)
-#  status       :string(255)
 #  created_at   :datetime
 #  updated_at   :datetime
 #
-
 
 class Tmk < ActiveRecord::Base
   belongs_to :with_who, class_name: 'Person', foreign_key: 'with_who_id'

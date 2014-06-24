@@ -20,18 +20,17 @@ class Person < ActiveRecord::Base
   include ConflictResolutionable
 
   # manter em ordem alfabética
-  OCCUPATIONS = %w(Aposentado Dentista Engenheiro Fonoaudiólogo Médico Professor Psicólogo)
-  NATIONALITIES = %w(Argentino Brasileiro Paraguaio)
+  NATIONALITIES = %w(Afegão Alemão Americano Angolano Antiguano Árabe Argélia Argentino Armeno Australiano Austríaco Bahamense Bangladesh Barbadiano Bechuano Belga Belizenho Boliviano Brasileiro Britânico Camaronense Canadense Chileno Chinês Cingalês Colombiano Comorense Costarriquenho Croata Cubano Dinamarquês Dominicana Dominicano Egípcio Equatoriano Escocês Eslovaco Esloveno Espanhol Francês Galês Ganés Granadino Grego Guatemalteco Guianense Guianês Haitiano Holandês Hondurenho Húngaro Iemenita Indiano Indonésio Inglês Iraniano Iraquiano Irlandês Israelita Italiano Jamaicano Japonês Líbio Malaio Marfinense Marroquino Mexicano Moçambicano Neozelandês Nepalês Nicaraguense Nigeriano Norte-coreano Noruego Omanense Palestino Panamenho Paquistanês Paraguaio Peruano Polonês Portorriquenho Português Qatarense Queniano Romeno Ruandês Russo Salvadorenho Santa-lucense São-cristovense São-vicentino Saudita Sérvio Sírio Somali Sueco Suíço Sul-africano Sul-coreano Surinamês Tailandês Timorense Trindadense Turco Ucraniano Ugandense Uruguaio Venezuelano Vietnamita Zimbabuense)
   GENDERS = %w(Masculino Feminino)
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 5 }
   validates :email, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }, allow_blank: true
   validates_inclusion_of :gender, in:  GENDERS, allow_nil: true, allow_blank: true
-  validates_inclusion_of :occupation, in: OCCUPATIONS, allow_nil: true, allow_blank: true
   validates_inclusion_of :nationality, in: NATIONALITIES, allow_nil: true, allow_blank: true
   validate :handle_conflict, only: :update
 
   has_many :events
+  has_one :volunteer
   has_many :participations
   has_many :addresses, as: :addressable, dependent: :destroy
   has_many :phone_numbers, as: :phonable, dependent: :destroy

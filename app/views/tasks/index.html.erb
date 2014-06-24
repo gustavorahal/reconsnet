@@ -5,6 +5,7 @@
     <h4>Cadastro Geral</h4>
     <p>Gerencie e visualize o cadastro de pessoas.</p>
     <p><a class="btn btn-primary" role="button" href="<%= people_path %>">Pessoas &raquo;</a></p>
+    <p><a class="btn btn-primary" role="button" href="<%= volunteers_path %>">Voluntários &raquo;</a></p>
   </div>
 
   <div class="well col-lg-3 tasks-box">
@@ -22,16 +23,16 @@
 
 </div>
 
+<% if current_user.admin? %>
+    <div class='row'>
 
-<div class='row'>
+      <div class="well col-lg-3 tasks-box">
+        <h4>Administrador</h4>
+        <p>Diversas tarefas relacionadas a gestão deste site.</p>
+        <p><a class="btn btn-danger" role="button" href="<%= users_path %>">Usuários &raquo;</a></p>
+      </div>
 
-  <div class="well col-lg-3 tasks-box">
-    <h4>Administrador</h4>
-    <p>Diversas tarefas relacionadas a gestão deste site.</p>
-    <p><a class="btn btn-danger" role="button" href="<%= users_path %>">Usuários &raquo;</a></p>
-  </div>
-
-</div>
-
+    </div>
+<% end %>
 
 

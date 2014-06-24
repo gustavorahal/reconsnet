@@ -1,8 +1,11 @@
 class DivulgacaoController < ApplicationController
 
+  before_action :authenticate_user!
+  after_action :verify_authorized
+
   def index
-    #@alunos = Person.joins(:participations).uniq(:person)
-    @persons = Person.all
+    @people = Person.all
+    authorize @people
   end
 
 end

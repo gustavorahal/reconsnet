@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
+
   before_filter :authenticate_user!
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized, except: [:show]
+
 
   def index
     @users = User.all
@@ -8,46 +11,39 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    unless current_user.admin?
-      unless @user == current_user
-        redirect_to root_path, :alert => "Access denied."
-      end
-    end
   end
-
 
   def edit
-    @user = User.find(params[:id])
-    authorize @user
   end
-
 
   def update
-    @user = User.find(params[:id])
-    authorize @user
-    if @user.update_attributes(secure_params)
-      redirect_to users_path, :notice => "User updated."
+    if @user.update(secure_params)
+      redirect_to users_path, notice: 'Usuário atualizado!'
     else
-      redirect_to users_path, :alert => "Unable to update user."
+      redirect_to users_path, alert:  'Erro atualizando o usuário'
     end
   end
 
+
   def destroy
-    user = User.find(params[:id])
-    authorize user
-    unless user == current_user
-      user.destroy
-      redirect_to users_path, :notice => "User deleted."
+    if @user == current_user
+      redirect_to users_path, alert: 'Não pode deletar a si mesmo'
     else
-      redirect_to users_path, :notice => "Can't delete yourself."
+      @user.destroy
+      redirect_to users_path, notice: 'Usuário deletado'
     end
   end
+
 
   private
 
-  def secure_params
-    params.require(:user).permit(:role)
-  end
+    def set_user
+      @user = User.find params[:id]
+      authorize @user
+    end
+
+    def secure_params
+      params.require(:user).permit(:role, :person_id)
+    end
 
 end

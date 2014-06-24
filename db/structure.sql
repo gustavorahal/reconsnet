@@ -52,9 +52,9 @@ CREATE TABLE addresses (
     label character varying(255),
     line1 character varying(255),
     city character varying(255),
-    state_code character varying(255),
+    state character varying(255),
     zip character varying(255),
-    country_code character varying(255),
+    country character varying(255),
     addressable_id integer,
     addressable_type character varying(255),
     created_at timestamp without time zone,
@@ -288,7 +288,8 @@ CREATE TABLE users (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     name character varying(255),
-    role integer
+    role character varying(255),
+    person_id integer
 );
 
 
@@ -309,6 +310,39 @@ CREATE SEQUENCE users_id_seq
 --
 
 ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: volunteers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE volunteers (
+    id integer NOT NULL,
+    person_id integer NOT NULL,
+    admission date,
+    area_of_operation character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: volunteers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE volunteers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: volunteers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE volunteers_id_seq OWNED BY volunteers.id;
 
 
 --
@@ -358,6 +392,13 @@ ALTER TABLE ONLY tmks ALTER COLUMN id SET DEFAULT nextval('tmks_id_seq'::regclas
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY volunteers ALTER COLUMN id SET DEFAULT nextval('volunteers_id_seq'::regclass);
 
 
 --
@@ -414,6 +455,14 @@ ALTER TABLE ONLY tmks
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: volunteers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY volunteers
+    ADD CONSTRAINT volunteers_pkey PRIMARY KEY (id);
 
 
 --
@@ -494,10 +543,24 @@ CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
+-- Name: index_users_on_person_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_users_on_person_id ON users USING btree (person_id);
+
+
+--
 -- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
+
+
+--
+-- Name: index_volunteers_on_person_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_volunteers_on_person_id ON volunteers USING btree (person_id);
 
 
 --
@@ -532,4 +595,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140504200030');
 INSERT INTO schema_migrations (version) VALUES ('20140504200031');
 
 INSERT INTO schema_migrations (version) VALUES ('20140601175536');
+
+INSERT INTO schema_migrations (version) VALUES ('20140618034452');
+
+INSERT INTO schema_migrations (version) VALUES ('20140624000637');
 

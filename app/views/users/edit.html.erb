@@ -6,14 +6,18 @@
 
     <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
 
-    <%= f.static_control nil, label: 'Evento' do %>
+    <%= f.static_control nil, label: 'Usuário' do %>
         <%= @user.name %>
     <% end %>
 
-    <%= f.collection_select :role, User::ROLES, :to_s, :humanize, control_col: 'col-sm-2' %>
+    <%= f.collection_select :person_id, Person.all.order('name'), :id, :name, label: 'Pessoa',
+                            control_col: 'col-sm-3' %>
 
-    <%= f.submit 'Salvar' %>
+    <%= f.select :role, User::ROLES, include_blank: true, label: 'Papel', control_col: 'col-sm-2' %>
 
-    <%= link_to 'Cancelar', users_path, class: 'btn btn-link' %>
+    <%= f.form_group do %>
+        <%= f.submit 'Salvar' %>
+        <%= link_to 'Cancelar', users_path, class: 'btn btn-link' %>
+    <% end %>
 
 <% end %>

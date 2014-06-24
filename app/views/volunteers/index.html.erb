@@ -1,0 +1,31 @@
+<%= render 'common/page_title', titulo: 'Voluntários' %>
+
+<% content_for :actions do %>
+    <%= render 'common/btn_add', recurso: Volunteer.new %>
+<% end %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Pessoa</th>
+      <th>Data de admissão</th>
+      <th>Área de atuação</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @volunteers.each do |volunteer| %>
+      <tr>
+        <td><%= volunteer.person %></td>
+        <td><%= date_display volunteer.admission %></td>
+        <td><%= volunteer.area_of_operation %></td>
+        <td>
+          <%= render 'common/btn_edit', recurso: volunteer, size: 'btn-xs', btn_label: '' %>
+          <%= render 'common/btn_delete', recurso: volunteer, size: 'btn-xs', btn_label: '' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

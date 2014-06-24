@@ -1,5 +1,7 @@
 ReconsNet::Application.routes.draw do
 
+  resources :volunteers
+
   devise_for :users, :controllers => { :registrations => 'registrations' }
 
   root to: 'tasks#index'

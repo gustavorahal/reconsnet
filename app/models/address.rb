@@ -6,9 +6,9 @@
 #  label            :string(255)
 #  line1            :string(255)
 #  city             :string(255)
-#  state_code       :string(255)
+#  state            :string(255)
 #  zip              :string(255)
-#  country_code     :string(255)
+#  country          :string(255)
 #  addressable_id   :integer
 #  addressable_type :string(255)
 #  created_at       :datetime

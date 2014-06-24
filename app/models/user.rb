@@ -16,7 +16,8 @@
 #  created_at             :datetime
 #  updated_at             :datetime
 #  name                   :string(255)
-#  role                   :integer
+#  role                   :string(255)
+#  person_id              :integer
 #
 
 class User < ActiveRecord::Base
@@ -24,6 +25,9 @@ class User < ActiveRecord::Base
   ROLES = %w(Admin Financeiro Voluntariado)
 
   validates_presence_of :name
+  validates_inclusion_of :role, in: ROLES, allow_nil: true, allow_blank: true
+
+  belongs_to :person
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -36,6 +40,10 @@ class User < ActiveRecord::Base
 
   def admin?
     role == 'Admin'
+  end
+
+  def volunteer?
+    person.volunteer.present? if person.present?
   end
 
 end
