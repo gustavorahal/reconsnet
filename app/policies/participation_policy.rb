@@ -1,0 +1,3 @@
+class ParticipationPolicy < ApplicationPolicy
+
+end

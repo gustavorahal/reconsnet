@@ -6,6 +6,7 @@ FactoryGirl.define do
     role 'Admin'
     password 'changeme'
     password_confirmation 'changeme'
+    person { |c| c.association(:person) }
     # required if the Devise Confirmable module is used
     # confirmed_at Time.now
   end

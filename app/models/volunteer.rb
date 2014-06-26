@@ -23,7 +23,7 @@ Parapedagogia
 Parapercepciografia
 Voluntariado)
 
-  validates_presence_of :person
+  validates :person, :person_id, presence: true, uniqueness: true
 
   belongs_to :person
 

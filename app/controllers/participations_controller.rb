@@ -24,7 +24,7 @@ class ParticipationsController < ApplicationController
                                        person_id: data[:person],
                                        status: data[:status],
                                        participation_type: data[:participation_type])
-
+    authorize @participation
     if @participation.save
       redirect_to event_path(@participation.event), notice: 'Participação adicionada com sucesso!'
     else

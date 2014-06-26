@@ -9,9 +9,6 @@ class VolunteersController < ApplicationController
     authorize @volunteers
   end
 
-  def show
-  end
-
   def new
     @volunteer = Volunteer.new
     authorize @volunteer
@@ -25,7 +22,7 @@ class VolunteersController < ApplicationController
     authorize @volunteer
 
     if @volunteer.save
-      redirect_to @volunteer, notice: 'Volunteer was successfully created.'
+      redirect_to volunteers_path, notice: 'Voluntário adicionado com sucesso.'
     else
       render action: 'new'
     end
@@ -33,7 +30,7 @@ class VolunteersController < ApplicationController
 
   def update
     if @volunteer.update(volunteer_params)
-      redirect_to @volunteer, notice: 'Volunteer was successfully updated.'
+      redirect_to @volunteer
     else
       render action: 'edit'
     end

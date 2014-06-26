@@ -20,6 +20,7 @@ class TmksController < ApplicationController
 
   def create
     @tmk = Tmk.new secure_params
+    authorize @tmk
 
     if @tmk.save
       redirect_to tmks_path

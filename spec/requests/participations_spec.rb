@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe 'Participations' do
 
+  before :each do
+    sign_in(create :user)
+  end
+
   it 'adiciona participante' do
     event = create :event
     person = create :person

@@ -30,7 +30,7 @@ class Person < ActiveRecord::Base
   validate :handle_conflict, only: :update
 
   has_many :events
-  has_one :volunteer
+  has_one :volunteer, dependent: :destroy
   has_many :participations
   has_many :addresses, as: :addressable, dependent: :destroy
   has_many :phone_numbers, as: :phonable, dependent: :destroy
@@ -47,7 +47,7 @@ class Person < ActiveRecord::Base
   def self.text_search(query)
     if query.present?
       joins("LEFT JOIN phone_numbers ON phone_numbers.phonable_id = people.id AND phone_numbers.phonable_type = 'Person'").
-          where('name ilike :q or email ilike :q or occupation ilike :q or phone_numbers.number ilike :q', q: "%#{query}%").references(:phone_numbers).uniq
+          where('name ilike :q or email ilike :q or occupation ilike :q or phone_numbers.number ilike :q', q: "%#{query}%").references(:phone_numbers).group('people.id')
     else
       includes(:phone_numbers, :addresses).all
     end

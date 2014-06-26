@@ -6,7 +6,7 @@ class PeopleController < ApplicationController
 
   def index
     @query = params[:query]
-    @people = Person.text_search(params[:query]).order('LOWER(name)').page(params[:page]).per(15)
+    @people = Person.text_search(params[:query]).order('LOWER(people.name)').page(params[:page]).per(15)
     authorize @people
   end
 
@@ -33,6 +33,9 @@ class PeopleController < ApplicationController
   end
 
   def create
+    @person = Person.new secure_params
+    authorize @person
+
     if @person.save
       redirect_to person_path(@person)
     else
@@ -42,7 +45,7 @@ class PeopleController < ApplicationController
 
   def update
     if @person.update(secure_params)
-      redirect_to session[:last_page] || @person
+      redirect_to session[:last_page] || person_path(@person)
     else
       render 'edit'
     end
