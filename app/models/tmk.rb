@@ -32,7 +32,7 @@ class Tmk < ActiveRecord::Base
     if query.present?
       joins('LEFT JOIN people ON people.id = tmks.with_who_id OR people.id = tmks.from_who_id').
       joins('LEFT JOIN events ON events.id = tmks.event_id').
-          where('people.name ilike :q OR status ilike :q OR events.name ilike :q OR notes ilike :q', q: "%#{query}%").references(:people, :events).uniq
+          where('people.name ilike :q OR contact_type ilike :q OR events.name ilike :q OR notes ilike :q', q: "%#{query}%").references(:people, :events).group('tmks.id')
     else
       joins(:with_who, :event).all
     end

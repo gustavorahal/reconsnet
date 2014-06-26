@@ -47,6 +47,13 @@ FactoryGirl.define do
     participation_type 'Professor'
   end
 
+  factory :tmk do |tmk|
+    with_who { |c| c.association(:person) }
+    from_who { |c| c.association(:person) }
+    event { |c| c.association(:event) }
+    tmk.when Time.now
+    contact_type 'Telefônico'
+  end
 
   ## This will use the User class (Admin would have been guessed)
   #factory :admin, class: User do
