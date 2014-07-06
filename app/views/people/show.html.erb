@@ -9,7 +9,7 @@
 
 <address>
   <%= @person.name %> (<a href="mailto:#"><%= @person.email %></a>)
-  <%= '<small class="text-muted">Não deseja receber divulgação por email<small>'.html_safe unless @person.marketing %>
+  <%= '<small class="text-muted">Não deseja receber divulgação por email</small>'.html_safe unless @person.marketing %>
   <br>
 
   <% if @person.gender.present? %>
