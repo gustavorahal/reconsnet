@@ -1,7 +1,7 @@
-<%= render partial: 'common/page_title', locals: { titulo: 'Contatos TMK' } %>
+<%= render 'common/page_title', titulo: 'Contatos TMK' %>
 
 <% content_for :actions do %>
-    <%= render partial: 'common/btn_add', locals: { url: new_tmk_path, recurso: Tmk.new } %>
+    <%= render 'common/btn_add', url: new_tmk_path, resource: Tmk.new %>
 <% end %>
 
 <%= form_tag '/tmks', method: :get do %>
@@ -40,10 +40,10 @@
         <td><%= tmk.contact_type %></td>
         <td><%= tmk.from_who.name %></td>
         <td><%= date_display tmk.when %></td>
-        <td><%= render partial: 'common/btn_edit', locals: { recurso: tmk,
-                                                               size: 'btn-xs', btn_label: '' } %>
-          <%= render partial: 'common/btn_delete', locals: { recurso: tmk,
-                                                              size: 'btn-xs', btn_label: '' } %>
+        <td><%= render 'common/btn_edit', resource: tmk,
+                                                               size: 'btn-xs', btn_label: '' %>
+          <%= render 'common/btn_delete', resource: tmk,
+                                                              size: 'btn-xs', btn_label: '' %>
         </td>
       </tr>
   <% end %>

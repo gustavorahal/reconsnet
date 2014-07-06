@@ -3,7 +3,7 @@ FactoryGirl.define do
   factory :user do
     name 'Test User'
     email 'example@example.com'
-    role 'Admin'
+    group 'Admin'
     password 'changeme'
     password_confirmation 'changeme'
     person { |c| c.association(:person) }
@@ -15,6 +15,12 @@ FactoryGirl.define do
     sequence(:name) { |n| "João n. #{n}" }
     sequence(:email) { |n| "joao#{n}@email.com" }
     gender 'Masculino'
+  end
+
+  factory :volunteer do
+    person { |c| c.association(:person) }
+    admission { Time.now }
+    area_of_operation 'Voluntariado'
   end
 
   factory :phone_number do

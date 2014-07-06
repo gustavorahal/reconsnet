@@ -1,14 +1,10 @@
 ReconsNet::Application.routes.draw do
 
-  resources :volunteers
+  root to: 'application#index'
 
   devise_for :users, :controllers => { :registrations => 'registrations' }
 
-  root to: 'tasks#index'
-
-  get 'tasks', to: 'tasks#index'
-
-  get 'divulgacao', to: 'divulgacao#index'
+  get 'marketing', to: 'marketing#index'
 
   resources :people
   resources :users
@@ -20,5 +16,6 @@ ReconsNet::Application.routes.draw do
     end
   end
   resources :tmks
+  resources :volunteers
 
 end

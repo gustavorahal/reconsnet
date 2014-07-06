@@ -6,9 +6,10 @@ class ParticipationsController < ApplicationController
   after_action :verify_authorized
 
   def new
-    @event = Event.find(params[:event_id])
+    @event = Event.find params[:event_id]
     authorize @event
     @participation = Participation.new
+    authorize @participation
 
     participantes = Participation.where(event: @event)
     # Exclua as pessoas que já fazem parte do evento
@@ -48,7 +49,8 @@ class ParticipationsController < ApplicationController
 
   def emails
     @event = Event.find(params[:event_id])
-    @participations = Participation.includes(:person, :event).where(event: @event).order('event.start DESC')
+    authorize @event
+    @people = Person.joins(:participations).where('participations.event_id = ?', @event.id).uniq
   end
 
   private

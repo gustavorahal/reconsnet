@@ -1,16 +1,16 @@
-<%= render partial: 'common/back_link', locals: { destino: 'Pessoas', url: people_path(page: params[:page]) } %>
-
-<%= render partial: 'common/page_title', locals: {
-        titulo: "<em>#{@person.name}</em>".html_safe } %>
+<%= render 'common/back_link', destino: 'Pessoas', url: people_path(page: params[:page]) %>
+<%= render 'common/page_title', titulo: "<em>#{@person.name}</em>".html_safe %>
 
 <% content_for :actions do %>
-    <%= render partial: 'common/btn_edit', locals: { recurso: @person } %>
-    <%= render partial: 'common/btn_delete', locals: { disabled: @participations.any? ? true : false,
-                                                        recurso: @person } %>
+    <%= render 'common/btn_edit', resource: @person %>
+    <%= render 'common/btn_delete', disabled: @participations.any? ? true : false,
+                                                        resource: @person %>
 <% end %>
 
 <address>
-  <%= @person.name %> (<a href="mailto:#"><%= @person.email %></a>)<br>
+  <%= @person.name %> (<a href="mailto:#"><%= @person.email %></a>)
+  <%= '<small class="text-muted">Não deseja receber divulgação por email<small>'.html_safe unless @person.marketing %>
+  <br>
 
   <% if @person.gender.present? %>
     <%= @person.gender %><br>

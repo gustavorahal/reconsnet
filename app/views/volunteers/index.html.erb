@@ -1,7 +1,7 @@
 <%= render 'common/page_title', titulo: 'Voluntários' %>
 
 <% content_for :actions do %>
-    <%= render 'common/btn_add', recurso: Volunteer.new %>
+    <%= render 'common/btn_add', resource: Volunteer.new %>
 <% end %>
 
 <table class="table table-striped">
@@ -21,8 +21,8 @@
         <td><%= date_display volunteer.admission %></td>
         <td><%= volunteer.area_of_operation %></td>
         <td>
-          <%= render 'common/btn_edit', recurso: volunteer, size: 'btn-xs', btn_label: '' %>
-          <%= render 'common/btn_delete', recurso: volunteer, size: 'btn-xs', btn_label: '' %>
+          <%= render 'common/btn_edit', resource: volunteer, size: 'btn-xs', btn_label: '' %>
+          <%= render 'common/btn_delete', resource: volunteer, size: 'btn-xs', btn_label: '' %>
         </td>
       </tr>
     <% end %>

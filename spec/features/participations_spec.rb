@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'Participations' do
 
@@ -14,6 +14,16 @@ describe 'Participations' do
     select 'Inscrito', from: 'Status'
     select 'Professor', from: 'Tipo de participação'
     click_on 'Salvar'
+  end
+
+  it 'visualiza lista de emails de participantes de um evento', underdev: true do
+    event = create :event
+    part1 = create :participation, event: event
+    part2 = create :participation, event: event
+    visit event_path(event)
+    click_on 'Lista de emails'
+    expect(page).to have_content part1.person.email
+    expect(page).to have_content part2.person.email
   end
 
 end

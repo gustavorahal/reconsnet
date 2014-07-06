@@ -23,20 +23,6 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
---
--- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS hstore WITH SCHEMA public;
-
-
---
--- Name: EXTENSION hstore; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs';
-
-
 SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
@@ -160,12 +146,11 @@ CREATE TABLE people (
     gender character varying(255),
     email character varying(255),
     date_of_birth date,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
     occupation character varying(255),
     nationality character varying(255),
     marketing boolean,
-    marketing_optout hstore
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -288,7 +273,7 @@ CREATE TABLE users (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     name character varying(255),
-    role character varying(255),
+    "group" character varying(255),
     person_id integer
 );
 
@@ -591,8 +576,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140330221728');
 INSERT INTO schema_migrations (version) VALUES ('20140504200029');
 
 INSERT INTO schema_migrations (version) VALUES ('20140504200030');
-
-INSERT INTO schema_migrations (version) VALUES ('20140504200031');
 
 INSERT INTO schema_migrations (version) VALUES ('20140601175536');
 

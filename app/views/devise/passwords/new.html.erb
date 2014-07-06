@@ -1,5 +1,5 @@
 
-<%= render partial: 'common/page_title', locals: { titulo: 'Esqueceu sua senha?' } %>
+<%= render 'common/page_title', titulo: 'Esqueceu sua senha?' %>
 
 
 <%= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post },

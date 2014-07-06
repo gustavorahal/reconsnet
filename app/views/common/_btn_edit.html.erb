@@ -1,9 +1,10 @@
 <% size = local_assigns.fetch :size, '' %>
 <% disabled = local_assigns.fetch :disabled, false %>
 <% btn_label = local_assigns.fetch :btn_label, 'Editar' %>
-<% url = local_assigns.fetch :url, polymorphic_path(recurso, action: :edit) %>
+<% url = local_assigns.fetch :url, false %>
+<% url = polymorphic_path(resource, action: :edit) unless url %>
 
-<% if policy(recurso).edit? %>
+<% if policy(resource).edit? %>
     <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span> #{btn_label}".html_safe,
                 url, class: "btn #{size} btn-primary", disabled: disabled %>
 <% end %>

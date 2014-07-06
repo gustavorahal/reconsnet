@@ -1,8 +1,8 @@
 
-<%= render partial: 'common/page_title', locals: { titulo: 'Pessoas' } %>
+<%= render 'common/page_title', titulo: 'Pessoas' %>
 
 <% content_for :actions do %>
-    <%= render partial: 'common/btn_add', locals: { recurso: Person.new } %>
+    <%= render 'common/btn_add', resource: Person.new %>
 <% end %>
 
 
@@ -40,10 +40,10 @@
           <% phones = person.phone_numbers.map { |phone| "#{phone.number.phony_formatted}" } %>
           <%= phones.join(' | ') %>
         </td>
-        <td><%= render partial: 'common/btn_edit', locals: { recurso: person,
-                                                               size: 'btn-xs', btn_label: '' } %>
-          <%= render partial: 'common/btn_delete', locals: { recurso: person,
-                                                             size: 'btn-xs', btn_label: '' } %>
+        <td><%= render 'common/btn_edit', resource: person,
+                                                               size: 'btn-xs', btn_label: '' %>
+          <%= render 'common/btn_delete', resource: person,
+                                                             size: 'btn-xs', btn_label: '' %>
         </td>
       </tr>
   <% end %>

@@ -72,7 +72,7 @@ class PeopleController < ApplicationController
 
     def secure_params
       params.require(:person).permit(:name, :email, :gender, :date_of_birth, :occupation, :nationality,
-                                     :return_to,
+                                     :return_to, :marketing,
                                      :original_updated_at,
                                      addresses_attributes: [:id, :label, :line1, :zip, :city, :state_code,
                                                             :country_code, :_destroy],

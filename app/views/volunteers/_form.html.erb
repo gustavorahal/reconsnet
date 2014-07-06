@@ -8,9 +8,10 @@
     <% end %>
 
     <%= f.collection_select :person_id, Person.all.order('name'), :id, :name, label: 'Pessoa',
-                            control_col: 'col-sm-3' %>
+                            control_col: 'col-sm-4' %>
     <%= f.date_select :admission, label: 'Admissão' %>
-    <%= f.select :area_of_operation, Volunteer::AREAS, label: 'Área de atuação', control_col: 'col-sm-3' %>
+    <%= f.select :area_of_operation, Volunteer::AREAS, label: 'Área de atuação',
+                 control_col: 'col-sm-4' %>
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>

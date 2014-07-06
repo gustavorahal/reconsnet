@@ -16,16 +16,16 @@
 #  created_at             :datetime
 #  updated_at             :datetime
 #  name                   :string(255)
-#  role                   :string(255)
+#  group                  :string(255)
 #  person_id              :integer
 #
 
 class User < ActiveRecord::Base
 
-  ROLES = %w(Admin Financeiro Voluntariado)
+  GROUPS = %w(Admin) + Volunteer::AREAS
 
   validates_presence_of :name
-  validates_inclusion_of :role, in: ROLES, allow_nil: true, allow_blank: true
+  validates_inclusion_of :group, in: GROUPS, allow_nil: true, allow_blank: true
 
   belongs_to :person
 
@@ -34,16 +34,30 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  after_create :find_and_set_person
+
   def to_s
     "#{name}"
   end
 
   def admin?
-    role == 'Admin'
+    group == 'Admin'
   end
 
   def volunteer?
     person.volunteer.present? if person.present?
   end
+
+
+  private
+
+    def find_and_set_person
+      p = Person.find_by(email: email)
+      if p
+        self.person = p
+        save
+      end
+    end
+
 
 end

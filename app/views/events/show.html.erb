@@ -1,11 +1,9 @@
 
-<%= render partial: 'common/page_title', locals: {
-                                                titulo: "Evento <em>#{@event.name}</em>".html_safe,
-                                                back_url: events_path } %>
+<%= render 'common/page_title', titulo: "Evento <em>#{@event.name}</em>".html_safe, back_url: events_path  %>
 
 <% content_for :actions do %>
-    <%= render partial: 'common/btn_edit', locals: { recurso: @event } %>
-    <%= render partial: 'common/btn_delete', locals: { recurso: @event } %>
+    <%= render 'common/btn_edit', resource: @event %>
+    <%= render 'common/btn_delete', resource: @event %>
 <% end %>
 
 
@@ -34,8 +32,8 @@
       <div class="col-lg-6">
         <h4><!-- O hX deve ser o mesmo do titulo da pagina para os dois ficarem alinhados horizontalmente-->
           <div class="pull-right">
-            <%= render partial: 'common/btn_add', locals: { url: new_event_participation_path(@event.id),
-                                                                  size: 'btn-sm', recurso: @event } %>
+            <%= render 'common/btn_add', url: new_event_participation_path(@event.id),
+                                                                  size: 'btn-sm', resource: @event %>
             <%= link_to 'Lista de emails', emails_event_participations_path(@event.id), class: 'btn btn-sm btn-link' %>
           </div>
         </h4>
@@ -50,7 +48,7 @@
         <th>Participação</th>
         <th>Status</th>
         <% if policy(@event).edit? %>
-            <th>Ações</th>
+            <th></th>
         <% end %>
       </tr>
       <% @participations.each do |participation| %>
@@ -63,10 +61,10 @@
             <!--com o cabeçalho-->
             <% if policy(@event).edit? %>
                 <td>
-                  <%= render partial: 'common/btn_edit', locals: { url: edit_event_participation_path(@event, participation),
-                                                                     size: 'btn-xs', recurso: @event } %>
-                  <%= render partial: 'common/btn_delete', locals: { url: event_participation_path(@event, participation),
-                                                                      size: 'btn-xs', recurso: @event } %>
+                  <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
+                                                                     size: 'btn-xs', resource: participation %>
+                  <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
+                                                                      size: 'btn-xs', resource: participation %>
                 </td>
             <% end %>
           </tr>

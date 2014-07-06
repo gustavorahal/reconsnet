@@ -1,8 +1,8 @@
 
-<%= render partial: 'common/page_title', locals: { titulo: 'Eventos' } %>
+<%= render 'common/page_title', titulo: 'Eventos' %>
 
 <% content_for :actions do %>
-    <%= render partial: 'common/btn_add', locals: { url: new_event_path, recurso: Event.new } %>
+    <%= render 'common/btn_add', url: new_event_path, resource: Event.new %>
 <% end %>
 
 

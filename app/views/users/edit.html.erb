@@ -1,5 +1,5 @@
 
-<%= render partial: 'common/page_title', locals: { titulo: 'Editar usuário' } %>
+<%= render 'common/page_title', titulo: 'Editar usuário' %>
 
 
 <%= bootstrap_form_for @user, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
@@ -11,9 +11,11 @@
     <% end %>
 
     <%= f.collection_select :person_id, Person.all.order('name'), :id, :name, label: 'Pessoa',
-                            control_col: 'col-sm-3' %>
+                            control_col: 'col-sm-4', help: 'Associe uma pessoa a este perfil de usuário' %>
 
-    <%= f.select :role, User::ROLES, include_blank: true, label: 'Papel', control_col: 'col-sm-2' %>
+    <%= f.select :group, User::GROUPS, include_blank: true, label: 'Grupo', control_col: 'col-sm-4',
+                         help: 'São as mesmas áreas de atuação do voluntariado. Alterações podem ser feitas aqui
+                         ou na edição do voluntario (caso usuário seja um).' %>
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>

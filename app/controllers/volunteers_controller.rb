@@ -30,7 +30,7 @@ class VolunteersController < ApplicationController
 
   def update
     if @volunteer.update(volunteer_params)
-      redirect_to @volunteer
+      redirect_to volunteers_path
     else
       render action: 'edit'
     end

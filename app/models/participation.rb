@@ -25,7 +25,7 @@ Professor\ Temático)
 
   STATUS = %w(Inscrito Interessado Pré-Inscrito)
 
-
+  validates_uniqueness_of :person, scope: :event
   validates :participation_type, inclusion: { in: TYPES }
   validates :status, inclusion: { in: STATUS }
 

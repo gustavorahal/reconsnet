@@ -1,5 +1,5 @@
 
-<%= render partial: 'common/page_title', locals: { titulo: 'Login' } %>
+<%= render 'common/page_title', titulo: 'Login' %>
 
 <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name),
                        layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-4') do |f| %>

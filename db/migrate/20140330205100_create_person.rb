@@ -5,6 +5,9 @@ class CreatePerson < ActiveRecord::Migration
       t.string :gender
       t.string :email
       t.date :date_of_birth
+      t.string :occupation
+      t.string :nationality
+      t.boolean :marketing
 
       t.timestamps
     end

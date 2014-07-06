@@ -1,4 +1,4 @@
-<%= render partial: 'common/page_title', locals: { titulo: 'Usuários' } %>
+<%= render 'common/page_title', titulo: 'Usuários' %>
 
 <table class="table table-striped">
   <tr>
@@ -6,7 +6,7 @@
     <th>Nome</th>
     <th>Email</th>
     <th>Pessoa</th>
-    <th>Papel</th>
+    <th>Grupo</th>
     <th>Ações</th>
   </tr>
 
@@ -16,10 +16,10 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= user.person.present? ? user.person.name : '' %></td>
-        <td><%= user.role %></td>
+        <td><%= user.group %></td>
         <td>
-          <%= render partial: 'common/btn_edit', locals: { recurso: user, size: 'btn-xs' } %>
-          <%= render partial: 'common/btn_delete', locals: { recurso: user, size: 'btn-xs' } %>
+          <%= render 'common/btn_edit', resource: user, size: 'btn-xs' %>
+          <%= render 'common/btn_delete', resource: user, size: 'btn-xs' %>
         </td>
       </tr>
   <% end %>
