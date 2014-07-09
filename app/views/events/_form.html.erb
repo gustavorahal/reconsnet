@@ -9,8 +9,18 @@
 
     <%= f.hidden_field :original_updated_at %>
 
-    <%= f.text_field :name, label: 'Nome' %>
-    <%= f.select :event_type, Event::TYPES, label: 'Tipo de evento', control_col: 'col-sm-3' %>
+    <% if @activity %>
+        <%= hidden_field_tag :activity_id, @activity.id %>
+        <%= f.static_control nil, label: 'Atividade' do %>
+            <%= @activity.name %>
+        <% end %>
+    <% else %>
+        <%= f.collection_select :activity_id, Activity.all.order('name'), :id, :name, label: 'Atividade',
+                                control_col: 'col-sm-4' %>
+    <% end %>
+
+    <%= f.text_field :name, label: 'Nome', placeholder: @activity ? @activity.name : '',
+                     help: '<small>Nome deste evento. Como exemplo, para a atividade <em>"Reunião Técnico Científica"</em>, um nome de evento possível é <em>"Reunião sobre os Anais Simpósio"</em>. Se estiver em branco o nome do evento será o mesmo da atividade</small>.'.html_safe %>
     <%= f.text_area :description, label: 'Descrição' %>
     <%= f.text_field :start, label: 'Início', class: 'datetimepicker', control_col: 'col-sm-3' %>
     <%= f.text_field :finish, label: 'Fim', class: 'datetimepicker', control_col: 'col-sm-3' %>

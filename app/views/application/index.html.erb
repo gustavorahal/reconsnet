@@ -1,38 +1,21 @@
 
 <div class='row'>
 
-  <div class="well col-lg-3 tasks-box">
-    <h4>Cadastro Geral</h4>
-    <p>Gerencie e visualize o cadastro de pessoas.</p>
-    <p><a class="btn btn-primary" role="button" href="<%= people_path %>">Pessoas &raquo;</a></p>
-    <p><a class="btn btn-primary" role="button" href="<%= volunteers_path %>">Voluntários &raquo;</a></p>
+  <div class="well col-lg-6 tasks-box">
+    <h4>Próximos eventos</h4>
+    <% @events.each do |event| %>
+     <div><%= link_to event.name, event_path(event) %> <small>começa em <%= time_ago_in_words event.start %></small></div>
+    <% end %>
   </div>
 
-  <div class="well col-lg-3 tasks-box">
-    <h4>Eventos</h4>
-    <p>Adicione eventos, gerencie participações etc...</p>
-    <p><a class="btn btn-primary" role="button" href="<%= events_path %>">Eventos &raquo;</a></p>
-  </div>
-
-  <div class="well col-lg-3 tasks-box">
-    <h4>Divulgação</h4>
-    <p>Listas de email para divulgação dos cursos e eventos da <em>Reconscientia</em>.</p>
-    <p><a class="btn btn-primary" role="button" href="<%= marketing_path %>">Divulgação &raquo;</a></p>
-    <p><a class="btn btn-primary" role="button" href="<%= tmks_path %>">TMK &raquo;</a></p>
+  <div class="well col-lg-5 tasks-box">
+    <h4>Alunos para o curso <%= @next_course.name %></h4>
+    <% @next_course.participations.each do |participant| %>
+        <div><%= link_to participant.person.name, person_path(participant.person) %>
+          <small><%= participant.status.downcase %> a <%= time_ago_in_words participant.updated_at %></small>
+        </div>
+    <% end %>
   </div>
 
 </div>
-
-<% if current_user and current_user.admin? %>
-    <div class='row'>
-
-      <div class="well col-lg-3 tasks-box">
-        <h4>Administrador</h4>
-        <p>Diversas tarefas relacionadas a gestão deste site.</p>
-        <p><a class="btn btn-danger" role="button" href="<%= users_path %>">Usuários &raquo;</a></p>
-      </div>
-
-    </div>
-<% end %>
-
 

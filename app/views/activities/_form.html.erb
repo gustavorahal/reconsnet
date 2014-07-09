@@ -1,0 +1,26 @@
+
+<%= bootstrap_form_for @activity, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f| %>
+
+    <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
+
+    <%= f.text_field :name, label: 'Nome', control_col: 'col-sm-5' %>
+    <%= f.text_field :summary, label: 'Sumário', control_col: 'col-sm-8',
+                     help: 'Descreva em poucas palavras o que é esta atividade' %>
+    <%= f.select :activity_type, Activity::TYPES, label: 'Tipo de atividade', control_col: 'col-sm-3' %>
+    <!-- Por ora não queremos aninhar mais que um nível as atividades portanto excluir atividades
+    que tem um pai -->
+    <%= f.form_group do %>
+        <%= f.check_box :internal_only, label: 'Atividade restrita a voluntários' %>
+    <% end %>
+    <%= f.collection_select :parent_id, Activity.where(parent: nil).order('name'), :id, :name, label: 'Atividade pai',
+                            control_col: 'col-sm-4', include_blank: true,
+                            help: 'Caso esta atividade pertença a uma outra superior, marque aqui.' %>
+    <%= f.text_area :description, id: 'activity-description', rows: 20, label: 'Descrição',
+                    help: 'Descreva de forma completa e exaustiva esta atividade'%>
+
+    <%= f.form_group do %>
+        <%= f.submit 'Salvar' %>
+        <%= link_to 'Cancelar', :back, class: 'btn btn-link' %>
+    <% end %>
+
+<% end %>

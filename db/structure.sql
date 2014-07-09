@@ -30,6 +30,42 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: activities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE activities (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    summary character varying(255) NOT NULL,
+    description text,
+    activity_type character varying(255),
+    parent_id integer,
+    internal_only boolean DEFAULT false,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE activities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE activities_id_seq OWNED BY activities.id;
+
+
+--
 -- Name: addresses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -113,11 +149,11 @@ CREATE TABLE events (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
     description character varying(255),
-    event_type character varying(255),
     start timestamp without time zone NOT NULL,
     finish timestamp without time zone NOT NULL,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    activity_id integer
 );
 
 
@@ -372,6 +408,13 @@ ALTER SEQUENCE volunteers_id_seq OWNED BY volunteers.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY activities ALTER COLUMN id SET DEFAULT nextval('activities_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq'::regclass);
 
 
@@ -429,6 +472,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 --
 
 ALTER TABLE ONLY volunteers ALTER COLUMN id SET DEFAULT nextval('volunteers_id_seq'::regclass);
+
+
+--
+-- Name: activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY activities
+    ADD CONSTRAINT activities_pkey PRIMARY KEY (id);
 
 
 --
@@ -651,4 +702,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140618034452');
 INSERT INTO schema_migrations (version) VALUES ('20140624000637');
 
 INSERT INTO schema_migrations (version) VALUES ('20140707171124');
+
+INSERT INTO schema_migrations (version) VALUES ('20140708165800');
+
+INSERT INTO schema_migrations (version) VALUES ('20140708171211');
 

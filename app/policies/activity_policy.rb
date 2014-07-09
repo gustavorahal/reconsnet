@@ -1,0 +1,4 @@
+class ActivityPolicy < ApplicationPolicy
+
+
+end

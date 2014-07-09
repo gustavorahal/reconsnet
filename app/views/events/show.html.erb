@@ -1,5 +1,5 @@
 
-<%= render 'common/page_title', titulo: "<em>#{@event.name}</em>".html_safe, back_url: events_path  %>
+<%= render 'common/page_title', titulo: "Evento <em>#{@event.name}</em>".html_safe %>
 
 <% content_for :actions do %>
     <%= render 'common/btn_edit', resource: @event %>
@@ -8,8 +8,8 @@
 
 
 <dl class="dl-horizontal">
-  <dt>Tipo:</dt>
-  <dd><%= @event.event_type %></dd>
+  <dt>Atividade:</dt>
+  <dd><%= activity_link_display @event.activity %></dd>
 
   <dt>Descrição:</dt>
   <dd><%= @event.description %></dd>

@@ -18,5 +18,6 @@ ReconsNet::Application.routes.draw do
   resources :tmks
   resources :volunteers
   resources :assets
+  resources :activities
 
 end

@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pundit
 
+  before_action :set_menu_values, except: [:create, :update, :destroy]
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -9,10 +10,16 @@ class ApplicationController < ActionController::Base
 
 
   def index
+    @events = Event.all
+    @next_course = Event.take
   end
 
 
   private
+
+    def set_menu_values
+      @activities = Activity.all
+    end
 
     def user_not_authorized
       flash[:alert] = 'Você não tem autorização para realizar esta ação.'

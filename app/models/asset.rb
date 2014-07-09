@@ -9,8 +9,8 @@
 #  file_content_type :string(255)
 #  file_file_size    :integer
 #  file_updated_at   :datetime
-#  attachable_id     :integer
-#  attachable_type   :string(255)
+#  assetable_id      :integer
+#  assetable_type    :string(255)
 #  created_at        :datetime
 #  updated_at        :datetime
 #

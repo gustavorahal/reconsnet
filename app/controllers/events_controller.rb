@@ -17,6 +17,8 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     authorize @event
+    @activity = nil
+    @activity = Activity.find params[:activity_id] if params[:activity_id]
   end
 
   def edit
@@ -24,6 +26,13 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(secure_params)
+    if @event.activity.blank?
+      # neste cenário o activity_id foi passado por url e não veio pelo form
+      @event.activity = Activity.find params[:activity_id]
+    end
+    if @event.name.blank?
+      @event.name = @event.activity.name
+    end
     authorize @event
 
     if @event.save
@@ -55,7 +64,7 @@ class EventsController < ApplicationController
     end
 
     def secure_params
-      params.require(:event).permit(:name, :description, :event_type, :start, :finish, :original_updated_at)
+      params.require(:event).permit(:activity_id, :name, :description, :event_type, :start, :finish, :original_updated_at)
     end
 
 end

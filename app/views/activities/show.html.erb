@@ -1,0 +1,58 @@
+<% title = "Atividade <em>#{@activity.name}</em>" %>
+<% if @activity.parent.present? %>
+    <% title += " <small>#{@activity.parent.name}</small>" %>
+<% end %>
+
+<%= render 'common/page_title', titulo: title.html_safe %>
+
+<% content_for :actions do %>
+    <%= render 'common/btn_edit', resource: @activity %>
+    <%= render 'common/btn_delete', resource: @activity %>
+<% end %>
+
+<p class="lead">
+  <%= @activity.summary %>
+</p>
+
+<div>
+  <%= @activity.description.html_safe %>
+</div>
+
+<!-- Eventos (ou ocorrências desta atividade) -->
+
+<div class="well">
+  <div class="row">
+    <div class="col-lg-6">
+      <h4>Eventos desta atividade</h4>
+    </div>
+    <div class="col-lg-6">
+      <h4><!-- O hX deve ser o mesmo do titulo da pagina para os dois ficarem alinhados horizontalmente-->
+        <div class="pull-right">
+          <%= render 'common/btn_add', url: new_event_path(activity_id: @activity.id), size: 'btn-sm', resource: Event.new %>
+        </div>
+      </h4>
+    </div>
+  </div>
+  <br/>
+
+  <% if @events.empty? %>
+      <div class="text-muted">Não existem eventos desta atividade</div>
+  <% else %>
+      <table class="table table-striped table-condensed">
+        <tr>
+          <th></th>
+          <th>Data início</th>
+          <th>Data fim</th>
+          <th>Participantes</th>
+        </tr>
+        <% @events.each do |event| %>
+            <tr>
+              <td><%= link_to event.name, event_path(event) %></td>
+              <td><%= date_display event.start %></td>
+              <td><%= date_display event.finish %></td>
+              <td><%= event.participations.count %></td>
+            </tr>
+        <% end %>
+      </table>
+  <% end %>
+</div>

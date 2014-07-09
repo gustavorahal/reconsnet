@@ -1,0 +1,25 @@
+
+<%= render 'common/page_title', titulo: 'Atividades' %>
+
+<% content_for :actions do %>
+    <%= render 'common/btn_add', url: new_activity_path, resource: Activity.new %>
+<% end %>
+
+
+<table class="table table-striped">
+  <tr>
+    <th>Nome</th>
+    <th>Tipo</th>
+    <th>Sumário</th>
+    <th>Somente interna</th>
+  </tr>
+
+  <% @activities.each do |activity| %>
+      <tr>
+        <td><%= activity_link_display activity %></td>
+        <td><%= activity.activity_type %></td>
+        <td><%= activity.summary %></td>
+        <td><%= internal_only_display activity %></td>
+      </tr>
+  <% end %>
+</table>
