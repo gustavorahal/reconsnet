@@ -49,7 +49,6 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy' # for save_and_open_page
   gem 'guard-rspec'
-  gem 'rb-fsevent' if `uname` =~ /Darwin/ # para OS X
 end
 
 # Use ActiveModel has_secure_password

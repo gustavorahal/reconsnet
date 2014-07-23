@@ -278,7 +278,6 @@ DEPENDENCIES
   pry-rails
   pundit
   rails (= 4.1.4)
-  rb-fsevent
   rspec-rails
   sass-rails (~> 4.0.0)
   sdoc
