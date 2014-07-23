@@ -34,7 +34,17 @@ describe 'Deleta pessoa' do
     create(:participation, person: person)
     visit person_path(person)
     expect(page).to have_content(person.name)
-    expect(find_link('Deletar')[:disabled]).to eq 'disabled'
+    click_on 'Deletar'
+    expect(page).to have_content 'Esta pessoa tem participação em eventos portanto não pode ser deletada'
+  end
+
+  it 'não pode deletar uma pessoa se tem algum contato TMK' do
+    person = create(:person)
+    create :tmk, with_who: person
+    visit person_path(person)
+    expect(page).to have_content(person.name)
+    click_on 'Deletar'
+    expect(page).to have_content 'Esta pessoa tem contatos TMKs portanto não pode ser deletada'
   end
 
 end

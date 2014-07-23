@@ -53,8 +53,12 @@ class PeopleController < ApplicationController
 
   def destroy
     @participations = @person.participations
+    tmks = Tmk.where('with_who_id = ? or from_who_id = ?', @person.id, @person.id)
     if @participations.any?
       flash.now[:alert] = 'Esta pessoa tem participação em eventos portanto não pode ser deletada'
+      render 'show'
+    elsif tmks.any?
+      flash.now[:alert] = 'Esta pessoa tem contatos TMKs portanto não pode ser deletada'
       render 'show'
     else
       @person.destroy
