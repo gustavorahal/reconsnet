@@ -20,3 +20,5 @@
 
 # paperclip files
 /public/system
+
+/public/assets/

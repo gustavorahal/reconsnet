@@ -2,7 +2,7 @@
 <% disabled = local_assigns.fetch :disabled, false %>
 <% btn_label = local_assigns.fetch :btn_label, 'Deletar' %>
 <% url = local_assigns.fetch :url, false %>
-<% url = polymorphic_path(resource, page: params[:page]) unless url %>
+<% url = polymorphic_path(resource, page: params[:page], query: params[:query]) unless url %>
 
 <% if policy(resource).destroy? %>
     <%= link_to "<span class=\"glyphicon glyphicon-remove\"></span> #{btn_label}".html_safe,

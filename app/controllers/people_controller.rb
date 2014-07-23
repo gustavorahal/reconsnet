@@ -58,7 +58,7 @@ class PeopleController < ApplicationController
       render 'show'
     else
       @person.destroy
-      redirect_to people_path(page: params[:page])
+      redirect_to people_path(page: params[:page], query: params[:query])
     end
   end
 

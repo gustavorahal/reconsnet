@@ -40,10 +40,8 @@
           <% phones = person.phone_numbers.map { |phone| "#{phone.number.phony_formatted}" } %>
           <%= phones.join(' | ') %>
         </td>
-        <td><%= render 'common/btn_edit', resource: person,
-                                                               size: 'btn-xs', btn_label: '' %>
-          <%= render 'common/btn_delete', resource: person,
-                                                             size: 'btn-xs', btn_label: '' %>
+        <td><%= render 'common/btn_edit', resource: person, size: 'btn-xs', btn_label: '' %>
+            <%= render 'common/btn_delete', resource: person, size: 'btn-xs', btn_label: '' %>
         </td>
       </tr>
   <% end %>
