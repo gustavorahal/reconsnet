@@ -78,7 +78,7 @@
 
 </div>
 
-
+<% if policy(Participation).show? %>
 <!-- Participantes -->
 <div class="well">
     <div class="row">
@@ -88,7 +88,7 @@
       <div class="col-lg-6">
         <h4><!-- O hX deve ser o mesmo do titulo da pagina para os dois ficarem alinhados horizontalmente-->
           <div class="pull-right">
-            <%= link_to 'Lista de emails', emails_event_participations_path(@event.id), class: 'btn btn-sm btn-link' %>
+            <%= render 'common/btn_emails', size: 'btn-sm' %>
             <%= render 'common/btn_add', url: new_event_participation_path(@event.id), size: 'btn-sm', resource: @event %>
           </div>
         </h4>
@@ -130,3 +130,4 @@
     </table>
   <% end %>
 </div>
+<% end %>

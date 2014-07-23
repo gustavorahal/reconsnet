@@ -5,7 +5,9 @@
         <li><%= link_to activity.name, activity_path(activity) %></li>
     <% end  %>
     <li class="divider"></li>
-    <li><%= link_to 'Adicionar', new_activity_path %></li>
-    <li><%= link_to 'Ver todas', activities_path %></li>
+    <% if policy(Activity).create? %>
+        <li><%= link_to 'Adicionar', new_activity_path %></li>
+    <% end %>
+        <li><%= link_to 'Ver todas', activities_path %></li>
   </ul>
 </li>

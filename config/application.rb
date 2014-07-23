@@ -26,5 +26,10 @@ module ReconsNet
     config.i18n.default_locale = 'pt-BR'
 
     config.active_record.schema_format = :sql
+
+    config.to_prepare do
+      Devise::SessionsController.layout "devise"
+      Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "application" : "devise" }
+    end
   end
 end

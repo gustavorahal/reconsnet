@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   factory :user do
-    name 'Test User'
+    sequence(:name) { |n| "Test User n. #{n}" }
     email 'example@example.com'
     group 'Admin'
     password 'changeme'
@@ -40,10 +40,17 @@ FactoryGirl.define do
   end
 
   factory :event do
-    name 'Imersão Parametodológica'
-    event_type 'Curso'
+    sequence(:name) { |n| "Evento n. #{n}" }
     start Time.now
     finish Time.now
+    activity { |c| c.association(:activity) }
+  end
+
+  factory :activity do
+    sequence(:name) { |n| "Atividade n. #{n}" }
+    summary 'Curso sobre isso e aquilo'
+    description 'Curso que acontece no Holociclo'
+    activity_type 'Curso'
   end
 
   factory :participation do

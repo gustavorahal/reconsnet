@@ -9,9 +9,9 @@ describe 'Events' do
   it 'adiciona novo evento' do
     event = build(:event)
     visit events_path
-    click_on 'Adicionar'
+    find(:linkhref, new_event_path).click
+    select event.activity.name, from: 'Atividade'
     fill_in 'Nome', with: event.name
-    select event.event_type, from: 'Tipo de evento'
     fill_in 'Início', with: event.start
     fill_in 'Fim', with: event.finish
     click_on 'Salvar'

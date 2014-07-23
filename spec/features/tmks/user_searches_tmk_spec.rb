@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe 'Tmks search' do
+feature 'Usuário busca contatos TMK' do
 
   before :each do
     sign_in(create :user)
   end
 
-  it 'busca um contato tmk que existe' do
+  scenario 'busca um contato tmk que existe' do
     tmk1 = create :tmk
     tmk2 = create :tmk
     visit tmks_path
@@ -19,7 +19,7 @@ describe 'Tmks search' do
     expect(page).to_not have_content tmk2.with_who.name
   end
 
-  it 'busca um contato tmk que não existe' do
+  scenario 'busca um contato tmk que não existe' do
     tmk1 = create :tmk
     tmk2 = create :tmk
     visit tmks_path

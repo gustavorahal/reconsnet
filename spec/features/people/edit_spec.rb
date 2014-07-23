@@ -72,7 +72,7 @@ describe 'Edição de pessoa' do
 
     fill_in 'Nome', with: 'Um outro nome da pessoa'
     click_on 'Salvar'
-    expect(page).to have_content('Este registro mudou enquanto você estava editando-o')
+    expect(page).to have_content('Este registro mudou enquanto você editava-o')
     expect(page).to have_content('era Novo nome da pessoa')
   end
 

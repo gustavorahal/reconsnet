@@ -1,11 +1,10 @@
 class ActivitiesController < ApplicationController
 
-  before_action :authenticate_user!
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized
 
   def index
-    @activities = Activity.all
+    @activities = policy_scope(Activity)
     authorize @activities
   end
 
@@ -26,7 +25,7 @@ class ActivitiesController < ApplicationController
     authorize @activity
 
     if @activity.save
-      redirect_to activities_path, notice: "Atividade '#{@activity.name}' adicionada com sucesso!"
+      redirect_to activity_path(@activity)
     else
       render 'new'
     end

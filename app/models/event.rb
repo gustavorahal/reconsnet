@@ -29,8 +29,21 @@ class Event < ActiveRecord::Base
 
   accepts_nested_attributes_for :assets, allow_destroy: true
 
+  scope :all_exclude_internal, -> { joins(:activity).where.not('activities.internal_only = true').order(start: :desc) }
+
   def to_s
     "#{name}"
   end
+
+
+  def self.next_event(exclude_internal=false)
+    query = order(start: :desc).limit(1)
+    if exclude_internal
+      query.where.not('activities.internal_only = true')
+    end
+    query[0]
+  end
+
+
 
 end

@@ -1,0 +1,3 @@
+<% size = local_assigns.fetch :size, '' %>
+<%= link_to '<span class="glyphicon glyphicon-calendar"></span> Calendário'.html_safe, calendar_events_path,
+            class: "btn #{size} btn-default" %>

@@ -2,14 +2,15 @@
 <%= render 'common/page_title', titulo: 'Eventos' %>
 
 <% content_for :actions do %>
+    <%= render 'common/btn_calendar' %>
     <%= render 'common/btn_add', url: new_event_path, resource: Event.new %>
 <% end %>
 
 
 <table class="table table-striped">
   <tr>
-    <th>Atividade</th>
     <th>Nome</th>
+    <th>Atividade</th>
     <th>Descrição</th>
     <th>Inicio</th>
     <th>Fim</th>
@@ -18,6 +19,7 @@
   <% @events.each do |event| %>
       <tr>
         <td><%= link_to event.name, event_path(event) %></td>
+        <td><%= link_to event.activity.name, activity_path(event.activity) %></td>
         <td><%= event.description %></td>
         <td><%= date_display event.start %></td>
         <td><%= date_display event.finish %></td>

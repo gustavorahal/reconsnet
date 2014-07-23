@@ -21,7 +21,7 @@ describe 'Participations' do
     part1 = create :participation, event: event
     part2 = create :participation, event: event
     visit event_path(event)
-    click_on 'Lista de emails'
+    click_on 'E-mails'
     expect(page).to have_content part1.person.email
     expect(page).to have_content part2.person.email
   end

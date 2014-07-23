@@ -2,12 +2,15 @@
 #
 # Table name: activities
 #
-#  id          :integer          not null, primary key
-#  name        :string(255)
-#  description :text
-#  parent_id   :integer
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id            :integer          not null, primary key
+#  name          :string(255)      not null
+#  summary       :string(255)      not null
+#  description   :text
+#  activity_type :string(255)
+#  parent_id     :integer
+#  internal_only :boolean          default(FALSE)
+#  created_at    :datetime
+#  updated_at    :datetime
 #
 
 class Activity < ActiveRecord::Base
@@ -22,6 +25,10 @@ class Activity < ActiveRecord::Base
   validates :summary, presence: true
   validates :activity_type, inclusion: { in: TYPES }
 
+
+  def to_s
+    name
+  end
 
   ##
   # Inclui eventos dos atividades filho

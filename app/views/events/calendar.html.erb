@@ -1,0 +1,22 @@
+<%= render 'common/page_title', titulo: 'Calendário' %>
+
+<% content_for :actions do %>
+    <%= render 'common/btn_add', url: new_event_path, btn_label: 'Adicionar evento', resource: Event.new %>
+<% end %>
+
+
+<h2 id="month">
+  <%= link_to '<span class="glyphicon glyphicon-chevron-left"></span>'.html_safe, date: @date.prev_month %>
+  <%= I18n.l @date, format: '%B de %Y' %>
+  <%= link_to '<span class="glyphicon glyphicon-chevron-right"></span>'.html_safe, date: @date.next_month %>
+</h2>
+<%= calendar @date do |date| %>
+    <%= date.day %>
+    <% if @events_by_date[date] %>
+        <ul class="list-unstyled">
+          <% @events_by_date[date].each do |event| %>
+              <li><%= link_to "#{event.start.strftime('%H:%M')} #{event.name}", event %></li>
+          <% end %>
+        </ul>
+    <% end %>
+<% end %>

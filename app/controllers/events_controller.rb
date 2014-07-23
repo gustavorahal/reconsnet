@@ -1,6 +1,5 @@
 class EventsController < ApplicationController
 
-  before_action :authenticate_user!
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized
 
@@ -55,6 +54,22 @@ class EventsController < ApplicationController
     redirect_to events_path, notice: "Evento '#{@event.name}' deletado com sucesso!"
   end
 
+  def calendar
+    @events = Event.all
+    @events_by_date = {}
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+
+    @events.where('start >= ? AND finish <= ?', (@date - 1.month).beginning_of_month,
+                                                (@date + 1.month).end_of_month).each do |event|
+      (event.start.to_date..event.finish.to_date).to_a.each do |date|
+        if @events_by_date[date].present?
+          @events_by_date[date].append event
+        else
+          @events_by_date[date] = [event]
+        end
+      end
+    end
+  end
 
   private
 

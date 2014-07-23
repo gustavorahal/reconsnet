@@ -9,6 +9,9 @@ ReconsNet::Application.routes.draw do
   resources :people
   resources :users
   resources :events do
+    collection do
+      get 'calendar'
+    end
     resources :participations do
       collection do
         get 'emails'

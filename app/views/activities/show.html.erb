@@ -2,6 +2,9 @@
 <% if @activity.parent.present? %>
     <% title += " <small>#{@activity.parent.name}</small>" %>
 <% end %>
+<% if @activity.internal_only %>
+    <div class="text-muted"><small>Atividade restrita a voluntários</small></div>
+<% end %>
 
 <%= render 'common/page_title', titulo: title.html_safe %>
 

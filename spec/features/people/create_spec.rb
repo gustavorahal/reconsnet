@@ -10,7 +10,7 @@ describe 'Create person' do
   it 'adiciona pessoa' do
     person = build(:person)
     visit people_path
-    click_on 'Adicionar'
+    click_on 'Adicionar pessoa'
     fill_in 'Nome', with: person.name
     fill_in 'E-mail', with: person.email
     click_on 'Salvar'
@@ -23,7 +23,7 @@ describe 'Create person' do
     person = build :person
     address = build :address
     visit people_path
-    click_on 'Adicionar'
+    click_on 'Adicionar pessoa'
     fill_in 'Nome', with: person.name
     fill_in 'E-mail', with: person.email
     fill_in 'line1_1', with: address.line1

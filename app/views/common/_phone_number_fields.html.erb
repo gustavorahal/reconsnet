@@ -2,7 +2,7 @@
 
 <div class="form-group tel-fieldset">
   <label class="col-sm-2 control-label">Telefone</label>
-  <div class="col-sm-7">
+  <div class="col-sm-8">
     <div class="form-inline">
       <div class="form-group">
         <%= f.select :phone_type, PhoneNumber::PHONE_TYPES, include_blank: true, hide_label: true %>
@@ -15,7 +15,8 @@
             <%= f.text_field :number, placeholder: 'Número', id: "number_#{form_id}", hide_label: true %>
         <% end %>
         <%= f.hidden_field :_destroy %>
-        <%= link_to 'remover', '#', class: 'remove_fields' %>
+        <%= link_to '<span class="glyphicon glyphicon-remove"></span> remover'.html_safe,
+                    '#', class: 'remove_fields btn btn-default btn-xs' %>
       </div>
     </div>
   </div>

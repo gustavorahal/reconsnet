@@ -5,45 +5,32 @@
 
 class ApplicationPolicy < Struct.new(:user, :record)
 
-  self::Scope = Struct.new(:user, :scope) do
-    def resolve
-      if user.nil? # anonymous
-        scope.all
-      elsif user.admin?
-        scope.all
-      else
-        scope.all
-        #scope.where(:published => true)
-      end
-    end
-  end
-
   def index?
-    user.volunteer? or user.admin?
+    true
   end
 
   def show?
-    user.volunteer? or user.admin?
+    true
   end
 
   def create?
-    user.admin?
+    user.admin? if user
   end
 
   def new?
-    user.admin?
+    user.admin? if user
   end
 
   def update?
-    user.admin?
+    user.admin? if user
   end
 
   def edit?
-    user.admin?
+    user.admin? if user
   end
 
   def destroy?
-    user.admin?
+    user.admin? if user
   end
 
   def scope

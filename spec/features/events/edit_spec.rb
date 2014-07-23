@@ -7,7 +7,7 @@ describe 'Edita evento' do
   end
 
   it 'altera um evento' do
-    event = create(:event)
+    event = create :event
     visit event_path(event)
     click_on 'Editar'
     expect(find_field('Nome').value).to eq(event.name)
@@ -19,9 +19,10 @@ describe 'Edita evento' do
   end
 
   it 'avisa usuário em caso de conflito' do
-    event = create(:event)
+    event = create :event
     visit edit_event_path(event)
     sleep 0.5
+
     in_browser(:two) do
       sign_in(create :user, email: 'novoemail@email.com') # need to sign in here
       visit edit_event_path(event)
@@ -31,7 +32,7 @@ describe 'Edita evento' do
 
     fill_in 'Nome', with: 'Meu evento com outro nome'
     click_on 'Salvar'
-    expect(page).to have_content 'Este registro mudou enquanto você estava editando-o'
+    expect(page).to have_content 'Este registro mudou enquanto você editava-o'
     expect(page).to have_content 'era Meu evento que mudou de nome'
   end
 

@@ -2,20 +2,26 @@
 <div class='row'>
 
   <div class="well col-lg-6 tasks-box">
-    <h4>Próximos eventos</h4>
+    <h4>Próximos eventos
+      <div class="pull-right">
+        <%= render 'common/btn_calendar', size: 'btn-xs' %>
+      </div>
+    </h4>
     <% @events.each do |event| %>
-     <div><%= link_to event.name, event_path(event) %> <small>começa em <%= time_ago_in_words event.start %></small></div>
+      <div><%= link_to event.name, event_path(event) %> <small>começa em <%= time_ago_in_words event.start %></small></div>
     <% end %>
   </div>
 
-  <div class="well col-lg-5 tasks-box">
-    <h4>Alunos para o curso <%= @next_course.name %></h4>
-    <% @next_course.participations.each do |participant| %>
-        <div><%= link_to participant.person.name, person_path(participant.person) %>
-          <small><%= participant.status.downcase %> a <%= time_ago_in_words participant.updated_at %></small>
-        </div>
-    <% end %>
-  </div>
+  <% if @next_event %>
+      <div class="well col-lg-5 tasks-box">
+        <h4>Participantes <%= @next_event.name %></h4>
+        <% @next_event.participations.each do |participant| %>
+            <div><%= link_to participant.person.name, person_path(participant.person) %>
+              <small><%= participant.status.downcase %> a <%= time_ago_in_words participant.updated_at %></small>
+            </div>
+        <% end %>
+      </div>
+  <% end %>
 
 </div>
 

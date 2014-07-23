@@ -14,18 +14,6 @@
     <nav class="navbar navbar-default navbar-static-top" role="navigation">
       <div class="container">
         <a href="<%= root_path %>" class="navbar-brand">Reconscientia</a>
-        <ul class="nav navbar-nav">
-          <%= render 'common/menu/activities_menu' %>
-          <% if policy(Tmk).show? %>
-            <%= render 'common/menu/marketing_menu' %>
-          <% end %>
-          <% if policy(Person).show? %>
-            <%= render 'common/menu/people_menu' %>
-          <% end %>
-          <% if current_user and current_user.admin? %>
-            <%= render 'common/menu/admin_menu' %>
-          <% end %>
-        </ul>
         <ul class="nav navbar-nav pull-right">
           <%= render 'common/menu/user_menu' %>
         </ul>

@@ -17,3 +17,6 @@
 
 # RubyMine files
 .idea/
+
+# paperclip files
+/public/system
