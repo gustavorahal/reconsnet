@@ -18,9 +18,13 @@
 </p>
 
 <div>
+  <% if @activity.description.blank? %>
+    <span class="text-muted">Sem descrição</span>
+  <% end %>
   <%= @activity.description.html_safe %>
 </div>
 
+<br/>
 <!-- Eventos (ou ocorrências desta atividade) -->
 
 <div class="well">

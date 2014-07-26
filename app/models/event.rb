@@ -36,6 +36,15 @@ class Event < ActiveRecord::Base
   end
 
 
+  ##
+  # Nome com informação de data, util para select field onde diversos eventos tem nomes iguais
+  # e portanto a data ajuda na diferenciação
+
+  def name_with_date
+    "#{name} (#{start.strftime('%d %b %Y')})"
+  end
+
+
   def self.next_event(exclude_internal=false)
     query = order(start: :desc).limit(1)
     if exclude_internal

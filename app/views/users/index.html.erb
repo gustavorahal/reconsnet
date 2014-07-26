@@ -7,7 +7,7 @@
     <th>Email</th>
     <th>Pessoa</th>
     <th>Grupo</th>
-    <th>Ações</th>
+    <th></th>
   </tr>
 
   <% @users.each do |user| %>
@@ -18,8 +18,8 @@
         <td><%= user.person.present? ? user.person.name : '' %></td>
         <td><%= user.group %></td>
         <td>
-          <%= render 'common/btn_edit', resource: user, size: 'btn-xs' %>
-          <%= render 'common/btn_delete', resource: user, size: 'btn-xs' %>
+          <%= render 'common/btn_edit', resource: user, size: 'btn-xs', btn_label: '' %>
+          <%= render 'common/btn_delete', resource: user, size: 'btn-xs', btn_label: '' %>
         </td>
       </tr>
   <% end %>
