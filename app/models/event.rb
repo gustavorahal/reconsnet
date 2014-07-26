@@ -41,7 +41,8 @@ class Event < ActiveRecord::Base
   # e portanto a data ajuda na diferenciação
 
   def name_with_date
-    "#{name} (#{start.strftime('%d %b %Y')})"
+    date_str = I18n.l start, format: '%d %b %Y'
+    "#{name} (#{date_str})"
   end
 
 

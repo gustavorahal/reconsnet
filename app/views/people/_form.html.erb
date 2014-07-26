@@ -11,7 +11,7 @@
     <%= f.text_field :name, label: 'Nome' %>
     <%= f.email_field :email, label: 'E-mail', control_col: 'col-sm-3' %>
     <%= f.form_group do %>
-        <%= f.check_box :marketing, label: 'Receber divulgação via email', layout: :inline %>
+        <%= f.check_box :marketing, label: 'Deseja receber divulgação', layout: :inline %>
     <% end %>
     <%= f.select :gender, Person::GENDERS, include_blank: true, label: 'Gênero', control_col: 'col-sm-3' %>
     <%= f.date_select :date_of_birth, label: 'Data de nascimento',
