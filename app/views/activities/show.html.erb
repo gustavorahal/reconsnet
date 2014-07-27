@@ -1,18 +1,20 @@
-<% title = "Atividade <em>#{@activity.name}</em>" %>
+<% title = "<em>#{@activity.name}</em>" %>
+<% sub_title = [] %>
 <% if @activity.parent.present? %>
-    <% title += " <small>#{@activity.parent.name}</small>" %>
+    <% sub_title.append "Parte do(a) #{@activity.parent.name}" %>
 <% end %>
 <% if @activity.internal_only %>
-    <div class="text-muted"><small>Atividade restrita a voluntários</small></div>
+    <% sub_title.append 'Restrita a voluntários' %>
 <% end %>
 
-<%= render 'common/page_title', titulo: title.html_safe %>
+<%= render 'common/page_title', titulo: title.html_safe, sub_title: sub_title.join(' | ') %>
 
 <% content_for :actions do %>
     <%= render 'common/btn_edit', resource: @activity %>
     <%= render 'common/btn_delete', resource: @activity %>
 <% end %>
 
+<br/>
 <p class="lead">
   <%= @activity.summary %>
 </p>

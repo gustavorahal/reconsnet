@@ -23,7 +23,8 @@ class Asset < ActiveRecord::Base
                                                            application/vnd.ms-powerpoint
                                                            application/msword
                                                            application/vnd.openxmlformats-officedocument.wordprocessingml.document
-                                                           application/pdf)
+                                                           application/pdf
+                                                           image/jpeg)
   #do_not_validate_attachment_file_type :file
   validates :name, presence: true
 

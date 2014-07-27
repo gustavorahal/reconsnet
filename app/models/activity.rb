@@ -25,6 +25,8 @@ class Activity < ActiveRecord::Base
   validates :summary, presence: true
   validates :activity_type, inclusion: { in: TYPES }
 
+  after_update :check_images, if: :description_changed?
+
 
   def to_s
     name
@@ -46,6 +48,23 @@ class Activity < ActiveRecord::Base
   def parent_display
     "parte do(a) #{parent.activity_type} #{parent.name}"
   end
+
+
+  private
+
+    ##
+    # Deleta imagens que não fazem mais partes da descrição
+    # O editor tinymce só lida com acrescentar imagens. Uma vez que uma imagem é deletada
+    # do editor e sendo a atividade salva é necessário fazer um procedimento manual de checagem e deleção
+    # da imagem. Este procedimento é feito aqui.
+
+    def check_images
+      Asset.where(assetable_id: id, assetable_type: 'Activity').each do |asset|
+        unless description.include? asset.file.url
+          asset.destroy
+        end
+      end
+    end
 
 end
 

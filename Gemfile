@@ -12,9 +12,11 @@ gem 'jquery-rails'
 
 # UI/Web
 gem 'bootstrap-sass', '~> 3.2.0'
-gem 'bootstrap-wysihtml5-rails'
+gem 'tinymce-rails'
+gem 'tinymce-rails-langs'
+gem 'tinymce-rails-imageupload', github: 'PerfectlyNormal/tinymce-rails-imageupload'
 gem 'autoprefixer-rails' # recommended for bootstrap-sass
-gem 'bootstrap_form', :git => 'git://github.com/bootstrap-ruby/rails-bootstrap-forms', :branch => 'master'
+gem 'bootstrap_form'
 gem 'kaminari' # will_paginate, rails 4.1 e pg_search não estavam funcionando bem juntos então a opção pelo kaminari
 gem 'kaminari-bootstrap'
 

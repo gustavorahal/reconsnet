@@ -15,8 +15,11 @@
     <%= f.collection_select :parent_id, Activity.where(parent: nil).order('name'), :id, :name, label: 'Atividade pai',
                             control_col: 'col-sm-4', include_blank: true,
                             help: 'Caso esta atividade pertença a uma outra superior, marque aqui.' %>
-    <%= f.text_area :description, id: 'activity-description', rows: 20, label: 'Descrição',
-                    help: 'Descreva de forma completa e exaustiva esta atividade'%>
+
+    <%= f.text_area :description, class: 'tinymce', rows: 25, cols: 120, label: 'Descrição',
+                    help: 'Descreva de forma completa e exaustiva esta atividade' %>
+    <%= tinymce relative_urls: false, plugins: ['uploadimage'], language: 'pt_BR', uploadimage_hint: [@activity.id, 'Activity'] %>
+
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>

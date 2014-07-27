@@ -15,8 +15,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bootstrap-datetimepicker
-//= require bootstrap-wysihtml5
-//= require bootstrap-wysihtml5/locales/pt-BR
+//= require tinymce-jquery
 //= require_tree .
 //= require turbolinks
 

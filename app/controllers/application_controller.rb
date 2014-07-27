@@ -13,10 +13,10 @@ class ApplicationController < ActionController::Base
     user = current_user
     if user and user.volunteer?
       @next_event = Event.next_event
-      @events = Event.all.order(start: :desc)
+      @events = Event.where('start > ?', Time.now).order(start: :desc)
     else
       @next_event = Event.next_event(exclude_internal = true)
-      @events = Event.all_exclude_internal
+      @events = Event.all_exclude_internal.where('start > ?', Time.now)
     end
   end
 

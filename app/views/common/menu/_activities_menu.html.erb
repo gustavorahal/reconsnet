@@ -1,4 +1,4 @@
-<li class="dropdown">
+<li class="dropdown <%= 'active' if request.original_url.include? '/activities' %>">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Atividades <span class="caret"></span></a>
   <ul class="dropdown-menu" role="menu">
     <% @activities.each do |activity| %>

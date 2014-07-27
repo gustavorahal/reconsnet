@@ -1,5 +1,6 @@
 
 <% back_url = local_assigns.fetch :back_url, nil %>
+<% sub_title = local_assigns.fetch :sub_title, nil %>
 
 <% content_for :page_title do %>
     <h3>
@@ -8,5 +9,8 @@
         <% end %>
         <%= titulo %>
     </h3>
+    <% if sub_title %>
+        <span><%= sub_title.html_safe %></span>
+    <% end %>
     <br/>
 <% end %>
