@@ -25,6 +25,8 @@ class ApplicationController < ActionController::Base
     def set_menu_values
       @activities = policy_scope(Activity)
       authorize @activities
+      # Apenas listar as atividades pai (de nível mais alto)
+      @activities = @activities.where(parent: nil).order(:name)
     end
 
     def user_not_authorized
