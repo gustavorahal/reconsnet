@@ -39,11 +39,9 @@
         <td><%= tmk.notes %></td>
         <td><%= tmk.contact_type %></td>
         <td><%= tmk.from_who.name %></td>
-        <td><%= date_display tmk.when %></td>
-        <td><%= render 'common/btn_edit', resource: tmk,
-                                                               size: 'btn-xs', btn_label: '' %>
-          <%= render 'common/btn_delete', resource: tmk,
-                                                              size: 'btn-xs', btn_label: '' %>
+        <td><%= date_display tmk.contact_date if tmk.contact_date.present? %></td>
+        <td><%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
+            <%= render 'common/btn_delete', resource: tmk, size: 'btn-xs', btn_label: '' %>
         </td>
       </tr>
   <% end %>

@@ -14,10 +14,21 @@
 
   <% if @next_event %>
       <div class="well col-lg-5 tasks-box">
-        <h4>Participantes <%= @next_event.name %></h4>
+        <h4><%= link_to @next_event.name, event_path(@next_event) %> <small>participantes</small></h4>
         <% @next_event.participations.each do |participant| %>
-            <div><%= link_to participant.person.name, person_path(participant.person) %>
-              <small><%= participant.status.downcase %> a <%= time_ago_in_words participant.updated_at %></small>
+            <div><%= participant.person.name %>
+              <small>foi <%= participant.status_gender_aware.downcase %> a <%= time_ago_in_words participant.updated_at %></small>
+            </div>
+        <% end %>
+      </div>
+  <% end %>
+
+  <% if @tmks %>
+      <div class="well col-lg-5 tasks-box">
+        <h4>Últimos <%= link_to 'TMKs', tmks_path %></h4>
+        <% @tmks.each do |tmk| %>
+            <div><%= tmk.with_who.name %> para o evento <%= tmk.event.name %>
+              <small> a <%= time_ago_in_words tmk.contact_date %></small>
             </div>
         <% end %>
       </div>

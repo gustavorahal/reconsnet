@@ -17,6 +17,6 @@ feature 'Usuário edita uma atividade' do
 
     click_on 'Salvar'
 
-    expect(page).to have_content 'Atividade Meu novo nome'
+    expect(page).to have_content 'Meu novo nome'
   end
 end

@@ -13,7 +13,7 @@
                             label: 'Quem fez contato', control_col: 'col-sm-3',
                             selected: Person.find_by(email: current_user.email).id %>
     <%= f.select :contact_type, Tmk::CONTACT_TYPES, label: 'Tipo de contato', control_col: 'col-sm-3' %>
-    <%= f.text_field :when, label: 'Quando', class: 'datetimepicker', control_col: 'col-sm-3', value: Time.now.strftime('%Y-%m-%d %H:%M') %>
+    <%= f.text_field :contact_date, label: 'Quando', class: 'datetimepicker', control_col: 'col-sm-3', value: Time.now.strftime('%Y-%m-%d %H:%M') %>
     <%= render 'common/event_select_field', f: f %>
     <%= f.text_area :notes, label: 'Notas' %>
 

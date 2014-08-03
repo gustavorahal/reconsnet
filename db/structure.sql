@@ -301,7 +301,7 @@ CREATE TABLE tmks (
     with_who_id integer NOT NULL,
     from_who_id integer NOT NULL,
     event_id integer NOT NULL,
-    "when" timestamp without time zone,
+    contact_date timestamp without time zone,
     contact_type character varying(255),
     notes character varying(255),
     created_at timestamp without time zone,
@@ -706,4 +706,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140707171124');
 INSERT INTO schema_migrations (version) VALUES ('20140708165800');
 
 INSERT INTO schema_migrations (version) VALUES ('20140708171211');
+
+INSERT INTO schema_migrations (version) VALUES ('20140728124727');
 

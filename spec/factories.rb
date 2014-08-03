@@ -60,11 +60,11 @@ FactoryGirl.define do
     participation_type 'Professor'
   end
 
-  factory :tmk do |tmk|
+  factory :tmk do
     with_who { |c| c.association(:person) }
     from_who { |c| c.association(:person) }
     event { |c| c.association(:event) }
-    tmk.when Time.now
+    contact_date { Time.now }
     contact_type 'Telefônico'
   end
 

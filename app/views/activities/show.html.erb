@@ -21,7 +21,7 @@
 
 <div>
   <!-- Caso esta atividade não tenha descrição, pegar descrição da atividade pai, se existir -->
-  <% if @activity.description.blank? and @activity.parent.present? %>
+  <% if @activity.description.blank? and @activity.parent.present? and @activity.parent.description.present? %>
     <div class="text-muted"><em>Descrição da atividade <%= @activity.parent.name %>:</em></div>
     <br/>
     <%= @activity.parent.description.html_safe %>

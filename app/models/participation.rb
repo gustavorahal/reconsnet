@@ -36,4 +36,12 @@ Professor\ Temático)
     "#{person.name}"
   end
 
+  def status_gender_aware
+    if person.gender == 'Feminino'
+      status.chomp('o') + 'a'
+    else
+      status
+    end
+  end
+
 end

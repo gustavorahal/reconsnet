@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   after_action :verify_authorized
 
   def index
-    @events = Event.all
+    @events = Event.all.order('start DESC')
     authorize @events
   end
 
@@ -35,7 +35,7 @@ class EventsController < ApplicationController
     authorize @event
 
     if @event.save
-      redirect_to events_path, notice: "Evento '#{@event.name}' adicionado com sucesso!"
+      redirect_to event_path(@event)
     else
       render 'new'
     end

@@ -16,9 +16,7 @@ describe 'Events' do
     fill_in 'Fim', with: event.finish
     click_on 'Salvar'
 
-    expect(current_path).to eq(events_path)
-
-    expect(page).to have_content("Evento '#{event.name}' adicionado com sucesso!")
+    expect(current_path).to eq event_path(Event.take)
   end
 
 

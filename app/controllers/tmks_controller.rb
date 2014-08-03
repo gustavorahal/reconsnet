@@ -52,7 +52,7 @@ class TmksController < ApplicationController
     end
 
     def secure_params
-      params.require(:tmk).permit(:with_who_id, :from_who_id, :when, :contact_type, :event_id, :notes)
+      params.require(:tmk).permit(:with_who_id, :from_who_id, :contact_date, :contact_type, :event_id, :notes)
     end
 
 end

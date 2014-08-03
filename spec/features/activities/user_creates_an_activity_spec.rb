@@ -7,7 +7,7 @@ feature 'Usuário cria uma atividade' do
     sign_in(create :user)
   end
 
-  scenario 'usuário na página inicial' do
+  scenario 'na página inicial' do
     visit root_path
     # Clica no botão de adicionar do menu "Atividades"
     find(:linkhref, new_activity_path).click
@@ -16,7 +16,7 @@ feature 'Usuário cria uma atividade' do
 
     click_on 'Salvar'
 
-    expect(page).to have_content 'Atividade Nova atividade'
-    expect(page).to have_content 'Eventos desta atividade'
+    expect(page).to have_content 'Nova atividade'
+    expect(page).to have_content 'Eventos relacionados'
   end
 end

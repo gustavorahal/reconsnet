@@ -157,6 +157,8 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
+    puma (2.9.0)
+      rack (>= 1.1, < 2.0)
     pundit (0.2.3)
       activesupport (>= 3.0.0)
     rack (1.5.2)
@@ -279,6 +281,7 @@ DEPENDENCIES
   phony_rails
   poltergeist
   pry-rails
+  puma
   pundit
   rails (= 4.1.4)
   rspec-rails

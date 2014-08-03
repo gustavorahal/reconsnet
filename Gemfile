@@ -30,6 +30,8 @@ gem 'pundit'
 gem 'devise'
 gem 'paperclip', '~> 4.1'
 
+gem 'puma'
+
 # para manipulação de números de telefone
 gem 'phony_rails'
 

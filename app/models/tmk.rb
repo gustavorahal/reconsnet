@@ -6,7 +6,7 @@
 #  with_who_id  :integer          not null
 #  from_who_id  :integer          not null
 #  event_id     :integer          not null
-#  when         :datetime
+#  contact_date :datetime
 #  contact_type :string(255)
 #  notes        :string(255)
 #  created_at   :datetime
@@ -32,7 +32,8 @@ class Tmk < ActiveRecord::Base
     if query.present?
       joins('LEFT JOIN people ON people.id = tmks.with_who_id OR people.id = tmks.from_who_id').
       joins('LEFT JOIN events ON events.id = tmks.event_id').
-          where('people.name ilike :q OR contact_type ilike :q OR events.name ilike :q OR notes ilike :q', q: "%#{query}%").references(:people, :events).group('tmks.id')
+          where('people.name ilike :q OR contact_type ilike :q OR events.name ilike :q OR notes ilike :q',
+                q: "%#{query}%").references(:people, :events).group('tmks.id')
     else
       joins(:with_who, :event).all
     end
