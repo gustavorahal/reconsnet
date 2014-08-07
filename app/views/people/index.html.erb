@@ -6,6 +6,8 @@
 <% end %>
 
 
+<!-- Text field de busca -->
+
 <%= form_tag '/people', method: :get do %>
     <div class="input-group">
       <%= text_field_tag 'query', nil, class: 'form-control',
@@ -22,7 +24,28 @@
     </div>
 <% end %>
 <br/>
-<span class="text-muted"><%= page_entries_info @people %></span>
+
+
+<!-- Ordenar por... -->
+
+<div>
+  <span class="text-muted">Ordenar por: </span>
+  <%=
+      state = current_page?(params.merge(order: 'name')) ? 'active' : ''
+      link_to 'Nome', people_path(params.merge(order: 'name')), class: "btn btn-default btn-xs #{state}"
+  %>
+  <%=
+      state = current_page?(params.merge(order: 'created_at')) ? 'active' : ''
+      link_to 'Data de cadastramento', people_path(params.merge(order: 'created_at')), class: "btn btn-default btn-xs #{state}"
+  %>
+</div>
+<br/>
+
+
+
+<!-- Listagem de pessoas -->
+
+<div class="text-muted"><%= page_entries_info @people %></div>
 
 <table class="table table-striped">
   <tr>
@@ -34,7 +57,7 @@
 
   <% @people.each do |person| %>
       <tr>
-        <td><%= link_to person.name, person_path(person, page: params[:page]) %></td>
+        <td><%= link_to person.name, person_path(person, params) %></td>
         <td><%= person.email %></td>
         <td>
           <% phones = person.phone_numbers.map { |phone| "#{phone.number.phony_formatted}" } %>

@@ -1,4 +1,4 @@
-<%= render 'common/back_link', destino: 'Pessoas', url: people_path(page: params[:page]) %>
+<%= render 'common/back_link', destino: 'Pessoas', url: people_path(params.except(:id)) %>
 <%= render 'common/page_title', titulo: "<em>#{@person.name}</em>".html_safe %>
 
 <% content_for :actions do %>
@@ -11,9 +11,9 @@
   <%= '<small class="text-muted">Não deseja receber divulgação</small>'.html_safe unless @person.marketing %>
   <br>
 
-  <% if @person.gender.present? %>
-    <%= @person.gender %><br>
-  <% end  %>
+  <% if @person.volunteer %>
+    Voluntário da área de <%= @person.volunteer.area_of_operation %><br>
+  <% end %>
 
   <% if @person.age.present? %>
     <%= @person.age %> anos<br>

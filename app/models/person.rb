@@ -43,12 +43,18 @@ class Person < ActiveRecord::Base
   end
 
 
-  def self.text_search(query)
+  def self.text_search(query, order)
+    order_str = ''
+    case order
+      when 'created_at' then order_str = 'people.created_at DESC'
+      else order_str = 'LOWER(people.name)'
+    end
+
     if query.present?
       joins("LEFT JOIN phone_numbers ON phone_numbers.phonable_id = people.id AND phone_numbers.phonable_type = 'Person'").
-          where('name ilike :q or email ilike :q or occupation ilike :q or phone_numbers.number ilike :q', q: "%#{query}%").references(:phone_numbers).group('people.id')
+          where('name ilike :q or email ilike :q or occupation ilike :q or phone_numbers.number ilike :q', q: "%#{query}%").references(:phone_numbers).group('people.id').order(order_str)
     else
-      includes(:phone_numbers, :addresses).all
+      includes(:phone_numbers, :addresses).order(order_str).all
     end
   end
 

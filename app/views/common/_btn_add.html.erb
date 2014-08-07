@@ -1,9 +1,10 @@
 <% size = local_assigns.fetch :size, '' %>
 <% disabled = local_assigns.fetch :disabled, false %>
 <% btn_label = local_assigns.fetch :btn_label, 'Adicionar' %>
-<% url = local_assigns.fetch :url, polymorphic_path(resource, action: :new) %>
+<% url = local_assigns.fetch :url, false %>
+<% url = polymorphic_path(resource, action: :new) unless url %>
 
 <% if policy(resource).create? %>
     <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\"></span> #{btn_label}".html_safe,
-            url, class: "btn #{size} btn-success", disabled: disabled %>
+            url, class: "btn #{size} btn-default", disabled: disabled %>
 <% end %>

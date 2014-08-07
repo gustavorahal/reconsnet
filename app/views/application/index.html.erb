@@ -2,7 +2,7 @@
 <div class='row'>
 
   <div class="well col-lg-6 tasks-box">
-    <h4>Próximos eventos
+    <h4>Próximos eventos <small><%= link_to 'ver todos &raquo;'.html_safe, events_path %></small>
       <div class="pull-right">
         <%= render 'common/btn_calendar', size: 'btn-xs' %>
       </div>
@@ -14,21 +14,33 @@
 
   <% if @next_event %>
       <div class="well col-lg-5 tasks-box">
-        <h4><%= link_to @next_event.name, event_path(@next_event) %> <small>participantes</small></h4>
+        <h4>Participantes <em><%= @next_event.name %></em>
+          <small><%= link_to 'mais &raquo;'.html_safe, event_path(@next_event) %></small></h4>
         <% @next_event.participations.each do |participant| %>
             <div><%= participant.person.name %>
-              <small>foi <%= participant.status_gender_aware.downcase %> a <%= time_ago_in_words participant.updated_at %></small>
+              <small class="text-muted">foi <%= participant.status_gender_aware.downcase %> a <%= time_ago_in_words participant.updated_at %></small>
             </div>
         <% end %>
       </div>
   <% end %>
 
   <% if @tmks %>
-      <div class="well col-lg-5 tasks-box">
-        <h4>Últimos <%= link_to 'TMKs', tmks_path %></h4>
+      <div class="well col-lg-6 tasks-box">
+        <h4>Últimos TMKs <small><%= link_to 'mais &raquo;'.html_safe, tmks_path %></small></h4>
         <% @tmks.each do |tmk| %>
-            <div><%= tmk.with_who.name %> para o evento <%= tmk.event.name %>
-              <small> a <%= time_ago_in_words tmk.contact_date %></small>
+            <div><em><%= tmk.with_who.name %></em> sobre o evento <em><%= tmk.event.name %></em>
+              <small class="text-muted"> a <%= time_ago_in_words tmk.contact_date %></small>
+            </div>
+        <% end %>
+      </div>
+  <% end %>
+
+  <% if @people %>
+      <div class="well col-lg-5 tasks-box">
+        <h4>Pessoas cadastradas recentemente <small><%= link_to 'mais &raquo;'.html_safe, people_path(order: 'created_at') %></small></h4>
+        <% @people.each do |person| %>
+            <div><%= link_to person.name, person_path(person) %>
+              <small class="text-muted"> a <%= time_ago_in_words person.created_at %></small>
             </div>
         <% end %>
       </div>

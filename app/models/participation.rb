@@ -33,7 +33,7 @@ Professor\ Temático)
   belongs_to :person
 
   def to_s
-    "#{person.name}"
+    "Participation/#{person.name}"
   end
 
   def status_gender_aware

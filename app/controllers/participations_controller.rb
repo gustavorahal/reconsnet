@@ -10,24 +10,31 @@ class ParticipationsController < ApplicationController
     authorize @event
     @participation = Participation.new
     authorize @participation
-
-    participantes = Participation.where(event: @event)
+    @person = nil
+    if params[:person_id].present?
+      @person = Person.find params[:person_id]
+    end
+    participations = Participation.where(event: @event)
     # Exclua as pessoas que já fazem parte do evento
-    @people = Person.where.not(id: participantes.pluck(:person_id))
+    @people = Person.where.not(id: participations.pluck(:person_id))
+
+    session[:last_page] = request.referrer || event_path(@event)
   end
 
   def edit
+    @person = @participation.person
+    session[:last_page] = request.referrer || event_path(@event)
   end
 
   def create
     data = secure_params
     @participation = Participation.new(event_id: params[:event_id],
-                                       person_id: data[:person],
+                                       person_id: data[:person] || params[:person_id],
                                        status: data[:status],
                                        participation_type: data[:participation_type])
     authorize @participation
     if @participation.save
-      redirect_to event_path(@participation.event), notice: 'Participação adicionada com sucesso!'
+      redirect_to session[:last_page] || event_path(@participation.event)
     else
       render 'new'
     end
@@ -35,7 +42,7 @@ class ParticipationsController < ApplicationController
 
   def update
     if @participation.update(secure_params)
-      redirect_to event_path(params[:event_id]), notice: 'Participação alterada com sucesso!'
+      redirect_to session[:last_page] || event_path(params[:event_id])
     else
       render 'edit'
     end
@@ -43,7 +50,7 @@ class ParticipationsController < ApplicationController
 
   def destroy
     @participation.destroy
-    redirect_to event_path(@event), notice: 'Participação deletada com sucesso!'
+    redirect_to session[:last_page] || event_path(@event)
   end
 
 
@@ -63,7 +70,7 @@ class ParticipationsController < ApplicationController
     end
 
     def secure_params
-      params.require(:participation).permit(:person, :participation_type, :status, :original_updated_at)
+      params.require(:participation).permit(:person, :person_id, :participation_type, :status, :original_updated_at)
     end
 
 end

@@ -6,7 +6,8 @@ class PeopleController < ApplicationController
 
   def index
     @query = params[:query]
-    @people = Person.text_search(params[:query]).order('LOWER(people.name)').page(params[:page]).per(15)
+    @order = params[:order]
+    @people = Person.text_search(params[:query], params[:order]).page(params[:page]).per(15)
     authorize @people
   end
 
@@ -62,7 +63,7 @@ class PeopleController < ApplicationController
       render 'show'
     else
       @person.destroy
-      redirect_to people_path(page: params[:page], query: params[:query])
+      redirect_to people_path(page: params[:page], query: params[:query], order: params[:order])
     end
   end
 

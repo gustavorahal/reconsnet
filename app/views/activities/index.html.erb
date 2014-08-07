@@ -9,17 +9,13 @@
 <table class="table table-striped">
   <tr>
     <th>Nome</th>
-    <th>Tipo</th>
     <th>Sumário</th>
-    <th>Restrita a voluntários</th>
   </tr>
 
   <% @activities.each do |activity| %>
       <tr>
         <td><%= activity_link_display activity %></td>
-        <td><%= activity.activity_type %></td>
         <td><%= activity.summary %></td>
-        <td><%= internal_only_display activity %></td>
       </tr>
   <% end %>
 </table>

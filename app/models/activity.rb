@@ -55,7 +55,7 @@ class Activity < ActiveRecord::Base
     ##
     # Deleta imagens que não fazem mais partes da descrição
     # O editor tinymce só lida com acrescentar imagens. Uma vez que uma imagem é deletada
-    # do editor e sendo a atividade salva é necessário fazer um procedimento manual de checagem e deleção
+    # do editor e salva, é necessário fazer um procedimento manual de checagem e deleção
     # da imagem. Este procedimento é feito aqui.
 
     def check_images

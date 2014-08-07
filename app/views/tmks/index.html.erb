@@ -4,6 +4,9 @@
     <%= render 'common/btn_add', url: new_tmk_path, resource: Tmk.new %>
 <% end %>
 
+
+<!-- Text field de busca -->
+
 <%= form_tag '/tmks', method: :get do %>
     <div class="input-group">
       <%= text_field_tag 'query', nil, class: 'form-control',
@@ -21,23 +24,55 @@
 <% end %>
 <br/>
 
+<!-- Filtro por evento -->
+<div>
+  <span class="text-muted">Mostrar evento: </span>
+  <%= link_to '<em>todos</em>'.html_safe, tmks_path, class: "btn btn-default btn-xs #{'active' unless params[:event_id].present?}" %>
+  <% Event.latest_events.each do |event| %>
+    <% state = current_page?(params.merge(event_id: event.id)) ? 'active' : '' %>
+    <%= link_to event.name, tmks_path(params.merge(event_id: event.id)), class: "btn btn-default btn-xs #{state}" %>
+  <% end %>
+</div>
+<br>
+
+<!-- Listagem de TMKs -->
+
 <table class="table table-striped">
   <tr>
-    <th>Contatado</th>
-    <th>Sobre evento</th>
+    <th></th>
+    <th>Contato <%= link_to @event.name, event_path(@event) if @event %></th>
     <th>Notas</th>
-    <th>Tipo de contato</th>
     <th>Quem fez contato</th>
     <th>Quando</th>
     <th>Ações</th>
   </tr>
 
   <% @tmks.each do |tmk| %>
+      <% participation = Participation.find_by(event: tmk.event, person: tmk.with_who) %>
       <tr>
-        <td><%= link_to tmk.with_who.name, person_path(tmk.with_who) %></td>
-        <td><%= link_to tmk.event.name, event_path(tmk.event) %></td>
-        <td><%= tmk.notes %></td>
-        <td><%= tmk.contact_type %></td>
+        <td><%= participation_status_icon(participation) %></td>
+        <td><%= link_to tmk.with_who.name, person_path(tmk.with_who) %>
+          <% unless params[:event_id].present? %>
+            sobre evento
+            <%= link_to tmk.event.name, event_path(tmk.event) %>
+          <% end  %>
+          <br>
+          <%= "Esta #{participation.status.downcase}" if participation %>
+          <% if participation %>
+            <small>
+              (<%= link_to 'editar', edit_event_participation_path(tmk.event, participation) %>
+              ou
+              <%= link_to 'remover', event_participation_path(tmk.event, participation), method: :delete,
+                        data: { confirm: "Você tem certeza que deseja deletar participação de \"#{participation.person.name}\"?" } %>
+              participação)
+            </small>
+          <% else %>
+              <small>
+                (<%= link_to 'adicionar', new_event_participation_path(tmk.event, person_id: tmk.with_who.id) %> participação)
+              </small>
+          <% end %>
+        </td>
+        <td><em><%= tmk.notes %></em></td>
         <td><%= tmk.from_who.name %></td>
         <td><%= date_display tmk.contact_date if tmk.contact_date.present? %></td>
         <td><%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
