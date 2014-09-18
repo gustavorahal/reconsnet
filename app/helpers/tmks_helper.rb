@@ -1,14 +1,15 @@
 module TmksHelper
 
-  def participation_status_icon(participation)
+  def row_background(participation)
     status = participation.status if participation
+
     case status
-      when 'Inscrito' then icon = 'ok'; color = 'success'; help = ''
-      when 'Interessado' then icon = 'asterisk'; color = 'danger'; help = 'Fechar participação!'
-      when 'Pré-inscrito' then icon = 'minus'; color = 'warning'
+      when 'Inscrito' then return 'success'
+      when 'Interessado' then return 'danger'
+      when 'Pré-inscrito' then return 'warning'
+      else return ''
     end
 
-    "<span class=\"glyphicon glyphicon-#{icon} text-#{color}\" title=\"#{help}\"></span>".html_safe
   end
 
 end

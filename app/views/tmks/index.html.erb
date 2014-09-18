@@ -30,34 +30,30 @@
   <%= link_to '<em>todos</em>'.html_safe, tmks_path, class: "btn btn-default btn-xs #{'active' unless params[:event_id].present?}" %>
   <% Event.latest_events.each do |event| %>
     <% state = current_page?(params.merge(event_id: event.id)) ? 'active' : '' %>
-    <%= link_to event.name, tmks_path(params.merge(event_id: event.id)), class: "btn btn-default btn-xs #{state}" %>
+    <%= link_to event.name_with_date, tmks_path(params.merge(event_id: event.id)), class: "btn btn-default btn-xs #{state}" %>
   <% end %>
 </div>
 <br>
 
 <!-- Listagem de TMKs -->
 
-<table class="table table-striped">
+<table class="table">
   <tr>
-    <th></th>
     <th>Contato <%= link_to @event.name, event_path(@event) if @event %></th>
     <th>Notas</th>
-    <th>Quem fez contato</th>
-    <th>Quando</th>
-    <th>Ações</th>
+    <th></th>
   </tr>
 
   <% @tmks.each do |tmk| %>
       <% participation = Participation.find_by(event: tmk.event, person: tmk.with_who) %>
-      <tr>
-        <td><%= participation_status_icon(participation) %></td>
+      <tr class=<%= row_background participation %>>
         <td><%= link_to tmk.with_who.name, person_path(tmk.with_who) %>
           <% unless params[:event_id].present? %>
             sobre evento
             <%= link_to tmk.event.name, event_path(tmk.event) %>
           <% end  %>
           <br>
-          <%= "Esta #{participation.status.downcase}" if participation %>
+          <%= "<strong>#{participation.status_gender_aware.humanize}</strong>".html_safe if participation %>
           <% if participation %>
             <small>
               (<%= link_to 'editar', edit_event_participation_path(tmk.event, participation) %>
@@ -73,10 +69,12 @@
           <% end %>
         </td>
         <td><em><%= tmk.notes %></em></td>
-        <td><%= tmk.from_who.name %></td>
-        <td><%= date_display tmk.contact_date if tmk.contact_date.present? %></td>
         <td><%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
             <%= render 'common/btn_delete', resource: tmk, size: 'btn-xs', btn_label: '' %>
+            <span class="info-sign glyphicon glyphicon-user" data-toggle="tooltip"
+                data-placement="top"
+                title="<%= "#{tmk.from_who.name} em #{date_display tmk.contact_date if tmk.contact_date.present?}" %>">
+            </span>
         </td>
       </tr>
   <% end %>

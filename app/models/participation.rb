@@ -23,7 +23,7 @@ Professor
 Professor\ Introdução
 Professor\ Temático)
 
-  STATUS = %w(Inscrito Interessado Pré-Inscrito)
+  STATUS = %w(Inscrito Interessado Pré-inscrito)
 
   validates_uniqueness_of :person, scope: :event
   validates :participation_type, inclusion: { in: TYPES }

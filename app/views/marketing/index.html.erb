@@ -27,5 +27,5 @@ Segue o passo-a-passo para fazer a divulgação de cursos e eventos da <em>Recon
 <h4>Lista de emails para divulgação <small><%= @people.count %> emails</small></h4>
 
 <% @people.each do |p| %>
-    <div><%= p.email %></div>
+    <div><%= link_to p.name, p %> &lt;<%= p.email %>&gt;</div>
 <% end %>

@@ -13,6 +13,7 @@ class PeopleController < ApplicationController
 
   def show
     @participations = @person.participations
+    @tmks = Tmk.where(with_who: @person).order(:updated_at)
   end
 
   def new
