@@ -4,7 +4,7 @@ class MarketingController < ApplicationController
   after_action :verify_authorized
 
   def index
-    @people = Person.where(marketing: true).order('LOWER(name)')
+    @people = Person.where(marketing: true).where("email <> ''").order('LOWER(name)')
     authorize @people
   end
 
