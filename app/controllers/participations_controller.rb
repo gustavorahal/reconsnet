@@ -16,7 +16,7 @@ class ParticipationsController < ApplicationController
     end
     participations = Participation.where(event: @event)
     # Exclua as pessoas que já fazem parte do evento
-    @people = Person.where.not(id: participations.pluck(:person_id))
+    @people = Person.where.not(id: participations.pluck(:person_id)).order('LOWER(name)')
 
     session[:last_page] = request.referrer || event_path(@event)
   end
