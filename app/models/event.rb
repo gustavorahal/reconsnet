@@ -48,7 +48,11 @@ class Event < ActiveRecord::Base
 
 
   def self.next_event(exclude_internal=false)
-    latest_events(exclude_internal)[0]
+    query = where('start > ?', Time.now).order(:start).limit(1)
+    if exclude_internal
+      query.where.not('activities.internal_only = true')
+    end
+    query[0]
   end
 
 
