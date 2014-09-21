@@ -224,7 +224,10 @@ CREATE TABLE people (
     nationality character varying(255),
     marketing boolean,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    cpf character varying(255),
+    rg character varying(255),
+    scholarity character varying(255)
 );
 
 
@@ -708,4 +711,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140708165800');
 INSERT INTO schema_migrations (version) VALUES ('20140708171211');
 
 INSERT INTO schema_migrations (version) VALUES ('20140728124727');
+
+INSERT INTO schema_migrations (version) VALUES ('20140921230335');
 

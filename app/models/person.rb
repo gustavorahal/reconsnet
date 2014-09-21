@@ -20,6 +20,14 @@ class Person < ActiveRecord::Base
 
   # manter em ordem alfabética
   NATIONALITIES = %w(Afegão Alemão Americano Angolano Antiguano Árabe Argélia Argentino Armeno Australiano Austríaco Bahamense Bangladesh Barbadiano Bechuano Belga Belizenho Boliviano Brasileiro Britânico Camaronense Canadense Chileno Chinês Cingalês Colombiano Comorense Costarriquenho Croata Cubano Dinamarquês Dominicana Dominicano Egípcio Equatoriano Escocês Eslovaco Esloveno Espanhol Francês Galês Ganés Granadino Grego Guatemalteco Guianense Guianês Haitiano Holandês Hondurenho Húngaro Iemenita Indiano Indonésio Inglês Iraniano Iraquiano Irlandês Israelita Italiano Jamaicano Japonês Líbio Malaio Marfinense Marroquino Mexicano Moçambicano Neozelandês Nepalês Nicaraguense Nigeriano Norte-coreano Noruego Omanense Palestino Panamenho Paquistanês Paraguaio Peruano Polonês Portorriquenho Português Qatarense Queniano Romeno Ruandês Russo Salvadorenho Santa-lucense São-cristovense São-vicentino Saudita Sérvio Sírio Somali Sueco Suíço Sul-africano Sul-coreano Surinamês Tailandês Timorense Trindadense Turco Ucraniano Ugandense Uruguaio Venezuelano Vietnamita Zimbabuense)
+  SCHOLARITIES = %w(Ensino\ Fundamental
+                    Ensino\ Médio
+                    Superior\ Incompleto
+                    Superior\ Completo
+                    Pós-graduação
+                    Mestrado
+                    Doutorado)
+
   GENDERS = %w(Masculino Feminino)
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 5 }

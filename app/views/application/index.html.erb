@@ -8,7 +8,7 @@
       </div>
     </h4>
     <% @events.each do |event| %>
-      <div><%= link_to event.name, event_path(event) %> <small>começa em <%= time_ago_in_words event.start %></small></div>
+      <div><%= link_to event.name, event_path(event) %> <small class="text-muted">começa em <%= time_ago_in_words event.start %></small></div>
     <% end %>
   </div>
 
@@ -18,7 +18,7 @@
           <small><%= link_to 'mais &raquo;'.html_safe, event_path(@next_event) %></small></h4>
         <% @next_event.participations.each do |participant| %>
             <div><%= participant.person.name %>
-              <small class="text-muted">foi <%= participant.status_gender_aware.downcase %> a <%= time_ago_in_words participant.updated_at %></small>
+              <small class="text-muted"><%= participant.status_gender_aware.downcase %> a <%= time_ago_in_words participant.updated_at %></small>
             </div>
         <% end %>
       </div>

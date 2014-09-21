@@ -15,7 +15,7 @@
     <%= f.select :contact_type, Tmk::CONTACT_TYPES, label: 'Tipo de contato', control_col: 'col-sm-3' %>
     <%= f.text_field :contact_date, label: 'Quando', class: 'datetimepicker', control_col: 'col-sm-3', value: Time.now.strftime('%Y-%m-%d %H:%M') %>
     <%= render 'common/event_select_field', f: f %>
-    <%= f.text_area :notes, label: 'Notas' %>
+    <%= f.text_area :notes, label: 'Notas', rows: 5 %>
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>
