@@ -12,7 +12,7 @@
     <% end %>
   </div>
 
-  <% if @next_event %>
+  <% if @next_event and policy(Participation).show? %>
       <div class="well col-lg-5 tasks-box">
         <h4>Participantes <em><%= @next_event.name %></em>
           <small><%= link_to 'mais &raquo;'.html_safe, event_path(@next_event) %></small></h4>
