@@ -9,10 +9,10 @@ class TmksController < ApplicationController
     @event = nil
     if params[:event_id].present?
       @event = Event.find params[:event_id]
-      @tmks = Tmk.text_search(params[:query]).order('updated_at DESC')
+      @tmks = Tmk.text_search(params[:query]).order('contact_date DESC')
       @tmks = @tmks.where(event: @event).page(params[:page]).per(15)
     else
-      @tmks = Tmk.text_search(params[:query]).order('updated_at DESC').page(params[:page]).per(15)
+      @tmks = Tmk.text_search(params[:query]).order('contact_date DESC').page(params[:page]).per(15)
     end
     authorize @tmks
   end
