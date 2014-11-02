@@ -36,7 +36,7 @@ describe 'Edição de pessoa' do
     fill_in 'number_1', with: '45 35755578'
     click_on 'Salvar'
     # os zeros na frente e espaços foram adicionados pelo phony_rails (ou seja, números foram normalizados)
-    expect(page).to have_content('Fixo: 045 3575 5578')
+    expect(page).to have_content('Fixo: 45 3575 5578')
   end
 
   it 'adiciona um telefone inválido' do
@@ -55,7 +55,7 @@ describe 'Edição de pessoa' do
 
     click_on 'Salvar'
     # os zeros na frente e espaços foram adicionados pelo phony_rails (ou seja, números foram normalizados)
-    expect(page).to have_content('Fixo: 045 3575 5566')
+    expect(page).to have_content('Fixo: 45 3575 5566')
   end
 
   it 'avisa usuário em caso de conflito' do

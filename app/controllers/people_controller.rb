@@ -2,6 +2,7 @@ class PeopleController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_person, only: [:show, :edit, :update, :destroy]
+  before_action :set_tmks, only: [:show, :destroy]
   after_action :verify_authorized
 
   def index
@@ -13,7 +14,6 @@ class PeopleController < ApplicationController
 
   def show
     @participations = @person.participations
-    @tmks = Tmk.where(with_who: @person).order(:updated_at)
   end
 
   def new
@@ -55,11 +55,10 @@ class PeopleController < ApplicationController
 
   def destroy
     @participations = @person.participations
-    tmks = Tmk.where('with_who_id = ? or from_who_id = ?', @person.id, @person.id)
     if @participations.any?
       flash.now[:alert] = 'Esta pessoa tem participação em eventos portanto não pode ser deletada'
       render 'show'
-    elsif tmks.any?
+    elsif @tmks.any?
       flash.now[:alert] = 'Esta pessoa tem contatos TMKs portanto não pode ser deletada'
       render 'show'
     else
@@ -68,7 +67,12 @@ class PeopleController < ApplicationController
     end
   end
 
+
   private
+
+    def set_tmks
+      @tmks = Tmk.where(with_who: @person).order(:updated_at)
+    end
 
     def set_person
       @person = Person.find params[:id]
