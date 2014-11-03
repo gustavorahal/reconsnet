@@ -17,7 +17,7 @@
   <tbody>
     <% @volunteers.each do |volunteer| %>
       <tr>
-        <td><%= volunteer.person %></td>
+        <td><%= link_to volunteer.person, person_path(volunteer.person) %></td>
         <td><%= date_display volunteer.admission %></td>
         <td><%= volunteer.area_of_operation %></td>
         <td>

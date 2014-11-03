@@ -39,17 +39,15 @@
               <%= render 'common/flash_msgs' %>
             </div>
         </div>
-        <div class="row">
+        <div class="row vertical-align">
             <div class="col-lg-8">
               <%= yield :back_link %>
               <%= yield :page_title %>
             </div>
             <div class="col-lg-4">
-              <h3><!-- O hX deve ser o mesmo do titulo da pagina para os dois ficarem alinhados horizontalmente-->
                 <div class="pull-right">
                     <%= yield :actions %>
                 </div>
-              </h3>
             </div>
         </div>
 

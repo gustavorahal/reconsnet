@@ -1,13 +1,14 @@
 
 <% back_url = local_assigns.fetch :back_url, nil %>
 <% sub_title = local_assigns.fetch :sub_title, nil %>
+<% title = local_assigns.fetch :titulo, nil %>
 
 <% content_for :page_title do %>
     <h3>
         <% if back_url %>
             <smal><%= link_to "<span class=\"glyphicon glyphicon-circle-arrow-left\"></span>".html_safe, back_url %></smal>
         <% end %>
-        <%= titulo %>
+        <%= title %>
     </h3>
     <% if sub_title %>
         <span><%= sub_title.html_safe %></span>

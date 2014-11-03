@@ -1,5 +1,15 @@
 pt-BR:
   activerecord:
+    models:
+      person:
+        one: 'pessoa'
+        other: 'pessoas'
+      phone_number:
+        one: 'telefone'
+        other: 'telefones'
+      address:
+        one: 'endereço'
+        other: 'endereços'
     errors:
       models:
         phone_number:

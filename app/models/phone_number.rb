@@ -14,6 +14,8 @@
 #
 
 class PhoneNumber < ActiveRecord::Base
+  has_paper_trail
+
   belongs_to :phonable, :polymorphic => true
 
   # Deixar lista em ordem alfabética
@@ -26,5 +28,9 @@ class PhoneNumber < ActiveRecord::Base
   validates_plausible_phone :number
 
   phony_normalize :number, :default_country_code => 'BR'
+
+  def to_s
+    number
+  end
 
 end

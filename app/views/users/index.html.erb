@@ -15,7 +15,7 @@
         <td><%= user.id %></td>
         <td><%= user.name %></td>
         <td><%= user.email %></td>
-        <td><%= user.person.present? ? user.person.name : '' %></td>
+        <td><%= user.person.present? ? link_to(user.person.name, person_path(user.person)) : '' %></td>
         <td><%= user.group %></td>
         <td>
           <%= render 'common/btn_edit', resource: user, size: 'btn-xs', btn_label: '' %>

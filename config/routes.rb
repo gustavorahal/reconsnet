@@ -23,5 +23,6 @@ ReconsNet::Application.routes.draw do
   resources :volunteers
   resources :assets
   resources :activities
+  get 'versions', to: 'versions#index'
 
 end

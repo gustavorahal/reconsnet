@@ -16,5 +16,12 @@
 #
 
 class Address < ActiveRecord::Base
+  has_paper_trail
+
   belongs_to :addressable, :polymorphic => true
+
+
+  def to_s
+    line1
+  end
 end

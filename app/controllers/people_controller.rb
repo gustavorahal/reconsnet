@@ -3,6 +3,8 @@ class PeopleController < ApplicationController
   before_action :authenticate_user!
   before_action :set_person, only: [:show, :edit, :update, :destroy]
   before_action :set_tmks, only: [:show, :destroy]
+  before_action :set_resource, only: [:show, :edit, :update, :destroy]
+  before_action :set_versions, only: [:show, :destroy]
   after_action :verify_authorized
 
   def index
@@ -70,6 +72,25 @@ class PeopleController < ApplicationController
 
   private
 
+    def set_resource
+      @resource = @person
+    end
+
+    def set_versions
+
+      sql = "(item_type='Person' AND item_id=#{@person.id})"
+
+      @person.phone_numbers.each do |pn|
+        sql += " OR (item_type='PhoneNumber' AND item_id=#{pn.id})"
+      end
+      @person.addresses.each do |ad|
+        sql += " OR (item_type='Address' AND item_id=#{ad.id})"
+      end
+
+      @versions = PaperTrail::Version.where(sql).order(created_at: :desc)
+
+    end
+
     def set_tmks
       @tmks = Tmk.where(with_who: @person).order(:updated_at)
     end
@@ -83,8 +104,8 @@ class PeopleController < ApplicationController
       params.require(:person).permit(:name, :email, :gender, :date_of_birth, :occupation, :nationality,
                                      :return_to, :marketing, :cpf, :rg, :scholarity,
                                      :original_updated_at,
-                                     addresses_attributes: [:id, :label, :line1, :zip, :city, :state_code,
-                                                            :country_code, :_destroy],
+                                     addresses_attributes: [:id, :label, :line1, :zip, :city, :state,
+                                                            :country, :_destroy],
                                      phone_numbers_attributes: [:id, :label, :number, :phone_type,
                                                                 :provider, :_destroy])
     end
