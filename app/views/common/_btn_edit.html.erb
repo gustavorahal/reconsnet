@@ -5,6 +5,6 @@
 <% url = polymorphic_path(resource, action: :edit) unless url %>
 
 <% if policy(resource).edit? %>
-    <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span> #{btn_label}".html_safe,
+    <%= link_to "<span class=\"glyphicon glyphicon-edit text-info\"></span> #{btn_label}".html_safe,
                 url, class: "btn #{size} btn-default", disabled: disabled %>
 <% end %>
