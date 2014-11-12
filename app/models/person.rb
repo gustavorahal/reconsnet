@@ -12,6 +12,9 @@
 #  marketing     :boolean
 #  created_at    :datetime
 #  updated_at    :datetime
+#  cpf           :string(255)
+#  rg            :string(255)
+#  scholarity    :string(255)
 #
 
 class Person < ActiveRecord::Base
