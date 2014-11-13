@@ -1,0 +1,8 @@
+<% size = local_assigns.fetch :size, '' %>
+<% disabled = local_assigns.fetch :disabled, false %>
+<% url = polymorphic_path(resource, action: :versions) unless url %>
+
+<% if policy(resource).show? %>
+    <%= link_to "<span class=\"glyphicon glyphicon-book\"></span> Alterações".html_safe,
+                url, class: "btn #{size} btn-default", disabled: disabled %>
+<% end %>

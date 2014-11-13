@@ -2,8 +2,10 @@ require 'rails_helper'
 
 feature 'Usuário busca contatos TMK' do
 
+  let(:user) { create :user_admin }
+
   before :each do
-    sign_in(create :user)
+    sign_in(user)
   end
 
   scenario 'busca um contato tmk que existe' do

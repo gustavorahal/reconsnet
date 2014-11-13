@@ -7,7 +7,11 @@ ReconsNet::Application.routes.draw do
   get 'marketing', to: 'marketing#index'
   post '/tinymce_assets' => 'tinymce_assets#create'
 
-  resources :people
+  resources :people do
+    member do
+      get 'versions'
+    end
+  end
   resources :users
   resources :events do
     collection do

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Volunteers' do
 
-  let(:user) { create :user }
+  let(:user) { create :user_admin }
 
   before :each do
     sign_in(user)

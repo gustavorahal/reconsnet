@@ -2,7 +2,7 @@
 <%= render 'common/page_title', titulo: "<em>#{@person.name}</em>".html_safe %>
 
 <% content_for :actions do %>
-    <%= render 'common/versions_modal' %>
+    <%= render 'common/btn_versions', resource: @person %>
     <%= render 'common/btn_edit', resource: @person %>
     <%= render 'common/btn_delete', resource: @person %>
 <% end %>

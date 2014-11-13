@@ -2,26 +2,48 @@ pt-BR:
   activerecord:
     models:
       person:
-        one: 'pessoa'
-        other: 'pessoas'
+        one: "Pessoa"
+        other: "Pessoas"
       phone_number:
-        one: 'telefone'
-        other: 'telefones'
+        one: "Telefone"
+        other: "Telefones"
       address:
-        one: 'endereço'
-        other: 'endereços'
+        one: "Endereço"
+        other: "Endereços"
+    attributes:
+      person:
+        name: "Nome"
+        gender: "Gênero"
+        email: "E-mail"
+        date_of_birth: "Nascimento"
+        occupation: "Ocupação"
+        nationality: "Nacionalidade"
+        scholarity: "Escolaridade"
+        marketing: "Divulgação"
+        rg: "RG"
+        cpf: "CPF"
+      address:
+        line1: "Endereço"
+        city: "Cidade"
+        state: "Estado"
+        zip: "CEP"
+        country: "País"
+      phone_number:
+        number: "Número"
+        provider: "Provedor"
+        phone_type: "Tipo"
     errors:
       models:
         phone_number:
           attributes:
             number:
-              improbable_phone: 'Número de telefone inválido'
+              improbable_phone: "Número de telefone inválido"
   views:
     pagination:
-      first: '&laquo; Primeiro'
-      last: 'Último &raquo;'
-      next: 'Próximo &rsaquo;'
-      previous: '&lsaquo; Anterior'
+      first: "&laquo; Primeiro"
+      last: "Último &raquo;"
+      next: "Próximo &rsaquo;"
+      previous: "&lsaquo; Anterior"
       truncate: "&hellip;"
   helpers:
     page_entries_info:

@@ -1,13 +1,15 @@
 
 require 'rails_helper'
 
-describe 'Edição de pessoa' do
+feature 'Usuário edita uma pessoa' do
+
+  let(:user) { create :user_admin }
 
   before :each do
-    sign_in(create :user)
+    sign_in(user)
   end
 
-  it 'edita email da pessoa' do
+  scenario 'altera email da pessoa' do
     person = create(:person)
     visit edit_person_path(person)
     fill_in 'E-mail', with: 'novo@email.com'
@@ -15,7 +17,7 @@ describe 'Edição de pessoa' do
     expect(page).to have_content('novo@email.com')
   end
 
-  it 'adiciona endereço a uma pessoa que já existe' do
+  scenario 'adiciona endereço a uma pessoa que já existe' do
     person = create :person
     visit edit_person_path(person)
 
@@ -29,17 +31,17 @@ describe 'Edição de pessoa' do
     expect(page).to have_content address.line1
   end
 
-  it 'adiciona um telefone válido' do
+  scenario 'adiciona um telefone válido' do
     person = create(:person)
     visit edit_person_path(person)
-    select 'Fixo', from: 'Phone type'
+    select 'Fixo', from: 'Tipo'
     fill_in 'number_1', with: '45 35755578'
     click_on 'Salvar'
     # os zeros na frente e espaços foram adicionados pelo phony_rails (ou seja, números foram normalizados)
     expect(page).to have_content('Fixo: 45 3575 5578')
   end
 
-  it 'adiciona um telefone inválido' do
+  scenario 'adiciona um telefone inválido' do
     person = create(:person)
     visit edit_person_path(person)
     fill_in 'number_1', with: '35755578' # sem DDD
@@ -47,10 +49,10 @@ describe 'Edição de pessoa' do
     expect(page).to have_content('Número de telefone inválido')
   end
 
-  it 'edita telefone' do
+  scenario 'edita telefone' do
     person = create(:person)
     visit edit_person_path(person)
-    select 'Fixo', from: 'Phone type'
+    select 'Fixo', from: 'Tipo'
     fill_in 'number_1', with: '45 35755566'
 
     click_on 'Salvar'
@@ -58,13 +60,13 @@ describe 'Edição de pessoa' do
     expect(page).to have_content('Fixo: 45 3575 5566')
   end
 
-  it 'avisa usuário em caso de conflito' do
+  scenario 'avisa usuário em caso de conflito' do
     person = create :person
     visit edit_person_path(person)
     sleep 0.5
     in_browser(:two) do
       # como se trate de nova sessão, tem que fazer o sign_in
-      sign_in(create :user, email: 'novoemail@email.com')
+      sign_in(create :user_admin, email: 'novoemail@email.com')
       visit edit_person_path(person)
       fill_in 'Nome', with: 'Novo nome da pessoa'
       click_on 'Salvar'

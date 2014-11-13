@@ -2,8 +2,10 @@ require 'rails_helper'
 
 describe 'Events' do
 
+  let(:user) { create :user_admin }
+
   before :each do
-    sign_in(create :user)
+    sign_in(user)
   end
 
   it 'adiciona novo evento' do

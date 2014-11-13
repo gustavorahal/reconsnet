@@ -1,13 +1,15 @@
 require 'rails_helper'
 
-describe 'Create person' do
+feature 'Adição de pessoas' do
+
+  let(:user) { create :user_admin }
 
   before :each do
-    sign_in(create :user)
+    sign_in(user)
   end
 
 
-  it 'adiciona pessoa' do
+  scenario 'adiciona pessoa' do
     person = build(:person)
     visit people_path
     click_on 'Adicionar pessoa'
@@ -19,7 +21,7 @@ describe 'Create person' do
     expect(page).to have_content person.name
   end
 
-  it 'adiciona pessoa junto com seu endereço' do
+  scenario 'adiciona pessoa junto com seu endereço' do
     person = build :person
     address = build :address
     visit people_path

@@ -3,10 +3,14 @@ FactoryGirl.define do
   factory :user do
     sequence(:name) { |n| "Test User n. #{n}" }
     email 'example@example.com'
-    group 'Admin'
     password 'changeme'
     password_confirmation 'changeme'
     person { |c| c.association(:person) }
+
+    factory :user_admin do
+      group 'Admin'
+    end
+
     # required if the Devise Confirmable module is used
     # confirmed_at Time.now
   end

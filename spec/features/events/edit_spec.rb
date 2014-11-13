@@ -2,8 +2,10 @@ require 'rails_helper'
 
 describe 'Edita evento' do
 
+  let(:user) { create :user_admin }
+
   before :each do
-    sign_in(create :user)
+    sign_in(user)
   end
 
   it 'altera um evento' do
@@ -24,7 +26,7 @@ describe 'Edita evento' do
     sleep 0.5
 
     in_browser(:two) do
-      sign_in(create :user, email: 'novoemail@email.com') # need to sign in here
+      sign_in(create :user_admin, email: 'novoemail@email.com') # need to sign in here
       visit edit_event_path(event)
       fill_in 'Nome', with: 'Meu evento que mudou de nome'
       click_on 'Salvar'

@@ -3,14 +3,15 @@ require 'rails_helper'
 
 feature 'Usuário cria novo contato TMK' do
 
+  let(:user) { create :user_admin }
+
   before :each do
-    @signed_in_user = create :user
-    sign_in @signed_in_user
+    sign_in(user)
   end
 
   scenario 'usuário na página inicial' do
     # gera dados do banco
-    quem_fez_contato = create :person, email: @signed_in_user.email
+    quem_fez_contato = create :person, email: user.email
     contatado = create :person
     evento = create :event
 

@@ -33,6 +33,10 @@ class ApplicationPolicy < Struct.new(:user, :record)
     user.admin? if user
   end
 
+  def versions?
+    true
+  end
+
   def scope
     Pundit.policy_scope!(user, record.class)
   end

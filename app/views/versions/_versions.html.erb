@@ -1,31 +1,40 @@
 <% short = local_assigns.fetch :short, false %>
 
+<% ignore_attrs = %w(updated_at created_at id phonable_id phonable_type addressable_id addressable_type)  %>
+
 <% @versions.each do |v| %>
     <div>
       <% if v.event == 'update' %>
-         <span class="glyphicon glyphicon-edit"></span>
+         <span class="glyphicon glyphicon-edit text-info"></span>
       <% elsif v.event == 'destroy' %>
-         <span class="glyphicon glyphicon-remove"></span>
+         <span class="glyphicon glyphicon-remove text-danger"></span>
       <% elsif v.event == 'create' %>
-          <span class="glyphicon glyphicon-plus-sign"></span>
+          <span class="glyphicon glyphicon-plus-sign text-success"></span>
       <% end %>
 
       <% resource = v.reify(dup: true) || v.item_type.constantize.find(v.item_id) %>
       <% model_name_human = resource.class.model_name.human %>
 
-      <%= User.find(v.whodunnit).name %> <%= VersionsHelper::event_name_i18n(v.event) %> o(a) <%= model_name_human %>
+
+      <!-- O que alterou -->
+      <%= User.find(v.whodunnit).name %> <%= VersionsHelper::event_name_i18n(v.event) %>
       <% unless short %>
-        <em><%= resource %></em>
+          o(a) <%= model_name_human.downcase %> <em><%= resource %></em>
       <% end %>
-      há <%= time_ago_in_words v.created_at %>.
-      <% v.changeset.dup.except(:updated_at).each do |k,v| %>
+
+      <!-- Data da alteração -->
+      <span class="text-muted pull-right"><%= date_display v.created_at %> <small>(há <%= time_ago_in_words v.created_at %>)</small></span>
+
+      <!-- Atributoes alterados -->
+      <% v.changeset.dup.except(*ignore_attrs).each do |k,v| %>
           <div class="text-muted"><small>
-            <%= k %>:
+            <%= resource.class.human_attribute_name(k) %>:
             <%= v[0].present? ? "<s>#{v[0]}</s>".html_safe : '<em class=text-muted>&ltvazio&gt</em>'.html_safe %>
              -> <%= v[1].present? ? "<em>#{v[1]}</em>".html_safe : '<em class=text-muted>&ltvazio&gt</em>'.html_safe %>
           </small>
           </div>
       <% end %>
     </div>
-    <br/>
+    <hr>
+
 <% end %>
