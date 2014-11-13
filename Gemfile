@@ -33,6 +33,9 @@ gem 'paper_trail', '~> 3.0.6'
 
 gem 'puma'
 
+# Solução de Backup do BD na cloud
+gem 'dumper'
+
 # para manipulação de números de telefone
 gem 'phony_rails'
 
