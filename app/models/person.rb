@@ -46,7 +46,7 @@ class Person < ActiveRecord::Base
   has_many :addresses, as: :addressable, dependent: :destroy
   has_many :phone_numbers, as: :phonable, dependent: :destroy
 
-  accepts_nested_attributes_for :addresses, allow_destroy: true, reject_if: lambda {|attributes| attributes['line1'].blank?}
+  accepts_nested_attributes_for :addresses, allow_destroy: true
   accepts_nested_attributes_for :phone_numbers, allow_destroy: true, reject_if: lambda {|attributes| attributes['number'].blank?}
 
 
