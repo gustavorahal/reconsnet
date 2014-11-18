@@ -13,7 +13,7 @@ class PeopleController < ApplicationController
   end
 
   def show
-    @participations = @person.participations
+    @participations = @person.participations.includes(:event).order('events.start desc')
   end
 
   def new
