@@ -62,26 +62,21 @@
   <p class="text-muted">Não participou de nenhum evento da <em>Reconscientia</em></p>
 
 <% else  %>
-    <div class="well">
-        <h4>Participação em eventos <small>(últimos eventos aparecem primeiro)</small></h4>
-        <br/>
-        <table class="table table-striped table-condensed">
-          <tr>
-            <th>Evento</th>
-            <th>Tipo Participação</th>
-            <th>Última atualização</th>
-            <th>Data evento</th>
-          </tr>
-          <% @participations.each do |participation| %>
-              <tr>
-                <td><%= link_to participation.event.name, event_path(participation.event) %></td>
-                <td><%= participation.participation_type %></td>
-                <td><%= date_display participation.updated_at %></td>
-                <td><%= date_display participation.event.start %></td>
-              </tr>
-          <% end %>
-        </table>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Participação em eventos</h3>
+      </div>
+      <div class="panel-body">
+        <% @participations.each do |participation| %>
+            <div>
+              <%= link_to participation.event.name_with_date, event_path(participation.event) %>
+              sendo <%= participation.participation_type.downcase %>
+            </div>
+        <% end %>
+      </div>
     </div>
+
 <% end %>
 
 
@@ -90,24 +85,24 @@
     <p class="text-muted">Não houve nenhum contato TMK</p>
 
 <% else  %>
-    <div class="well">
-      <h4>Contatos TMK</h4>
-      <br/>
-      <table class="table table-striped table-condensed">
-        <tr>
-          <th>Data</th>
-          <th>Evento</th>
-          <th>Notas</th>
-          <th>Quem fez</th>
-        </tr>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Contatos TMK</h3>
+      </div>
+      <div class="panel-body">
         <% @tmks.each do |tmk| %>
-            <tr>
-              <td><%= link_to date_display(tmk.contact_date), edit_tmk_path(tmk) %></td>
-              <td><%= tmk.event.name %></td>
-              <td><%= tmk.notes %></td>
-              <td><%= tmk.from_who.name %></td>
-            </tr>
+            <div>
+              Evento <%= link_to tmk.event.name_with_date, event_path(tmk.event) %>
+              há <%= time_ago_in_words tmk.contact_date %>
+              por <%= tmk.from_who.name %>
+              <% unless tmk.notes.blank? %>
+              com a anotação <strong><em>"<%= tmk.notes %>"</em></strong>
+              <% end %>
+              <%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
+            </div>
         <% end %>
-      </table>
+      </div>
     </div>
+
 <% end %>

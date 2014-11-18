@@ -83,7 +83,7 @@ class PeopleController < ApplicationController
   private
 
     def set_tmks
-      @tmks =@person.tmks.order(:updated_at)
+      @tmks = @person.tmks.order(contact_date: :desc)
     end
 
     def set_person
