@@ -83,7 +83,11 @@
 <div class="well">
     <div class="row">
       <div class="col-lg-6">
-        <h4>Participantes</h4>
+        <h4>Participantes
+          <% unless @participations.empty? %>
+            <small class="text-muted"><%= @enrolled_count %> inscrito(s), <%= @pre_enrolled_count %> pré-inscrito(s), <%= @interested_count %> interessado(s)</small>
+          <% end  %>
+        </h4>
       </div>
       <div class="col-lg-6">
         <h4><!-- O hX deve ser o mesmo do titulo da pagina para os dois ficarem alinhados horizontalmente-->

@@ -11,6 +11,9 @@ class EventsController < ApplicationController
   def show
     @assets = @event.assets.order('assets.name')
     @participations = Participation.includes(:person).where(event: @event).order('people.name')
+    @enrolled_count = Participation.where(event: @event).where(status: 'Inscrito').count
+    @pre_enrolled_count = Participation.where(event: @event).where(status: 'Pré-inscrito').count
+    @interested_count = Participation.where(event: @event).where(status: 'Interessado').count
   end
 
   def new
