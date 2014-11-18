@@ -20,9 +20,12 @@ class TmksController < ApplicationController
   def new
     @tmk = Tmk.new
     authorize @tmk
+
+    session[:last_page] = request.referrer || tmks_path
   end
 
   def edit
+    session[:last_page] = request.referrer || tmks_path
   end
 
   def create
@@ -30,7 +33,7 @@ class TmksController < ApplicationController
     authorize @tmk
 
     if @tmk.save
-      redirect_to tmks_path
+      redirect_to session[:last_page] || tmks_path
     else
       render 'new'
     end
@@ -38,7 +41,7 @@ class TmksController < ApplicationController
 
   def update
     if @tmk.update(secure_params)
-      redirect_to tmks_path
+      redirect_to session[:last_page] || tmks_path
     else
       render 'edit'
     end

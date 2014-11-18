@@ -21,7 +21,7 @@
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>
-        <%= link_to 'Voltar', :back, class: 'btn btn-link' %>
+        <%= link_to 'Voltar', session[:last_page], class: 'btn btn-link' %>
     <% end %>
 
 <% end %>

@@ -57,52 +57,61 @@
   </address>
 <% end  %>
 
-<% if @participations.empty? %>
-  <br/>
-  <p class="text-muted">Não participou de nenhum evento da <em>Reconscientia</em></p>
 
-<% else  %>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Participação em eventos</h3>
-      </div>
-      <div class="panel-body">
-        <% @participations.each do |participation| %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Participação em eventos</h3>
+  </div>
+  <div class="panel-body">
+
+    <% if @participations.empty? %>
+
+        Não participou de eventos da <em>Reconscientia</em>.
+
+    <% else  %>
+
+      <% @participations.each do |participation| %>
             <div>
               <%= link_to participation.event.name_with_date, event_path(participation.event) %>
               sendo <%= participation.participation_type.downcase %>
             </div>
         <% end %>
-      </div>
-    </div>
+    <% end %>
+  </div>
+</div>
 
-<% end %>
 
 
-<% if @tmks.empty? %>
-    <br/>
-    <p class="text-muted">Não houve nenhum contato TMK</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Contatos TMK</h3>
+  </div>
+  <div class="panel-body">
 
-<% else  %>
+    <% if @tmks.empty? %>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Contatos TMK</h3>
-      </div>
-      <div class="panel-body">
-        <% @tmks.each do |tmk| %>
-            <div>
-              Evento <%= link_to tmk.event.name_with_date, event_path(tmk.event) %>
-              há <%= time_ago_in_words tmk.contact_date %>
-              por <%= tmk.from_who.name %>
-              <% unless tmk.notes.blank? %>
-              com a anotação <strong><em>"<%= tmk.notes %>"</em></strong>
-              <% end %>
-              <%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
-            </div>
+        Não houve contatos de TMK.
+        <% if policy(Tmk).create? %>
+            Que tal fazer um agora?
+            <%= link_to "<span class=\"glyphicon glyphicon-phone-alt\"></span> TMK".html_safe,
+                                        new_tmk_path, class: "btn btn-sm btn-success" %>
         <% end %>
-      </div>
-    </div>
 
-<% end %>
+    <% else  %>
+
+        <% @tmks.each do |tmk| %>
+        <div>
+          Evento <%= link_to tmk.event.name_with_date, event_path(tmk.event) %>
+          há <%= time_ago_in_words tmk.contact_date %>
+          por <%= tmk.from_who.name %>
+          <% unless tmk.notes.blank? %>
+          com a anotação <strong><em>"<%= tmk.notes %>"</em></strong>
+          <% end %>
+          <%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
+        </div>
+        <% end %>
+    <% end %>
+
+  </div>
+</div>
