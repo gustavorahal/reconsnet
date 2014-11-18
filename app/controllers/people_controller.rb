@@ -55,15 +55,12 @@ class PeopleController < ApplicationController
 
   def destroy
     @participations = @person.participations
-    if @participations.any?
-      flash.now[:alert] = 'Esta pessoa tem participação em eventos portanto não pode ser deletada'
-      render 'show'
-    elsif @tmks.any?
-      flash.now[:alert] = 'Esta pessoa tem contatos TMKs portanto não pode ser deletada'
-      render 'show'
-    else
+    if @person.safely_destroyable?
       @person.destroy
       redirect_to people_path(page: params[:page], query: params[:query], order: params[:order])
+    else
+      flash.now[:alert] = 'Esta pessoa esta relacionada a outros recursos do site portanto não pode ser deletada'
+      render 'show'
     end
   end
 
@@ -86,7 +83,7 @@ class PeopleController < ApplicationController
   private
 
     def set_tmks
-      @tmks = Tmk.where(with_who: @person).order(:updated_at)
+      @tmks =@person.tmks.order(:updated_at)
     end
 
     def set_person

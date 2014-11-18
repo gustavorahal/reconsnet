@@ -42,9 +42,10 @@ class Person < ActiveRecord::Base
 
   has_many :events
   has_one :volunteer, dependent: :destroy
-  has_many :participations
+  has_many :participations, dependent: :destroy
   has_many :addresses, as: :addressable, dependent: :destroy
   has_many :phone_numbers, as: :phonable, dependent: :destroy
+  has_many :tmks, foreign_key: 'with_who_id', dependent: :destroy
 
   accepts_nested_attributes_for :addresses, allow_destroy: true
   accepts_nested_attributes_for :phone_numbers, allow_destroy: true, reject_if: lambda {|attributes| attributes['number'].blank?}
@@ -54,6 +55,9 @@ class Person < ActiveRecord::Base
     "#{name}"
   end
 
+  def safely_destroyable?
+    participations.empty? and tmks.empty?
+  end
 
   def self.text_search(query, order)
     order_str = ''

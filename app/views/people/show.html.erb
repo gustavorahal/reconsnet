@@ -4,7 +4,9 @@
 <% content_for :actions do %>
     <%= render 'common/btn_versions', resource: @person %>
     <%= render 'common/btn_edit', resource: @person %>
-    <%= render 'common/btn_delete', resource: @person %>
+    <% @person.safely_destroyable? ? disabled = false : disabled = true%>
+    <%= render 'common/btn_delete', resource: @person, disabled: disabled %>
+    <%=  %>
 <% end %>
 
 <address>

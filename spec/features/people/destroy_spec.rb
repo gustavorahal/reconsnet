@@ -37,7 +37,7 @@ describe 'Deleta pessoa' do
     visit person_path(person)
     expect(page).to have_content(person.name)
     click_on 'Deletar'
-    expect(page).to have_content 'Esta pessoa tem participação em eventos portanto não pode ser deletada'
+    expect(page).to have_content 'Esta pessoa esta relacionada a outros recursos do site portanto não pode ser deletada'
   end
 
   it 'não pode deletar uma pessoa se tem algum contato TMK' do
@@ -46,7 +46,7 @@ describe 'Deleta pessoa' do
     visit person_path(person)
     expect(page).to have_content(person.name)
     click_on 'Deletar'
-    expect(page).to have_content 'Esta pessoa tem contatos TMKs portanto não pode ser deletada'
+    expect(page).to have_content 'Esta pessoa esta relacionada a outros recursos do site portanto não pode ser deletada'
   end
 
 end
