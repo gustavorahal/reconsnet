@@ -55,6 +55,11 @@ class Person < ActiveRecord::Base
     "#{name}"
   end
 
+
+  def enrolls
+    participations.where(status: 'Inscrito').includes(:event).order('events.start desc')
+  end
+
   def safely_destroyable?
     participations.empty? and tmks.empty?
   end

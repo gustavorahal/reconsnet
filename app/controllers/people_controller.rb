@@ -13,7 +13,7 @@ class PeopleController < ApplicationController
   end
 
   def show
-    @participations = @person.participations.includes(:event).order('events.start desc')
+    @enrolls = @person.enrolls
   end
 
   def new
@@ -54,7 +54,7 @@ class PeopleController < ApplicationController
   end
 
   def destroy
-    @participations = @person.participations
+    @enrolls = @person.enrolls
     if @person.safely_destroyable?
       @person.destroy
       redirect_to people_path(page: params[:page], query: params[:query], order: params[:order])

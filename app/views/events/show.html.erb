@@ -21,117 +21,111 @@
   <dd><%= date_display @event.finish %></dd>
 </dl>
 
+
+
 <!-- Anexos -->
-<div class="well">
-  <div class="row">
-    <div class="col-lg-6">
-      <h4>Anexos</h4>
-    </div>
-    <div class="col-lg-6">
-      <h4><!-- O hX deve ser o mesmo do titulo da pagina para os dois ficarem alinhados horizontalmente-->
-        <div class="pull-right">
-          <%= render 'common/btn_add', url: new_asset_path(assetable_id: @event.id,
-                                                           assetable_type: 'Event'), size: 'btn-sm',
-                                                            resource: Asset.new %>
-        </div>
-      </h4>
-    </div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Anexos
+      <div class="pull-right">
+        <%= render 'common/btn_add', url: new_asset_path(assetable_id: @event.id,
+                                                         assetable_type: 'Event'),
+                                     size: 'btn-xs',
+                                     resource: Asset.new %>
+      </div>
+    </h3>
   </div>
-  <br/>
+  <div class="panel-body">
 
-  <% if @assets.empty? %>
-     <div class="text-muted">Não existem anexos para este evento</div>
-  <% else %>
-     <table class="table table-striped table-condensed">
-        <tr>
-          <th>Nome</th>
-          <th>Arquivo</th>
-          <th>Data upload</th>
-          <th></th>
-        </tr>
-        <% @assets.each do |asset| %>
-            <tr>
-              <td><%= asset.name %></td>
-              <td><%= asset.file_file_name %></td>
-              <td><%= date_display asset.created_at %></td>
-              <!--A checagem de permissão é feita aqui para a coluna ser ou não gerada e ficar consistente-->
-              <!--com o cabeçalho-->
-              <td>
-                <%= link_to asset.file.url, class: 'btn btn-default btn-xs' do %>
-                    <span class="glyphicon glyphicon-download" title="download"></span>
-                <% end %>
-                <% if policy(@event).edit? %>
-                    <%= render 'common/btn_edit', btn_label: '', url: edit_asset_path(asset,
-                                                                                      assetable_id: @event.id,
-                                                                                      assetable_type: 'Event'),
-                                                                 size: 'btn-xs', resource: asset %>
-                    <%= render 'common/btn_delete', btn_label: '', url: asset_path(asset,
-                                                                                   assetable_id: @event.id,
-                                                                                   assetable_type: 'Event'),
-                                                                   size: 'btn-xs', resource: asset %>
-                <% end %>
-              </td>
-            </tr>
-        <% end %>
-     </table>
-  <% end %>
+    <% if @assets.empty? %>
 
+        <small>Sem anexos</small>
+
+    <% else %>
+
+      <% @assets.each do |asset| %>
+        <div>
+            <span class="glyphicon glyphicon-file"></span>
+            <%= asset.name %> <small>(<%= date_display asset.created_at %>)</small>
+
+            <%= link_to asset.file.url, class: 'btn btn-default btn-xs' do %>
+                <span class="glyphicon glyphicon-download" title="download"></span>
+            <% end %>
+            <% if policy(@event).edit? %>
+                  <%= render 'common/btn_edit', btn_label: '', url: edit_asset_path(asset,
+                                                                                    assetable_id: @event.id,
+                                                                                    assetable_type: 'Event'),
+                             size: 'btn-xs', resource: asset %>
+                  <%= render 'common/btn_delete', btn_label: '', url: asset_path(asset,
+                                                                                 assetable_id: @event.id,
+                                                                                 assetable_type: 'Event'),
+                             size: 'btn-xs', resource: asset %>
+            <% end %>
+        </div>
+      <% end %>
+
+    <% end %>
+
+  </div>
 </div>
+
+
+
+<!-- Participantes -->
 
 <% if policy(Participation).show? %>
-<!-- Participantes -->
-<div class="well">
-    <div class="row">
-      <div class="col-lg-6">
-        <h4>Participantes
-          <% unless @participations.empty? %>
-            <small class="text-muted"><%= @enrolled_count %> inscrito(s), <%= @pre_enrolled_count %> pré-inscrito(s), <%= @interested_count %> interessado(s)</small>
-          <% end  %>
-        </h4>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Participantes
+      <div class="pull-right">
+        <%= render 'common/btn_emails', size: 'btn-xs' %>
+        <%= render 'common/btn_add', url: new_event_participation_path(@event.id),
+                   size: 'btn-xs', resource: @event %>
       </div>
-      <div class="col-lg-6">
-        <h4><!-- O hX deve ser o mesmo do titulo da pagina para os dois ficarem alinhados horizontalmente-->
-          <div class="pull-right">
-            <%= render 'common/btn_emails', size: 'btn-sm' %>
-            <%= render 'common/btn_add', url: new_event_participation_path(@event.id), size: 'btn-sm', resource: @event %>
-          </div>
-        </h4>
-      </div>
-    </div>
-    <br/>
+    </h3>
+  </div>
+  <div class="panel-body">
 
-  <% if @participations.empty? %>
-    <div class="text-muted">Não existem participantes para este evento</div>
-  <% else %>
-    <table class="table table-striped table-condensed">
-      <tr>
-        <th>Nome</th>
-        <th>E-mail</th>
-        <th>Participação</th>
-        <th>Status</th>
-        <% if policy(@event).edit? %>
-            <th></th>
-        <% end %>
-      </tr>
-      <% @participations.each do |participation| %>
-          <tr>
-            <td><%= link_to participation.person.name, person_path(participation.person.id) %></td>
-            <td><%= participation.person.email %></td>
-            <td><%= participation.participation_type %></td>
-            <td><%= participation.status %></td>
-            <!--A checagem de permissão é feita aqui para a coluna ser ou não gerada e ficar consistente-->
-            <!--com o cabeçalho-->
-            <% if policy(@event).edit? %>
-                <td>
-                  <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
-                             btn_label: '', size: 'btn-xs', resource: participation %>
-                  <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
-                             btn_label: '', size: 'btn-xs', resource: participation %>
-                </td>
+    <% if @has_participations %>
+        <% lista = [ [@enrolled, 'Inscritos'],
+                     [@pre_enrolled, 'Pré-inscritos'],
+                     [@interested, 'Interessados'] ] %>
+
+        <% lista.each do |elem| %>
+            <% participations = elem[0] %>
+            <% label = elem[1] %>
+            <h5><%= label %> (<%= participations.size %>)</h5>
+
+            <% if participations.empty? %>
+                <small>Não existem <%= label.downcase %> para este evento</small>
+            <% else %>
+                <% participations.each do |participation| %>
+                      <div>
+                        <%= link_to participation.person.name, person_path(participation.person.id) %>
+                        <em>(<%= participation.participation_type.downcase %>)</em>
+                          <% if policy(@event).edit? %>
+                            <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
+                                       btn_label: '', size: 'btn-xs', resource: participation %>
+                            <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
+                                       btn_label: '', size: 'btn-xs', resource: participation %>
+                          <% end %>
+                      </div>
+                <% end %>
             <% end %>
-          </tr>
-      <% end %>
-    </table>
-  <% end %>
+
+        <br>
+        <% end %>
+
+    <% else  %>
+
+        Não existem participantes para este evento
+
+    <% end %>
+  </div>
 </div>
 <% end %>
+
+
+
+
