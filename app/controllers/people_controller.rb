@@ -21,6 +21,8 @@ class PeopleController < ApplicationController
     authorize @person
     @person.phone_numbers.build
     @person.addresses.build
+
+    session[:last_page] = request.referrer || person_path(@person)
   end
 
   def edit
