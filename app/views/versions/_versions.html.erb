@@ -12,23 +12,24 @@
           <span class="glyphicon glyphicon-plus-sign text-success"></span>
       <% end %>
 
-      <% resource = v.reify(dup: true) || v.item_type.constantize.find(v.item_id) %>
-      <% model_name_human = resource.class.model_name.human %>
+      <!-- || v.item_type.constantize.find(v.item_id) -->
 
+      <% resource = v.reify(dup: true) %>
+      <% resource_class = v.item_type.constantize %>
 
       <!-- O que alterou -->
       <%= User.find(v.whodunnit).name %> <%= VersionsHelper::event_name_i18n(v.event) %>
       <% unless short %>
-          o(a) <%= model_name_human.downcase %> <em><%= resource %></em>
+          o(a) <%= resource_class.model_name.human.downcase %> <%= "<em>#{resource}</em>".html_safe unless resource.nil? %>
       <% end %>
 
       <!-- Data da alteração -->
       <span class="text-muted pull-right"><%= date_display v.created_at %> <small>(há <%= time_ago_in_words v.created_at %>)</small></span>
 
-      <!-- Atributoes alterados -->
+      <!-- Atributos alterados -->
       <% v.changeset.dup.except(*ignore_attrs).each do |k,v| %>
           <div class="text-muted"><small>
-            <%= resource.class.human_attribute_name(k) %>:
+            <%= resource_class.human_attribute_name(k) %>:
             <%= v[0].present? ? "<s>#{v[0]}</s>".html_safe : '<em class=text-muted>&ltvazio&gt</em>'.html_safe %>
              -> <%= v[1].present? ? "<em>#{v[1]}</em>".html_safe : '<em class=text-muted>&ltvazio&gt</em>'.html_safe %>
           </small>
