@@ -4,6 +4,7 @@ class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :versions, :edit, :update, :destroy]
   before_action :set_tmks, only: [:show, :destroy]
   after_action :verify_authorized
+  after_action :set_last_page, only: [:edit, :new]
 
   def index
     @query = params[:query]
@@ -21,8 +22,6 @@ class PeopleController < ApplicationController
     authorize @person
     @person.phone_numbers.build
     @person.addresses.build
-
-    session[:last_page] = request.referrer || person_path(@person)
   end
 
   def edit
@@ -32,8 +31,6 @@ class PeopleController < ApplicationController
     if @person.phone_numbers.empty?
       @person.phone_numbers.build
     end
-
-    session[:last_page] = request.referrer || person_path(@person)
   end
 
   def create
@@ -91,6 +88,10 @@ class PeopleController < ApplicationController
     def set_person
       @person = Person.find params[:id]
       authorize @person
+    end
+
+    def set_last_page
+      session[:last_page] = request.referrer || (@person.persisted? ? person_path(@person) : people_path)
     end
 
     def secure_params

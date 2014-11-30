@@ -57,7 +57,8 @@ class ParticipationsController < ApplicationController
   def emails
     @event = Event.find(params[:event_id])
     authorize @event
-    @people = Person.joins(:participations).where('participations.event_id = ?', @event.id).uniq
+
+    @enrolled, @pre_enrolled, @interested  = Participation.participations(@event)
   end
 
   private

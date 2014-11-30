@@ -1,7 +1,23 @@
-
-
 <%= render 'common/page_title', titulo: "E-mails dos participantes do evento <em>#{@event.name}</em>".html_safe %>
 
-<% @people.each do |p| %>
-    <div><%= p.email %></div>
+<% lista = [ [@enrolled, 'Inscritos'],
+             [@pre_enrolled, 'Pré-inscritos'],
+             [@interested, 'Interessados'] ] %>
+
+<% lista.each do |elem| %>
+    <% participations = elem[0] %>
+    <% label = elem[1] %>
+    <h5><%= label %> (<%= participations.size %>)</h5>
+
+    <% if participations.empty? %>
+        <small>Não existem <%= label.downcase %> para este evento</small>
+    <% else %>
+        <% participations.each do |p| %>
+            <div>
+              <div><%= p.person.name %> &lt;<%= p.person.email %>&gt;</div>
+            </div>
+        <% end %>
+    <% end %>
+
+    <br>
 <% end %>

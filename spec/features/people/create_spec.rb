@@ -58,5 +58,21 @@ feature 'Adição de pessoas' do
   end
 
 
+  scenario 'NÃO adiciona se nome ou email já existe' do
+    person = create :person
+
+    visit new_person_path
+    fill_in 'Nome', with: person.name
+    click_on 'Salvar'
+    expect(page).to have_content 'Nome já está em uso'
+
+    visit new_person_path
+    fill_in 'E-mail', with: person.email
+    click_on 'Salvar'
+    expect(page).to have_content 'E-mail já está em uso'
+
+  end
+
+
 
 end
