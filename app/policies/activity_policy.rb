@@ -18,4 +18,8 @@ class ActivityPolicy < ApplicationPolicy
     true
   end
 
+  def about?
+    true
+  end
+
 end

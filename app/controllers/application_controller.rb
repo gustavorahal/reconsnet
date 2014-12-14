@@ -24,6 +24,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def about
+
+  end
+
   private
 
     def set_menu_values

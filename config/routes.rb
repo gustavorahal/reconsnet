@@ -5,6 +5,8 @@ ReconsNet::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => 'registrations' }
 
   get 'marketing', to: 'marketing#index'
+  get 'inventoriology', to: 'inventoriology#index'
+  get 'about', to: 'application#about'
   post '/tinymce_assets' => 'tinymce_assets#create'
 
   resources :people do
