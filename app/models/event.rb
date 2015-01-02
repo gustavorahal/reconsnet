@@ -20,7 +20,7 @@ class Event < ActiveRecord::Base
   #validates :name, presence: true, length: { minimum: 5 }
   validates :start, presence: true
   validates :finish, presence: true
-  validate :handle_conflict, only: :update
+  validate :handle_conflict, on: :update
 
   belongs_to :activity
   has_many :participations, dependent: :destroy

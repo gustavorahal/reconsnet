@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.7'
+gem 'rails', '4.2.0'
 gem 'pg'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -11,7 +11,7 @@ gem 'jquery-rails'
 
 # UI/Web
 gem 'sass-rails', '~> 4.0.0'
-gem 'bootstrap-sass', '~> 3.3.0'
+gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails' # recommended for bootstrap-sass
 gem 'bootstrap_form'
 gem 'tinymce-rails'
@@ -22,6 +22,7 @@ gem 'kaminari-bootstrap'
 
 gem 'pry-rails', group: :development
 gem 'annotate', group: :development
+gem 'web-console', '~> 2.0', group: :development
 
 gem 'turbolinks'
 gem 'jquery-turbolinks'
