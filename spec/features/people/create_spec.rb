@@ -74,5 +74,22 @@ feature 'Adição de pessoas' do
   end
 
 
+  scenario 'após criação, gênero deve ser setado automaticamente' do
+
+    visit new_person_path
+    fill_in 'Nome', with: 'Alfred'
+    click_on 'Salvar'
+
+    expect(Person.find_by(name: 'Alfred').gender).to eq('Masculino')
+
+    visit new_person_path
+    fill_in 'Nome', with: 'Amanda'
+    click_on 'Salvar'
+
+    expect(Person.find_by(name: 'Amanda').gender).to eq('Feminino')
+
+  end
+
+
 
 end

@@ -15,7 +15,7 @@
                         checked: @person.persisted? ? @person.marketing : true,
                         layout: :inline %>
     <% end %>
-    <%= f.select :gender, Person::GENDERS, include_blank: true, control_col: 'col-sm-3' %>
+
     <%= f.date_select :date_of_birth, start_year: 1930, end_year: Date.today.year,
                       include_blank: true, control_col: 'col-sm-3' %>
     <%= f.text_field :occupation, control_col: 'col-sm-3' %>

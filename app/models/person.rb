@@ -39,6 +39,7 @@ class Person < ActiveRecord::Base
   validates_inclusion_of :gender, in:  GENDERS, allow_nil: true, allow_blank: true
   validates_inclusion_of :nationality, in: NATIONALITIES, allow_nil: true, allow_blank: true
   validate :handle_conflict, on: :update
+  after_create :detect_gender
 
   has_many :events
   has_one :volunteer, dependent: :destroy
@@ -55,6 +56,10 @@ class Person < ActiveRecord::Base
     "#{name}"
   end
 
+
+  def first_name
+    name.strip.split(' ')[0]
+  end
 
   def enrolls
     participations.where(status: 'Inscrito').includes(:event).order('events.start desc')
@@ -92,6 +97,15 @@ class Person < ActiveRecord::Base
       bday += 1.year if Date.today >= bday
       (bday - Date.today).to_i
     end
+  end
+
+
+  ##
+  # Como a detecção do gênero exige uma chamada à API do genderize.io escolheu-se fazer disso um job
+  # para evitar transtornos por eventuais demoras decorrentes da rede
+
+  def detect_gender
+    SetPersonGenderJob.perform_later self
   end
 
 end

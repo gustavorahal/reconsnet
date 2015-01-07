@@ -34,6 +34,12 @@ gem 'paper_trail', '~> 3.0.6'
 
 gem 'puma', '~> 2.10.2'
 
+# Detecção de gênero baseada em nome
+gem 'gendered'
+
+# Executor de jobs em 2o plano
+gem 'sidekiq'
+
 # Solução de Backup do BD na cloud
 gem 'dumper'
 

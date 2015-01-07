@@ -6,6 +6,7 @@ require 'rspec/rails'
 require 'capybara/poltergeist'
 require 'capybara/rspec'
 require 'pry'
+require 'sidekiq/testing'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -43,6 +44,8 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
+
+  Sidekiq::Testing.inline!
 
   config.include FactoryGirl::Syntax::Methods
   config.include Capybara::DSL
