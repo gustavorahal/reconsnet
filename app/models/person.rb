@@ -39,7 +39,7 @@ class Person < ActiveRecord::Base
   validates_inclusion_of :gender, in:  GENDERS, allow_nil: true, allow_blank: true
   validates_inclusion_of :nationality, in: NATIONALITIES, allow_nil: true, allow_blank: true
   validate :handle_conflict, on: :update
-  after_create :detect_gender
+  after_create :detect_gender, unless: :gender?
 
   has_many :events
   has_one :volunteer, dependent: :destroy

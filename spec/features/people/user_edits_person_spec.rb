@@ -78,4 +78,20 @@ feature 'Usuário edita uma pessoa' do
     expect(page).to have_content('era Novo nome da pessoa')
   end
 
+  scenario 'quando o gênero não é detectado automaticamente, mostrar o select para gênero', underdev: true do
+    # cria uma pessoa que o sistema consegue identificar o gênero e portando não
+    # deveria mostra o select para gênero
+    person = create :person, name: 'Alfred', gender: nil
+    visit edit_person_path(person)
+    expect(page).to_not have_content('Favor especificar um gênero já que o sistema não conseguiu detectar automaticamente.')
+
+    # cria uma pessoa que o sistema consegue identificar o gênero e portando não
+    # deveria mostra o select para gênero
+    person = create :person, name: 'Ackward', gender: nil
+    visit edit_person_path(person)
+    expect(page).to have_content('Favor especificar um gênero já que o sistema não conseguiu detectar automaticamente.')
+
+  end
+
+
 end
