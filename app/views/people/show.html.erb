@@ -14,6 +14,8 @@
   <%= '<small class="text-muted">Não deseja receber divulgação</small>'.html_safe unless @person.marketing %>
   <br>
 
+  <%= I18n.t("relationship.#{@person.relationship}") if @person.relationship.present? %>
+
   <% if @person.volunteer %>
     Voluntário da área de <%= @person.volunteer.area_of_operation %><br>
   <% end %>

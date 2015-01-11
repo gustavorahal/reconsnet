@@ -21,6 +21,9 @@
                      help: 'Favor especificar um gênero já que o sistema não conseguiu detectar automaticamente.' %>
     <% end %>
 
+    <%= f.select :relationship, Person.relationships.keys.to_a.map { |w| [ I18n.t("relationship.#{w}"), w] },
+                 include_blank: true, control_col: 'col-sm-3' %>
+
     <%= f.date_select :date_of_birth, start_year: 1930, end_year: Date.today.year,
                       include_blank: true, control_col: 'col-sm-3' %>
     <%= f.text_field :occupation, control_col: 'col-sm-3' %>

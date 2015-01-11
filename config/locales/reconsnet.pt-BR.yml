@@ -1,4 +1,15 @@
 pt-BR:
+  relationship:
+    single: "Solteiro(a)"
+    relationship: "Em um relacionamento"
+    engaged: "Noivo(a)"
+    married: "Casado(a)"
+    widowed: "Viúvo(a)"
+    separated: "Separado(a)"
+    divorced: "Divorciado(a)"
+    civil_union: "União estável"
+    domestic_partnership: "Morando junto"
+    evolutionary_duo: "Aplicando técnica da Dupla Evolutiva"
   activerecord:
     models:
       person:
@@ -22,6 +33,7 @@ pt-BR:
         marketing: "Divulgação"
         rg: "RG"
         cpf: "CPF"
+        relationship: "Status relacionamento"
       address:
         line1: "Endereço"
         city: "Cidade"

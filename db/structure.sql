@@ -227,7 +227,8 @@ CREATE TABLE people (
     updated_at timestamp without time zone,
     cpf character varying(255),
     rg character varying(255),
-    scholarity character varying(255)
+    scholarity character varying(255),
+    relationship integer
 );
 
 
@@ -774,4 +775,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140921230335');
 INSERT INTO schema_migrations (version) VALUES ('20141102220305');
 
 INSERT INTO schema_migrations (version) VALUES ('20141102220306');
+
+INSERT INTO schema_migrations (version) VALUES ('20150107213212');
 
