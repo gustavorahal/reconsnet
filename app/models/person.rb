@@ -70,6 +70,10 @@ class Person < ActiveRecord::Base
     name.strip.split(' ')[0]
   end
 
+  def last_name
+    name.strip.split(' ')[-1]
+  end
+
   def enrolls
     participations.where(status: 'Inscrito').includes(:event).order('events.start desc')
   end
@@ -122,7 +126,7 @@ class Person < ActiveRecord::Base
   end
 
   def subscribe_email_mkt
-    EmailMktService.delay.subscribe(name, email)
+    EmailMktService.delay.subscribe(self)
   end
 
 

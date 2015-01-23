@@ -8,10 +8,10 @@ class EmailMktService
 
   @list_id = 'a11c726e0c'
 
-  def self.subscribe(name, email)
+  def self.subscribe(person)
     gb = self.get_conn
-    gb.lists.subscribe({:id => @list_id, :email => {:email => email},
-                        :merge_vars => { :NAME => name },
+    gb.lists.subscribe({:id => @list_id, :email => {:email => person.email},
+                        :merge_vars => { :FNAME => person.first_name, :LNAME => person.last_name },
                         :double_optin => false})
 
     refresh_subscribed_list
@@ -32,12 +32,19 @@ class EmailMktService
 
   def self.subscribed_list
     Rails.cache.fetch('email_subscribed_list', expires_in: 1.hour) {
-      sub_list = []
       gb = self.get_conn
-      result = gb.lists.members({id: @list_id})
-      result['data'].each do |user|
-        sub_list.append user['email']
+
+      sub_list = []
+      start = 0
+      while start < 100 # colocando algum parâmetro de saida/segurança. Quando a lista tiver mais de 10.000, rever
+        result = gb.lists.members({ id: @list_id, status: 'subscribed', opts: {start: start, limit: 100} })
+        break if result['data'].empty?
+        result['data'].each do |user|
+          sub_list.append user['email']
+        end
+        start += 1
       end
+
       sub_list
     }
   end
