@@ -11,8 +11,8 @@ gem 'jquery-rails'
 
 # UI/Web
 gem 'sass-rails', '~> 4.0.0'
-gem 'bootstrap-sass', '~> 3.3.1'
-gem 'autoprefixer-rails' # recommended for bootstrap-sass
+gem 'bootstrap-sass', '~> 3.3.2'
+gem 'autoprefixer-rails', '~> 5.0.0.1' # recommended for bootstrap-sass
 gem 'bootstrap_form'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
@@ -32,7 +32,7 @@ gem 'devise'
 gem 'paperclip', '~> 4.1'
 gem 'paper_trail', '~> 3.0.6'
 
-gem 'puma', '~> 2.10.2'
+gem 'puma', '~> 2.11.0'
 
 # mailchimp api wrapper
 gem 'gibbon'
