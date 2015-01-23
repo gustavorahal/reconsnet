@@ -11,10 +11,10 @@
 
 <address>
   <%= @person.name %> <% if @person.email.present? %>(<a href="mailto:#"><%= @person.email %></a>)<% end %>
-  <%= '<small class="text-muted">Não deseja receber divulgação</small>'.html_safe unless @person.marketing %>
+  <% unless @person.marketing %>
+    <%= '<small class="text-muted">Não deseja receber divulgação</small>'.html_safe %>
+  <% end %>
   <br>
-
-  <%= I18n.t("relationship.#{@person.relationship}") if @person.relationship.present? %>
 
   <% if @person.volunteer %>
     Voluntário da área de <%= @person.volunteer.area_of_operation %><br>
@@ -22,6 +22,10 @@
 
   <% if @person.age.present? %>
     <%= @person.age %> anos<br>
+  <% end  %>
+
+  <% if @person.relationship.present? %>
+    <%= I18n.t("relationship.#{@person.relationship}") %><br>
   <% end  %>
 
   <% if @person.occupation.present? %>

@@ -45,7 +45,21 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  Sidekiq::Testing.inline!
+  config.before(:each) do | example |
+    # Clears out the jobs for tests using the fake testing
+    Sidekiq::Worker.clear_all
+
+    if example.metadata[:sidekiq] == :fake
+      Sidekiq::Testing.fake!
+    elsif example.metadata[:sidekiq] == :inline
+      Sidekiq::Testing.inline!
+    #elsif example.metadata[:type] == :feature
+    #  Sidekiq::Testing.inline!
+    else
+      Sidekiq::Testing.fake!
+    end
+  end
+
 
   config.include FactoryGirl::Syntax::Methods
   config.include Capybara::DSL

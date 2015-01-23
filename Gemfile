@@ -34,6 +34,9 @@ gem 'paper_trail', '~> 3.0.6'
 
 gem 'puma', '~> 2.10.2'
 
+# mailchimp api wrapper
+gem 'gibbon'
+
 # Detecção de gênero baseada em nome
 gem 'gendered'
 

@@ -1,31 +1,32 @@
 
-<%= render 'common/page_title', titulo: 'Divulgação' %>
+<%= render 'common/page_title', titulo: 'Status dos emails para divulgação' %>
 
-Segue o passo-a-passo para fazer a divulgação de cursos e eventos da <em>Reconscientia</em> via email:
-<br/>
-<ol>
-  <li>Acesse o Gmail da reconscientia@gmail.com</li>
-  <li>Clique em <em>Escrever</em></li>
-  <li>Copie e cole a lista de emails abaixo no campo CCo. <strong>Usar o campo CCo (cópia oculta).</strong> Não queremos que um veja o email do outro.</li>
-  <li>No corpo do email, coloque em primeiro lugar a frase (em itálico): <br>
-    <em>Caso não queira receber emails de divulgação da Reconscientia favor responder este email com o assunto "remover".</em></li>
-  <li>Se o texto for colado de outra fonte, é importante limpar toda a formatação e
-    refazê-la na própria janela de composição do Gmail. Mesmo que o texto aparente estar
-    correto nada garante que ele vai aparecer corretamente no cliente de email dos destinatários!!
-    Portanto, para remover a formatação selecione todo o texto e clique no ícone 'Tx' e em seguida refaça a formatação.</li>
-  <li>Quanto a divulgação em si, a preferência é por <strong>colocar a imagem como parte do email</strong>,
-    não em anexo. Para tal, arraste a imagem JPG para o corpo da mensagem.
-    Ao aparecer a imagem colada no corpo do email certifique-se que ao clicar em cima dela a
-    opção <strong>Tamanho original</strong> esteja selecionada, ou seja,
-    não queremos redimensionar a imagem, queremos no tamanho original.
-  </li>
-  <li>Clique em <em>Enviar</em> e joguei as melhores energias :)</li>
-</ol>
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Email</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% count = 1 %>
+    <% @people.each do |p| %>
+        <tr>
+          <td><%= count %></td>
+          <td> <%= link_to p.name, p %> &lt;<%= p.email %>&gt; </td>
+          <td>
+            <% if p.marketing and EmailMktService.subscribed?(p.email) %>
+              <%= '<span class="text-success glyphicon glyphicon-ok"></span>'.html_safe %>
+            <% elsif p.marketing and not EmailMktService.subscribed?(p.email) %>
+              <%= '<small><span class="text-danger">não registrado no serviço de mail mkt</span></small>'.html_safe %>
+            <% elsif not p.marketing %>
+              <%= '<small><span class="text-muted">não deseja receber divulgação</span></small>'.html_safe %>
+            <% end %>
+          </td>
+        </tr>
+        <% count += 1 %>
+    <% end %>
+  </tbody>
 
-<br/>
-
-<h4>Lista de emails para divulgação <small><%= @people.count %> emails</small></h4>
-
-<% @people.each do |p| %>
-    <div><%= link_to p.name, p %> &lt;<%= p.email %>&gt;</div>
-<% end %>
+</table>

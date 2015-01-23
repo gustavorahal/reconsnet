@@ -43,6 +43,9 @@ class Person < ActiveRecord::Base
   validates_inclusion_of :nationality, in: NATIONALITIES, allow_nil: true, allow_blank: true
   validate :handle_conflict, on: :update
   after_create :detect_gender, unless: :gender?
+  after_create :subscribe_email_mkt, if: :marketing?
+  after_update :update_email_mkt, if: :marketing_changed?
+  after_destroy :unsubscribe_email_mkt
 
   has_many :events
   has_one :volunteer, dependent: :destroy
@@ -53,6 +56,9 @@ class Person < ActiveRecord::Base
 
   accepts_nested_attributes_for :addresses, allow_destroy: true
   accepts_nested_attributes_for :phone_numbers, allow_destroy: true, reject_if: lambda {|attributes| attributes['number'].blank?}
+
+
+  scope :has_email, -> { where("email <> ''").order('LOWER(name)') }
 
 
   def to_s
@@ -110,5 +116,24 @@ class Person < ActiveRecord::Base
   def detect_gender
     SetPersonGenderJob.perform_later self
   end
+
+  def unsubscribe_email_mkt
+    EmailMktService.delay.unsubscribe(email)
+  end
+
+  def subscribe_email_mkt
+    EmailMktService.delay.subscribe(name, email)
+  end
+
+
+  private
+
+    def update_email_mkt
+      if marketing and not EmailMktService.subscribed?(email)
+        subscribe_email_mkt
+      elsif not marketing and EmailMktService.subscribed?(email)
+        unsubscribe_email_mkt
+      end
+    end
 
 end
