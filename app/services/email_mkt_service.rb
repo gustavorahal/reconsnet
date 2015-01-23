@@ -10,7 +10,7 @@ class EmailMktService
 
   def self.subscribe(person)
     gb = self.get_conn
-    gb.lists.subscribe({:id => @list_id, :email => {:email => person.email},
+    gb.lists.subscribe({:id => @list_id, :email => {:email => person.email.downcase},
                         :merge_vars => { :FNAME => person.first_name, :LNAME => person.last_name },
                         :double_optin => false})
 

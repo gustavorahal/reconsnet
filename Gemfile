@@ -42,6 +42,7 @@ gem 'gendered'
 
 # Executor de jobs em 2o plano
 gem 'sidekiq'
+gem 'sinatra', :require => nil # para web do sidekiq
 
 # Solução de Backup do BD na cloud
 gem 'dumper'

@@ -37,8 +37,10 @@ class Person < ActiveRecord::Base
   enum relationship: { single: 0, relationship: 1, engaged: 2, married: 3, widowed: 4,
                        separated: 5, divorced: 6, civil_union: 7, domestic_partnership: 8, evolutionary_duo: 9 }
 
-  validates :name, presence: true, uniqueness: true, length: { minimum: 5 }
-  validates :email, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }, allow_blank: true
+  validates :name, presence: true, length: { minimum: 5 }
+  validates_uniqueness_of :name, case_sensitive: false
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }, allow_blank: true
+  validates_uniqueness_of :email, case_sensitive: false
   validates_inclusion_of :gender, in:  GENDERS, allow_nil: true, allow_blank: true
   validates_inclusion_of :nationality, in: NATIONALITIES, allow_nil: true, allow_blank: true
   validate :handle_conflict, on: :update

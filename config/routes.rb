@@ -3,6 +3,10 @@ ReconsNet::Application.routes.draw do
   root to: 'application#index'
 
   devise_for :users, :controllers => { :registrations => 'registrations' }
+  require 'sidekiq/web'
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   get 'marketing', to: 'marketing#index'
   get 'inventoriology', to: 'inventoriology#index'
