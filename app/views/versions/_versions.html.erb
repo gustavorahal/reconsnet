@@ -17,8 +17,8 @@
       <% resource = v.reify(dup: true) %>
       <% resource_class = v.item_type.constantize %>
 
-      <!-- O que alterou -->
-      <%= User.find(v.whodunnit).name %> <%= VersionsHelper::event_name_i18n(v.event) %>
+      <!-- O que alterou, por quem -->
+      <%= v.whodunnit ? User.find(v.whodunnit).name : '<em>Sistema</em>'.html_safe %> <%= VersionsHelper::event_name_i18n(v.event) %>
       <% unless short %>
           o(a) <%= resource_class.model_name.human.downcase %> <%= "<em>#{resource}</em>".html_safe unless resource.nil? %>
       <% end %>
