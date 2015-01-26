@@ -28,5 +28,11 @@ ReconsNet::Application.configure do
   config.assets.debug = true
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { address: 'smtp.mandrillapp.com',
+                                         port: 587,
+                                         authentication: :plain,
+                                         user_name: 'reconscientia@gmail.com',
+                                         password: ENV['SMTP_PASSWORD']}
 
 end
