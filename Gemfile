@@ -29,7 +29,7 @@ gem 'jquery-turbolinks'
 
 gem 'pundit'
 gem 'devise'
-gem 'paperclip', '~> 4.1'
+gem 'paperclip', '~> 4.2'
 gem 'paper_trail', '~> 3.0.6'
 
 gem 'puma', '~> 2.11.0'

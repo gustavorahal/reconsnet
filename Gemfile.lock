@@ -358,7 +358,7 @@ DEPENDENCIES
   kaminari-bootstrap
   launchy
   paper_trail (~> 3.0.6)
-  paperclip (~> 4.1)
+  paperclip (~> 4.2)
   pg
   phony_rails
   poltergeist
