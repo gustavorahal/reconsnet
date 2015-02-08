@@ -9,7 +9,7 @@ class ActivitiesController < ApplicationController
   end
 
   def show
-    @events = @activity.all_events.order('events.start')
+    @events = @activity.all_events.order('events.start DESC')
   end
 
   def new

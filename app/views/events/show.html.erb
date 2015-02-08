@@ -23,6 +23,62 @@
 
 
 
+<!-- Participantes -->
+<% if policy(Participation).show? %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Participantes
+          <div class="pull-right">
+            <%= render 'common/btn_emails', size: 'btn-xs' %>
+            <%= render 'common/btn_add', url: new_event_participation_path(@event.id, ptype: 'Inscrito'),
+                       size: 'btn-xs', resource: @event %>
+          </div>
+        </h3>
+      </div>
+      <div class="panel-body">
+
+        <h5>Equipe organizadora</h5>
+        <% empty = true %>
+        <% @event.organizers.each do |participation| %>
+            <% empty = false %>
+            <div>
+              <%= link_to participation.person.name, person_path(participation.person.id) %>
+              <em>(<%= participation.participation_type.downcase %>)</em>
+              <% if policy(@event).edit? %>
+                  <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
+                             btn_label: '', size: 'btn-xs', resource: participation %>
+                  <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
+                             btn_label: '', size: 'btn-xs', resource: participation %>
+              <% end %>
+            </div>
+        <% end %>
+        <%= 'Não existe equipe organizadora para este evento<br>'.html_safe if empty %>
+
+        <br/>
+
+        <h5>Inscritos (<%= @event.enrolls.count %>)</h5>
+        <% empty = true %>
+        <% @event.enrolls.each do |participation| %>
+            <% empty = false %>
+            <div>
+              <%= link_to participation.person.name, person_path(participation.person.id) %>
+              <% if policy(@event).edit? %>
+                  <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
+                             btn_label: '', size: 'btn-xs', resource: participation %>
+                  <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
+                             btn_label: '', size: 'btn-xs', resource: participation %>
+              <% end %>
+            </div>
+        <% end %>
+        <%= 'Não existem inscritos para este evento' if empty %>
+
+      </div>
+    </div>
+
+<% end %>
+
+
+
 <!-- Fechamento de turma (só aparece se evento ainda não começou) -->
 
 <% if @event.start > Time.now and policy(Participation).show? %>
@@ -92,62 +148,6 @@
       </div>
     </div>
 <% end %>
-
-
-<!-- Equipe docente -->
-<% if policy(Participation).show? %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Participantes
-          <div class="pull-right">
-            <%= render 'common/btn_emails', size: 'btn-xs' %>
-            <%= render 'common/btn_add', url: new_event_participation_path(@event.id, ptype: 'Inscrito'),
-                       size: 'btn-xs', resource: @event %>
-          </div>
-        </h3>
-      </div>
-      <div class="panel-body">
-
-        <h5>Equipe organizadora</h5>
-        <% empty = true %>
-        <% @event.organizers.each do |participation| %>
-            <% empty = false %>
-            <div>
-              <%= link_to participation.person.name, person_path(participation.person.id) %>
-              <em>(<%= participation.participation_type.downcase %>)</em>
-              <% if policy(@event).edit? %>
-                  <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
-                             btn_label: '', size: 'btn-xs', resource: participation %>
-                  <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
-                             btn_label: '', size: 'btn-xs', resource: participation %>
-              <% end %>
-            </div>
-        <% end %>
-        <%= 'Não existe equipe organizadora para este evento<br>'.html_safe if empty %>
-
-        <br/>
-
-        <h5>Inscritos (<%= @event.enrolls.count %>)</h5>
-        <% empty = true %>
-        <% @event.enrolls.each do |participation| %>
-            <% empty = false %>
-            <div>
-              <%= link_to participation.person.name, person_path(participation.person.id) %>
-              <% if policy(@event).edit? %>
-                  <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
-                             btn_label: '', size: 'btn-xs', resource: participation %>
-                  <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
-                             btn_label: '', size: 'btn-xs', resource: participation %>
-              <% end %>
-            </div>
-        <% end %>
-        <%= 'Não existem inscritos para este evento' if empty %>
-
-      </div>
-    </div>
-
-<% end %>
-
 
 
 
