@@ -21,6 +21,9 @@ class TmksController < ApplicationController
     @tmk = Tmk.new
     authorize @tmk
 
+    @with_who = params[:with_who_id].present? ? Person.find(params[:with_who_id]) : nil
+    @event = params[:event_id].present? ? Event.find(params[:event_id]) : nil
+
     session[:last_page] = request.referrer || tmks_path
   end
 
@@ -31,6 +34,9 @@ class TmksController < ApplicationController
   def create
     @tmk = Tmk.new secure_params
     authorize @tmk
+
+    @with_who = params[:with_who_id].present? ? Person.find(params[:with_who_id]) : nil
+    @event = params[:event_id].present? ? Event.find(params[:event_id]) : nil
 
     if @tmk.save
       redirect_to session[:last_page] || tmks_path

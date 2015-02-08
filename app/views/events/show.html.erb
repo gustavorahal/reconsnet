@@ -23,6 +23,134 @@
 
 
 
+<!-- Fechamento de turma (só aparece se evento ainda não começou) -->
+
+<% if @event.start > Time.now and policy(Participation).show? %>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Pendências para fechamento dos participantes
+          <div class="pull-right">
+            <%= render 'common/btn_add', url: new_event_participation_path(@event.id, ptype: 'Divulgação'),
+                       size: 'btn-xs', btn_label: 'Nova participação', resource: @event %>
+          </div>
+        </h3>
+      </div>
+      <div class="panel-body">
+
+        <!-- Tabela de acompanhamento de contatos e divulgação-->
+
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Contatar</th>
+            <th>Situação</th>
+            <th>Participação em eventos <small>(3 últimos)</small></th>
+            <th>Contatos TMK <small>(3 últimos)</small></th>
+            <th>Ações</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @event.pending_enrollments.each do |participation| %>
+              <% person = participation.person %>
+              <tr>
+                <td><%= link_to person.name, person_path(person.id) %></td>
+                <td><%= participation.status %></td>
+                <td class="col-md-3">
+                    <% person.participations.where.not(event: @event).limit(3).each do |other_part| %>
+                      <small><%= link_to other_part.event.name_with_date, event_path(other_part.event) %></small><br>
+                    <% end %>
+                </td>
+                <td>
+                    <% person.tmks.order('tmks.id DESC').each do |tmk| %>
+                      <small><%= tmk_summary tmk, false %></small><br>
+                    <% end %>
+                </td>
+                <td>
+                  <% if policy(@event).edit? %>
+                      <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
+                                 btn_label: '', size: 'btn-xs', resource: participation %>
+                      <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
+                                 btn_label: '', size: 'btn-xs', resource: participation %>
+                      <%= render 'common/btn_add_tmk', event: @event, with_who: participation.person %>
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+
+        <br>
+
+        <h5>Histórico TMK deste evento</h5>
+        <% @event.tmks.order('tmks.id DESC').each do |tmk| %>
+            <p class="text-muted">
+              <%= "#{tmk.with_who.name} por #{tmk.from_who.name} com a anotação \"<strong>#{tmk.notes}</strong>\"".html_safe %>
+              <small><span class="pull-right">há <%= time_ago_in_words tmk.contact_date %></span></small>
+            </p>
+        <% end %>
+
+      </div>
+    </div>
+<% end %>
+
+
+<!-- Equipe docente -->
+<% if policy(Participation).show? %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Participantes
+          <div class="pull-right">
+            <%= render 'common/btn_emails', size: 'btn-xs' %>
+            <%= render 'common/btn_add', url: new_event_participation_path(@event.id, ptype: 'Inscrito'),
+                       size: 'btn-xs', resource: @event %>
+          </div>
+        </h3>
+      </div>
+      <div class="panel-body">
+
+        <h5>Equipe organizadora</h5>
+        <% empty = true %>
+        <% @event.organizers.each do |participation| %>
+            <% empty = false %>
+            <div>
+              <%= link_to participation.person.name, person_path(participation.person.id) %>
+              <em>(<%= participation.participation_type.downcase %>)</em>
+              <% if policy(@event).edit? %>
+                  <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
+                             btn_label: '', size: 'btn-xs', resource: participation %>
+                  <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
+                             btn_label: '', size: 'btn-xs', resource: participation %>
+              <% end %>
+            </div>
+        <% end %>
+        <%= 'Não existe equipe organizadora para este evento<br>'.html_safe if empty %>
+
+        <br/>
+
+        <h5>Inscritos (<%= @event.enrolls.count %>)</h5>
+        <% empty = true %>
+        <% @event.enrolls.each do |participation| %>
+            <% empty = false %>
+            <div>
+              <%= link_to participation.person.name, person_path(participation.person.id) %>
+              <% if policy(@event).edit? %>
+                  <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
+                             btn_label: '', size: 'btn-xs', resource: participation %>
+                  <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
+                             btn_label: '', size: 'btn-xs', resource: participation %>
+              <% end %>
+            </div>
+        <% end %>
+        <%= 'Não existem inscritos para este evento' if empty %>
+
+      </div>
+    </div>
+
+<% end %>
+
+
+
+
 <!-- Anexos -->
 
 <div class="panel panel-default">
@@ -31,8 +159,8 @@
       <div class="pull-right">
         <%= render 'common/btn_add', url: new_asset_path(assetable_id: @event.id,
                                                          assetable_type: 'Event'),
-                                     size: 'btn-xs',
-                                     resource: Asset.new %>
+                   size: 'btn-xs',
+                   resource: Asset.new %>
       </div>
     </h3>
   </div>
@@ -44,15 +172,15 @@
 
     <% else %>
 
-      <% @assets.each do |asset| %>
-        <div>
-            <span class="glyphicon glyphicon-file"></span>
-            <%= asset.name %> <small>(<%= date_display asset.created_at %>)</small>
+        <% @assets.each do |asset| %>
+            <div>
+              <span class="glyphicon glyphicon-file"></span>
+              <%= asset.name %> <small>(<%= date_display asset.created_at %>)</small>
 
-            <%= link_to asset.file.url, class: 'btn btn-default btn-xs' do %>
-                <span class="glyphicon glyphicon-download" title="download"></span>
-            <% end %>
-            <% if policy(@event).edit? %>
+              <%= link_to asset.file.url, class: 'btn btn-default btn-xs' do %>
+                  <span class="glyphicon glyphicon-download" title="download"></span>
+              <% end %>
+              <% if policy(@event).edit? %>
                   <%= render 'common/btn_edit', btn_label: '', url: edit_asset_path(asset,
                                                                                     assetable_id: @event.id,
                                                                                     assetable_type: 'Event'),
@@ -61,71 +189,12 @@
                                                                                  assetable_id: @event.id,
                                                                                  assetable_type: 'Event'),
                              size: 'btn-xs', resource: asset %>
-            <% end %>
-        </div>
-      <% end %>
-
-    <% end %>
-
-  </div>
-</div>
-
-
-
-<!-- Participantes -->
-
-<% if policy(Participation).show? %>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Participantes
-      <div class="pull-right">
-        <%= render 'common/btn_emails', size: 'btn-xs' %>
-        <%= render 'common/btn_add', url: new_event_participation_path(@event.id),
-                   size: 'btn-xs', resource: @event %>
-      </div>
-    </h3>
-  </div>
-  <div class="panel-body">
-
-    <% if @has_participations %>
-        <% lista = [ [@enrolled, 'Inscritos'],
-                     [@pre_enrolled, 'Pré-inscritos'],
-                     [@interested, 'Interessados'] ] %>
-
-        <% lista.each do |elem| %>
-            <% participations = elem[0] %>
-            <% label = elem[1] %>
-            <h5><%= label %> (<%= participations.size %>)</h5>
-
-            <% if participations.empty? %>
-                <small>Não existem <%= label.downcase %> para este evento</small>
-            <% else %>
-                <% participations.each do |participation| %>
-                      <div>
-                        <%= link_to participation.person.name, person_path(participation.person.id) %>
-                        <em>(<%= participation.participation_type.downcase %>)</em>
-                          <% if policy(@event).edit? %>
-                            <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
-                                       btn_label: '', size: 'btn-xs', resource: participation %>
-                            <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
-                                       btn_label: '', size: 'btn-xs', resource: participation %>
-                          <% end %>
-                      </div>
-                <% end %>
-            <% end %>
-
-        <br>
+              <% end %>
+            </div>
         <% end %>
 
-    <% else  %>
-
-        Não existem participantes para este evento
-
     <% end %>
+
   </div>
 </div>
-<% end %>
-
-
-
 

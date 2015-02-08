@@ -10,8 +10,6 @@ class EventsController < ApplicationController
 
   def show
     @assets = @event.assets.order('assets.name')
-    @enrolled, @pre_enrolled, @interested  = Participation.participations(@event)
-    @has_participations = (@enrolled.any? or @pre_enrolled.any? or @interested.any?)
   end
 
   def new

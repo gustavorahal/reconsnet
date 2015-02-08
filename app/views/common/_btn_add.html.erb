@@ -5,6 +5,6 @@
 <% url = polymorphic_path(resource, action: :new) unless url %>
 
 <% if policy(resource).create? %>
-    <%= link_to "<span class=\"glyphicon glyphicon-plus-sign text-success\"></span> #{btn_label}".html_safe,
-            url, class: "btn #{size} btn-default", disabled: disabled %>
+    <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\"></span> #{btn_label}".html_safe,
+            url, class: "btn #{size} btn-success", disabled: disabled %>
 <% end %>

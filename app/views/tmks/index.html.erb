@@ -46,8 +46,9 @@
 
   <% @tmks.each do |tmk| %>
       <% participation = Participation.find_by(event: tmk.event, person: tmk.with_who) %>
-      <tr class=<%= row_background participation %>>
-        <td><%= link_to tmk.with_who.name, person_path(tmk.with_who) %>
+      <tr>
+        <td class="col-md-4">
+          <%= link_to tmk.with_who.name, person_path(tmk.with_who) %>
           <% unless params[:event_id].present? %>
             sobre evento
             <%= link_to tmk.event.name_with_date, event_path(tmk.event) %>
@@ -69,7 +70,8 @@
           <% end %>
         </td>
         <td><em><%= tmk.notes %></em></td>
-        <td><%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
+        <td class="col-md-1">
+            <%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
             <%= render 'common/btn_delete', resource: tmk, size: 'btn-xs', btn_label: '' %>
             <span class="info-sign glyphicon glyphicon-user" data-toggle="tooltip"
                 data-placement="top"

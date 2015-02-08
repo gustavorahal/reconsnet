@@ -1,0 +1,13 @@
+<% event = local_assigns.fetch :event, false %>
+<% with_who = local_assigns.fetch :with_who, false %>
+
+<% p = {} %>
+<% p[:event_id] = event.id if event %>
+<% p[:with_who_id] = with_who.id if with_who %>
+
+<% path = p.empty? ? new_tmk_path : new_tmk_path(**p) %>
+
+<% if policy(Tmk).create? %>
+    <%= link_to "<span title=\"Novo TMK\" class=\"glyphicon glyphicon-phone-alt\"></span>".html_safe,
+                path, class: "btn-xs" %>
+<% end %>

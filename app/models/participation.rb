@@ -23,7 +23,7 @@ Professor
 Professor\ Introdução
 Professor\ Temático)
 
-  STATUS = %w(Inscrito Interessado Pré-inscrito)
+  STATUS = %w(Inscrito Interessado Pré-inscrito Divulgação)
 
   validates_uniqueness_of :person, scope: :event
   validates :participation_type, inclusion: { in: TYPES }
@@ -42,19 +42,6 @@ Professor\ Temático)
     else
       status
     end
-  end
-
-  def self.participations(event)
-    enrolled, pre_enrolled, interested  = [], [], []
-    Participation.includes(:person).where(event: event).order('people.name').each do |p|
-      case p.status
-        when 'Inscrito' then enrolled.append(p)
-        when 'Pré-inscrito' then pre_enrolled.append(p)
-        when 'Interessado' then interested.append(p)
-      end
-    end
-
-    [enrolled, pre_enrolled, interested]
   end
 
 

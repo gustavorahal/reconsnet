@@ -43,7 +43,7 @@ class Event < ActiveRecord::Base
 
   def name_with_date
     date_str = I18n.l start, format: '%d %b %Y'
-    "#{name} (#{date_str})"
+    "#{name} <small>(#{date_str})</small>".html_safe
   end
 
 
@@ -53,6 +53,26 @@ class Event < ActiveRecord::Base
       query.where.not('activities.internal_only = true')
     end
     query[0]
+  end
+
+
+  def enrolls
+    Participation.includes(:person).where(event: self).
+        where(participation_type: 'Aluno').
+        where(status: 'Inscrito').order('people.name')
+  end
+
+
+  def pending_enrollments
+    Participation.includes(:person).where(event: self).
+        where(participation_type: 'Aluno').
+        where.not(status: 'Inscrito').order(:status, 'people.name')
+  end
+
+
+  def organizers
+    Participation.includes(:person).where(event: self).
+        where(participation_type: Participation::TYPES.reject {|x| x == 'Aluno'})
   end
 
 

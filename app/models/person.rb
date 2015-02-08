@@ -49,7 +49,6 @@ class Person < ActiveRecord::Base
   after_update :update_email_mkt, if: :marketing_changed?
   after_destroy :unsubscribe_email_mkt
 
-  has_many :events
   has_one :volunteer, dependent: :destroy
   has_many :participations, dependent: :destroy
   has_many :addresses, as: :addressable, dependent: :destroy

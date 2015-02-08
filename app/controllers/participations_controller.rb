@@ -27,12 +27,9 @@ class ParticipationsController < ApplicationController
   end
 
   def create
-    data = secure_params
-    @participation = Participation.new(event_id: params[:event_id],
-                                       person_id: data[:person] || params[:person_id],
-                                       status: data[:status],
-                                       participation_type: data[:participation_type])
+    @participation = Participation.new secure_params
     authorize @participation
+
     if @participation.save
       redirect_to session[:last_page] || event_path(@participation.event)
     else
@@ -57,8 +54,6 @@ class ParticipationsController < ApplicationController
   def emails
     @event = Event.find(params[:event_id])
     authorize @event
-
-    @enrolled, @pre_enrolled, @interested  = Participation.participations(@event)
   end
 
   private
@@ -71,7 +66,7 @@ class ParticipationsController < ApplicationController
     end
 
     def secure_params
-      params.require(:participation).permit(:person, :person_id, :participation_type, :status, :original_updated_at)
+      params.require(:participation).permit(:person_id, :event_id, :participation_type, :status, :original_updated_at)
     end
 
 end

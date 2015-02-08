@@ -111,15 +111,9 @@
     <% else  %>
 
         <% @tmks.each do |tmk| %>
-        <div>
-          Evento <%= link_to tmk.event.name_with_date, event_path(tmk.event) %>
-          há <%= time_ago_in_words tmk.contact_date %>
-          por <%= tmk.from_who.name %>
-          <% unless tmk.notes.blank? %>
-          com a anotação <strong><em>"<%= tmk.notes %>"</em></strong>
-          <% end %>
-          <%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
-        </div>
+            <div>
+              <%= tmk_summary(tmk) %>
+            </div>
         <% end %>
     <% end %>
 

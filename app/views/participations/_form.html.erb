@@ -4,27 +4,33 @@
 
     <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
 
-    <%= hidden_field_tag :event_id, @event.id %>
+    <%= hidden_field_tag 'participation[event_id]', @event.id %>
 
     <%= f.static_control nil, label: 'Evento' do %>
         <%= @event.name_with_date %>
     <% end %>
 
     <% if action_name == 'new' and @person.nil? %>
-        <%= f.collection_select :person, @people, :id, :name, label: 'Pessoa', control_col: 'col-sm-3' %>
+        <%= f.collection_select :person_id, @people, :id, :name, label: 'Pessoa', control_col: 'col-sm-3' %>
     <% else %> <!--edit -->
-        <%= hidden_field_tag :person_id, @person.id %>
+        <%= hidden_field_tag 'participation[person_id]', @person.id %>
         <%= f.static_control nil, label: 'Pessoa' do %>
             <%= @person.name %>
         <% end %>
     <% end %>
 
-    <%= f.select :status, Participation::STATUS, control_col: 'col-sm-3' %>
-    <%= f.select :participation_type, Participation::TYPES, label: 'Tipo de participação ', control_col: 'col-sm-3' %>
+    <%= f.select :status,
+                 options_for_select(Participation::STATUS, @participation.persisted? ?
+                                                                 @participation.status :
+                                                                 params[:ptype]),
+                 control_col: 'col-sm-3' %>
+
+    <%= f.select :participation_type, Participation::TYPES,
+                 label: 'Tipo de participação ', control_col: 'col-sm-3' %>
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>
-        <%= link_to 'Voltar', :back, class: 'btn btn-link' %>
+        <%= link_to 'Voltar', session[:last_page], class: 'btn btn-link' %>
     <% end %>
 
 <% end %>
