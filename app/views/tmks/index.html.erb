@@ -25,21 +25,36 @@
 <br/>
 
 <!-- Filtro por evento -->
-<div>
-  <span class="text-muted">Mostrar evento: </span>
-  <%= link_to '<em>todos</em>'.html_safe, tmks_path, class: "btn btn-default btn-xs #{'active' unless params[:event_id].present?}" %>
-  <% Event.latest_events.each do |event| %>
-    <% state = current_page?(params.merge(event_id: event.id)) ? 'active' : '' %>
-    <%= link_to event.name_with_date, tmks_path(params.merge(event_id: event.id)), class: "btn btn-default btn-xs #{state}" %>
+
+<div class="dropdown">
+<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+  Filtrar por evento
+  <span class="caret"></span>
+</button>
+<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+  <% Event.all.order(start: :desc).each do |event| %>
+      <li role="presentation">
+        <% state = current_page?(params.merge(event_id: event.id)) ? 'active' : '' %>
+        <%= link_to event.name_with_date, tmks_path(params.merge(event_id: event.id)) %>
+      </li>
   <% end %>
+</ul>
 </div>
+
+<% if params[:event_id].present? %>
+    <br>
+    Mostrando contatos TMK do evento <%= link_to @event.name, event_path(@event) %> |
+    <%= link_to 'Mostrar todos os eventos', tmks_path %>
+    <br>
+<% end %>
+
 <br>
 
 <!-- Listagem de TMKs -->
 
 <table class="table">
   <tr>
-    <th>Contato <%= link_to @event.name_with_date, event_path(@event) if @event %></th>
+    <th>Contato</th>
     <th>Notas</th>
     <th></th>
   </tr>
