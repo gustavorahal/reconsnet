@@ -34,7 +34,6 @@
 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
   <% Event.all.order(start: :desc).each do |event| %>
       <li role="presentation">
-        <% state = current_page?(params.merge(event_id: event.id)) ? 'active' : '' %>
         <%= link_to event.name_with_date, tmks_path(params.merge(event_id: event.id)) %>
       </li>
   <% end %>
