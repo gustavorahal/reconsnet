@@ -79,9 +79,9 @@
 
 
 
-<!-- Fechamento de turma (só aparece se evento ainda não começou) -->
+<!-- Pendências para fechamento dos participantes (só aparece se evento ainda não começou) -->
 
-<% if @event.start > Time.now and policy(Participation).show? %>
+<% if policy(Participation).show? %>
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">Pendências para fechamento dos participantes
@@ -93,8 +93,14 @@
       </div>
       <div class="panel-body">
 
-        <!-- Tabela de acompanhamento de contatos e divulgação-->
 
+
+        <!-- Tabela de acompanhamento de contatos e divulgação -->
+        <% if @event.pending_enrollments.empty? %>
+
+            Não há participantes pendentes
+
+        <% else %>
         <table class="table table-striped">
           <thead>
           <tr>
@@ -102,7 +108,7 @@
             <th>Situação</th>
             <th>Participação em eventos <small>(3 últimos)</small></th>
             <th>Contatos TMK <small>(3 últimos)</small></th>
-            <th>Ações</th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
@@ -134,6 +140,7 @@
           <% end %>
           </tbody>
         </table>
+        <% end %>
 
       </div>
     </div>
@@ -163,7 +170,7 @@
             <tr>
                 <td class="col-md-3"><%= link_to tmk.with_who.name, tmk.with_who %> </td>
                 <td><em><%= tmk.notes %></em></td>
-                <td><%= render 'common/tmk_controls', tmk: tmk %></td>
+                <td class="col-md-1"><%= render 'common/tmk_controls', tmk: tmk %></td>
             </tr>
         <% end %>
 
