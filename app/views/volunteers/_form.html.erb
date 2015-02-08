@@ -8,7 +8,7 @@
     <% end %>
 
     <%= f.collection_select :person_id, Person.all.order('name'), :id, :name, label: 'Pessoa',
-                            control_col: 'col-sm-4' %>
+                            control_col: 'col-sm-4', include_blank: true, default: nil %>
     <%= f.date_select :admission, label: 'Admissão' %>
     <%= f.select :area_of_operation, Volunteer::AREAS, label: 'Área de atuação',
                  control_col: 'col-sm-4' %>

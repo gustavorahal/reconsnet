@@ -11,7 +11,9 @@
     <% end %>
 
     <% if action_name == 'new' and @person.nil? %>
-        <%= f.collection_select :person_id, @people, :id, :name, label: 'Pessoa', control_col: 'col-sm-3' %>
+        <%= f.collection_select :person_id, @people,
+                                :id, :name, label: 'Pessoa', control_col: 'col-sm-3',
+                                include_blank: true, default: nil %>
     <% else %> <!--edit -->
         <%= hidden_field_tag 'participation[person_id]', @person.id %>
         <%= f.static_control nil, label: 'Pessoa' do %>

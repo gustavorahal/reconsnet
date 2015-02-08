@@ -16,8 +16,9 @@
             <%= @with_who.name %>
         <% end %>
     <% else %>
-        <%= f.collection_select :with_who_id, Person.all.order('name'), :id, :name, label: 'Contatado',
-                                control_col: 'col-sm-3' %>
+        <%= f.collection_select :with_who_id, Person.all.order('name'), :id, :name,
+                                label: 'Contatado', control_col: 'col-sm-3',
+                                include_blank: true, default: nil %>
     <% end %>
 
 
