@@ -1,0 +1,8 @@
+<% tmk = local_assigns.fetch :tmk %>
+
+<%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
+<%= render 'common/btn_delete', resource: tmk, size: 'btn-xs', btn_label: '' %>
+<span class="info-sign glyphicon glyphicon-user" data-toggle="tooltip"
+      data-placement="top"
+      title="<%= "#{tmk.from_who.name} em #{date_display tmk.contact_date if tmk.contact_date.present?}" %>">
+</span>

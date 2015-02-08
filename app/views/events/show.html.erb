@@ -135,19 +135,43 @@
           </tbody>
         </table>
 
-        <br>
-
-        <h5>Histórico TMK deste evento</h5>
-        <% @event.tmks.order('tmks.id DESC').each do |tmk| %>
-            <p class="text-muted">
-              <%= "#{tmk.with_who.name} por #{tmk.from_who.name} com a anotação \"<strong>#{tmk.notes}</strong>\"".html_safe %>
-              <small><span class="pull-right">há <%= time_ago_in_words tmk.contact_date %></span></small>
-            </p>
-        <% end %>
-
       </div>
     </div>
 <% end %>
+
+
+
+<!-- TMKs -->
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">TMKs deste evento
+    </h3>
+  </div>
+  <div class="panel-body">
+
+    <table class="table">
+      <thead>
+          <tr>
+            <th>Contactado</th>
+            <th>Notas</th>
+            <th></th>
+          </tr>
+      </thead>
+      <tbody>
+        <% @event.tmks.order('tmks.id DESC').each do |tmk| %>
+            <tr>
+                <td class="col-md-3"><%= link_to tmk.with_who.name, tmk.with_who %> </td>
+                <td><em><%= tmk.notes %></em></td>
+                <td><%= render 'common/tmk_controls', tmk: tmk %></td>
+            </tr>
+        <% end %>
+
+      </tbody>
+    </table>
+
+  </div>
+</div>
 
 
 

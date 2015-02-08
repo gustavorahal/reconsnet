@@ -67,14 +67,14 @@
           <th></th>
           <th>Início</th>
           <th>Fim</th>
-          <th>Participantes</th>
+          <th>Inscritos</th>
         </tr>
         <% @events.each do |event| %>
             <tr>
               <td><%= link_to event.name, event_path(event) %></td>
               <td><%= date_display event.start %></td>
               <td><%= date_display event.finish %></td>
-              <td><%= event.participations.count %></td>
+              <td><%= event.enrolls.count %></td>
             </tr>
         <% end %>
       </table>
