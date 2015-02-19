@@ -24,7 +24,7 @@
         <td><em><%= event_count %></em></td>
         <td><em><%= I18n.l event.start, format: '%e %b' %></em> a <em><%= I18n.l event.finish, format: '%e %b' %></em></td>
         <td><%= link_to event.name, event_path(event) %></td>
-        <td><strong><%= part_num = event.participations.where('status = \'Inscrito\'').size; part_num %></strong></td>
+        <td><strong><%= part_num = event.participations.where(status: Participation.statuses[:enrolled]).size; part_num %></strong></td>
         <td><%= part_count += part_num; part_count %></td>
       </tr>
       <% event_count += 1 %>

@@ -185,7 +185,7 @@ CREATE TABLE participations (
     event_id integer NOT NULL,
     person_id integer NOT NULL,
     participation_type character varying(255) NOT NULL,
-    status character varying(255) NOT NULL,
+    status integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -777,4 +777,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141102220305');
 INSERT INTO schema_migrations (version) VALUES ('20141102220306');
 
 INSERT INTO schema_migrations (version) VALUES ('20150107213212');
+
+INSERT INTO schema_migrations (version) VALUES ('20150219010907');
 

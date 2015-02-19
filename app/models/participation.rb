@@ -23,11 +23,11 @@ Professor
 Professor\ Introdução
 Professor\ Temático)
 
-  STATUS = %w(Inscrito Interessado Pré-inscrito Divulgação)
+  enum status: { enrolled: 0, pre_enrolled: 1, interested: 2, divulge: 3 }
+
 
   validates_uniqueness_of :person, scope: :event
   validates :participation_type, inclusion: { in: TYPES }
-  validates :status, inclusion: { in: STATUS }
 
   belongs_to :event
   belongs_to :person

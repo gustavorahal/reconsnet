@@ -14,11 +14,11 @@
 
   <% if @next_event and policy(Participation).show? %>
       <div class="well col-lg-5 tasks-box">
-        <h4>Participantes <em><%= @next_event.name %></em>
+        <h4>Inscritos em <em><%= @next_event.name %></em>
           <small><%= link_to 'mais &raquo;'.html_safe, event_path(@next_event) %></small></h4>
-        <% @next_event.participations.each do |participant| %>
+        <% @next_event.enrolls.each do |participant| %>
             <div><%= participant.person.name %>
-              <small class="text-muted"><%= participant.status_gender_aware.downcase %> a <%= time_ago_in_words participant.updated_at %></small>
+              <small class="text-muted"> a <%= time_ago_in_words participant.updated_at %></small>
             </div>
         <% end %>
       </div>

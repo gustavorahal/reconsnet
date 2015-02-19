@@ -30,7 +30,7 @@
         <h3 class="panel-title">Participantes
           <div class="pull-right">
             <%= render 'common/btn_emails', size: 'btn-xs' %>
-            <%= render 'common/btn_add', url: new_event_participation_path(@event.id, ptype: 'Inscrito'),
+            <%= render 'common/btn_add', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:enrolled]),
                        size: 'btn-xs', resource: @event %>
           </div>
         </h3>
@@ -86,7 +86,7 @@
       <div class="panel-heading">
         <h3 class="panel-title">Pendências para fechamento dos participantes
           <div class="pull-right">
-            <%= render 'common/btn_add', url: new_event_participation_path(@event.id, ptype: 'Divulgação'),
+            <%= render 'common/btn_add', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:divulge]),
                        size: 'btn-xs', btn_label: 'Nova participação', resource: @event %>
           </div>
         </h3>
@@ -116,7 +116,7 @@
               <% person = participation.person %>
               <tr>
                 <td><%= link_to person.name, person_path(person.id) %></td>
-                <td><%= participation.status %></td>
+                <td><%= I18n.t("participation.status.#{participation.status}") %></td>
                 <td class="col-md-3">
                     <% person.participations.where.not(event: @event).limit(3).each do |other_part| %>
                       <small><%= link_to other_part.event.name_with_date, event_path(other_part.event) %></small><br>

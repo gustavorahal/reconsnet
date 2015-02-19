@@ -59,14 +59,14 @@ class Event < ActiveRecord::Base
   def enrolls
     Participation.includes(:person).where(event: self).
         where(participation_type: 'Aluno').
-        where(status: 'Inscrito').order('people.name')
+        where(status: Participation.statuses[:enrolled]).order('people.name')
   end
 
 
   def pending_enrollments
     Participation.includes(:person).where(event: self).
         where(participation_type: 'Aluno').
-        where.not(status: 'Inscrito').order(:status, 'people.name')
+        where.not(status: Participation.statuses[:enrolled]).order(:status, 'people.name')
   end
 
 

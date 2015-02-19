@@ -10,6 +10,12 @@ pt-BR:
     civil_union: "União estável"
     domestic_partnership: "Morando junto"
     evolutionary_duo: "Aplicando técnica da Dupla Evolutiva"
+  participation:
+    status:
+      enrolled: "Inscrito"
+      interested: "Interessado"
+      pre_enrolled: "Pré-inscrito"
+      divulge: "Divulgação"
   activerecord:
     models:
       person:

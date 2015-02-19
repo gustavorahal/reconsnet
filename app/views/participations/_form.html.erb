@@ -22,9 +22,9 @@
     <% end %>
 
     <%= f.select :status,
-                 options_for_select(Participation::STATUS, @participation.persisted? ?
-                                                                 @participation.status :
-                                                                 params[:ptype]),
+                 options_for_select(Participation.statuses.keys.to_a.map { |w| [ I18n.t("participation.status.#{w}"), w] },
+                                    @participation.persisted? ? @participation.status : Participation.statuses.key(params[:pstatus].to_i)
+                 ),
                  control_col: 'col-sm-3' %>
 
     <%= f.select :participation_type, Participation::TYPES,

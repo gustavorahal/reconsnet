@@ -68,7 +68,7 @@
             <%= link_to tmk.event.name_with_date, event_path(tmk.event) %>
           <% end  %>
           <br>
-          <%= "<strong>#{participation.status_gender_aware.humanize}</strong>".html_safe if participation %>
+          <%= "<strong>#{I18n.t("participation.status.#{participation.status}")}</strong>".html_safe if participation %>
           <% if participation %>
             <small>
               (<%= link_to 'editar', edit_event_participation_path(tmk.event, participation) %>

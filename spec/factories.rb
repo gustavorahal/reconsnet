@@ -60,7 +60,7 @@ FactoryGirl.define do
   factory :participation do
     person { |c| c.association(:person) }
     event { |c| c.association(:event) }
-    status 'Inscrito'
+    status 0
     participation_type 'Professor'
   end
 

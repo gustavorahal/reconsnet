@@ -76,7 +76,7 @@ class Person < ActiveRecord::Base
   end
 
   def enrolls
-    participations.where(status: 'Inscrito').includes(:event).order('events.start desc')
+    participations.where(status: Participation.statuses[:enrolled]).includes(:event).order('events.start desc')
   end
 
   def safely_destroyable?
