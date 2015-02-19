@@ -1,7 +1,7 @@
 module TmksHelper
 
-  def tmk_summary(tmk, show_event=true)
-    text = show_event ? "#{link_to tmk.event.name_with_date, event_path(tmk.event)}" : 'Este evento '
+  def tmk_summary(tmk, hide_event_name=true)
+    text = hide_event_name ? 'Este evento ' : "#{link_to tmk.event.name_with_date, event_path(tmk.event)}"
 
     unless tmk.notes.blank?
       text += " por #{tmk.from_who.name} com a anotação <strong><em>\"#{tmk.notes}\"</em></strong>"

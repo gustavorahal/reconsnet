@@ -118,13 +118,13 @@
                 <td><%= link_to person.name, person_path(person.id) %></td>
                 <td><%= I18n.t("participation.status.#{participation.status}") %></td>
                 <td class="col-md-3">
-                    <% person.participations.where.not(event: @event).limit(3).each do |other_part| %>
+                    <% person.participations.includes(:event).where.not(event: @event).order('events.start DESC').limit(3).each do |other_part| %>
                       <small><%= link_to other_part.event.name_with_date, event_path(other_part.event) %></small><br>
                     <% end %>
                 </td>
                 <td>
                     <% person.tmks.order('tmks.id DESC').each do |tmk| %>
-                      <small><%= tmk_summary tmk, false %></small><br>
+                      <small><%= tmk_summary tmk, tmk.event == @event  %></small><br>
                     <% end %>
                 </td>
                 <td>
