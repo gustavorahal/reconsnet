@@ -29,7 +29,12 @@
       <div class="panel-heading">
         <h3 class="panel-title">Participantes
           <div class="pull-right">
-            <%= render 'common/btn_emails', size: 'btn-xs' %>
+            <%= link_to '<span class="glyphicon glyphicon-envelope"></span> E-mails'.html_safe,
+                        emails_event_path(@event), class: 'btn btn-xs btn-default' %>
+            <%= link_to '<span class="glyphicon glyphicon-download-alt"></span> Lista de presença'.html_safe,
+                        attendance_event_path(@event, format: :pdf), class: 'btn btn-xs btn-default' %>
+            <%= link_to '<span class="glyphicon glyphicon-download-alt"></span> Lista de contatos'.html_safe,
+                        participants_event_path(@event, format: :pdf), class: 'btn btn-xs btn-default' %>
             <%= render 'common/btn_add', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:enrolled]),
                        size: 'btn-xs', resource: @event %>
           </div>

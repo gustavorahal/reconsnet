@@ -72,7 +72,7 @@ class Event < ActiveRecord::Base
 
   def organizers
     Participation.includes(:person).where(event: self).
-        where(participation_type: Participation::TYPES.reject {|x| x == 'Aluno'})
+        where(participation_type: Participation::TYPES.reject {|x| x == 'Aluno'}).order('people.name')
   end
 
 

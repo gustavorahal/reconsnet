@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :participants, :attendance, :emails]
   after_action :verify_authorized
 
   def index
@@ -51,6 +51,29 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     redirect_to events_path, notice: "Evento '#{@event.name}' deletado com sucesso!"
+  end
+
+  def participants
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = EventParticipantsPdf.new(@event, current_user)
+        send_data pdf.render, filename: "event_id_#{@event.id}_participants.pdf", type: 'application/pdf'
+      end
+    end
+  end
+
+  def attendance
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = EventAttendancePdf.new(@event, current_user)
+        send_data pdf.render, filename: "event_id_#{@event.id}_attendance.pdf", type: 'application/pdf'
+      end
+    end
+  end
+
+  def emails
   end
 
   def calendar

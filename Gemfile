@@ -40,6 +40,10 @@ gem 'gibbon'
 # Detecção de gênero baseada em nome
 gem 'gendered'
 
+# Para geração de arquivos em PDF
+gem 'prawn'
+gem 'prawn-table'
+
 # Executor de jobs em 2o plano
 gem 'sidekiq'
 gem 'sinatra', :require => nil # para web do sidekiq

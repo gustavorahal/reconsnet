@@ -23,11 +23,12 @@ ReconsNet::Application.routes.draw do
     collection do
       get 'calendar'
     end
-    resources :participations do
-      collection do
-        get 'emails'
-      end
+    member do
+      get 'participants'
+      get 'attendance'
+      get 'emails'
     end
+    resources :participations
   end
   resources :tmks
   resources :volunteers

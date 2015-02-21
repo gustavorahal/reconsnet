@@ -51,11 +51,6 @@ class ParticipationsController < ApplicationController
   end
 
 
-  def emails
-    @event = Event.find(params[:event_id])
-    authorize @event
-  end
-
   private
 
     def set_participation
