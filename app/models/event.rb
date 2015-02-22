@@ -56,10 +56,10 @@ class Event < ActiveRecord::Base
   end
 
 
-  def participants(status=[])
+  def participants(status=[], order=['people.name'])
     Participation.includes(:person).where(event: self).
         where(participation_type: 'Aluno').
-        where(status: status).order('people.name')
+        where(status: status).order(*order)
   end
 
 
@@ -74,7 +74,9 @@ class Event < ActiveRecord::Base
 
 
   def pending_enrollments
-    participants([Participation.statuses[:divulge], Participation.statuses[:interested]])
+    participants([Participation.statuses[:divulge],
+                  Participation.statuses[:interested]],
+                  [:status, 'people.name'])
   end
 
 
