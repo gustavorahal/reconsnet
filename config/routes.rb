@@ -24,7 +24,6 @@ ReconsNet::Application.routes.draw do
       get 'calendar'
     end
     member do
-      get 'participants'
       get 'attendance'
       get 'emails'
     end

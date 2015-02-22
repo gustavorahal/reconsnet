@@ -8,10 +8,6 @@ class EventPolicy < ApplicationPolicy
     user.volunteer? or user.admin?
   end
 
-  def participants?
-    user.volunteer? or user.admin?
-  end
-
   def calendar?
     true
   end

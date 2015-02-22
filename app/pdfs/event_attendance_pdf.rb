@@ -4,25 +4,25 @@ class EventAttendancePdf < EventBasePdf
 
   def body
 
-    font('Times-Roman', size: 14, style: :bold) { text 'Inscritos' }
-    move_down 10
-
     count = 1
-    enrolls = [['#', 'Nome'] + @dates ]
-    @event.enrolls.each do |p|
-      enrolls.append [count, p.person.name] + @dates.map {|d| Prawn::Text::NBSP * 13}
+    enrolls = [['#', 'Nome', 'E-mail', 'Telefone'] + @dates ]
+    @event.participants([Participation.statuses[:enrolled],
+                         Participation.statuses[:pre_enrolled]]).each do |p|
+      numbers = p.person.phone_numbers.map {|pn| pn.number.phony_formatted}
+      enrolls.append [count, p.person.name, p.person.email + "\n\n", numbers.join("\n")] + @dates.map {|d| Prawn::Text::NBSP * 13}
       count += 1
     end
-    table enrolls do
-      row(0).font_style = :bold
-      row(0).align = :center
-      row(0).font_size = 13
-      self.header = true
-      self.row_colors = ['DDDDDD', 'FFFFFF']
+
+    # Adicionar linhas em branco a mais para inscrições de última hora,
+    # colocar 30% a mais que os inscritos atuais
+    (count * 0.30).ceil.times do
+      enrolls.append(Array.new(enrolls[0].size, ' '))
     end
 
-    move_down 40
-    font('Times-Roman', size: 14, style: :bold) { text 'Equipe Organizadora' }
+    gen_table enrolls, nil, {1 => 150, 2 => 200, 3 => 120}
+
+    move_down 30
+    font(@@default_font, size: 13, style: :bold) { text 'Equipe Docente' }
     move_down 10
 
     count = 1

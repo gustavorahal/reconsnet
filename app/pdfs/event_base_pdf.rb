@@ -3,7 +3,7 @@
 class EventBasePdf < BasePdf
 
   def initialize(event, current_user)
-    super({ page_layout: :landscape, page_size: 'A4' })
+    super({ page_layout: :landscape, page_size: 'LETTER' })
     @event = event
     @current_user = current_user
     header
@@ -17,21 +17,29 @@ class EventBasePdf < BasePdf
     start_date_str = I18n.l @event.start.to_date
     finish_date_str = I18n.l @event.finish.to_date
 
-    image "app/assets/images/logomarca_recons.jpg", :scale => 0.50
+    image 'app/assets/images/logomarca_recons.jpg', :scale => 0.50
 
     text_box "Gerado #{I18n.l DateTime.now} por #{@current_user.name}",
              align: :right, valign: :top, style: :italic, size: 9
 
-    font 'Times-Roman'
+    font @@default_font, size: 10
 
-    font('Times-Roman', size: 18, style: :bold) { text @event.name, align: :center }
+    font(@@default_font, size: 18, style: :bold) { text @event.name, align: :center }
     move_down 5
 
-    font('Times-Roman', size: 12) {
-      text "Data: #{start_date_str} a #{finish_date_str}  |  Local: Reconscientia", align: :center
+    if start_date_str == finish_date_str
+      subtitle = "Data: #{start_date_str}"
+    else
+      subtitle = "Data: #{start_date_str} a #{finish_date_str}"
+    end
+
+    subtitle +=  '  |  Local: Reconscientia'
+
+    font(@@default_font, size: 12) {
+      text subtitle, align: :center
     }
 
-    move_down 30
+    move_down 20
 
   end
 

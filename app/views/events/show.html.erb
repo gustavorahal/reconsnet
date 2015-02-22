@@ -33,8 +33,6 @@
                         emails_event_path(@event), class: 'btn btn-xs btn-default' %>
             <%= link_to '<span class="glyphicon glyphicon-download-alt"></span> Lista de presença'.html_safe,
                         attendance_event_path(@event, format: :pdf), class: 'btn btn-xs btn-default' %>
-            <%= link_to '<span class="glyphicon glyphicon-download-alt"></span> Lista de contatos'.html_safe,
-                        participants_event_path(@event, format: :pdf), class: 'btn btn-xs btn-default' %>
             <%= render 'common/btn_add', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:enrolled]),
                        size: 'btn-xs', resource: @event %>
           </div>
@@ -42,7 +40,7 @@
       </div>
       <div class="panel-body">
 
-        <h5>Equipe organizadora</h5>
+        <h5>Equipe Docente</h5>
         <% empty = true %>
         <% @event.organizers.each do |participation| %>
             <% empty = false %>
@@ -77,6 +75,25 @@
         <% end %>
         <%= 'Não existem inscritos para este evento' if empty %>
 
+        <br/>
+
+        <h5>Pré-inscritos (<%= @event.pre_enrolls.count %>)</h5>
+        <% empty = true %>
+        <% @event.pre_enrolls.each do |participation| %>
+            <% empty = false %>
+            <div>
+              <%= link_to participation.person.name, person_path(participation.person.id) %>
+              <% if policy(@event).edit? %>
+                  <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
+                             btn_label: '', size: 'btn-xs', resource: participation %>
+                  <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
+                             btn_label: '', size: 'btn-xs', resource: participation %>
+              <% end %>
+            </div>
+        <% end %>
+        <%= 'Não existem pré-inscritos para este evento' if empty %>
+
+
       </div>
     </div>
 
@@ -84,12 +101,12 @@
 
 
 
-<!-- Pendências para fechamento dos participantes (só aparece se evento ainda não começou) -->
+<!-- Pendências para fechamento dos participantes -->
 
 <% if policy(Participation).show? %>
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title">Pendências para fechamento dos participantes
+        <h3 class="panel-title">Pendências (<%= @event.pending_enrollments.count %>)
           <div class="pull-right">
             <%= render 'common/btn_add', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:divulge]),
                        size: 'btn-xs', btn_label: 'Nova participação', resource: @event %>
@@ -157,7 +174,7 @@
 <% if policy(Tmk).show? %>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">TMKs deste evento
+    <h3 class="panel-title">TMKs (<%= @event.tmks.count %>)
     </h3>
   </div>
   <div class="panel-body">

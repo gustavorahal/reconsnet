@@ -22,10 +22,6 @@ class ActivityPolicy < ApplicationPolicy
     true
   end
 
-  def participants?
-    true
-  end
-
   def about?
     true
   end
