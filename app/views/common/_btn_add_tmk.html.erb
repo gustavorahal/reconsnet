@@ -8,6 +8,6 @@
 <% path = p.empty? ? new_tmk_path : new_tmk_path(**p) %>
 
 <% if policy(Tmk).create? %>
-    <%= link_to "<span title=\"Novo TMK\" class=\"glyphicon glyphicon-phone-alt\"></span>".html_safe,
-                path, class: "btn-xs" %>
+    <%= link_to "<span class=\"glyphicon glyphicon-phone-alt\"></span> TMK".html_safe,
+                path, class: "btn btn-success btn-xs" %>
 <% end %>

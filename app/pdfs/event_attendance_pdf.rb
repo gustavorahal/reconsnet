@@ -8,8 +8,7 @@ class EventAttendancePdf < EventBasePdf
     enrolls = [['#', 'Nome', 'E-mail', 'Telefone'] + @dates ]
     @event.participants([Participation.statuses[:enrolled],
                          Participation.statuses[:pre_enrolled]]).each do |p|
-      numbers = p.person.phone_numbers.map {|pn| pn.number.phony_formatted}
-      enrolls.append [count, p.person.name, p.person.email + "\n\n", numbers.join("\n")] + @dates.map {|d| Prawn::Text::NBSP * 13}
+      enrolls.append [count, p.person.name, p.person.email + "\n\n", p.person.numbers("\n")] + @dates.map {|d| Prawn::Text::NBSP * 13}
       count += 1
     end
 

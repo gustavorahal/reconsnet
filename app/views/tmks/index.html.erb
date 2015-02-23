@@ -58,8 +58,7 @@
     <th></th>
   </tr>
 
-  <% @tmks.each do |tmk| %>
-      <% participation = Participation.find_by(event: tmk.event, person: tmk.with_who) %>
+  <% @tmks.order('tmks.id DESC').each do |tmk| %>
       <tr>
         <td class="col-md-4">
           <%= link_to tmk.with_who.name, person_path(tmk.with_who) %>
@@ -68,23 +67,14 @@
             <%= link_to tmk.event.name_with_date, event_path(tmk.event) %>
           <% end  %>
           <br>
-          <%= "<strong>#{I18n.t("participation.status.#{participation.status}")}</strong>".html_safe if participation %>
-          <% if participation %>
-            <small>
-              (<%= link_to 'editar', edit_event_participation_path(tmk.event, participation) %>
-              ou
-              <%= link_to 'remover', event_participation_path(tmk.event, participation), method: :delete,
-                        data: { confirm: "Você tem certeza que deseja deletar participação de \"#{participation.person.name}\"?" } %>
-              participação)
-            </small>
-          <% else %>
-              <small>
-                (<%= link_to 'adicionar', new_event_participation_path(tmk.event, person_id: tmk.with_who.id) %> participação)
-              </small>
-          <% end %>
         </td>
-        <td><em><%= tmk.notes %></em></td>
-        <td class="col-md-1"><%= render 'common/tmk_controls', tmk: tmk %></td>
+        <td>
+          <%= tmk_annotation(tmk) %>
+        </td>
+        <td>
+            <%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
+            <%= render 'common/btn_delete', resource: tmk, size: 'btn-xs', btn_label: '' %>
+        </td>
       </tr>
   <% end %>
 </table>
