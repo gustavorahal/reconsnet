@@ -14,7 +14,12 @@
         <%= hidden_field_tag 'tmk[with_who_id]', @with_who.id %>
         <%= f.static_control nil, label: 'Contatado' do %>
             <%= @with_who.name %>
-            <%= "<small>(#{@with_who.numbers})</small>".html_safe if @with_who.phone_numbers.any? %>
+            <% @with_who.numbers.split(' | ').each do |pn| %>
+                <span class="label label-primary"><%= pn %></span>
+            <% end %>
+            <% if @with_who.email.present? %>
+                <span class="label label-primary"><%= @with_who.email %></span>
+            <% end %>
         <% end %>
     <% else %>
         <%= f.collection_select :with_who_id, Person.all.order('name'), :id, :name,
