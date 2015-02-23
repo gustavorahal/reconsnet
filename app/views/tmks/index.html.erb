@@ -58,7 +58,7 @@
     <th></th>
   </tr>
 
-  <% @tmks.order('tmks.id DESC').each do |tmk| %>
+  <% @tmks.order('tmks.contact_date DESC').each do |tmk| %>
       <tr>
         <td class="col-md-4">
           <%= link_to tmk.with_who.name, person_path(tmk.with_who) %>

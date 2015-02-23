@@ -115,8 +115,6 @@
       </div>
       <div class="panel-body">
 
-
-
         <!-- Tabela de acompanhamento de contatos e divulgação -->
         <% if @event.pending_enrollments.empty? %>
 
@@ -148,7 +146,7 @@
                     <% end %>
                 </td>
                 <td>
-                    <% person.tmks.order('tmks.id DESC').each do |tmk| %>
+                    <% person.tmks.order('tmks.contact_date DESC').each do |tmk| %>
                       <small><%= tmk_summary_no_with_who tmk, tmk.event == @event  %></small><br>
                     <% end %>
                 </td>
@@ -187,7 +185,7 @@
 
     <% else %>
 
-        <% @event.tmks.order('tmks.id DESC').each do |tmk| %>
+        <% @event.tmks.order('tmks.contact_date DESC').each do |tmk| %>
             <p>
               <%= tmk_summary_no_event(tmk) %>
               <%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
