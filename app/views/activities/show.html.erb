@@ -7,80 +7,88 @@
     <% sub_title.append 'Restrita a voluntários' %>
 <% end %>
 
-<%= render 'common/page_title', titulo: title.html_safe, sub_title: sub_title.join(' | ') %>
+<!--
 
-<% content_for :actions do %>
-    <%= render 'common/btn_edit', resource: @activity %>
-    <%= render 'common/btn_delete', resource: @activity %>
-<% end %>
+    Corpo
 
-<br/>
-<p class="lead">
-  <%= @activity.summary %>
-</p>
+-->
+<div class="row">
 
-<div>
-  <!-- Caso esta atividade não tenha descrição, pegar descrição da atividade pai, se existir -->
-  <% if @activity.description.blank? and @activity.parent.present? and @activity.parent.description.present? %>
-    <div class="text-muted"><em>Descrição da atividade <%= @activity.parent.name %>:</em></div>
-    <br/>
-    <%= @activity.parent.description.html_safe %>
-  <% end %>
-  <%= @activity.description.html_safe %>
+<div class="col-xs-8">
+
+    <%= render 'common/page_title', titulo: title.html_safe, sub_title: sub_title.join(' | ') %>
+
+    <% content_for :actions do %>
+      <%= render 'common/btn_edit', resource: @activity %>
+      <%= render 'common/btn_delete', resource: @activity %>
+    <% end %>
+
+    <br>
+
+    <div class="lead">
+      <%= @activity.summary %>
+    </div>
+
+    <div>
+      <!-- Caso esta atividade não tenha descrição, pegar descrição da atividade pai, se existir -->
+      <% if @activity.description.blank? and @activity.parent.present? and @activity.parent.description.present? %>
+        <div class="text-muted"><em>Descrição da atividade <%= @activity.parent.name %>:</em></div>
+        <br/>
+        <%= @activity.parent.description.html_safe %>
+      <% end %>
+      <%= @activity.description.html_safe %>
+    </div>
+
 </div>
 
-<br/>
 
-<% if @activity.children.any? %>
-    <div class="well">
-      <h4>Atividades relacionadas</h4>
-      <% @activity.children.each do |child_activity| %>
-        <div><%= link_to child_activity.name, activity_path(child_activity) %>
-          <small class="text-muted"><%= child_activity.summary %></small>
+<!--
+
+   Lateral
+
+-->
+
+<div class="col-xs-4">
+
+
+    <% if @activity.children.any? %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Atividades relacionadas</h3>
         </div>
-      <% end %>
-    </div>
-<% end %>
-
-
-<!-- Eventos (ou ocorrências desta atividade) -->
-<div class="well">
-  <div class="row">
-    <div class="col-lg-6">
-      <h4>Eventos relacionados</h4>
-    </div>
-    <div class="col-lg-6">
-      <h4><!-- O hX deve ser o mesmo do titulo da pagina para os dois ficarem alinhados horizontalmente-->
-        <div class="pull-right">
-          <%= render 'common/btn_add', url: new_event_path(activity_id: @activity.id), size: 'btn-sm', resource: Event.new %>
-        </div>
-      </h4>
-    </div>
-  </div>
-  <br/>
-
-  <% if @events.empty? %>
-      <div class="text-muted">Não existem eventos relacionados</div>
-  <% else %>
-      <table class="table table-striped table-condensed">
-        <tr>
-          <th></th>
-          <th>Início</th>
-          <th>Fim</th>
-          <% if policy(Participation).show? %>
-            <th>Inscritos</th>
+        <div class="panel-body">
+          <% @activity.children.each do |child_activity| %>
+            <div><%= link_to child_activity.name, activity_path(child_activity) %></div>
           <% end %>
-        </tr>
-        <% @events.each do |event| %>
-            <tr>
-              <td><%= link_to event.name, event_path(event) %></td>
-              <td><%= date_display event.start %></td>
-              <td><%= date_display event.finish %></td>
-              <% if policy(Participation).show? %>
-                <td><%= event.enrolls.count %></td>
-              <% end %>
-            </tr>
-        <% end %>
-      </table>
-  <% end %>
+        </div>
+      </div>
+    <% end %>
+
+
+    <!-- Eventos (ou ocorrências desta atividade) -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Eventos</h3>
+      </div>
+      <div class="panel-body">
+          <% if @events.empty? %>
+              <div class="text-muted">Não existem eventos relacionados</div>
+          <% else %>
+            <% @events.each do |event| %>
+                <div>
+                  <%= link_to event.name, event_path(event) %>
+                  <small class="text-muted">
+                    <% if event.start.to_date == event.finish.to_date %>
+                        <%= I18n.l event.start.to_date %>
+                    <% else %>
+                        <%= I18n.l event.start.to_date %> a <%= I18n.l event.finish.to_date %>
+                    <% end %>
+                  </small>
+                </div>
+            <% end %>
+          <% end %>
+      </div>
+    </div>
+
+</div>
 </div>

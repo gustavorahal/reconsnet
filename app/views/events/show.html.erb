@@ -1,26 +1,25 @@
 
-<%= render 'common/page_title', titulo: "Evento <em>#{@event.name}</em>".html_safe %>
+<% if @event.start.to_date == @event.finish.to_date %>
+    <% date_str = "Em #{I18n.l @event.start.to_date}" %>
+<% else %>
+    <% date_str = "De #{I18n.l @event.start.to_date} a #{I18n.l @event.finish.to_date}" %>
+<% end %>
+
+<%= render 'common/page_title',
+           titulo: "Evento <em>#{@event.name}</em>".html_safe,
+           sub_title: "#{date_str}, relacionado à atividade #{activity_link_display @event.activity}" %>
 
 <% content_for :actions do %>
     <%= render 'common/btn_edit', resource: @event %>
     <%= render 'common/btn_delete', resource: @event %>
 <% end %>
 
-
-<dl class="dl-horizontal">
-  <dt>Atividade:</dt>
-  <dd><%= activity_link_display @event.activity %></dd>
-
-  <dt>Descrição:</dt>
+<br>
+<div class="lead">
   <dd><%= @event.description %></dd>
+</div>
 
-  <dt>Início:</dt>
-  <dd><%= date_display @event.start %></dd>
-
-  <dt>Fim:</dt>
-  <dd><%= date_display @event.finish %></dd>
-</dl>
-
+<br>
 
 
 <!-- Participantes -->

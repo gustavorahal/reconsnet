@@ -18,6 +18,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+// Para conteúdo do body aparecer depois do navbar e não embaixo dele
+body { padding-top: 70px; }
+
 .tasks-box {
   margin: 10px;
   margin-bottom: 20px;
@@ -26,4 +29,46 @@
 .vertical-align {
   display: flex;
   align-items: center;
+}
+
+$bgDefault      : #1059a6;
+$bgHighlight    : #124294;
+$colDefault     : #ffffff;
+$colHover       : #ffffff;
+$colHighlight   : #ffffff;
+
+.navbar-custom {
+  background-color: $bgDefault;
+  border-color: $bgHighlight;
+  .navbar-brand {
+    color: $colDefault;
+    &:hover, &:focus {
+      color: $colHighlight;
+    }
+  }
+  .navbar-text {
+    color: $colDefault;
+  }
+  .navbar-nav {
+    > li {
+      > a {
+        color: $colDefault;
+        &:hover, &:focus {
+          color: $colHighlight;
+        }
+      }
+    }
+    > .active {
+      > a, > a:hover, > a:focus {
+        color: $colHighlight;
+        background-color: $bgHighlight;
+      }
+    }
+    > .open {
+      > a, > a:hover, > a:focus {
+        color: $colHighlight;
+        background-color: $bgHighlight;
+      }
+    }
+  }
 }

@@ -33,7 +33,7 @@ class Activity < ActiveRecord::Base
   end
 
   ##
-  # Inclui eventos dos atividades filho
+  # Inclui eventos das atividades filho
 
   def all_events
     activities_ids = []

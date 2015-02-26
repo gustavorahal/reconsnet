@@ -11,7 +11,7 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top" role="navigation">
       <div class="container">
         <a href="<%= root_path %>" class="navbar-brand">Reconscientia</a>
         <ul class="nav navbar-nav">
@@ -35,11 +35,13 @@
 
     <!-- Actual content -->
     <div class="container">
+
         <div class="row">
             <div class="col-lg-12">
               <%= render 'common/flash_msgs' %>
             </div>
         </div>
+
         <div class="row vertical-align">
             <div class="col-lg-8">
               <%= yield :back_link %>
@@ -55,6 +57,7 @@
         <div class="row">
             <div class="col-lg-12"><%= yield %></div>
         </div>
+
     </div>
 
 </body>
