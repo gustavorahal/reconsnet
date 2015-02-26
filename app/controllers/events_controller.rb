@@ -4,7 +4,12 @@ class EventsController < ApplicationController
   after_action :verify_authorized
 
   def index
-    @events = Event.all.order('start DESC')
+    if current_user and current_user.volunteer?
+      @events = Event.all.order('start DESC')
+    else
+      @events = Event.joins(:activity).where.not('activities.internal_only = true').order('start DESC')
+    end
+
     authorize @events
   end
 
@@ -77,7 +82,12 @@ class EventsController < ApplicationController
   end
 
   def calendar
-    @events = Event.all
+    if current_user and current_user.volunteer?
+      @events = Event.all
+    else
+      @events = Event.joins(:activity).where.not('activities.internal_only = true')
+    end
+
     @events_by_date = {}
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
 
