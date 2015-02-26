@@ -1,7 +1,10 @@
 class InventoriologyController < ApplicationController
 
+  after_action :verify_authorized
 
   def index
+    authorize :inventoriology
+
     @start = Time.utc(2014, 1, 1, 00, 00, 01)
     @finish = Time.utc(2014, 12, 31, 23, 59, 59)
     @events = Event.where('start >= ?', @start).where('finish <= ?', @finish)

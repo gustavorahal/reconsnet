@@ -67,14 +67,18 @@
           <th></th>
           <th>Início</th>
           <th>Fim</th>
-          <th>Inscritos</th>
+          <% if policy(Participation).show? %>
+            <th>Inscritos</th>
+          <% end %>
         </tr>
         <% @events.each do |event| %>
             <tr>
               <td><%= link_to event.name, event_path(event) %></td>
               <td><%= date_display event.start %></td>
               <td><%= date_display event.finish %></td>
-              <td><%= event.enrolls.count %></td>
+              <% if policy(Participation).show? %>
+                <td><%= event.enrolls.count %></td>
+              <% end %>
             </tr>
         <% end %>
       </table>
