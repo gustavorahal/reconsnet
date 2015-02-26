@@ -1,2 +1,2 @@
-<%= f.collection_select :event_id, Event.all.order('start DESC'), :id,
+<%= f.collection_select :event_id, Event.all, :id,
                         :name_with_date, label: 'Evento', control_col: 'col-sm-5' %>

@@ -30,7 +30,8 @@ class Event < ActiveRecord::Base
 
   accepts_nested_attributes_for :assets, allow_destroy: true
 
-  scope :all_exclude_internal, -> { joins(:activity).where.not('activities.internal_only = true').order(start: :desc) }
+  scope :all_exclude_internal, -> { joins(:activity).where.not('activities.internal_only = true') }
+  default_scope { order('start DESC') }
 
   def to_s
     "#{name}"

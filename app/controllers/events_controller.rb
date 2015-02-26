@@ -5,9 +5,9 @@ class EventsController < ApplicationController
 
   def index
     if current_user and current_user.volunteer?
-      @events = Event.all.order('start DESC')
+      @events = Event.all
     else
-      @events = Event.joins(:activity).where.not('activities.internal_only = true').order('start DESC')
+      @events = Event.all_exclude_internal
     end
 
     authorize @events
@@ -85,7 +85,7 @@ class EventsController < ApplicationController
     if current_user and current_user.volunteer?
       @events = Event.all
     else
-      @events = Event.joins(:activity).where.not('activities.internal_only = true')
+      @events = Event.all_exclude_internal
     end
 
     @events_by_date = {}

@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     user = current_user
     if user and user.volunteer?
       @next_event = Event.next_event
-      @events = Event.where('start > ?', Time.now).order('start ASC')
+      @events = Event.where('start > ?', Time.now)
       @tmks = Tmk.all.order('contact_date DESC').limit(5)
       @people = Person.all.order('created_at DESC').limit(5)
     else

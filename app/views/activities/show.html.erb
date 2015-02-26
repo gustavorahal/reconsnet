@@ -71,21 +71,59 @@
         <h3 class="panel-title">Eventos</h3>
       </div>
       <div class="panel-body">
-          <% if @events.empty? %>
-              <div class="text-muted">Não existem eventos relacionados</div>
+          <% if @past_events.empty? and @future_events.empty? %>
+
+              Não existem eventos para esta atividade
+
           <% else %>
-            <% @events.each do |event| %>
-                <div>
-                  <%= link_to event.name, event_path(event) %>
-                  <small class="text-muted">
-                    <% if event.start.to_date == event.finish.to_date %>
-                        <%= I18n.l event.start.to_date %>
-                    <% else %>
-                        <%= I18n.l event.start.to_date %> a <%= I18n.l event.finish.to_date %>
-                    <% end %>
-                  </small>
-                </div>
+
+            <h5>Próximos</h5>
+            <% if @future_events.empty? %>
+
+                Não existem eventos agendados para esta atividade<br>
+
+            <% else %>
+
+                <% @future_events.each do |event| %>
+                    <div>
+                      <%= link_to event.name, event_path(event) %>
+                      <small class="text-muted">
+                        <% if event.start.to_date == event.finish.to_date %>
+                            <%= I18n.l event.start.to_date %>
+                        <% else %>
+                            <%= I18n.l event.start.to_date %> a <%= I18n.l event.finish.to_date %>
+                        <% end %>
+                      </small>
+                    </div>
+                <% end %>
+
             <% end %>
+
+            <br>
+
+            <h5>Anteriores</h5>
+
+            <% if @past_events.empty? %>
+
+                Ainda não aconteceram eventos desta atividade<br>
+
+            <% else %>
+
+                <% @past_events.each do |event| %>
+                    <div>
+                      <%= link_to event.name, event_path(event) %>
+                      <small class="text-muted">
+                        <% if event.start.to_date == event.finish.to_date %>
+                            <%= I18n.l event.start.to_date %>
+                        <% else %>
+                            <%= I18n.l event.start.to_date %> a <%= I18n.l event.finish.to_date %>
+                        <% end %>
+                      </small>
+                    </div>
+                <% end %>
+
+            <% end %>
+
           <% end %>
       </div>
     </div>

@@ -32,7 +32,7 @@
   <span class="caret"></span>
 </button>
 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-  <% Event.all.order(start: :desc).each do |event| %>
+  <% Event.all.each do |event| %>
       <li role="presentation">
         <%= link_to event.name_with_date, tmks_path(params.merge(event_id: event.id)) %>
       </li>
