@@ -46,7 +46,7 @@
 
     <%= f.select :contact_type, Tmk::CONTACT_TYPES, control_col: 'col-sm-3' %>
 
-    <%= f.datetime_select :contact_date %>
+    <%= f.datetime_select :contact_date, minute_step: 5 %>
 
     <%= f.text_area :notes, rows: 5 %>
 

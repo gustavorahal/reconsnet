@@ -22,8 +22,8 @@
     <%= f.text_field :name, placeholder: @activity ? @activity.name : '',
                      help: '<small>Nome deste evento. Como exemplo, para a atividade <em>"Reunião Técnico Científica"</em>, um nome de evento possível é <em>"Reunião sobre os Anais Simpósio"</em>. Se estiver em branco o nome do evento será o mesmo da atividade</small>.'.html_safe %>
     <%= f.text_area :description %>
-    <%= f.datetime_select :start %>
-    <%= f.datetime_select :finish %>
+    <%= f.datetime_select :start, minute_step: 15 %>
+    <%= f.datetime_select :finish, minute_step: 15 %>
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>
