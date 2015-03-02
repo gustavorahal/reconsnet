@@ -25,3 +25,33 @@ def in_browser(name)
 
   Capybara.session_name = old_session
 end
+
+
+##
+# Seleciona uma data em um form que usa o date_select padrão do rails
+# Exemplo: select_date('2015-03-15', from: 'Data')
+
+def select_date(date_str, options = {})
+  field = options[:from]
+  base_id = find(:xpath, ".//label[contains(.,'#{field}')]")[:for]
+  date = date_str.to_date
+  select date.year,  :from => "#{base_id}_1i"
+  select date.month, :from => "#{base_id}_2i"
+  select date.day,   :from => "#{base_id}_3i"
+end
+
+
+##
+# Seleciona uma data e hora em um form que usa o datetime_select padrão do rails
+# Exemplo: select_date('2015-03-15 14:34', from: 'Data e hora')
+
+def select_datetime(datetime_str, options = {})
+  field = options[:from]
+  base_id = find(:xpath, ".//label[contains(.,'#{field}')]")[:for]
+  datetime = datetime_str.to_datetime
+  select datetime.year,  :from => "#{base_id}_1i"
+  select I18n.l(datetime, format: "%B"), :from => "#{base_id}_2i"
+  select datetime.day,   :from => "#{base_id}_3i"
+  select datetime.hour,   :from => "#{base_id}_4i"
+  select datetime.min,   :from => "#{base_id}_5i"
+end

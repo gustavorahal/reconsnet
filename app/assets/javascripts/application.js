@@ -14,7 +14,6 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require bootstrap-datetimepicker
 //= require tinymce-jquery
 //= require_tree .
 //= require turbolinks

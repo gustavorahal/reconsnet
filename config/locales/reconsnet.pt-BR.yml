@@ -50,6 +50,18 @@ pt-BR:
         number: "Número"
         provider: "Provedor"
         phone_type: "Tipo"
+      tmk:
+        contact_date: "Quando?"
+        contact_type: "Tipo de contato"
+        notes: "Notas"
+        from_who_id: "Quem fez contato"
+        with_who_id: "Contatado"
+      event:
+        activity_id: "Atividade"
+        name: "Nome"
+        description: "Descrição"
+        start: "Início"
+        finish: "Fim"
     errors:
       models:
         phone_number:

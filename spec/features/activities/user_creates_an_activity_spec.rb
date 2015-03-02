@@ -19,6 +19,6 @@ feature 'Usuário cria uma atividade' do
     click_on 'Salvar'
 
     expect(page).to have_content 'Nova atividade'
-    expect(page).to have_content 'Eventos relacionados'
+    expect(page).to have_content 'Eventos'
   end
 end

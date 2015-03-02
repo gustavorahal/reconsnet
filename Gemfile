@@ -38,7 +38,7 @@ gem 'puma', '~> 2.11.0'
 gem 'gibbon'
 
 # Detecção de gênero baseada em nome
-gem 'gendered'
+gem 'gendered', '~> 0.0.7'
 
 # Para geração de arquivos em PDF
 gem 'prawn'

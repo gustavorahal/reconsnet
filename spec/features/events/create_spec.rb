@@ -14,11 +14,14 @@ describe 'Events' do
     find(:linkhref, new_event_path).click
     select event.activity.name, from: 'Atividade'
     fill_in 'Nome', with: event.name
-    fill_in 'Início', with: event.start
-    fill_in 'Fim', with: event.finish
+    select_datetime(event.start, from: 'Início')
+    select_datetime(event.finish, from: 'Fim')
     click_on 'Salvar'
 
-    expect(current_path).to eq event_path(Event.take)
+    event_persisted = Event.take
+    expect(current_path).to eq event_path(event_persisted)
+    expect(event_persisted.start.day).to eq(event.start.day)
+    expect(event_persisted.finish.day).to eq(event.finish.day)
   end
 
 

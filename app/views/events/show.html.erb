@@ -72,7 +72,7 @@
               <% end %>
             </div>
         <% end %>
-        <%= 'Não existem inscritos para este evento' if empty %>
+        <%= 'Não existem inscritos para este evento<br>'.html_safe if empty %>
 
         <br/>
 
@@ -90,7 +90,7 @@
               <% end %>
             </div>
         <% end %>
-        <%= 'Não existem pré-inscritos para este evento' if empty %>
+        <%= 'Não existem pré-inscritos para este evento<br>'.html_safe if empty %>
 
 
       </div>

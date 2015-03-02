@@ -44,10 +44,10 @@ class Person < ActiveRecord::Base
   validates_inclusion_of :gender, in:  GENDERS, allow_nil: true, allow_blank: true
   validates_inclusion_of :nationality, in: NATIONALITIES, allow_nil: true, allow_blank: true
   validate :handle_conflict, on: :update
-  after_create :detect_gender, unless: :gender?
-  after_create :subscribe_email_mkt, if: :marketing?
+  after_commit :detect_gender, unless: :gender?, on: [:create]
+  after_commit :subscribe_email_mkt, if: :marketing?, on: [:create]
   after_update :update_email_mkt, if: :marketing_changed?
-  after_destroy :unsubscribe_email_mkt
+  after_commit :unsubscribe_email_mkt, on: [:destroy]
 
   has_one :volunteer, dependent: :destroy
   has_many :participations, dependent: :destroy
