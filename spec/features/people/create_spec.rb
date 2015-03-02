@@ -12,7 +12,7 @@ feature 'Adição de pessoas' do
   scenario 'adiciona pessoa' do
     person = build(:person)
     visit people_path
-    click_on 'Adicionar pessoa'
+    click_on 'Nova pessoa'
     fill_in 'Nome', with: person.name
     fill_in 'E-mail', with: person.email
     click_on 'Salvar'
@@ -25,7 +25,7 @@ feature 'Adição de pessoas' do
     person = build :person
     address = build :address
     visit people_path
-    click_on 'Adicionar pessoa'
+    click_on 'Nova pessoa'
     fill_in 'Nome', with: person.name
     fill_in 'E-mail', with: person.email
     fill_in 'line1_1', with: address.line1
@@ -47,7 +47,7 @@ feature 'Adição de pessoas' do
     address = build :address
     visit people_path
 
-    click_on 'Adicionar pessoa'
+    click_on 'Nova pessoa'
     fill_in 'Nome', with: person.name
     fill_in 'E-mail', with: person.email
     fill_in 'city_1', with: address.city

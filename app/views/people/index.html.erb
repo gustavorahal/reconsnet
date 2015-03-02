@@ -2,7 +2,7 @@
 <%= render 'common/page_title', titulo: 'Pessoas' %>
 
 <% content_for :actions do %>
-    <%= render 'common/btn_add', resource: Person.new %>
+    <%= render 'common/btn_new', resource: Person.new, btn_label: 'Nova pessoa' %>
 <% end %>
 
 

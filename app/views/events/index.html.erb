@@ -3,7 +3,7 @@
 
 <% content_for :actions do %>
     <%= render 'common/btn_calendar' %>
-    <%= render 'common/btn_add', url: new_event_path, resource: Event.new %>
+    <%= render 'common/btn_new', url: new_event_path, resource: Event.new, btn_label: 'Novo evento' %>
 <% end %>
 
 

@@ -32,8 +32,8 @@
                         emails_event_path(@event), class: 'btn btn-xs btn-default' %>
             <%= link_to '<span class="glyphicon glyphicon-download-alt"></span> Lista de presença'.html_safe,
                         attendance_event_path(@event, format: :pdf), class: 'btn btn-xs btn-default' %>
-            <%= render 'common/btn_add', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:enrolled]),
-                       size: 'btn-xs', resource: @event %>
+            <%= render 'common/btn_new', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:enrolled]),
+                       btn_label: 'Nova participação', size: 'btn-xs', resource: @event %>
           </div>
         </h3>
       </div>
@@ -107,7 +107,7 @@
       <div class="panel-heading">
         <h3 class="panel-title">Pendências <span class="badge"><%= @event.pending_enrollments.count %></span>
           <div class="pull-right">
-            <%= render 'common/btn_add', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:divulge]),
+            <%= render 'common/btn_new', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:divulge]),
                        size: 'btn-xs', btn_label: 'Nova participação', resource: @event %>
           </div>
         </h3>
@@ -136,7 +136,7 @@
               <tr>
                 <td>
                   <%= link_to person.name, person_path(person.id) %><br>
-                  <%= render 'common/btn_add_tmk', event: @event, with_who: participation.person %>
+                  <%= render 'common/btn_new_tmk', event: @event, with_who: participation.person %>
                 </td>
                 <td><%= I18n.t("participation.status.#{participation.status}") %></td>
                 <td class="col-md-3">
@@ -204,7 +204,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">Anexos
       <div class="pull-right">
-        <%= render 'common/btn_add', url: new_asset_path(assetable_id: @event.id,
+        <%= render 'common/btn_new', url: new_asset_path(assetable_id: @event.id,
                                                          assetable_type: 'Event'),
                    size: 'btn-xs',
                    resource: Asset.new %>

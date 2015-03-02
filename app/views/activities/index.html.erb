@@ -2,7 +2,7 @@
 <%= render 'common/page_title', titulo: 'Atividades' %>
 
 <% content_for :actions do %>
-    <%= render 'common/btn_add', url: new_activity_path, resource: Activity.new %>
+    <%= render 'common/btn_new', url: new_activity_path, resource: Activity.new, btn_label: 'Nova atividade' %>
 <% end %>
 
 

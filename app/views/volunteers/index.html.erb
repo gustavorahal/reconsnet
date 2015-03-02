@@ -1,7 +1,7 @@
 <%= render 'common/page_title', titulo: 'Voluntários' %>
 
 <% content_for :actions do %>
-    <%= render 'common/btn_add', resource: Volunteer.new %>
+    <%= render 'common/btn_new', resource: Volunteer.new, btn_label: 'Novo voluntário' %>
 <% end %>
 
 <table class="table table-striped">

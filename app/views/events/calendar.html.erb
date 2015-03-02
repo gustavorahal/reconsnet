@@ -1,7 +1,7 @@
 <%= render 'common/page_title', titulo: 'Calendário' %>
 
 <% content_for :actions do %>
-    <%= render 'common/btn_add', url: new_event_path, btn_label: 'Adicionar evento', resource: Event.new %>
+    <%= render 'common/btn_new', url: new_event_path, btn_label: 'Novo evento', resource: Event.new %>
 <% end %>
 
 

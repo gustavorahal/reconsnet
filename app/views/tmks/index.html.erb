@@ -1,7 +1,7 @@
 <%= render 'common/page_title', titulo: 'Contatos TMK' %>
 
 <% content_for :actions do %>
-    <%= render 'common/btn_add', url: new_tmk_path, resource: Tmk.new %>
+    <%= render 'common/btn_new', url: new_tmk_path, resource: Tmk.new, btn_label: 'Novo TMK' %>
 <% end %>
 
 
