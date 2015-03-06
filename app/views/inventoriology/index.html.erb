@@ -1,37 +1,10 @@
 <%= render 'common/page_title', titulo: "Inventariologia de #{@start.year}" %>
 
 
-<h2>Eventos</h2>
+<h2>Eventos <small>(<%= @events.count %>)</small></h2>
 
-<br/>
-<h4>Cronologia</h4>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th>Participações</th>
-      <th>Participações Acum.</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% event_count = 1 %>
-    <% part_count = 0 %>
-    <% @events.each do |event| %>
-      <tr>
-        <td><em><%= event_count %></em></td>
-        <td><em><%= I18n.l event.start, format: '%e %b' %></em> a <em><%= I18n.l event.finish, format: '%e %b' %></em></td>
-        <td><%= link_to event.name, event_path(event) %></td>
-        <td><strong><%= part_num = event.participations.where(status: Participation.statuses[:enrolled]).size; part_num %></strong></td>
-        <td><%= part_count += part_num; part_count %></td>
-      </tr>
-      <% event_count += 1 %>
-    <% end %>
-  </tbody>
-</table>
-
+<%= render 'common/event_listing', events: @events %>
 
 <br/>
 <h4>Perfil dos participantes</h4>

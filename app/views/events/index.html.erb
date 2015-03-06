@@ -6,23 +6,9 @@
     <%= render 'common/btn_new', url: new_event_path, resource: Event.new, btn_label: 'Novo evento' %>
 <% end %>
 
+<% @events_by_year.each do |year, events| %>
+    <h3><%= year %> <small>(<%= events.count %>)</small></h3>
+    <%= render 'common/event_listing', events: events %>
+    <br>
+<% end %>
 
-<table class="table table-striped">
-  <tr>
-    <th>Nome</th>
-    <th>Atividade</th>
-    <th>Descrição</th>
-    <th>Inicio</th>
-    <th>Fim</th>
-  </tr>
-
-  <% @events.each do |event| %>
-      <tr>
-        <td><%= link_to event.name, event_path(event) %></td>
-        <td><%= link_to event.activity.name, activity_path(event.activity) %></td>
-        <td><%= event.description %></td>
-        <td><%= date_display event.start %></td>
-        <td><%= date_display event.finish %></td>
-      </tr>
-  <% end %>
-</table>

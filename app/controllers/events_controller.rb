@@ -5,12 +5,12 @@ class EventsController < ApplicationController
 
   def index
     if current_user and current_user.volunteer?
-      @events = Event.all
+      @events_by_year = Event.sorted.group_by { |m| m.start.beginning_of_year.year }
     else
-      @events = Event.all_exclude_internal
+      @events_by_year = Event.sorted.all_exclude_internal.group_by { |m| m.start.beginning_of_year.year }
     end
 
-    authorize @events
+    authorize Event.new
   end
 
   def show
@@ -83,9 +83,9 @@ class EventsController < ApplicationController
 
   def calendar
     if current_user and current_user.volunteer?
-      @events = Event.all
+      @events = Event.sorted
     else
-      @events = Event.all_exclude_internal
+      @events = Event.sorted.all_exclude_internal
     end
 
     @events_by_date = {}

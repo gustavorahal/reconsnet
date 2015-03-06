@@ -14,6 +14,9 @@ class TmksController < ApplicationController
     else
       @tmks = Tmk.text_search(params[:query]).order('contact_date DESC').page(params[:page]).per(15)
     end
+    @events = Event.sorted
+
+    authorize @events
     authorize @tmks
   end
 
