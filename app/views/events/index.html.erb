@@ -6,9 +6,12 @@
     <%= render 'common/btn_new', url: new_event_path, resource: Event.new, btn_label: 'Novo evento' %>
 <% end %>
 
-<% @events_by_year.each do |year, events| %>
+
+<% @events_by_year.sort.reverse.to_h.each_key do |year| %>
+    <% events = @events_by_year[year] %>
     <h3><%= year %> <small>(<%= events.count %>)</small></h3>
     <%= render 'common/event_listing', events: events %>
     <br>
 <% end %>
+
 
