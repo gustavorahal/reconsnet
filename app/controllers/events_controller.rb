@@ -5,9 +5,9 @@ class EventsController < ApplicationController
 
   def index
     if current_user and current_user.volunteer?
-      @events_by_year = Event.sorted.group_by { |m| m.start.beginning_of_year.year }
+      @events_by_year = Event.order('start').group_by { |m| m.start.beginning_of_year.year }
     else
-      @events_by_year = Event.sorted.all_exclude_internal.group_by { |m| m.start.beginning_of_year.year }
+      @events_by_year = Event.order('start').all_exclude_internal.group_by { |m| m.start.beginning_of_year.year }
     end
 
     authorize Event.new

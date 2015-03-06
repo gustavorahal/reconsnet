@@ -7,7 +7,7 @@ class InventoriologyController < ApplicationController
 
     @start = Time.utc(2014, 1, 1, 00, 00, 01)
     @finish = Time.utc(2014, 12, 31, 23, 59, 59)
-    @events = Event.sorted.where('start >= ?', @start).where('finish <= ?', @finish)
+    @events = Event.order('start').where('start >= ?', @start).where('finish <= ?', @finish)
     #@part_count = Participation.joins(:event).where('events.start >= ?', @start).where('events.finish <= ?', @finish).where('participations.status = \'Inscrito\'').count
     @people = Person.joins(participations: :event).where('events.start >= ?', @start).where('events.finish <= ?', @finish).uniq
     @male_count = @people.where(gender: 'Masculino').count
