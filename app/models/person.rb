@@ -39,8 +39,8 @@ class Person < ActiveRecord::Base
 
   validates :name, presence: true, length: { minimum: 5 }
   validates_uniqueness_of :name, case_sensitive: false
-  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }, allow_blank: true
-  validates_uniqueness_of :email, case_sensitive: false
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i }, allow_blank: true, allow_nil: true
+  validates_uniqueness_of :email, case_sensitive: false, allow_blank: true, allow_nil: true
   validates_inclusion_of :gender, in:  GENDERS, allow_nil: true, allow_blank: true
   validates_inclusion_of :nationality, in: NATIONALITIES, allow_nil: true, allow_blank: true
   validate :handle_conflict, on: :update
