@@ -15,8 +15,17 @@
   <tbody>
   <% part_count = 0 %>
   <% events.each do |event| %>
+
+      <% if event.start.day == event.finish.day %>
+          <% date_str = I18n.l event.start, format: '%e %b' %>
+      <% elsif event.start.month == event.finish.month %>
+          <% date_str = "#{I18n.l event.start, format: '%e'} a #{I18n.l event.finish, format: '%e %b'}" %>
+      <% else %>
+          <% date_str = "#{I18n.l event.start, format: '%e %b'} a #{I18n.l event.finish, format: '%e %b'}" %>
+      <% end %>
+
       <tr>
-        <td><em><%= I18n.l event.start, format: '%e' %></em> a <em><%= I18n.l event.finish, format: '%e %b' %></em></td>
+        <td><em><%= date_str %></em></td>
         <td><%= link_to event.name, event_path(event) %></td>
         <% if policy(Participation).show? %>
             <td><strong><%= part_num = event.participations.where(status: Participation.statuses[:enrolled]).size; part_num %></strong></td>
