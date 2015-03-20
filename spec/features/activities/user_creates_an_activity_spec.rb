@@ -9,10 +9,11 @@ feature 'Usuário cria uma atividade' do
     sign_in(user)
   end
 
-  scenario 'na página inicial' do
-    visit root_path
-    # Clica no botão de adicionar do menu "Atividades"
-    find(:linkhref, new_activity_path).click
+  scenario 'a partir da página de atividades' do
+    visit activities_path
+
+    click_on 'Nova atividade'
+
     fill_in 'Nome', with: 'Nova atividade'
     fill_in 'Sumário', with: 'Esta nova atividade é bastante interessante'
 

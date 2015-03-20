@@ -6,7 +6,7 @@
 #  event_id           :integer          not null
 #  person_id          :integer          not null
 #  participation_type :string(255)      not null
-#  status             :string(255)      not null
+#  status             :integer          not null
 #  created_at         :datetime
 #  updated_at         :datetime
 #

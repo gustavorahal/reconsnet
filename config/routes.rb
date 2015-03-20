@@ -26,6 +26,8 @@ ReconsNet::Application.routes.draw do
     member do
       get 'attendance'
       get 'emails'
+      put 'archive'
+      put 'unarchive'
     end
     resources :participations
   end

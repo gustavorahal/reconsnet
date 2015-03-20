@@ -5,7 +5,7 @@ require 'rails_helper'
 # Estes testes rodam no backend real portanto tenho o cuidado de restaurar o estado
 # anterior a execução dos testes
 
-feature 'Suporte a integração com backend de mail marketing' do
+feature 'Suporte a integração com backend de mail marketing', slow: true do
 
   let(:user) { create :user_admin }
 

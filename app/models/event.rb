@@ -10,6 +10,7 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  activity_id :integer
+#  archived    :boolean          default("false")
 #
 
 class Event < ActiveRecord::Base
@@ -84,6 +85,26 @@ class Event < ActiveRecord::Base
   def organizers
     Participation.includes(:person).where(event: self).
         where(participation_type: Participation::TYPES.reject {|x| x == 'Aluno'}).order('people.name')
+  end
+
+
+  def archivable?
+    allow = true
+
+    # Devem existir alunos
+    allow = false if participations.where(participation_type: 'Aluno').empty?
+
+    # Devem existir professores
+    allow = false if participations.where("participation_type LIKE 'Professor%'").empty?
+
+    # Só é possivel fechar um evento se todos os participantes estão inscritos e não em outros
+    # estados "temporários"
+    allow = false if participations.where.not(status: Participation.statuses[:enrolled]).any?
+
+    # Deve existir ao menos uma lista de presença
+    allow = false if assets.where(asset_type: Asset.asset_types[:attendance_list]).empty?
+
+    allow
   end
 
 

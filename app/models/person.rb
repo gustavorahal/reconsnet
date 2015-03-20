@@ -15,6 +15,7 @@
 #  cpf           :string(255)
 #  rg            :string(255)
 #  scholarity    :string(255)
+#  relationship  :integer
 #
 
 class Person < ActiveRecord::Base

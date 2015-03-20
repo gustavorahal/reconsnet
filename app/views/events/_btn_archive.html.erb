@@ -1,0 +1,55 @@
+<% archivable = @event.archivable? %>
+
+<% if policy(@event).archive? %>
+
+    <% if @event.archived? %>
+
+        <%= link_to "<span class=\"glyphicon glyphicon-folder-open\"></span> Desarquivar".html_safe,
+                    unarchive_event_path, method: :put, class: 'btn btn-default',
+                    data: { confirm: "Você tem certeza que deseja desarquivar \"#{@event.to_s}\"?" } %>
+    <% else %>
+
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+          <span class="glyphicon glyphicon-folder-close"></span> Arquivar
+        </button>
+
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Arquivar <em><%= @event.name_with_date %></em>?</h4>
+              </div>
+
+              <div class="modal-body">
+
+                <% if archivable %>
+                    <div class="alert alert-success">Tudo certo para prosseguir com arquivamento!</div>
+                <% else %>
+                    <div class="alert alert-danger">Não é possível arquivar evento. Verificar pendências.</div>
+                <% end %>
+
+                Para um evento ser arquivado, alguns requisitos precisam ser atendidos:
+                <ul>
+                  <li>Existir ao menos 1 aluno e 1 professor participante do evento.</li>
+                  <li>Todos os participantes devem estar em status <em>Inscrito</em>, ou seja, não pode haver pendências de participações.</li>
+                  <li>Lista de presença escaneada anexada.</li>
+                </ul>
+
+                <strong>Se algum destes itens não estiver ok, o arquivamento não será permitido.</strong>
+
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <% if archivable %>
+                    <%= link_to 'Prosseguir com arquivamento', archive_event_path, method: :put, class: 'btn btn-success' %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+    <% end %>
+
+<% end %>

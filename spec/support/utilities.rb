@@ -31,10 +31,10 @@ end
 # Seleciona uma data em um form que usa o date_select padrão do rails
 # Exemplo: select_date('2015-03-15', from: 'Data')
 
-def select_date(date_str, options = {})
+def select_date(date_obj, options = {})
   field = options[:from]
   base_id = find(:xpath, ".//label[contains(.,'#{field}')]")[:for]
-  date = date_str.to_date
+  date = date_obj.to_date
   select date.year,  :from => "#{base_id}_1i"
   select date.month, :from => "#{base_id}_2i"
   select date.day,   :from => "#{base_id}_3i"
@@ -45,13 +45,13 @@ end
 # Seleciona uma data e hora em um form que usa o datetime_select padrão do rails
 # Exemplo: select_date('2015-03-15 14:34', from: 'Data e hora')
 
-def select_datetime(datetime_str, options = {})
+def select_datetime(datetime_obj, options = {})
   field = options[:from]
   base_id = find(:xpath, ".//label[contains(.,'#{field}')]")[:for]
-  datetime = datetime_str.to_datetime
+  datetime = datetime_obj.to_datetime
   select datetime.year,  :from => "#{base_id}_1i"
   select I18n.l(datetime, format: "%B"), :from => "#{base_id}_2i"
   select datetime.day,   :from => "#{base_id}_3i"
-  select datetime.hour,   :from => "#{base_id}_4i"
-  select datetime.min,   :from => "#{base_id}_5i"
+  select 12,   :from => "#{base_id}_4i"
+  select 30,   :from => "#{base_id}_5i"
 end

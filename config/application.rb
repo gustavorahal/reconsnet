@@ -26,6 +26,7 @@ module ReconsNet
     config.i18n.default_locale = 'pt-BR'
 
     config.active_record.schema_format = :sql
+    config.active_record.raise_in_transactional_callbacks = true
 
     # Be sure to have the adapter's gem in your Gemfile and follow
     # the adapter's specific installation and deployment instructions.

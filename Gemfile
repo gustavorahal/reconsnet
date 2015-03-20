@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.1'
 gem 'pg'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -16,7 +16,7 @@ gem 'autoprefixer-rails', '~> 5.0.0.1' # recommended for bootstrap-sass
 gem 'bootstrap_form'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
-gem 'tinymce-rails-imageupload', github: 'PerfectlyNormal/tinymce-rails-imageupload'
+gem 'tinymce-rails-imageupload', '~> 4.0.0.beta'
 gem 'kaminari' # will_paginate, rails 4.1 e pg_search não estavam funcionando bem juntos então a opção pelo kaminari
 gem 'kaminari-bootstrap'
 
@@ -30,9 +30,9 @@ gem 'jquery-turbolinks'
 gem 'pundit'
 gem 'devise'
 gem 'paperclip', '~> 4.2'
-gem 'paper_trail', '~> 3.0.6'
+gem 'paper_trail', '~> 4.0.0.beta'
 
-gem 'puma', '~> 2.11.0'
+gem 'puma', '~> 2.11.1'
 
 # mailchimp api wrapper
 gem 'gibbon'
@@ -48,7 +48,7 @@ gem 'prawn-table'
 gem 'sidekiq'
 gem 'sinatra', :require => nil # para web do sidekiq
 
-# Solução de Backup do BD na cloud
+# Solução de Backup do BD em cloud
 gem 'dumper'
 
 # para manipulação de números de telefone

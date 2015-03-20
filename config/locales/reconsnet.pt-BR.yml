@@ -10,6 +10,11 @@ pt-BR:
     civil_union: "União estável"
     domestic_partnership: "Morando junto"
     evolutionary_duo: "Aplicando técnica da Dupla Evolutiva"
+  asset_types:
+    attendance_list: "Lista de presença"
+    teacher_material: "Material do Professor"
+    participant_material: "Material do Participante"
+    other: "Outro"
   participation:
     status:
       enrolled: "Inscrito"
@@ -62,6 +67,9 @@ pt-BR:
         description: "Descrição"
         start: "Início"
         finish: "Fim"
+      asset:
+        file: "Arquivo"
+        asset_type: "Tipo"
     errors:
       models:
         phone_number:

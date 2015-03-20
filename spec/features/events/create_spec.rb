@@ -11,7 +11,9 @@ describe 'Events' do
   it 'adiciona novo evento' do
     event = build(:event)
     visit events_path
-    find(:linkhref, new_event_path).click
+
+    click_on 'Novo evento'
+
     select event.activity.name, from: 'Atividade'
     fill_in 'Nome', with: event.name
     select_datetime(event.start, from: 'Início')

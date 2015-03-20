@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :participants, :attendance, :emails]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :participants, :attendance, :emails, :archive, :unarchive]
   after_action :verify_authorized
 
   def index
@@ -14,7 +14,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    @assets = @event.assets.order('assets.name')
+    @assets = @event.assets
   end
 
   def new
@@ -22,6 +22,7 @@ class EventsController < ApplicationController
     authorize @event
     @activity = nil
     @activity = Activity.find params[:activity_id] if params[:activity_id]
+    @activities = Activity.all.order('name')
   end
 
   def edit
@@ -56,6 +57,31 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     redirect_to events_path, notice: "Evento '#{@event.name}' deletado com sucesso!"
+  end
+
+  def archive
+    if @event.archivable?
+      @event.archived = true
+      if @event.save
+        redirect_to @event, notice: 'Evento arquivado com sucesso!'
+      else
+        redirect_to @event, alert: 'Erro desconhecido ao tentar arquivar este evento'
+      end
+    else
+      redirect_to @event, alert: 'Existem pendências que não permitem o arquivamento deste evento. Favor verificar'
+    end
+  end
+
+  def unarchive
+    redirect_to @event, alert: 'Evento não esta arquivado para ser desarquivado!' unless @event.archived
+
+    @event.archived = false
+    if @event.save
+      redirect_to @event, notice: 'Evento desarquivado com sucesso!'
+    else
+      redirect_to @event, alert: 'Erro desconhecido ao tentar desarquivar este evento'
+    end
+
   end
 
   def participants

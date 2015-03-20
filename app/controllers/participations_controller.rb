@@ -47,7 +47,7 @@ class ParticipationsController < ApplicationController
 
   def destroy
     @participation.destroy
-    redirect_to session[:last_page] || event_path(@event)
+    redirect_to request.referrer || event_path(@event)
   end
 
 

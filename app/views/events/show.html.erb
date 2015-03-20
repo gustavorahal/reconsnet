@@ -5,13 +5,21 @@
     <% date_str = "De #{I18n.l @event.start.to_date} a #{I18n.l @event.finish.to_date}" %>
 <% end %>
 
+<% title = "Evento <em>#{@event.name}</em>" %>
+<% if @event.archived and policy(@event).archive? %>
+    <% title += " <small><span class=\"label label-default\">Arquivado</span></small>"  %>
+<% end %>
+
 <%= render 'common/page_title',
-           titulo: "Evento <em>#{@event.name}</em>".html_safe,
+           titulo: title.html_safe,
            sub_title: "#{date_str}, relacionado à atividade #{activity_link_display @event.activity}" %>
 
 <% content_for :actions do %>
-    <%= render 'common/btn_edit', resource: @event %>
-    <%= render 'common/btn_delete', resource: @event %>
+    <%= render 'btn_archive' %>
+    <% unless @event.archived %>
+        <%= render 'common/btn_edit', resource: @event %>
+        <%= render 'common/btn_delete', resource: @event %>
+    <% end %>
 <% end %>
 
 <br>
@@ -30,10 +38,12 @@
           <div class="pull-right">
             <%= link_to '<span class="glyphicon glyphicon-envelope"></span> E-mails'.html_safe,
                         emails_event_path(@event), class: 'btn btn-xs btn-default' %>
-            <%= link_to '<span class="glyphicon glyphicon-download-alt"></span> Lista de presença'.html_safe,
+            <% unless @event.archived %>
+                <%= link_to '<span class="glyphicon glyphicon-download-alt"></span> Lista de presença'.html_safe,
                         attendance_event_path(@event, format: :pdf), class: 'btn btn-xs btn-default' %>
-            <%= render 'common/btn_new', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:enrolled]),
+                <%= render 'common/btn_new', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:enrolled]),
                        btn_label: 'Nova participação', size: 'btn-xs', resource: @event %>
+            <% end %>
           </div>
         </h3>
       </div>
@@ -46,7 +56,7 @@
             <div>
               <%= link_to participation.person.name, person_path(participation.person.id) %>
               <em>(<%= participation.participation_type.downcase %>)</em>
-              <% if policy(@event).edit? %>
+              <% unless @event.archived %>
                   <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
                              btn_label: '', size: 'btn-xs', resource: participation %>
                   <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
@@ -64,7 +74,7 @@
             <% empty = false %>
             <div>
               <%= link_to participation.person.name, person_path(participation.person.id) %>
-              <% if policy(@event).edit? %>
+              <% unless @event.archived %>
                   <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
                              btn_label: '', size: 'btn-xs', resource: participation %>
                   <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
@@ -82,7 +92,7 @@
             <% empty = false %>
             <div>
               <%= link_to participation.person.name, person_path(participation.person.id) %>
-              <% if policy(@event).edit? %>
+              <% unless @event.archived %>
                   <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
                              btn_label: '', size: 'btn-xs', resource: participation %>
                   <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
@@ -102,14 +112,16 @@
 
 <!-- Pendências para fechamento dos participantes -->
 
-<% if policy(Participation).show? %>
+<% if policy(Participation).show? and !@event.archived %>
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">Pendências <span class="badge"><%= @event.pending_enrollments.count %></span>
-          <div class="pull-right">
-            <%= render 'common/btn_new', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:divulge]),
-                       size: 'btn-xs', btn_label: 'Nova participação', resource: @event %>
-          </div>
+          <% unless @event.archived %>
+              <div class="pull-right">
+                <%= render 'common/btn_new', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:divulge]),
+                           size: 'btn-xs', btn_label: 'Nova participação', resource: @event %>
+              </div>
+          <% end %>
         </h3>
       </div>
       <div class="panel-body">
@@ -150,12 +162,10 @@
                     <% end %>
                 </td>
                 <td>
-                  <% if policy(@event).edit? %>
-                      <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
-                                 btn_label: '', size: 'btn-xs', resource: participation %>
-                      <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
-                                 btn_label: '', size: 'btn-xs', resource: participation %>
-                  <% end %>
+                  <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
+                             btn_label: '', size: 'btn-xs', resource: participation %>
+                  <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
+                             btn_label: '', size: 'btn-xs', resource: participation %>
                 </td>
               </tr>
           <% end %>
@@ -187,7 +197,9 @@
         <% @event.tmks.order('tmks.contact_date DESC').each do |tmk| %>
             <p>
               <%= tmk_summary_no_event(tmk) %>
-              <%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
+              <% unless @event.archived %>
+                <%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
+              <% end %>
             </p>
         <% end %>
 
@@ -200,15 +212,19 @@
 
 <!-- Anexos -->
 
+<% if policy(Asset).show? %>
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Anexos
-      <div class="pull-right">
-        <%= render 'common/btn_new', url: new_asset_path(assetable_id: @event.id,
-                                                         assetable_type: 'Event'),
-                   size: 'btn-xs',
-                   resource: Asset.new %>
-      </div>
+      <% unless @event.archived %>
+          <div class="pull-right">
+            <%= render 'common/btn_new', url: new_asset_path(assetable_id: @event.id,
+                                                             assetable_type: 'Event'),
+                       size: 'btn-xs',
+                       btn_label: 'Novo anexo',
+                       resource: Asset.new %>
+          </div>
+      <% end %>
     </h3>
   </div>
   <div class="panel-body">
@@ -222,25 +238,23 @@
         <% @assets.each do |asset| %>
             <div>
               <span class="glyphicon glyphicon-file"></span>
-              <%= asset.name %> <small>(<%= date_display asset.created_at %>)</small>
+              <%= link_to asset.file_file_name, asset.file.url %> <small>(<em><%= I18n.t("asset_types.#{asset.asset_type}") if asset.asset_type.present? %></em>)</small> <small class="text-muted"> em <%= date_display asset.created_at %></small>
 
-              <%= link_to asset.file.url, class: 'btn btn-default btn-xs' do %>
-                  <span class="glyphicon glyphicon-download" title="download"></span>
-              <% end %>
-              <% if policy(@event).edit? %>
+              <% unless @event.archived %>
                   <%= render 'common/btn_edit', btn_label: '', url: edit_asset_path(asset,
                                                                                     assetable_id: @event.id,
                                                                                     assetable_type: 'Event'),
-                             size: 'btn-xs', resource: asset %>
+                                                                size: 'btn-xs', resource: asset %>
                   <%= render 'common/btn_delete', btn_label: '', url: asset_path(asset,
                                                                                  assetable_id: @event.id,
                                                                                  assetable_type: 'Event'),
-                             size: 'btn-xs', resource: asset %>
+                                                                 size: 'btn-xs', resource: asset %>
               <% end %>
             </div>
         <% end %>
 
     <% end %>
 
-  </div>
+        </div>
 </div>
+<% end %>

@@ -15,8 +15,7 @@
             <%= @activity.name %>
         <% end %>
     <% else %>
-        <%= f.collection_select :activity_id, Activity.all.order('name'), :id, :name,
-                                control_col: 'col-sm-4' %>
+        <%= f.collection_select :activity_id, @activities, :id, :name, control_col: 'col-sm-4' %>
     <% end %>
 
     <%= f.text_field :name, placeholder: @activity ? @activity.name : '',

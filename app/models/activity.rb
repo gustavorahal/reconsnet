@@ -8,7 +8,7 @@
 #  description   :text
 #  activity_type :string(255)
 #  parent_id     :integer
-#  internal_only :boolean          default(FALSE)
+#  internal_only :boolean          default("false")
 #  created_at    :datetime
 #  updated_at    :datetime
 #

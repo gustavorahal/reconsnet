@@ -6,9 +6,12 @@
   <tr>
     <th></th>
     <th></th>
+    <% if policy(Event).archive? %>
+        <th class="text-center">Arquivado?</th>
+    <% end %>
     <% if policy(Participation).show? %>
-        <th>Participações</th>
-        <th>Participações Acum.</th>
+        <th class="text-center">Participações</th>
+        <th class="text-center">Participações acumuladas</th>
     <% end %>
   </tr>
   </thead>
@@ -25,11 +28,20 @@
       <% end %>
 
       <tr>
-        <td><em><%= date_str %></em></td>
-        <td><%= link_to event.name, event_path(event) %></td>
+        <td class="col-md-1"><em><%= date_str %></em></td>
+        <td class="col-md-4"><%= link_to event.name, event_path(event) %></td>
+        <% if policy(Event).archive? %>
+            <td class="text-center col-md-1">
+              <% if event.archived %>
+                  <span class="text-success glyphicon glyphicon-ok"></span>
+              <% else %>
+                  <span class="text-danger glyphicon glyphicon-remove"></span>
+              <% end %>
+            </td>
+        <% end %>
         <% if policy(Participation).show? %>
-            <td><strong><%= part_num = event.participations.where(status: Participation.statuses[:enrolled]).size; part_num %></strong></td>
-            <td><%= part_count += part_num; part_count %></td>
+            <td class="text-center col-md-1"><strong><%= part_num = event.participations.where(status: Participation.statuses[:enrolled]).size; part_num %></strong></td>
+            <td class="text-center col-md-1"><%= part_count += part_num; part_count %></td>
         <% end %>
       </tr>
   <% end %>

@@ -3,8 +3,6 @@
 # Table name: assets
 #
 #  id                :integer          not null, primary key
-#  name              :string(255)
-#  description       :string(255)
 #  file_file_name    :string(255)
 #  file_content_type :string(255)
 #  file_file_size    :integer
@@ -13,9 +11,13 @@
 #  assetable_type    :string(255)
 #  created_at        :datetime
 #  updated_at        :datetime
+#  asset_type        :integer
 #
 
 class Asset < ActiveRecord::Base
+
+  enum asset_type: { attendance_list: 0, teacher_material: 1, participant_material: 2, other: 99 }
+
   belongs_to :assetable, :polymorphic => true
 
   has_attached_file :file
@@ -26,7 +28,6 @@ class Asset < ActiveRecord::Base
                                                            application/pdf
                                                            image/jpeg)
   #do_not_validate_attachment_file_type :file
-  validates :name, presence: true
 
 
   def to_s

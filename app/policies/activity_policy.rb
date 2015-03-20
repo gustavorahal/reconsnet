@@ -18,6 +18,14 @@ class ActivityPolicy < ApplicationPolicy
     true
   end
 
+  def archive?
+    user.volunteer? or user.admin?
+  end
+
+  def unarchive?
+    user.volunteer? or user.admin?
+  end
+
   def attendance?
     true
   end

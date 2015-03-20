@@ -54,7 +54,7 @@ class AssetsController < ApplicationController
     end
 
     def secure_params
-      params.require(:asset).permit(:name, :description, :file, :assetable_type, :assetable_id)
+      params.require(:asset).permit(:file, :asset_type, :assetable_type, :assetable_id)
     end
 
 end

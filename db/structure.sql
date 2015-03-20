@@ -109,8 +109,6 @@ ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
 
 CREATE TABLE assets (
     id integer NOT NULL,
-    name character varying(255),
-    description character varying(255),
     file_file_name character varying(255),
     file_content_type character varying(255),
     file_file_size integer,
@@ -118,7 +116,8 @@ CREATE TABLE assets (
     assetable_id integer,
     assetable_type character varying(255),
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    asset_type integer
 );
 
 
@@ -153,7 +152,8 @@ CREATE TABLE events (
     finish timestamp without time zone NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    activity_id integer
+    activity_id integer,
+    archived boolean DEFAULT false
 );
 
 
@@ -623,13 +623,6 @@ CREATE INDEX index_assets_on_assetable_type_and_assetable_id ON assets USING btr
 
 
 --
--- Name: index_assets_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_assets_on_name ON assets USING btree (name);
-
-
---
 -- Name: index_events_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -779,4 +772,10 @@ INSERT INTO schema_migrations (version) VALUES ('20141102220306');
 INSERT INTO schema_migrations (version) VALUES ('20150107213212');
 
 INSERT INTO schema_migrations (version) VALUES ('20150219010907');
+
+INSERT INTO schema_migrations (version) VALUES ('20150315191029');
+
+INSERT INTO schema_migrations (version) VALUES ('20150318162711');
+
+INSERT INTO schema_migrations (version) VALUES ('20150318164747');
 

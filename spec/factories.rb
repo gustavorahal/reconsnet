@@ -46,7 +46,7 @@ FactoryGirl.define do
   factory :event do
     sequence(:name) { |n| "Evento n. #{n}" }
     start Time.now
-    finish Time.now
+    finish (Time.now + 1.day)
     activity { |c| c.association(:activity) }
   end
 
@@ -70,6 +70,9 @@ FactoryGirl.define do
     event { |c| c.association(:event) }
     contact_date { Time.now }
     contact_type 'Telefônico'
+  end
+
+  factory :asset do
   end
 
   ## This will use the User class (Admin would have been guessed)

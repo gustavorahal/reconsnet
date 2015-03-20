@@ -9,9 +9,16 @@
         <%= @assetable.name %>
     <% end %>
 
-    <%= f.text_field :name, label: 'Nome' %>
-    <%= f.text_area :description, label: 'Descrição' %>
-    <%= f.file_field :file, label: 'Arquivo' %>
+    <% if @asset.persisted? %>
+        <%= f.static_control nil, label: 'Arquivo' do %>
+            <%= @asset.file_file_name %>
+        <% end %>
+    <% else %>
+        <%= f.file_field :file %>
+    <% end %>
+
+    <%= f.select :asset_type, Asset.asset_types.keys.to_a.map { |w| [ I18n.t("asset_types.#{w}"), w] },
+                 include_blank: true, control_col: 'col-sm-3' %>
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>
