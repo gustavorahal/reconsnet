@@ -1,7 +1,5 @@
 <%= bootstrap_form_for @asset, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
 
-    <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
-
     <%= hidden_field_tag :assetable_id, @assetable.id %>
     <%= hidden_field_tag :assetable_type, @assetable.class.name %>
 

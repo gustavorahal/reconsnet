@@ -27,7 +27,8 @@ class Asset < ActiveRecord::Base
                                                            application/vnd.openxmlformats-officedocument.wordprocessingml.document
                                                            application/pdf
                                                            image/jpeg)
-  #do_not_validate_attachment_file_type :file
+
+  validates_attachment_size :file, :less_than => 15.megabytes
 
 
   def to_s

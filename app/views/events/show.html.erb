@@ -239,6 +239,7 @@
             <div>
               <span class="glyphicon glyphicon-file"></span>
               <%= link_to asset.file_file_name, asset.file.url %> <small>(<em><%= I18n.t("asset_types.#{asset.asset_type}") if asset.asset_type.present? %></em>)</small> <small class="text-muted"> em <%= date_display asset.created_at %></small>
+              <span class="pull-right text-muted"><%= number_to_human_size asset.file.size %></span>
 
               <% unless @event.archived %>
                   <%= render 'common/btn_edit', btn_label: '', url: edit_asset_path(asset,
