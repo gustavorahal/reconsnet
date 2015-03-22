@@ -7,7 +7,7 @@ class CreatePerson < ActiveRecord::Migration
       t.date :date_of_birth
       t.string :occupation
       t.string :nationality
-      t.boolean :marketing
+      t.boolean :marketing, default: true
 
       t.timestamps
     end

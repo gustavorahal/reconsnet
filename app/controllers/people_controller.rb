@@ -60,7 +60,6 @@ class PeopleController < ApplicationController
       @person.destroy
       redirect_to people_path(page: params[:page])
     end
-
   end
 
   private

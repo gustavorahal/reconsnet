@@ -10,7 +10,8 @@ class EventsController < ApplicationController
   end
 
   def show
-    @participations = Participation.where(event: @event)
+    @assets = @event.assets.order('assets.name')
+    @participations = Participation.includes(:person).where(event: @event).order('people.name')
   end
 
   def new
@@ -38,7 +39,6 @@ class EventsController < ApplicationController
     else
       render 'edit'
     end
-
   end
 
   def destroy

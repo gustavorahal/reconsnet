@@ -25,6 +25,7 @@ gem 'jquery-turbolinks'
 
 gem 'pundit'
 gem 'devise'
+gem 'paperclip', '~> 4.1'
 
 # para manipulação de números de telefone
 gem 'phony_rails'

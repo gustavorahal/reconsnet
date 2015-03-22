@@ -1,0 +1,21 @@
+<%= bootstrap_form_for @asset, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
+
+    <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
+
+    <%= hidden_field_tag :assetable_id, @assetable.id %>
+    <%= hidden_field_tag :assetable_type, @assetable.class.name %>
+
+    <%= f.static_control nil, label: 'Anexar a' do %>
+        <%= @assetable.name %>
+    <% end %>
+
+    <%= f.text_field :name, label: 'Nome' %>
+    <%= f.text_area :description, label: 'Descrição' %>
+    <%= f.file_field :file, label: 'Arquivo' %>
+
+    <%= f.form_group do %>
+        <%= f.submit 'Salvar' %>
+        <%= link_to 'Cancelar', polymorphic_path(@assetable), class: 'btn btn-link' %>
+    <% end %>
+
+<% end %>

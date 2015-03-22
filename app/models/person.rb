@@ -2,17 +2,16 @@
 #
 # Table name: people
 #
-#  id               :integer          not null, primary key
-#  name             :string(255)      not null
-#  gender           :string(255)
-#  email            :string(255)
-#  date_of_birth    :date
-#  created_at       :datetime
-#  updated_at       :datetime
-#  occupation       :string(255)
-#  nationality      :string(255)
-#  marketing        :boolean
-#  marketing_optout :hstore
+#  id            :integer          not null, primary key
+#  name          :string(255)      not null
+#  gender        :string(255)
+#  email         :string(255)
+#  date_of_birth :date
+#  occupation    :string(255)
+#  nationality   :string(255)
+#  marketing     :boolean
+#  created_at    :datetime
+#  updated_at    :datetime
 #
 
 class Person < ActiveRecord::Base
@@ -54,14 +53,14 @@ class Person < ActiveRecord::Base
   end
 
   def age
-    if date_of_birth
+    if date_of_birth.present?
       now = Time.now.utc.to_date
       now.year - date_of_birth.year - (date_of_birth.to_date.change(:year => now.year) > now ? 1 : 0)
     end
   end
 
   def days_until_birthday
-    if date_of_birth
+    if date_of_birth.present?
       bday = Date.new(Date.today.year, date_of_birth.month, date_of_birth.day)
       bday += 1.year if Date.today >= bday
       (bday - Date.today).to_i

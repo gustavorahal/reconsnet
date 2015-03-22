@@ -11,7 +11,7 @@ module ConflictResolutionable
     if @conflict || updated_at.to_f > original_updated_at.to_f
       @conflict = true
       @original_updated_at = nil
-      errors.add :base, 'Este registro mudou enquanto você estava editando-o. Veja as mudanças informadas e leve-as em consideração antes de submeter.'
+      errors.add :base, 'Este registro mudou enquanto você editava-o. Veja as mudanças informadas e leve-as em consideração antes de submeter novamente.'
       changes.each do |attribute, values|
         errors.add attribute, "era #{values.first}"
       end

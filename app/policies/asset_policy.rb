@@ -1,0 +1,3 @@
+class AssetPolicy < ApplicationPolicy
+
+end

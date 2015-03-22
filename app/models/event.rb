@@ -17,7 +17,7 @@ class Event < ActiveRecord::Base
   include ConflictResolutionable
 
   # Deixar lista em ordem alfabética
-  TYPES = %w(Curso Reunião Simpósio)
+  TYPES = %w(Curso Oficina Reunião Simpósio)
 
   validates :name, presence: true, length: { minimum: 5 }
   validates :start, presence: true
@@ -27,6 +27,9 @@ class Event < ActiveRecord::Base
 
   has_many :participations, dependent: :destroy
   has_many :people, through: :participations
+  has_many :assets, as: :assetable, dependent: :destroy
+
+  accepts_nested_attributes_for :assets, allow_destroy: true
 
   def to_s
     "#{name}"
