@@ -71,7 +71,6 @@ group :development, :test do
   gem 'poltergeist'
   gem 'capybara'
   gem 'launchy' # for save_and_open_page
-  gem 'guard-rspec'
 end
 
 # Use ActiveModel has_secure_password
