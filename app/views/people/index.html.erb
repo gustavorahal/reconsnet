@@ -5,6 +5,12 @@
     <%= render 'common/btn_new', resource: Person.new, btn_label: 'Nova pessoa' %>
 <% end %>
 
+<% if @have_needs_review %>
+    <div class="alert alert-warning">
+      Existem pessoas que foram marcadas como necessitando de <strong>revisão cadastral</strong>.
+      <%= link_to 'Veja quem são', people_path(params.merge(filter: 'needs_review')) %>
+    </div>
+<% end %>
 
 <!-- Text field de busca -->
 
@@ -26,22 +32,40 @@
 <br/>
 
 
-<!-- Ordenar por... -->
-
 <div>
+
+  <!-- Ordenar por... -->
+
   <span class="text-muted">Ordenar por: </span>
-  <%=
-      state = current_page?(params.merge(order: 'name')) ? 'active' : ''
-      link_to 'Nome', people_path(params.merge(order: 'name')), class: "btn btn-default btn-xs #{state}"
-  %>
-  <%=
-      state = current_page?(params.merge(order: 'created_at')) ? 'active' : ''
-      link_to 'Data de cadastramento', people_path(params.merge(order: 'created_at')), class: "btn btn-default btn-xs #{state}"
-  %>
+  <% state = params[:order] == 'name' ? 'active' : '' %>
+  <%= link_to 'Nome', people_path(params.merge(order: 'name')), class: "btn btn-default btn-xs #{state}" %>
+  <% state = params[:order] == 'created_at' ? 'active' : '' %>
+  <%= link_to 'Data de cadastramento', people_path(params.merge(order: 'created_at')), class: "btn btn-default btn-xs #{state}" %>
+
+  &nbsp;|&nbsp;
+
+
+  <!-- Filtrar por... -->
+
+  <span class="text-muted">Filtrar por: </span>
+  <% if @have_needs_review  %>
+    <% state = params[:filter] == 'needs_review' ? 'active' : ''  %>
+    <%= link_to 'Necessita revisão', people_path(params.merge(filter: 'needs_review')), class: "btn btn-default btn-xs #{state}" %>
+  <% end %>
+
+  <% state = params[:filter] == 'have_phone_number' ? 'active' : ''  %>
+  <%= link_to 'Com telefone', people_path(params.merge(filter: 'have_phone_number')), class: "btn btn-default btn-xs #{state}" %>
+
+
+  <!-- Limpar tudo -->
+
+  <% if params.include?(:filter) or params.include?(:order)  %>
+    &nbsp;|&nbsp;
+    <%= link_to 'Remover filtros e ordem', people_path %>
+  <% end %>
+
 </div>
-<br/>
-
-
+<br>
 
 <!-- Listagem de pessoas -->
 

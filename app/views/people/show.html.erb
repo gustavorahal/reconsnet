@@ -2,11 +2,25 @@
 <%= render 'common/page_title', titulo: "<em>#{@person.name}</em>".html_safe %>
 
 <% content_for :actions do %>
-    <%= render 'common/btn_versions', resource: @person %>
-    <%= render 'common/btn_edit', resource: @person %>
-    <% @person.safely_destroyable? ? disabled = false : disabled = true%>
-    <%= render 'common/btn_delete', resource: @person, disabled: disabled %>
-    <%=  %>
+    <%= render 'btn_actions' %>
+<% end %>
+
+<% unless @person.needs_review %>
+    <%= render 'needs_review_modal' %>
+<% end %>
+
+
+<% if @person.needs_review %>
+    <div class="alert alert-warning" role="alert">
+        <%= bootstrap_form_for @person do |f| %>
+            <%= f.hidden_field :needs_review_reason, value: nil %>
+            <%= f.hidden_field :needs_review, value: false %>
+            <strong>Necessita revisão cadastral</strong>
+            <%= f.submit 'Tudo certo, revisado!', class: 'btn btn-success btn-xs pull-right' %>
+            <br/>
+            <%= @person.needs_review_reason %>
+        <% end %>
+    </div>
 <% end %>
 
 <address>

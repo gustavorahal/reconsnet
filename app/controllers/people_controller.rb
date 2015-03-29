@@ -9,12 +9,28 @@ class PeopleController < ApplicationController
   def index
     @query = params[:query]
     @order = params[:order]
+    @have_needs_review = Person.where(needs_review: true).any?
     @people = Person.text_search(params[:query], params[:order]).page(params[:page]).per(15)
+    if params[:filter].present?
+      if params[:filter] == 'needs_review'
+        @people = @people.where(needs_review: true)
+      end
+      if params[:filter] == 'have_phone_number'
+        @people = @people.where('phone_numbers.number IS NOT NULL').references(:phone_numbers)
+      end
+    end
     authorize @people
   end
 
   def show
     @enrolls = @person.enrolls
+    # Ações do tipo HTTP PUT (ex: um update via form ao objeto @person)
+    # que são disparadas direto da página "show" devem retornar a própria página e não
+    # obedecer valores setados em last_page visto que pode redirecionar a uma página outra
+    # que não a que já estamos. Ou seja, se disparamos uma ação de "show" precisamos garantir
+    # que no retorne ela volte a "show"
+    # Um exemplo deste problema é a ação "Necessita revisão cadastral"
+    session[:last_page] = nil
   end
 
   def new
@@ -97,6 +113,7 @@ class PeopleController < ApplicationController
     def secure_params
       params.require(:person).permit(:name, :email, :gender, :date_of_birth, :occupation, :nationality,
                                      :marketing, :cpf, :rg, :scholarity, :relationship,
+                                     :needs_review, :needs_review_reason,
                                      :original_updated_at,
                                      addresses_attributes: [:id, :label, :line1, :zip, :city, :state,
                                                             :country, :_destroy],

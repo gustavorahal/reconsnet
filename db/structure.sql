@@ -228,7 +228,9 @@ CREATE TABLE people (
     cpf character varying(255),
     rg character varying(255),
     scholarity character varying(255),
-    relationship integer
+    relationship integer,
+    needs_review boolean DEFAULT false,
+    needs_review_reason character varying
 );
 
 
@@ -778,4 +780,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150315191029');
 INSERT INTO schema_migrations (version) VALUES ('20150318162711');
 
 INSERT INTO schema_migrations (version) VALUES ('20150318164747');
+
+INSERT INTO schema_migrations (version) VALUES ('20150328235411');
 

@@ -1,0 +1,40 @@
+
+<% if policy(@person).edit? %>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        Ações <span class="caret"></span>
+      </button>
+
+      <ul class="dropdown-menu dropdown-menu-right" role="menu">
+        <% if policy(@person).edit? %>
+            <li>
+              <%= link_to 'Editar', edit_person_path(@person) %>
+            </li>
+        <% end %>
+
+        <% if policy(@person).destroy? %>
+            <% @person.safely_destroyable? ? disabled = false : disabled = true%>
+            <li>
+              <%= link_to 'Deletar',
+                          person_path(@person, page: params[:page], query: params[:query], order: params[:order]),
+                          method: :delete,
+                          data: { confirm: "Você tem certeza que deseja deletar \"#{@person.to_s}\"?" },
+                          disabled: disabled %>
+            </li>
+        <% end %>
+
+        <% unless @person.needs_review %>
+            <li>
+              <a data-toggle="modal" data-target="#myModal" href="#">Marcar como "necessita revisão"</a>
+            </li>
+        <% end %>
+
+        <li class="divider"></li>
+
+        <% if policy(@person).show? %>
+            <li><%= link_to 'Ver histórico de alterações', versions_person_path(@person) %></li>
+        <% end %>
+
+      </ul>
+    </div>
+<% end %>

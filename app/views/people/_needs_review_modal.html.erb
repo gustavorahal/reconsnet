@@ -1,0 +1,28 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Necessita revisão cadastral</h4>
+      </div>
+
+      <div class="modal-body">
+
+        Você esta marcando esta pessoa como necessitando de revisão cadastral.<br/>
+        Abaixo escreva o que precisa ser revisado.
+        <br><br>
+
+        <%= bootstrap_form_for @person, label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
+            <%= f.text_area :needs_review_reason %>
+            <%= f.hidden_field :needs_review, value: true %>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+              <%= f.submit 'Marcar', class: 'btn btn-success' %>
+            </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

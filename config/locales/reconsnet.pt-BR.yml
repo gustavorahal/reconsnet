@@ -45,6 +45,7 @@ pt-BR:
         rg: "RG"
         cpf: "CPF"
         relationship: "Status relacionamento"
+        needs_review_reason: "Razão"
       address:
         line1: "Endereço"
         city: "Cidade"
