@@ -68,9 +68,9 @@
 
         <br/>
 
-        <h5>Inscritos <span class="badge"><%= @event.enrolls.count %></span></h5>
+        <h5>Alunos inscritos <span class="badge"><%= @event.enrolls.where(participation_type: 'Aluno').count %></span></h5>
         <% empty = true %>
-        <% @event.enrolls.each do |participation| %>
+        <% @event.enrolls.where(participation_type: 'Aluno').each do |participation| %>
             <% empty = false %>
             <div>
               <%= link_to participation.person.name, person_path(participation.person.id) %>
@@ -92,6 +92,9 @@
             <% empty = false %>
             <div>
               <%= link_to participation.person.name, person_path(participation.person.id) %>
+              <% unless participation.participation_type == 'Aluno' %>
+                <em>(<%= participation.participation_type.downcase %>)</em>
+              <% end %>
               <% unless @event.archived %>
                   <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
                              btn_label: '', size: 'btn-xs', resource: participation %>
@@ -147,7 +150,11 @@
               <% person = participation.person %>
               <tr>
                 <td>
-                  <%= link_to person.name, person_path(person.id) %><br>
+                  <%= link_to person.name, person_path(person.id) %>
+                  <% unless participation.participation_type == 'Aluno' %>
+                      <em>(<%= participation.participation_type.downcase %>)</em>
+                  <% end %>
+                  <br>
                   <%= render 'common/btn_new_tmk', event: @event, with_who: participation.person %>
                 </td>
                 <td><%= I18n.t("participation.status.#{participation.status}") %></td>

@@ -58,33 +58,29 @@ class Event < ActiveRecord::Base
   end
 
 
-  def participants(status=[], order=['people.name'])
-    Participation.includes(:person).where(event: self).
-        where(participation_type: 'Aluno').
-        where(status: status).order(*order)
-  end
-
-
   def enrolls
-    participants([Participation.statuses[:enrolled]])
+    participations.includes(:person).
+        where(status: Participation.statuses[:enrolled]).order('people.name')
   end
 
 
   def pre_enrolls
-    participants([Participation.statuses[:pre_enrolled]])
+    participations.includes(:person).
+        where(status: Participation.statuses[:pre_enrolled]).order('people.name')
   end
 
 
   def pending_enrollments
-    participants([Participation.statuses[:divulge],
-                  Participation.statuses[:interested]],
-                  [:status, 'people.name'])
+    participations.includes(:person).
+        where(status: [Participation.statuses[:divulge],
+                       Participation.statuses[:interested]]).order(:status, 'people.name')
   end
 
 
   def organizers
-    Participation.includes(:person).where(event: self).
-        where(participation_type: Participation::TYPES.reject {|x| x == 'Aluno'}).order('people.name')
+    participations.includes(:person).
+        where(participation_type: Participation::TYPES.reject {|x| x == 'Aluno'}).
+        where(status: Participation.statuses[:enrolled]).order('people.name')
   end
 
 
