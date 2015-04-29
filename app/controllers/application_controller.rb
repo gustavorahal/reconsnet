@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   def index
     user = current_user
-    if user and user.volunteer?
+    if user and user.is_volunteer?
       @next_event = Event.next_event
       @events = Event.sorted.where('start > ?', Time.now)
       @tmks = Tmk.all.order('contact_date DESC').limit(5)

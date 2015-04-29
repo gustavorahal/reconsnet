@@ -21,11 +21,9 @@
 #
 
 class User < ActiveRecord::Base
-
-  GROUPS = %w(Admin) + Volunteer::AREAS
+  rolify
 
   validates_presence_of :name
-  validates_inclusion_of :group, in: GROUPS, allow_nil: true, allow_blank: true
 
   belongs_to :person
 
@@ -38,14 +36,6 @@ class User < ActiveRecord::Base
 
   def to_s
     "#{name}"
-  end
-
-  def admin?
-    group == 'Admin'
-  end
-
-  def volunteer?
-    person.volunteer.present? if person.present?
   end
 
 

@@ -16,7 +16,7 @@ feature 'Usuário edita uma pessoa' do
     click_on 'Marcar como "necessita revisão"'
 
     fill_in 'Razão', with: 'Esta é a razão para revisão'
-    click_on 'Salvar'
+    click_on 'Marcar'
 
     expect(page).to have_content 'Esta é a razão para revisão'
     expect(page).to_not have_content 'Marcar como "necessita revisão"'

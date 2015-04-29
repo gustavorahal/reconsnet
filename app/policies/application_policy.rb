@@ -14,27 +14,27 @@ class ApplicationPolicy < Struct.new(:user, :record)
   end
 
   def create?
-    user.admin? if user
+    user.is_admin? if user
   end
 
   def new?
-    user.admin? if user
+    user.is_admin? if user
   end
 
   def update?
-    user.admin? if user
+    user.is_admin? if user
   end
 
   def edit?
-    user.admin? if user
+    user.is_admin? if user
   end
 
   def destroy?
-    user.admin? if user
+    user.is_admin? if user
   end
 
   def versions?
-    true
+    user.is_admin? if user
   end
 
   def scope

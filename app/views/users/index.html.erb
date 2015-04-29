@@ -6,7 +6,7 @@
     <th>Nome</th>
     <th>Email</th>
     <th>Pessoa</th>
-    <th>Grupo</th>
+    <th>Papeis</th>
     <th></th>
   </tr>
 
@@ -16,7 +16,8 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= user.person.present? ? link_to(user.person.name, person_path(user.person)) : '' %></td>
-        <td><%= user.group %></td>
+        <td><%= user.roles.map {|role| I18n.t "roles.#{role.name}" }.join(', ') %>
+        </td>
         <td>
           <%= render 'common/btn_edit', resource: user, size: 'btn-xs', btn_label: '' %>
           <%= render 'common/btn_delete', resource: user, size: 'btn-xs', btn_label: '' %>

@@ -10,7 +10,7 @@
 <% else %>
     <li><%= link_to 'Entrar', new_user_session_path %></li>
     <!-- FIXME: solução temporária para não deixar qualquer um criar conta -->
-    <% if current_user and current_user.admin? %>
+    <% if current_user and current_user.is_admin? %>
         <li><%= link_to 'Criar conta', new_user_registration_path %></li>
     <% end %>
 <% end %>

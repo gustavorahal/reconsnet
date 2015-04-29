@@ -23,7 +23,7 @@
             <%= render 'common/menu/people_menu' %>
           <% end %>
           <%= render 'common/menu/about_menu' %>
-          <% if current_user and current_user.admin? %>
+          <% if current_user and current_user.is_admin? %>
             <%= render 'common/menu/admin_menu' %>
           <% end %>
         </ul>

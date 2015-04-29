@@ -1,23 +1,31 @@
 class VolunteerPolicy < ApplicationPolicy
 
+  def index?
+    (user.is_admin? or user.is_volunteer?) if user
+  end
+
+  def show?
+    (user.is_admin? or user.is_volunteer?) if user
+  end
+
   def create?
-    user.group == 'Voluntariado' or user.admin?
+    user.is_volunteer_manager? or user.is_admin? if user
   end
 
   def new?
-    user.group == 'Voluntariado' or user.admin?
+    user.is_volunteer_manager? or user.is_admin? if user
   end
 
   def update?
-    user.group == 'Voluntariado' or user.admin?
+    user.is_volunteer_manager? or user.is_admin? if user
   end
 
   def edit?
-    user.group == 'Voluntariado' or user.admin?
+    user.is_volunteer_manager? or user.is_admin? if user
   end
 
   def destroy?
-    user.group == 'Voluntariado' or user.admin?
+    user.is_volunteer_manager? or user.is_admin? if user
   end
 
 end

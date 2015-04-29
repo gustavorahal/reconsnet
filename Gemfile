@@ -28,6 +28,7 @@ gem 'turbolinks'
 gem 'jquery-turbolinks'
 
 gem 'pundit'
+gem 'rolify'
 gem 'devise'
 gem 'paperclip', '~> 4.2'
 gem 'paper_trail', '~> 4.0.0.beta'

@@ -2,7 +2,11 @@
 class PaperTrail::VersionPolicy < ApplicationPolicy
 
   def index?
-    true if user and (user.admin?)
+    (user.is_admin? or user.is_volunteer?) if user
+  end
+
+  def show?
+    (user.is_admin? or user.is_volunteer?) if user
   end
 
 end

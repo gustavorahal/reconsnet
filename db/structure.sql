@@ -290,6 +290,39 @@ ALTER SEQUENCE phone_numbers_id_seq OWNED BY phone_numbers.id;
 
 
 --
+-- Name: roles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE roles (
+    id integer NOT NULL,
+    name character varying,
+    resource_id integer,
+    resource_type character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE roles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -353,7 +386,6 @@ CREATE TABLE users (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     name character varying(255),
-    "group" character varying(255),
     person_id integer
 );
 
@@ -375,6 +407,16 @@ CREATE SEQUENCE users_id_seq
 --
 
 ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: users_roles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE users_roles (
+    user_id integer,
+    role_id integer
+);
 
 
 --
@@ -498,6 +540,13 @@ ALTER TABLE ONLY phone_numbers ALTER COLUMN id SET DEFAULT nextval('phone_number
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY tmks ALTER COLUMN id SET DEFAULT nextval('tmks_id_seq'::regclass);
 
 
@@ -576,6 +625,14 @@ ALTER TABLE ONLY people
 
 ALTER TABLE ONLY phone_numbers
     ADD CONSTRAINT phone_numbers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY roles
+    ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
 
 
 --
@@ -667,6 +724,20 @@ CREATE INDEX index_phone_numbers_on_phonable_type_and_phonable_id ON phone_numbe
 
 
 --
+-- Name: index_roles_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_roles_on_name ON roles USING btree (name);
+
+
+--
+-- Name: index_roles_on_name_and_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_roles_on_name_and_resource_type_and_resource_id ON roles USING btree (name, resource_type, resource_id);
+
+
+--
 -- Name: index_tmks_on_event_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -706,6 +777,13 @@ CREATE INDEX index_users_on_person_id ON users USING btree (person_id);
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
+
+
+--
+-- Name: index_users_roles_on_user_id_and_role_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_users_roles_on_user_id_and_role_id ON users_roles USING btree (user_id, role_id);
 
 
 --
@@ -782,4 +860,8 @@ INSERT INTO schema_migrations (version) VALUES ('20150318162711');
 INSERT INTO schema_migrations (version) VALUES ('20150318164747');
 
 INSERT INTO schema_migrations (version) VALUES ('20150328235411');
+
+INSERT INTO schema_migrations (version) VALUES ('20150403185402');
+
+INSERT INTO schema_migrations (version) VALUES ('20150403190042');
 

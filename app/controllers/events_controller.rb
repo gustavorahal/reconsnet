@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   after_action :verify_authorized
 
   def index
-    if current_user and current_user.volunteer?
+    if current_user and current_user.is_volunteer?
       @events_by_year = Event.order('start').group_by { |m| m.start.beginning_of_year.year }
     else
       @events_by_year = Event.order('start').all_exclude_internal.group_by { |m| m.start.beginning_of_year.year }
@@ -108,7 +108,7 @@ class EventsController < ApplicationController
   end
 
   def calendar
-    if current_user and current_user.volunteer?
+    if current_user and current_user.is_volunteer?
       @events = Event.sorted
     else
       @events = Event.sorted.all_exclude_internal

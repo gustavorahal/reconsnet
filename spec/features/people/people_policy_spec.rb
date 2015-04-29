@@ -32,7 +32,7 @@ feature 'Política de acesso a pessoas' do
   scenario 'voluntário acessa pessoas' do
     volunteer = create :volunteer
     person = volunteer.person
-    sign_in(create(:user, person: person, email: person.email))
+    sign_in(create(:user_volunteer_role, person: person, email: person.email))
 
     # acesso a pessoas
     visit people_path

@@ -1,4 +1,11 @@
 pt-BR:
+  roles:
+    admin: "Administrador"
+    event_manager: "Gestor de Evento"
+    participant: "Participante"
+    teacher: "Professor"
+    volunteer: "Voluntário"
+    volunteer_manager: "Gestor de Voluntário"
   relationship:
     single: "Solteiro(a)"
     relationship: "Em um relacionamento"

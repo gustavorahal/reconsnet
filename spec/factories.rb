@@ -1,14 +1,39 @@
 FactoryGirl.define do
 
+  factory :role do
+    
+  end
+
   factory :user do
     sequence(:name) { |n| "Test User n. #{n}" }
-    email 'example@example.com'
+    sequence(:email) { |n| "test_user#{n}@email.com" }
     password 'changeme'
     password_confirmation 'changeme'
-    person { |c| c.association(:person) }
 
     factory :user_admin do
-      group 'Admin'
+      after(:build) do |user, evaluator|
+        user.add_role :admin
+      end
+    end
+
+    factory :user_event_manager_role do
+      after(:build) do |user, evaluator|
+        user.add_role :event_manager
+        user.add_role :volunteer
+      end
+    end
+
+    factory :user_volunteer_manager_role do
+      after(:build) do |user, evaluator|
+        user.add_role :volunteer_manager
+        user.add_role :volunteer
+      end
+    end
+
+    factory :user_volunteer_role do
+      after(:build) do |user, evaluator|
+        user.add_role :volunteer
+      end
     end
 
     # required if the Devise Confirmable module is used
