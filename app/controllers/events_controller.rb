@@ -22,7 +22,6 @@ class EventsController < ApplicationController
     authorize @event
     @activity = nil
     @activity = Activity.find params[:activity_id] if params[:activity_id]
-    @activities = Activity.all.order('name')
   end
 
   def edit
