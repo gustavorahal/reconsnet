@@ -48,7 +48,13 @@
 
     <%= f.datetime_select :contact_date, minute_step: 5 %>
 
-    <%= f.text_area :notes, rows: 5 %>
+    <%= f.text_area :notes, rows: 5,
+                    help: 'Sempre que possível, é importante anotar pelos menos 3 aspectos:
+                     <ul>
+                       <li><strong>Motivação.</strong> Há ou não interesse no curso/evento?</li>
+                       <li><strong>Impedimentos.</strong> Se houver interesse, existem impedimentos? Se existem, são temporários?</li>
+                       <li><strong>Receptividade.</strong> Existe abertura para futuros contatos?</li>
+                     </ul>'.html_safe %>
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>

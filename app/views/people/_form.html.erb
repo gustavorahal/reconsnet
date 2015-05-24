@@ -37,7 +37,7 @@
         <%= render :partial => 'common/phone_number_fields', :locals => {:f => phone_form} %>
     <% end %>
     <%= link_to_add_fields '<span class="glyphicon glyphicon-phone-alt"></span> Novo telefone'.html_safe,
-                           f, :phone_numbers, 'btn btn-default btn-xs' %>
+                           f, :phone_numbers, 'btn btn-primary btn-xs' %>
 
 
     <%= f.fields_for :addresses do |address_form| %>
