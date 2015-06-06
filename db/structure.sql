@@ -230,7 +230,11 @@ CREATE TABLE people (
     scholarity character varying(255),
     relationship integer,
     needs_review boolean DEFAULT false,
-    needs_review_reason character varying
+    needs_review_reason character varying,
+    avatar_file_name character varying,
+    avatar_content_type character varying,
+    avatar_file_size integer,
+    avatar_updated_at timestamp without time zone
 );
 
 
@@ -864,4 +868,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150328235411');
 INSERT INTO schema_migrations (version) VALUES ('20150403185402');
 
 INSERT INTO schema_migrations (version) VALUES ('20150403190042');
+
+INSERT INTO schema_migrations (version) VALUES ('20150606155758');
 

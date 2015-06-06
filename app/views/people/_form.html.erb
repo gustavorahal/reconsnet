@@ -9,7 +9,22 @@
     <%= f.hidden_field :original_updated_at %>
 
     <%= f.text_field :name %>
+
+    <% if @person.avatar.present? %>
+        <div class="form-group">
+          <label class="col-sm-2 control-label"></label>
+          <div class="col-sm-6">
+            <%= image_tag @person.avatar.url(:thumb), class: 'img-rounded' %>
+            <%= f.check_box :delete_avatar, label: 'Deletar foto <small>(Após deletar será possivel adicionar uma nova)</small>'.html_safe %>
+          </div>
+        </div>
+    <% else %>
+        <% label = 'Upload de foto' %>
+        <%= f.file_field :avatar, label: label %>
+    <% end %>
+
     <%= f.email_field :email, control_col: 'col-sm-3' %>
+
     <%= f.form_group do %>
         <%= f.check_box :marketing, label: 'Receber divulgação',
                         checked: @person.persisted? ? @person.marketing : true,

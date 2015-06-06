@@ -23,61 +23,77 @@
     </div>
 <% end %>
 
-<address>
-  <%= @person.name %> <% if @person.email.present? %>(<a href="mailto:#"><%= @person.email %></a>)<% end %>
-  <% unless @person.marketing %>
-    <%= '<small class="text-muted">Não deseja receber divulgação</small>'.html_safe %>
-  <% end %>
-  <br>
-
-  <% if @person.volunteer %>
-    Voluntário da área de <%= @person.volunteer.area_of_operation %><br>
-  <% end %>
-
-  <% if @person.age.present? %>
-    <%= @person.age %> anos<br>
-  <% end  %>
-
-  <% if @person.relationship.present? %>
-    <%= I18n.t("relationship.#{@person.relationship}") %><br>
-  <% end  %>
-
-  <% if @person.occupation.present? %>
-    <%= @person.occupation %><br>
-  <% end %>
-
-  <% if @person.nationality.present? and not @person.nationality == 'Brasileiro' %>
-    <%= @person.nationality %><br>
-  <% end %>
-
-  <% if @person.date_of_birth.present? %>
-   <%= date_display @person.date_of_birth %> <small>(faltam <%= @person.days_until_birthday %> para seu aniversário)</small><br>
-  <% end %>
-
-  <% @person.phone_numbers.each do |phone| %>
-    <%= phone.phone_type %>: <%= phone.number.phony_formatted %> <%= "(#{phone.provider})" if phone.provider.present? %><br>
-  <% end  %>
-</address>
-
-<% @person.addresses.each do |address| %>
-  <address>
-    <strong>Endereço</strong><br>
-      <% if address.line1.present? %>
-        <%= address.line1 %><br>
+<div class="row">
+  <div class="col-xs-2">
+    <% if @person.avatar.present? %>
+        <p class="text-center"><%= image_tag @person.avatar.url(:medium), class: 'img-circle' %></p>
+    <% else %>
+        <p class="text-center">
+          <span class="glyphicon glyphicon-user text-muted" style="font-size: 100px;" aria-hidden="true"></span><br>
+          <small>Nenhuma foto adicionada</small>
+        </p>
+    <% end %>
+  </div>
+  <div class="col-xs-10">
+    <address>
+      <% unless @person.marketing %>
+        <%= '<small class="text-muted">Não deseja receber divulgação</small>'.html_safe %>
       <% end %>
-      <% if address.zip.present? %>
-         CEP <%= address.zip %><br>
-      <% end  %>
-      <% if address.city.present? %>
-         <%= address.city %> - <%= address.state %><br>
-      <% end  %>
-      <% if address.country.present? %>
-          <%= address.country %><br>
-      <% end  %>
-  </address>
-<% end  %>
+      <br>
 
+      <% if @person.volunteer %>
+        Voluntário da área de <%= @person.volunteer.area_of_operation %><br>
+      <% end %>
 
+      <% if @person.age.present? %>
+        <%= @person.age %> anos<br>
+      <% end  %>
+
+      <% if @person.relationship.present? %>
+        <%= I18n.t("relationship.#{@person.relationship}") %><br>
+      <% end  %>
+
+      <% if @person.occupation.present? %>
+        <%= @person.occupation %><br>
+      <% end %>
+
+      <% if @person.nationality.present? and not @person.nationality == 'Brasileiro' %>
+        <%= @person.nationality %><br>
+      <% end %>
+
+      <% if @person.date_of_birth.present? %>
+       <%= date_display @person.date_of_birth %> <small>(faltam <%= @person.days_until_birthday %> para seu aniversário)</small><br>
+      <% end %>
+
+      <% if @person.email.present? %>
+          <a href="mailto:#"><%= @person.email %></a><br>
+      <% end %>
+
+      <% @person.phone_numbers.each do |phone| %>
+        <%= phone.phone_type %>: <%= phone.number.phony_formatted %> <%= "(#{phone.provider})" if phone.provider.present? %><br>
+      <% end  %>
+    </address>
+
+    <% @person.addresses.each do |address| %>
+        <address>
+          <strong>Endereço</strong><br>
+          <% if address.line1.present? %>
+              <%= address.line1 %><br>
+          <% end %>
+          <% if address.zip.present? %>
+              CEP <%= address.zip %><br>
+          <% end  %>
+          <% if address.city.present? %>
+              <%= address.city %> - <%= address.state %><br>
+          <% end  %>
+          <% if address.country.present? %>
+              <%= address.country %><br>
+          <% end  %>
+        </address>
+    <% end  %>
+
+  </div>
+</div>
 
 <!-- Participação em eventos -->
 
