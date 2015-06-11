@@ -87,11 +87,8 @@ class Event < ActiveRecord::Base
   def archivable?
     allow = true
 
-    # Devem existir alunos
-    allow = false if participations.where(participation_type: 'Aluno').empty?
-
-    # Devem existir professores
-    allow = false if participations.where("participation_type LIKE 'Professor%'").empty?
+    # Devem existir participantes inscritos
+    allow = false if participations.where(status: Participation.statuses[:enrolled]).empty?
 
     # Só é possivel fechar um evento se todos os participantes estão inscritos e não em outros
     # estados "temporários"
