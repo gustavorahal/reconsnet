@@ -32,7 +32,8 @@
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>
-        <%= link_to 'Voltar', session[:last_page], class: 'btn btn-link' %>
+        <%= f.submit 'Salvar e adicionar outra', name: 'save_and_add_another' %>
+        <%= link_to 'Voltar', event_path(@event), class: 'btn btn-link' %>
     <% end %>
 
 <% end %>

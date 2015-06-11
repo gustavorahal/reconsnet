@@ -31,7 +31,11 @@ class ParticipationsController < ApplicationController
     authorize @participation
 
     if @participation.save
-      redirect_to session[:last_page] || event_path(@participation.event)
+      if params[:save_and_add_another]
+        redirect_to new_event_participation_path(@participation.event, pstatus: Participation.statuses[:enrolled])
+      else
+        redirect_to event_path(@participation.event)
+      end
     else
       render 'new'
     end

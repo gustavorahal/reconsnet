@@ -15,6 +15,7 @@ class Participation < ActiveRecord::Base
 
   TYPES = %w(
 Aluno
+Conferencista
 Escriba Mediador
 Mestre\ de\ Cerimônia
 Monitor
