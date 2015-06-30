@@ -6,9 +6,9 @@
 
 
 <h2 id="month">
-  <%= link_to '<span class="glyphicon glyphicon-chevron-left"></span>'.html_safe, date: @date.prev_month %>
+  <%= link_to '<i class="fa fa-chevron-left"></i>'.html_safe, date: @date.prev_month %>
   <%= I18n.l @date, format: '%B de %Y' %>
-  <%= link_to '<span class="glyphicon glyphicon-chevron-right"></span>'.html_safe, date: @date.next_month %>
+  <%= link_to '<i class="fa fa-chevron-right"></i>'.html_safe, date: @date.next_month %>
 </h2>
 <%= calendar @date do |date| %>
     <%= date.day %>

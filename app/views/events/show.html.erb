@@ -36,10 +36,10 @@
       <div class="panel-heading">
         <h3 class="panel-title">Participantes
           <div class="pull-right">
-            <%= link_to '<span class="glyphicon glyphicon-envelope"></span> E-mails'.html_safe,
+            <%= link_to '<i class="fa fa-envelope"></i> E-mails'.html_safe,
                         emails_event_path(@event), class: 'btn btn-xs btn-default' %>
             <% unless @event.archived %>
-                <%= link_to '<span class="glyphicon glyphicon-download-alt"></span> Lista de presença'.html_safe,
+                <%= link_to '<i class="fa fa-users"></i> Gerar lista de presença'.html_safe,
                         attendance_event_path(@event, format: :pdf), class: 'btn btn-xs btn-default' %>
                 <%= render 'common/btn_new', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:enrolled]),
                        btn_label: 'Nova participação', size: 'btn-xs', resource: @event %>
@@ -244,7 +244,7 @@
 
         <% @assets.each do |asset| %>
             <div>
-              <span class="glyphicon glyphicon-file"></span>
+              <i class="fa fa-file"></i>
               <%= link_to asset.file_file_name, asset.file.url %> <small>(<em><%= I18n.t("asset_types.#{asset.asset_type}") if asset.asset_type.present? %></em>)</small> <small class="text-muted"> em <%= date_display asset.created_at %></small>
               <span class="pull-right text-muted"><%= number_to_human_size asset.file.size %></span>
 

@@ -17,7 +17,7 @@
           <td> <%= link_to p.name, p %> &lt;<%= p.email %>&gt; </td>
           <td>
             <% if p.marketing and EmailMktService.subscribed?(p.email) %>
-              <%= '<span class="text-success glyphicon glyphicon-ok"></span>'.html_safe %>
+              <%= '<i class="text-success fa fa-check"></i>'.html_safe %>
             <% elsif p.marketing and not EmailMktService.subscribed?(p.email) %>
               <%= '<small><span class="text-danger">não registrado no serviço de mail mkt</span></small>'.html_safe %>
             <% elsif not p.marketing %>

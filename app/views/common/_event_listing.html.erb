@@ -33,9 +33,9 @@
         <% if policy(Event).archive? %>
             <td class="text-center col-md-1">
               <% if event.archived %>
-                  <span class="text-success glyphicon glyphicon-ok"></span>
+                  <i class="text-success fa fa-check"></i>
               <% else %>
-                  <span class="text-danger glyphicon glyphicon-remove"></span>
+                  <i class="text-danger fa fa-minus"></i>
               <% end %>
             </td>
         <% end %>
