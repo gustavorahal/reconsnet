@@ -16,6 +16,7 @@
         <a href="<%= root_path %>" class="navbar-brand">Reconscientia</a>
         <ul class="nav navbar-nav">
           <%= render 'common/menu/activities_menu' %>
+          <%= render 'common/menu/agenda_menu' %>
           <% if policy(Tmk).show? %>
             <%= render 'common/menu/marketing_menu' %>
           <% end %>
