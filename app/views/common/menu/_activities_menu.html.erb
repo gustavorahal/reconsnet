@@ -1,7 +1,7 @@
 <li class="dropdown <%= 'active' if request.original_url.include? '/activities' %>">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Atividades <span class="caret"></span></a>
   <ul class="dropdown-menu" role="menu">
-    <% @activities.each do |activity| %>
+    <% @activities_menu_items.each do |activity| %>
         <% activity.internal_only ? name = "#{activity.name} <small class=\"text-muted\"><em>(somente voluntários)</em></small>" :
                                     name = activity.name %>
         <li><%= link_to name.html_safe, activity_path(activity) %></li>
