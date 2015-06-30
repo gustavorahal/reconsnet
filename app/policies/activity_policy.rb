@@ -3,7 +3,7 @@ class ActivityPolicy < ApplicationPolicy
   class Scope < Struct.new(:user, :scope)
     def resolve
       if user and (user.is_admin? or user.is_volunteer?)
-        scope.all
+        scope.all.order(:name)
       else
         scope.where.not(internal_only: true).all
       end

@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
 
-  before_action :set_menu_values, unless: :devise_controller?
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -30,13 +29,6 @@ class ApplicationController < ActionController::Base
 
 
   private
-
-    def set_menu_values
-      @activities_menu_items = policy_scope(Activity)
-      authorize @activities_menu_items
-      # Apenas listar as atividades pai (de nível mais alto)
-      @activities_menu_items = @activities_menu_items.where(parent: nil).order(:name)
-    end
 
     def user_not_authorized
       flash[:alert] = 'Você não tem autorização para realizar esta ação.'
