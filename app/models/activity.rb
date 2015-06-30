@@ -4,11 +4,11 @@
 #
 #  id            :integer          not null, primary key
 #  name          :string(255)      not null
-#  summary       :string(255)      not null
+#  summary       :text             not null
 #  description   :text
 #  activity_type :string(255)
 #  parent_id     :integer
-#  internal_only :boolean          default("false")
+#  internal_only :boolean          default(FALSE)
 #  created_at    :datetime
 #  updated_at    :datetime
 #

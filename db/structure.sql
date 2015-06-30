@@ -36,7 +36,7 @@ SET default_with_oids = false;
 CREATE TABLE activities (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
-    summary character varying(255) NOT NULL,
+    summary text NOT NULL,
     description text,
     activity_type character varying(255),
     parent_id integer,
@@ -870,4 +870,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150403185402');
 INSERT INTO schema_migrations (version) VALUES ('20150403190042');
 
 INSERT INTO schema_migrations (version) VALUES ('20150606155758');
+
+INSERT INTO schema_migrations (version) VALUES ('20150630202607');
 

@@ -10,7 +10,7 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  activity_id :integer
-#  archived    :boolean          default("false")
+#  archived    :boolean          default(FALSE)
 #
 
 class Event < ActiveRecord::Base

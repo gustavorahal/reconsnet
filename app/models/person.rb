@@ -2,20 +2,26 @@
 #
 # Table name: people
 #
-#  id            :integer          not null, primary key
-#  name          :string(255)      not null
-#  gender        :string(255)
-#  email         :string(255)
-#  date_of_birth :date
-#  occupation    :string(255)
-#  nationality   :string(255)
-#  marketing     :boolean
-#  created_at    :datetime
-#  updated_at    :datetime
-#  cpf           :string(255)
-#  rg            :string(255)
-#  scholarity    :string(255)
-#  relationship  :integer
+#  id                  :integer          not null, primary key
+#  name                :string(255)      not null
+#  gender              :string(255)
+#  email               :string(255)
+#  date_of_birth       :date
+#  occupation          :string(255)
+#  nationality         :string(255)
+#  marketing           :boolean
+#  created_at          :datetime
+#  updated_at          :datetime
+#  cpf                 :string(255)
+#  rg                  :string(255)
+#  scholarity          :string(255)
+#  relationship        :integer
+#  needs_review        :boolean          default(FALSE)
+#  needs_review_reason :string
+#  avatar_file_name    :string
+#  avatar_content_type :string
+#  avatar_file_size    :integer
+#  avatar_updated_at   :datetime
 #
 
 class Person < ActiveRecord::Base

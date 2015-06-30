@@ -4,8 +4,8 @@
     <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
 
     <%= f.text_field :name, label: 'Nome', control_col: 'col-sm-5' %>
-    <%= f.text_field :summary, label: 'Sumário', control_col: 'col-sm-8',
-                     help: 'Descreva em poucas palavras o que é esta atividade' %>
+    <%= f.text_area :summary, label: 'Sumário', control_col: 'col-sm-8', rows: 4, maxlength: 400,
+                     help: 'Descreva em poucas palavras o que é esta atividade. Suporta tags HTML, por exemplo <i></i> para itálico e <b></b> para negrito. <strong>Máximo de 400 caracteres</strong>'.html_safe %>
     <%= f.select :activity_type, Activity::TYPES, label: 'Tipo de atividade', control_col: 'col-sm-3' %>
     <!-- Por ora não queremos aninhar mais que um nível as atividades portanto excluir atividades
     que tem um pai -->
@@ -23,7 +23,7 @@
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>
-        <%= link_to 'Voltar', :back, class: 'btn btn-link' %>
+        <%= link_to 'Voltar', @activity.persisted? ? activity_path(@activity) : activities_path, class: 'btn btn-link' %>
     <% end %>
 
 <% end %>
