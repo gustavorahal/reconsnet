@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.1'
+gem 'rails', '4.2.3'
 gem 'pg'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -31,7 +31,7 @@ gem 'pundit'
 gem 'rolify'
 gem 'devise'
 gem 'paperclip', '~> 4.2'
-gem 'paper_trail', '~> 4.0.0.beta'
+gem 'paper_trail', '~> 4.0.0.rc1'
 
 gem 'puma', '~> 2.11.1'
 
