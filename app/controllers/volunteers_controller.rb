@@ -5,7 +5,7 @@ class VolunteersController < ApplicationController
   after_action :verify_authorized
 
   def index
-    @volunteers = Volunteer.all
+    @volunteers = Volunteer.joins(:person).all.order('people.name')
     authorize @volunteers
   end
 
