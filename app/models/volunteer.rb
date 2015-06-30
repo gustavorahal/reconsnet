@@ -23,7 +23,7 @@ Parapedagogia
 Parapercepciografia
 Voluntariado)
 
-  EVENT_MANAGER_ROLE_AREAS = %w(Eventos)
+  EVENT_MANAGER_ROLE_AREAS = %w(Eventos Jurídico-Financeiro)
   VOLUNTEER_MANAGER_ROLE_AREAS = %w(Voluntariado)
   ADMIN_ROLE_AREAS = %w(Coordenação\ Geral Banco\ de\ Dados)
 
