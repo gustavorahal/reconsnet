@@ -4,8 +4,10 @@ class ActivitiesController < ApplicationController
   after_action :verify_authorized
 
   def index
-    @activities = policy_scope(Activity)
-    authorize @activities
+    @parent_activities = policy_scope(Activity.parent_activities.order(:name))
+    @orphan_activities = policy_scope(Activity.orphan_activities.order(:name))
+
+    authorize @parent_activities
   end
 
   def show

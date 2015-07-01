@@ -1,10 +1,10 @@
-<% title = "<em>#{@activity.name}</em>" %>
-<% sub_title = [] %>
+<% title = "<em>#{@activity.activity_type}</em> #{@activity.name}" %>
 <% if @activity.parent.present? %>
-    <% sub_title.append "Parte do(a) #{@activity.parent.name}" %>
+    <% parent = @activity.parent %>
+    <% sub_title = 'Parte do(a) ' + link_to("#{parent.activity_type} #{parent.name}", activity_path(parent)) %>
 <% end %>
 <% if @activity.internal_only %>
-    <% sub_title.append 'Restrita a voluntários' %>
+    <% title += ' <small><span class="label label-primary">interno</small>' %>
 <% end %>
 
 <!--
@@ -16,7 +16,7 @@
 
 <div class="col-xs-8">
 
-    <%= render 'common/page_title', titulo: title.html_safe, sub_title: sub_title.join(' | ') %>
+    <%= render 'common/page_title', titulo: title.html_safe, sub_title: sub_title %>
 
     <% content_for :actions do %>
       <%= render 'common/btn_edit', resource: @activity %>
@@ -54,7 +54,7 @@
     <% if @activity.children.any? %>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Atividades relacionadas</h3>
+          <h3 class="panel-title">Atividades integrantes</h3>
         </div>
         <div class="panel-body">
           <% @activity.children.each do |child_activity| %>

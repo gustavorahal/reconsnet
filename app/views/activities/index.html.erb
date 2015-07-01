@@ -6,11 +6,41 @@
 <% end %>
 
 
-<table class="table table-striped">
-  <% @activities.each do |activity| %>
-      <tr>
-        <td><%= activity_link_display activity %></td>
-        <td><%= activity.summary %></td>
-      </tr>
+<% @parent_activities.each do |parent_activity| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <h3><em><%= parent_activity.activity_type %></em> <%= parent_activity.name %>
+        <small><%= link_to fa_icon('angle-double-right', text: 'saiba mais', right: true), activity_path(parent_activity) %></small>
+      </h3>
+      <br>
+    </div>
+  </div>
+
+  <div class="row">
+    <% parent_activity.children.order(:name).each do |activity| %>
+      <div class="col-sm-6 col-md-4">
+        <%= render 'common/activity_summary', activity: activity %>
+      </div>
+    <% end %>
+  </div>
+  <br>
+<% end %>
+
+
+
+<div class="row">
+  <div class="col-sm-12">
+    <h3>Outras atividades</h3>
+    <br>
+  </div>
+
+</div>
+
+<div class="row">
+  <% @orphan_activities.order(:name).each do |activity| %>
+      <div class="col-sm-6 col-md-4">
+        <%= render 'common/activity_summary', activity: activity %>
+      </div>
   <% end %>
-</table>
+</div>
+

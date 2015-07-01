@@ -4,12 +4,12 @@
 <% title = local_assigns.fetch :titulo, nil %>
 
 <% content_for :page_title do %>
-    <h3>
+    <h2>
         <% if back_url %>
             <small><%= link_to "<i class=\"fa fa-arrow-circle-left\"></i>".html_safe, back_url %></small>
         <% end %>
         <%= title %>
-    </h3>
+    </h2>
     <% if sub_title %>
         <span><%= sub_title.html_safe %></span>
     <% end %>

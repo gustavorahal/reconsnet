@@ -28,8 +28,22 @@ class Activity < ActiveRecord::Base
   after_update :check_images, if: :description_changed?
 
 
+  def self.parent_activities
+    Activity.where(id: parent_activities_ids)
+  end
+
+  def self.orphan_activities
+    candidates = Activity.where(parent_id: nil).pluck(:id)
+    ids = candidates - parent_activities_ids
+    Activity.where(id: ids)
+  end
+
   def to_s
     name
+  end
+
+  def next_event
+    events.where('start > ?', Time.now).take
   end
 
   ##
@@ -51,6 +65,10 @@ class Activity < ActiveRecord::Base
 
 
   private
+
+    def self.parent_activities_ids
+      Activity.select(:parent_id).distinct.pluck(:parent_id)
+    end
 
     ##
     # Deleta imagens que não fazem mais partes da descrição
