@@ -57,7 +57,7 @@
           <h3 class="panel-title">Atividades integrantes</h3>
         </div>
         <div class="panel-body">
-          <% @activity.children.each do |child_activity| %>
+          <% @activity.children.order(:name).each do |child_activity| %>
             <div><%= link_to child_activity.name, activity_path(child_activity) %></div>
           <% end %>
         </div>

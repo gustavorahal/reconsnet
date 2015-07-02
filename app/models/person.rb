@@ -90,14 +90,6 @@ class Person < ActiveRecord::Base
     participations.where(status: Participation.statuses[:enrolled]).includes(:event).order('events.start desc')
   end
 
-  def numbers(sep=" | ")
-    phone_numbers.map do |pn|
-      txt = pn.number.phony_formatted
-      txt += " (#{pn.provider})" if pn.provider.present?
-      txt
-    end.join(sep)
-  end
-
   def safely_destroyable?
     participations.empty? and tmks.empty?
   end

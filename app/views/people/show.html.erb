@@ -70,8 +70,8 @@
       <% end %>
 
       <% @person.phone_numbers.each do |phone| %>
-        <%= phone.phone_type %>: <%= phone.number.phony_formatted %> <%= "(#{phone.provider})" if phone.provider.present? %><br>
-      <% end  %>
+          <%= phone_display(phone) %><br>
+      <% end %>
     </address>
 
     <% @person.addresses.each do |address| %>

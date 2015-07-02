@@ -21,6 +21,7 @@ class PhoneNumber < ActiveRecord::Base
   # Deixar lista em ordem alfabética
   PROVIDERS = %w(Claro GVT Net Oi Telefônica Tim Vivo)
   PHONE_TYPES = %w(Fixo Celular)
+  LABELS = %w(Casa Trabalho Outro)
 
   validates_presence_of :number, :phone_type
   validates_inclusion_of :provider, in: PROVIDERS, allow_nil: true, allow_blank: true

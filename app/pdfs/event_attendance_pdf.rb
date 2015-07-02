@@ -11,7 +11,7 @@ class EventAttendancePdf < EventBasePdf
                           where(status: [Participation.statuses[:enrolled],
                                          Participation.statuses[:pre_enrolled]]).
                                                       order('people.name').each do |p|
-      enrolls.append [count, p.person.name, p.person.email + "\n\n", p.person.numbers("\n")] + @dates.map {|d| Prawn::Text::NBSP * 13}
+      enrolls.append [count, p.person.name, p.person.email + "\n\n", p.person.phone_numbers.map {|pn| PhoneNumbersHelper.phone_display(pn)}.join("\n")] + @dates.map {|d| Prawn::Text::NBSP * 13}
       count += 1
     end
 
@@ -21,7 +21,7 @@ class EventAttendancePdf < EventBasePdf
       enrolls.append(Array.new(enrolls[0].size, ' '))
     end
 
-    gen_table enrolls, nil, {1 => 150, 2 => 200, 3 => 120}
+    gen_table enrolls, nil, {1 => 150, 2 => 170, 3 => 150}
 
     move_down 30
     font(@@default_font, size: 13, style: :bold) { text 'Equipe Docente' }

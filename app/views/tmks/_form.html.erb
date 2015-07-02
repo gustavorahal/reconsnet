@@ -14,8 +14,8 @@
         <%= hidden_field_tag 'tmk[with_who_id]', @with_who.id %>
         <%= f.static_control nil, label: 'Contatado' do %>
             <%= @with_who.name %>
-            <% @with_who.numbers.split(' | ').each do |pn| %>
-                <span class="label label-primary"><%= pn %></span>
+            <% @with_who.phone_numbers.each do |phone_number| %>
+                <span class="label label-primary"><%= phone_display(phone_number) %></span>
             <% end %>
             <% if @with_who.email.present? %>
                 <span class="label label-primary"><%= @with_who.email %></span>
