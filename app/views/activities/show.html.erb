@@ -84,7 +84,7 @@
 
             <% else %>
 
-                <% @future_events.each do |event| %>
+                <% @future_events.order(:start).each do |event| %>
                     <div>
                       <%= link_to event.name, event_path(event) %>
                       <small class="text-muted">
