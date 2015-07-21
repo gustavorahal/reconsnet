@@ -113,6 +113,8 @@ class EventsController < ApplicationController
       @events = Event.sorted.all_exclude_internal
     end
 
+    authorize @events
+
     @events_by_date = {}
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
 
