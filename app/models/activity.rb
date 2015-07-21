@@ -53,7 +53,7 @@ class Activity < ActiveRecord::Base
     activities_ids = []
     activities_ids += children.pluck(:id)
     activities_ids.append id
-    Event.sorted.where(activity_id: activities_ids)
+    Event.where(activity_id: activities_ids)
   end
 
   ##

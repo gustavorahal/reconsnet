@@ -11,8 +11,8 @@ class ActivitiesController < ApplicationController
   end
 
   def show
-    @future_events = @activity.all_events.where('start > ?', Time.now)
-    @past_events = @activity.all_events.where('start < ?', Time.now)
+    @future_events = @activity.all_events.where('start > ?', Time.now).order('start')
+    @past_events = @activity.all_events.where('start < ?', Time.now).order('start DESC')
   end
 
   def new
