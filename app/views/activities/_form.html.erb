@@ -18,7 +18,7 @@
 
     <%= f.text_area :description, class: 'tinymce', rows: 25, cols: 120, label: 'Descrição',
                     help: 'Descreva de forma completa e exaustiva esta atividade' %>
-    <%= tinymce relative_urls: false, plugins: ['uploadimage'], language: 'pt_BR', uploadimage_hint: [@activity.id, 'Activity'] %>
+    <%= tinymce relative_urls: false, language: 'pt_BR', uploadimage_hint: [@activity.id, 'Activity'] %>
 
 
     <%= f.form_group do %>

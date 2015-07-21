@@ -26,7 +26,8 @@ class Asset < ActiveRecord::Base
                                                            application/msword
                                                            application/vnd.openxmlformats-officedocument.wordprocessingml.document
                                                            application/pdf
-                                                           image/jpeg)
+                                                           image/jpeg
+                                                           image/png)
 
   validates_attachment_size :file, :less_than => 15.megabytes
 
