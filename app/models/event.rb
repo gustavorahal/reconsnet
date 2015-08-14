@@ -77,13 +77,6 @@ class Event < ActiveRecord::Base
   end
 
 
-  def organizers
-    participations.includes(:person).
-        where(participation_type: Participation::TYPES.reject {|x| x == 'Aluno'}).
-        where(status: Participation.statuses[:enrolled]).order('people.name')
-  end
-
-
   def archivable?
     allow = true
 

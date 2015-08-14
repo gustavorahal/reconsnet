@@ -2,33 +2,41 @@
 #
 # Table name: participations
 #
-#  id                 :integer          not null, primary key
-#  event_id           :integer          not null
-#  person_id          :integer          not null
-#  participation_type :string(255)      not null
-#  status             :integer          not null
-#  created_at         :datetime
-#  updated_at         :datetime
+#  id         :integer          not null, primary key
+#  event_id   :integer          not null
+#  person_id  :integer          not null
+#  p_type     :integer          not null
+#  status     :integer          not null
+#  created_at :datetime
+#  updated_at :datetime
 #
 
 class Participation < ActiveRecord::Base
 
-  TYPES = %w(
-Aluno
-Conferencista
-Escriba Mediador
-Mestre\ de\ Cerimônia
-Monitor
-Palestrante
-Professor
-Professor\ Introdução
-Professor\ Temático)
-
   enum status: { enrolled: 0, pre_enrolled: 1, interested: 2, divulge: 3 }
 
+  enum p_type: { student: 0,
+                lecturer: 1,
+                scribe: 2,
+                mediator: 3,
+                master_of_ceremony: 4,
+                monitor: 5,
+                teacher: 6,
+                teacher_theme: 7,
+                teacher_intro: 8 }
+
+
+  # Participation types that are considered event organizers
+  ORGANIZER_P_TYPES = [ p_types[:teacher],
+                        p_types[:teacher_theme],
+                        p_types[:teacher_intro],
+                        p_types[:scribe],
+                        p_types[:master_of_ceremony],
+                        p_types[:lecturer],
+                        p_types[:monitor]
+                      ]
 
   validates_uniqueness_of :person, scope: :event
-  validates :participation_type, inclusion: { in: TYPES }
 
   belongs_to :event
   belongs_to :person

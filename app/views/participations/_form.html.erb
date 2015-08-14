@@ -27,7 +27,8 @@
                  ),
                  control_col: 'col-sm-3' %>
 
-    <%= f.select :participation_type, Participation::TYPES,
+    <%= f.select :p_type,
+                 Participation.p_types.keys.to_a.map { |w| [ I18n.t("participation_types.#{w}"), w] },
                  label: 'Tipo de participação ', control_col: 'col-sm-3' %>
 
     <%= f.form_group do %>

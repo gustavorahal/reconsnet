@@ -6,6 +6,16 @@ pt-BR:
     teacher: "Professor"
     volunteer: "Voluntário"
     volunteer_manager: "Gestor de Voluntário"
+  participation_types:
+    student: "Aluno"
+    lecturer: "Palestrante/Conferencista"
+    scribe: "Escriba"
+    mediator: "Mediador"
+    master_of_ceremony: "Mestre de Cerimônia"
+    monitor: "Monitor"
+    teacher: "Professor"
+    teacher_theme: "Professor Temático"
+    teacher_intro: "Professor Introdução"
   relationship:
     single: "Solteiro(a)"
     relationship: "Em um relacionamento"

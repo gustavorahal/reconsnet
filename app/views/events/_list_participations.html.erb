@@ -1,0 +1,19 @@
+<% participations = local_assigns.fetch :participations, nil %>
+<% msg_when_empty = local_assigns.fetch :msg_when_empty, '' %>
+
+<% empty = true %>
+<% participations.each do |part| %>
+    <% empty = false %>
+    <div>
+      <%= link_to part.person.name, person_path(part.person.id) %>
+      <em>(<%= I18n.t("participation_types.#{part.p_type}").downcase %>)</em>
+      <% unless @event.archived %>
+          <%= render 'common/btn_edit', url: edit_event_participation_path(@event, part),
+                     btn_label: '', size: 'btn-xs', resource: part %>
+          <%= render 'common/btn_delete', url: event_participation_path(@event, part),
+                     btn_label: '', size: 'btn-xs', resource: part %>
+      <% end %>
+    </div>
+<% end %>
+
+<%= "<p>#{msg_when_empty}</p>".html_safe if empty %>

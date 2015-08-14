@@ -7,7 +7,7 @@ class EventAttendancePdf < EventBasePdf
     count = 1
     enrolls = [['#', 'Nome', 'E-mail', 'Telefone'] + @dates ]
     @event.participations.includes(:person).
-                          where(participation_type: 'Aluno').
+                          where(p_type: Participation.p_types[:student]).
                           where(status: [Participation.statuses[:enrolled],
                                          Participation.statuses[:pre_enrolled]]).
                                                       order('people.name').each do |p|
@@ -29,8 +29,8 @@ class EventAttendancePdf < EventBasePdf
 
     count = 1
     organizers = [['#', 'Nome', 'Função'] + @dates]
-    @event.organizers.each do |p|
-      organizers.append [count, p.person.name, p.participation_type] + @dates.map {|d| Prawn::Text::NBSP * 13}
+    @event.enrolls.where(p_type: Participation::ORGANIZER_P_TYPES).each do |p|
+      organizers.append [count, p.person.name, I18n.t("participation_types.#{p.p_type}")] + @dates.map {|d| Prawn::Text::NBSP * 13}
       count += 1
     end
 

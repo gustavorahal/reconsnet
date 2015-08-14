@@ -11,8 +11,8 @@ feature 'Arquivamento de evento por um voluntário' do
 
   scenario 'evento não tem restrições para ser arquivado' do
     event = create(:event)
-    part1 = create :participation, participation_type: 'Aluno', event: event
-    part2 = create :participation, participation_type: 'Professor', event: event
+    part1 = create :participation, p_type: Participation.p_types[:student], event: event
+    part2 = create :participation, p_type: Participation.p_types[:teacher], event: event
     asset = create :asset, asset_type: Asset.asset_types[:attendance_list],
                    assetable_id: event.id, assetable_type: 'Event'
 
@@ -33,8 +33,8 @@ feature 'Arquivamento de evento por um voluntário' do
 
   scenario 'evento tem participações pendentes, não inscritos' do
     event = create(:event)
-    part1 = create :participation, participation_type: 'Aluno', status: Participation.statuses[:pre_enrolled], event: event
-    part2 = create :participation, participation_type: 'Professor', event: event
+    part1 = create :participation, p_type: Participation.p_types[:student], status: Participation.statuses[:pre_enrolled], event: event
+    part2 = create :participation, p_type: Participation.p_types[:teacher], event: event
     asset = create :asset, asset_type: Asset.asset_types[:attendance_list],
                    assetable_id: event.id, assetable_type: 'Event'
 
@@ -49,8 +49,8 @@ feature 'Arquivamento de evento por um voluntário' do
 
   scenario 'evento não tem lista de presença anexada' do
     event = create(:event)
-    part1 = create :participation, participation_type: 'Aluno', event: event
-    part2 = create :participation, participation_type: 'Professor', event: event
+    part1 = create :participation, p_type: Participation.p_types[:student], event: event
+    part2 = create :participation, p_type: Participation.p_types[:teacher], event: event
     asset = create :asset, asset_type: Asset.asset_types[:participant_material],
                    assetable_id: event.id, assetable_type: 'Event'
 

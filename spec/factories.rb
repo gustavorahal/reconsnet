@@ -86,7 +86,7 @@ FactoryGirl.define do
     person { |c| c.association(:person) }
     event { |c| c.association(:event) }
     status 0
-    participation_type 'Professor'
+    p_type Participation.p_types[:teacher]
   end
 
   factory :tmk do

@@ -49,61 +49,36 @@
       </div>
       <div class="panel-body">
 
-        <h5>Equipe Docente</h5>
-        <% empty = true %>
-        <% @event.organizers.each do |participation| %>
-            <% empty = false %>
-            <div>
-              <%= link_to participation.person.name, person_path(participation.person.id) %>
-              <em>(<%= participation.participation_type.downcase %>)</em>
-              <% unless @event.archived %>
-                  <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
-                             btn_label: '', size: 'btn-xs', resource: participation %>
-                  <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
-                             btn_label: '', size: 'btn-xs', resource: participation %>
-              <% end %>
-            </div>
-        <% end %>
-        <%= 'Não existe equipe organizadora para este evento<br>'.html_safe if empty %>
-
+        <!--
+            Equipe docente
+        -->
+        <% organizers = @event.enrolls.where(p_type: Participation::ORGANIZER_P_TYPES)  %>
+        <h5>Equipe Docente <span class="badge"><%= organizers.count %></span></h5>
+        <%= render 'list_participations',
+                   participations: organizers,
+                   msg_when_empty: 'Não existe equipe organizadora para este evento' %>
         <br/>
 
-        <h5>Alunos inscritos <span class="badge"><%= @event.enrolls.where(participation_type: 'Aluno').count %></span></h5>
-        <% empty = true %>
-        <% @event.enrolls.where(participation_type: 'Aluno').each do |participation| %>
-            <% empty = false %>
-            <div>
-              <%= link_to participation.person.name, person_path(participation.person.id) %>
-              <% unless @event.archived %>
-                  <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
-                             btn_label: '', size: 'btn-xs', resource: participation %>
-                  <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
-                             btn_label: '', size: 'btn-xs', resource: participation %>
-              <% end %>
-            </div>
-        <% end %>
-        <%= 'Não existem inscritos para este evento<br>'.html_safe if empty %>
 
+        <!--
+            Alunos inscritos
+        -->
+        <% student_enrolls = @event.enrolls.where.not(p_type: Participation::ORGANIZER_P_TYPES) %>
+        <h5>Alunos inscritos <span class="badge"><%= student_enrolls.count %></span></h5>
+        <%= render 'list_participations',
+                   participations: student_enrolls,
+                   msg_when_empty: 'Não existem inscritos para este evento' %>
         <br/>
 
-        <h5>Pré-inscritos <span class="badge"><%= @event.pre_enrolls.count %></span></h5>
-        <% empty = true %>
-        <% @event.pre_enrolls.each do |participation| %>
-            <% empty = false %>
-            <div>
-              <%= link_to participation.person.name, person_path(participation.person.id) %>
-              <% unless participation.participation_type == 'Aluno' %>
-                <em>(<%= participation.participation_type.downcase %>)</em>
-              <% end %>
-              <% unless @event.archived %>
-                  <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
-                             btn_label: '', size: 'btn-xs', resource: participation %>
-                  <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
-                             btn_label: '', size: 'btn-xs', resource: participation %>
-              <% end %>
-            </div>
-        <% end %>
-        <%= 'Não existem pré-inscritos para este evento<br>'.html_safe if empty %>
+
+        <!--
+            Pré-inscritos
+        -->
+        <% pre_enrolls = @event.pre_enrolls  %>
+        <h5>Pré-inscritos <span class="badge"><%= pre_enrolls.count %></span></h5>
+        <%= render 'list_participations',
+                   participations: pre_enrolls,
+                   msg_when_empty: 'Não existem pré-inscritos para este evento' %>
 
 
       </div>
@@ -141,7 +116,7 @@
             <th>Contatar</th>
             <th>Situação</th>
             <th>Participação em eventos <small>(3 últimos)</small></th>
-            <th>Contatos TMK <small>(3 últimos)</small></th>
+            <th>Contatos TMK</th>
             <th></th>
           </tr>
           </thead>
@@ -151,8 +126,8 @@
               <tr>
                 <td>
                   <%= link_to person.name, person_path(person.id) %>
-                  <% unless participation.participation_type == 'Aluno' %>
-                      <em>(<%= participation.participation_type.downcase %>)</em>
+                  <% unless participation.p_type == Participation.p_types[:student] %>
+                      <em><%= I18n.t("participation_types.#{participation.p_type}").downcase %></em>
                   <% end %>
                   <br>
                   <%= render 'common/btn_new_tmk', event: @event, with_who: participation.person %>
