@@ -116,7 +116,7 @@
             <th>Contatar</th>
             <th>Situação</th>
             <th>Participação em eventos <small>(3 últimos)</small></th>
-            <th>Contatos TMK</th>
+            <th>Contatos TMK (3 últimos)</th>
             <th></th>
           </tr>
           </thead>
@@ -140,7 +140,7 @@
                     <% end %>
                 </td>
                 <td>
-                    <% person.tmks.order('tmks.contact_date DESC').each do |tmk| %>
+                    <% person.tmks.order('tmks.contact_date DESC').limit(3).each do |tmk| %>
                       <small><%= tmk_summary_no_with_who tmk, tmk.event == @event  %></small><br>
                     <% end %>
                 </td>
