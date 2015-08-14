@@ -126,7 +126,8 @@
               <tr>
                 <td>
                   <%= link_to person.name, person_path(person.id) %>
-                  <% unless participation.p_type == Participation.p_types[:student] %>
+                  <% unless participation.student? %>
+                      <!-- Por padrão não mostrar se é Aluno, porque este é 99% dos casos -->
                       <em><%= I18n.t("participation_types.#{participation.p_type}").downcase %></em>
                   <% end %>
                   <br>
