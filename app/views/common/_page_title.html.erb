@@ -6,7 +6,7 @@
 <% content_for :page_title do %>
     <h2>
         <% if back_url %>
-            <small><%= link_to "<i class=\"fa fa-arrow-circle-left\"></i>".html_safe, back_url %></small>
+            <%= link_to "<i class=\"fa fa-arrow-circle-left\"></i>".html_safe, back_url %>
         <% end %>
         <%= title %>
     </h2>
