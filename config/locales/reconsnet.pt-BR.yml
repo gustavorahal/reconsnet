@@ -1,11 +1,12 @@
 pt-BR:
   roles:
     admin: "Administrador"
-    event_manager: "Gestor de Evento"
+    event_admin: "Administrador de Evento"
     participant: "Participante"
     teacher: "Professor"
     volunteer: "Voluntário"
-    volunteer_manager: "Gestor de Voluntário"
+    volunteer_admin: "Administrador de Voluntário"
+    person_admin: "Administrador de Cadastro"
   participation_types:
     student: "Aluno"
     lecturer: "Palestrante/Conferencista"

@@ -19,4 +19,10 @@ module ApplicationHelper
     link_to(name, '#', class: html_class, data: {id: id, fields: fields.gsub('\n', '')})
   end
 
+  def is_volunteer?(user)
+    return false if user.nil?
+    return false if user.person.nil?
+    return user.person.volunteer.present?
+  end
+
 end

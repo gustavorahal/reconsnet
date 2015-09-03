@@ -1,37 +1,44 @@
 class ParticipationPolicy < ApplicationPolicy
 
 
-  # Não voluntários não podem ver as participações
-
   def index?
-    (user.is_admin? or user.is_volunteer?) if user
+    can_manage_event? or user.is_volunteer? if user
   end
 
   def show?
-    (user.is_admin? or user.is_volunteer?) if user
+    can_manage_event? or user.is_volunteer? if user
   end
 
-
-  # Apenas Admin e Gestor de eventos podem editar/modificar
-
   def create?
-    user.is_event_manager? or user.is_admin? if user
+    can_manage_event? if user
   end
 
   def new?
-    user.is_event_manager? or user.is_admin? if user
+    can_manage_event? if user
   end
 
   def update?
-    user.is_event_manager? or user.is_admin? if user
+    can_manage_event? if user
   end
 
   def edit?
-    user.is_event_manager? or user.is_admin? if user
+    can_manage_event? if user
   end
 
   def destroy?
-    user.is_event_manager? or user.is_admin? if user
+    can_manage_event? if user
   end
+
+
+  private
+
+    def can_manage_event?
+      return true if (user.is_admin? or user.is_event_admin?)
+      if record.is_a? Participation
+        # can only get event of participation if dealing with object not class
+        return true if user.has_role? :event_admin, record.event
+      end
+    end
+
 
 end

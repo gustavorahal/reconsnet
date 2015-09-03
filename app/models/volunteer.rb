@@ -23,8 +23,9 @@ Parapedagogia
 Parapercepciografia
 Voluntariado)
 
-  EVENT_MANAGER_ROLE_AREAS = %w(Eventos Jurídico-Financeiro)
-  VOLUNTEER_MANAGER_ROLE_AREAS = %w(Voluntariado)
+  EVENT_ADMIN_ROLE_AREAS = %w(Eventos Jurídico-Financeiro)
+  VOLUNTEER_ADMIN_ROLE_AREAS = %w(Voluntariado)
+  PERSON_ADMIN_ROLE_AREAS = %w(Eventos Voluntariado)
   ADMIN_ROLE_AREAS = %w(Coordenação\ Geral Banco\ de\ Dados)
 
   validates :person, :person_id, presence: true, uniqueness: true
@@ -57,12 +58,14 @@ Voluntariado)
       # Make sure volunteer role is always set
       u.add_role :volunteer
 
-      u.remove_role(:event_manager) if EVENT_MANAGER_ROLE_AREAS.include?(area_of_operation_was)
-      u.remove_role(:volunteer_manager) if VOLUNTEER_MANAGER_ROLE_AREAS.include?(area_of_operation_was)
+      u.remove_role(:person_admin) if PERSON_ADMIN_ROLE_AREAS.include?(area_of_operation_was)
+      u.remove_role(:event_admin) if EVENT_ADMIN_ROLE_AREAS.include?(area_of_operation_was)
+      u.remove_role(:volunteer_admin) if VOLUNTEER_ADMIN_ROLE_AREAS.include?(area_of_operation_was)
       u.remove_role(:admin) if ADMIN_ROLE_AREAS.include?(area_of_operation_was)
 
-      u.add_role(:event_manager) if EVENT_MANAGER_ROLE_AREAS.include?(area_of_operation)
-      u.add_role(:volunteer_manager) if VOLUNTEER_MANAGER_ROLE_AREAS.include?(area_of_operation)
+      u.add_role(:person_admin) if PERSON_ADMIN_ROLE_AREAS.include?(area_of_operation)
+      u.add_role(:event_admin) if EVENT_ADMIN_ROLE_AREAS.include?(area_of_operation)
+      u.add_role(:volunteer_admin) if VOLUNTEER_ADMIN_ROLE_AREAS.include?(area_of_operation)
       u.add_role(:admin) if ADMIN_ROLE_AREAS.include?(area_of_operation)
     end
 

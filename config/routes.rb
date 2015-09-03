@@ -26,6 +26,7 @@ ReconsNet::Application.routes.draw do
     member do
       get 'attendance'
       get 'emails'
+      get 'roles'
       put 'archive'
       put 'unarchive'
     end
@@ -36,5 +37,9 @@ ReconsNet::Application.routes.draw do
   resources :assets
   resources :activities
   get 'versions', to: 'versions#index'
+
+  # Help
+  get 'help' => 'help#index'
+  get ':controller/:action/', controller: 'help'
 
 end

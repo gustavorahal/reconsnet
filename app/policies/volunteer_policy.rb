@@ -9,23 +9,23 @@ class VolunteerPolicy < ApplicationPolicy
   end
 
   def create?
-    user.is_volunteer_manager? or user.is_admin? if user
+    user.is_volunteer_admin? or user.is_admin? if user
   end
 
   def new?
-    user.is_volunteer_manager? or user.is_admin? if user
+    user.is_volunteer_admin? or user.is_admin? if user
   end
 
   def update?
-    user.is_volunteer_manager? or user.is_admin? if user
+    user.is_volunteer_admin? or user.is_admin? if user
   end
 
   def edit?
-    user.is_volunteer_manager? or user.is_admin? if user
+    user.is_volunteer_admin? or user.is_admin? if user
   end
 
   def destroy?
-    user.is_volunteer_manager? or user.is_admin? if user
+    user.is_volunteer_admin? or user.is_admin? if user
   end
 
 end

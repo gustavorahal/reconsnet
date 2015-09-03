@@ -1,0 +1,5 @@
+<%= render 'common/page_title',
+           titulo: "Permissões para #{@event.name}",
+           back_url: event_path(@event) %>
+
+<%= render 'common/list_roles', res: @event %>

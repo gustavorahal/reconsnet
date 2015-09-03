@@ -34,7 +34,7 @@ describe VolunteerPolicy do
 
 
   context 'para alguem do Voluntariado' do
-    let(:user) { create(:user_volunteer_manager_role) }
+    let(:user) { create(:user_volunteer_admin_role) }
 
     it { should permit(:index)          }
     it { should permit(:show)           }

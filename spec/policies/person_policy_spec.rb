@@ -25,6 +25,19 @@ describe PersonPolicy do
 
     it { should permit(:index)          }
     it { should permit(:show)           }
+    it { should_not permit(:create)         }
+    it { should_not permit(:new)            }
+    it { should_not permit(:update)         }
+    it { should_not permit(:edit)           }
+    it { should_not permit(:destroy)        }
+    it { should_not permit(:versions)       }
+  end
+
+  context 'para um administrador de cadastro' do
+    let(:user) { create(:user_person_admin_role) }
+
+    it { should permit(:index)          }
+    it { should permit(:show)           }
     it { should permit(:create)         }
     it { should permit(:new)            }
     it { should permit(:update)         }
@@ -32,7 +45,6 @@ describe PersonPolicy do
     it { should permit(:destroy)        }
     it { should permit(:versions)       }
   end
-
 
 
 

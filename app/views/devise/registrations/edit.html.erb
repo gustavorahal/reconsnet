@@ -8,6 +8,15 @@
 
     <%= f.static_control :name, label: 'Nome' %>
 
+    <div class="form-group">
+      <label class="control-label col-sm-2 required" for="user_name">Papeis</label>
+      <div class="col-sm-4">
+        <p class="form-control-static">
+            <%= roles_friendly_display(resource) %>
+        </p>
+      </div>
+    </div>
+
     <%= f.email_field :email, autocomplete: 'off' %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

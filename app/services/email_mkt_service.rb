@@ -53,7 +53,7 @@ class EmailMktService
   private
 
     def self.get_conn
-      Gibbon::API.new(Rails.application.secrets.mailchimp_api_key)
+      Gibbon::Request.new(api_key: Rails.application.secrets.mailchimp_api_key)
     end
 
     def self.refresh_subscribed_list

@@ -6,15 +6,59 @@ feature 'Participations' do
     sign_in(create :user_admin)
   end
 
-  scenario 'adiciona participante' do
-    event = create :event
+  scenario 'adição de Professor a Evento' do
     person = create :person
+    user = create :user, person: person
+    event = create :event
     visit new_event_participation_path(event.id)
     select person.name, from: 'Pessoa'
     select 'Inscrito', from: 'Status'
     select 'Professor', from: 'Tipo de participação'
     click_on 'Salvar'
+
+    expect(person.user.has_role?(:event_admin, event)).to be true
   end
+
+
+  scenario 'adição de Participante a Evento' do
+    person = create :person
+    user = create :user, person: person
+    event = create :event
+    visit new_event_participation_path(event.id)
+    select person.name, from: 'Pessoa'
+    select 'Inscrito', from: 'Status'
+    select 'Aluno', from: 'Tipo de participação'
+    click_on 'Salvar'
+
+    expect(person.user.has_role?(:participant, event)).to be true
+  end
+
+
+  scenario 'deleção de Participante em Evento' do
+    # Add participation (goes through controller so roles are added acordingly)
+    person = create :person
+    user = create :user, person: person
+    event = create :event
+    visit new_event_participation_path(event.id)
+    select person.name, from: 'Pessoa'
+    select 'Inscrito', from: 'Status'
+    select 'Aluno', from: 'Tipo de participação'
+    click_on 'Salvar'
+
+    part = Participation.first
+    expect(part.person.id).to be person.id
+
+    visit event_path(event)
+
+    expect(page).to have_content "#{person.name} (aluno)"
+    expect(person.user.has_role?(:participant, event)).to be true
+
+    find(:linkhref, event_participation_path(event, part)).click
+
+    expect(page).to_not have_content "#{person.name} (aluno)"
+    expect(person.user.has_role?(:participant, event)).to be false
+  end
+
 
   scenario 'visualiza lista de emails de participantes de um evento' do
     event = create :event

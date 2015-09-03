@@ -11,7 +11,19 @@
     <% end %>
 
     <%= f.collection_select :person_id, Person.all.order('name'), :id, :name, label: 'Pessoa',
+                            include_blank: true, default: nil,
                             control_col: 'col-sm-4', help: 'Associe uma pessoa a este perfil de usuário' %>
+
+    <% roles = @user.roles.pluck(:name) %>
+    <%= f.form_group do %>
+        <%= label_tag 'Papeis globais no site:' %>
+        <br/>
+        <% Role::GLOBAL_ROLES.each do |gr| %>
+            <%= check_box_tag gr, 1, roles.include?(gr)  %>
+            <%= label_tag gr, I18n.t("roles.#{gr}") %>
+            <br/>
+        <% end %>
+    <% end %>
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>

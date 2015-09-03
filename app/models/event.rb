@@ -14,6 +14,7 @@
 #
 
 class Event < ActiveRecord::Base
+  resourcify
 
   include ConflictResolutionable
 
@@ -58,6 +59,11 @@ class Event < ActiveRecord::Base
   end
 
 
+  def safely_destroyable?
+    participations.empty? and tmks.empty? and assets.empty?
+  end
+
+
   def enrolls
     participations.includes(:person).
         where(status: Participation.statuses[:enrolled]).order('people.name')
@@ -74,6 +80,11 @@ class Event < ActiveRecord::Base
     participations.includes(:person).
         where(status: [Participation.statuses[:divulge],
                        Participation.statuses[:interested]]).order(:status, 'people.name')
+  end
+
+
+  def organizers
+    enrolls.where(p_type: Participation::ORGANIZER_P_TYPES)
   end
 
 

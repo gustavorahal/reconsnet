@@ -28,8 +28,5 @@ class TmkPolicy < ApplicationPolicy
     (user.is_admin? or user.is_volunteer?) if user
   end
 
-  def versions?
-    (user.is_admin? or user.is_volunteer?) if user
-  end
 
 end

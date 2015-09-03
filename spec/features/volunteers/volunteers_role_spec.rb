@@ -4,12 +4,12 @@ require 'rails_helper'
 feature 'Mudança de área de atuação muda papeis no sistema' do
 
   let(:user) { create :user }
-  let(:user_volunteer_manager) { create :user_volunteer_manager_role }
+  let(:user_volunteer_admin) { create :user_volunteer_admin_role }
 
 
   before :each do
     # É necessário ser do Voluntariado (ou admin) para poder fazer as alterações de áreas
-    sign_in(user_volunteer_manager)
+    sign_in(user_volunteer_admin)
 
     # Criar pessoa e voluntário fazendo os links necessários entre um e outro
     person = create(:person)
@@ -21,7 +21,7 @@ feature 'Mudança de área de atuação muda papeis no sistema' do
 
   scenario 'Admin muda voluntário para área de Eventos' do
 
-    expect(user.has_role? :event_manager).to be_falsey
+    expect(user.has_role? :event_admin).to be_falsey
     expect(user.has_role? :volunteer).to be_truthy
 
     visit edit_volunteer_path(@volunteer)
@@ -30,7 +30,7 @@ feature 'Mudança de área de atuação muda papeis no sistema' do
 
     # confirma que user tem um novo role setado
     User.find user.id
-    expect(user.has_role? :event_manager).to be_truthy
+    expect(user.has_role? :event_admin).to be_truthy
     expect(user.has_role? :volunteer).to be_truthy
     expect(user.has_role? :admin).to be_falsey
 
@@ -39,7 +39,7 @@ feature 'Mudança de área de atuação muda papeis no sistema' do
 
   scenario 'Admin muda voluntário para área de Voluntariado' do
 
-    expect(user.has_role? :volunteer_manager).to be_falsey
+    expect(user.has_role? :volunteer_admin).to be_falsey
     expect(user.has_role? :volunteer).to be_truthy
 
     visit edit_volunteer_path(@volunteer)
@@ -48,7 +48,7 @@ feature 'Mudança de área de atuação muda papeis no sistema' do
 
     # confirma que user tem um novo role setado
     User.find user.id
-    expect(user.has_role? :volunteer_manager).to be_truthy
+    expect(user.has_role? :volunteer_admin).to be_truthy
     expect(user.has_role? :volunteer).to be_truthy
     expect(user.has_role? :admin).to be_falsey
 

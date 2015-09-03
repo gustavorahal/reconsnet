@@ -61,6 +61,7 @@ class Person < ActiveRecord::Base
   after_commit :unsubscribe_email_mkt, on: [:destroy]
 
   has_one :volunteer, dependent: :destroy
+  has_one :user
   has_many :participations, dependent: :destroy
   has_many :addresses, as: :addressable, dependent: :destroy
   has_many :phone_numbers, as: :phonable, dependent: :destroy

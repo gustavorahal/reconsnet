@@ -29,6 +29,9 @@
           <% end %>
         </ul>
         <ul class="nav navbar-nav pull-right">
+          <% if is_volunteer? current_user %>
+              <%= render 'common/menu/help_menu' %>
+          <% end %>
           <%= render 'common/menu/user_menu' %>
         </ul>
       </div>

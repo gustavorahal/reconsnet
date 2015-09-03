@@ -19,4 +19,6 @@ class Role < ActiveRecord::Base
             :allow_nil => true
 
   scopify
+
+  GLOBAL_ROLES = %w(admin event_admin volunteer_admin person_admin teacher volunteer)
 end

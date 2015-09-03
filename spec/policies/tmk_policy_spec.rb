@@ -6,7 +6,7 @@ describe TmkPolicy do
   let(:tmk) { create(:tmk) }
 
 
-  context 'para um visitante' do
+  context 'visitante' do
     let(:user) { nil }
 
     it { should_not permit(:index)      }
@@ -16,11 +16,10 @@ describe TmkPolicy do
     it { should_not permit(:update)     }
     it { should_not permit(:edit)       }
     it { should_not permit(:destroy)    }
-    it { should_not permit(:versions)   }
   end
 
 
-  context 'para um voluntário' do
+  context 'voluntário' do
     let(:user) { create(:user_volunteer_role) }
 
     it { should permit(:index)          }
@@ -30,10 +29,6 @@ describe TmkPolicy do
     it { should permit(:update)         }
     it { should permit(:edit)           }
     it { should permit(:destroy)        }
-    it { should permit(:versions)       }
   end
-
-
-
 
 end

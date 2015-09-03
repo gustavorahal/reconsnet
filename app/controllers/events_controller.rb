@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :participants, :attendance, :emails, :archive, :unarchive]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :participants, :attendance, :emails, :archive, :unarchive, :roles]
   after_action :verify_authorized
 
   def index
@@ -128,6 +128,9 @@ class EventsController < ApplicationController
         end
       end
     end
+  end
+
+  def roles
   end
 
   private

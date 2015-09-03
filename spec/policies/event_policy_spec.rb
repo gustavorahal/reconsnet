@@ -6,7 +6,7 @@ describe EventPolicy do
   let(:event) { create(:event) }
 
 
-  context 'para um visitante' do
+  context 'visitante' do
     let(:user) { nil }
 
     it { should     permit(:index)      }
@@ -24,7 +24,25 @@ describe EventPolicy do
   end
 
 
-  context 'para um voluntário SEM papel de gestor de eventos' do
+  context 'não voluntário COM papel de Participante no evento em questão' do
+    let(:user) {
+      user = create(:user)
+      user.add_role(:participant, event)
+      user
+    }
+
+    it { should     permit(:index)      }
+    it { should     permit(:show)       }
+
+    it { should_not permit(:create)     }
+    it { should_not permit(:new)        }
+    it { should_not permit(:update)     }
+    it { should_not permit(:edit)       }
+    it { should_not permit(:destroy)    }
+  end
+
+
+  context 'voluntário SEM papel de gestor de eventos global' do
     let(:user) { create(:user_volunteer_role) }
 
     it { should     permit(:index)      }
@@ -43,8 +61,8 @@ describe EventPolicy do
   end
 
 
-  context 'para um voluntário COM papel de gestor de eventos' do
-    let(:user) { create(:user_event_manager_role) }
+  context 'voluntário COM papel de gestor de eventos global' do
+    let(:user) { create(:user_event_admin_role) }
 
     it { should permit(:index)      }
     it { should permit(:show)       }
@@ -59,5 +77,26 @@ describe EventPolicy do
     it { should permit(:unarchive)  }
   end
 
+
+  context 'Voluntário COM papel de gestor de eventos no evento em questão' do
+    let(:user) {
+      user = create(:user_volunteer_role)
+      user.add_role(:event_admin, event)
+      user
+    }
+
+    it { should permit(:index)      }
+    it { should permit(:show)       }
+    it { should permit(:update)     }
+    it { should permit(:edit)       }
+    it { should permit(:emails)     }
+    it { should permit(:attendance) }
+
+    it { should_not permit(:create)     }
+    it { should_not permit(:new)        }
+    it { should_not permit(:destroy)    }
+    it { should_not permit(:archive)    }
+    it { should_not permit(:unarchive)  }
+  end
 
 end

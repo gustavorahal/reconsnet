@@ -1,0 +1,36 @@
+
+<% if policy(@event).edit? %>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        Ações <span class="caret"></span>
+      </button>
+
+      <ul class="dropdown-menu dropdown-menu-right" role="menu">
+        <% unless @event.archived %>
+            <% if policy(@event).edit? %>
+                <li>
+                  <%= link_to 'Editar', edit_event_path(@event) %>
+                </li>
+            <% end %>
+
+            <% if policy(@event).destroy? %>
+                <% @event.safely_destroyable? ? disabled = false : disabled = true%>
+                <li>
+                  <%= link_to 'Deletar',
+                              event_path(@event, page: params[:page], query: params[:query], order: params[:order]),
+                              method: :delete,
+                              data: { confirm: "Você tem certeza que deseja deletar \"#{@event.to_s}\"?" },
+                              disabled: disabled %>
+                </li>
+            <% end %>
+        <% end %>
+
+        <li class="divider"></li>
+
+        <% if policy(@event).roles? %>
+            <li><%= link_to 'Permissões', roles_event_path(@event) %></li>
+        <% end %>
+
+      </ul>
+    </div>
+<% end %>

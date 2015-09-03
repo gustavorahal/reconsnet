@@ -16,16 +16,23 @@ FactoryGirl.define do
       end
     end
 
-    factory :user_event_manager_role do
+    factory :user_event_admin_role do
       after(:build) do |user, evaluator|
-        user.add_role :event_manager
+        user.add_role :event_admin
         user.add_role :volunteer
       end
     end
 
-    factory :user_volunteer_manager_role do
+    factory :user_volunteer_admin_role do
       after(:build) do |user, evaluator|
-        user.add_role :volunteer_manager
+        user.add_role :volunteer_admin
+        user.add_role :volunteer
+      end
+    end
+
+    factory :user_person_admin_role do
+      after(:build) do |user, evaluator|
+        user.add_role :person_admin
         user.add_role :volunteer
       end
     end

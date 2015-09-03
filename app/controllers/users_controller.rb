@@ -17,7 +17,11 @@ class UsersController < ApplicationController
   end
 
   def update
+
     if @user.update(secure_params)
+      Role::GLOBAL_ROLES.each do |gr|
+        params[gr.to_sym] ? @user.add_role(gr.to_sym) : @user.remove_role(gr.to_sym)
+      end
       redirect_to users_path, notice: 'Usuário atualizado!'
     else
       redirect_to users_path, alert:  'Erro atualizando o usuário'

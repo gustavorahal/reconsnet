@@ -1,0 +1,8 @@
+<% res = local_assigns.fetch :res, nil  %>
+
+<% res.applied_roles.each do |r| %>
+    <h4><%= I18n.t("roles.#{r.name}") %></h4>
+    <% r.users.each do |user| %>
+        <%= user.name %><br/>
+    <% end %>
+<% end %>

@@ -16,10 +16,7 @@
 
 <% content_for :actions do %>
     <%= render 'btn_archive' %>
-    <% unless @event.archived %>
-        <%= render 'common/btn_edit', resource: @event %>
-        <%= render 'common/btn_delete', resource: @event %>
-    <% end %>
+    <%= render 'btn_actions' %>
 <% end %>
 
 <br>

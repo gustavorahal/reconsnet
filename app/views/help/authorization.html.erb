@@ -1,0 +1,148 @@
+<%= render 'common/page_title', titulo: 'Autorização e permissões', back_url: 'index' %>
+
+<h3>Introdução</h3>
+<br/>
+<p>Este site foi concebido para cobrir grande parte da demanda de gestão de uma IC além de servir como site institucional
+  e de interação com alunos. Neste sentido, é muito importante haver um esquema de autorização e permissões
+que cubra todas as necessidade tendo em mente a segurança e sigilo dos dados nele armazenados.</p>
+
+
+
+<br/>
+<h3>Quem pode fazer o que?</h3>
+<br/>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Permissão</th>
+      <th class="text-center">Visitante</th>
+      <th class="text-center">Participante (Aluno)</th>
+      <th class="text-center">Professor</th>
+      <th class="text-center">Voluntário</th>
+      <th class="text-center">Administrador</th>
+      <th class="text-center">Administrador de evento</th>
+      <th class="text-center">Administrador de voluntário</th>
+      <th class="text-center">Administrador de cadastro</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Visualizar páginas públicas com informações sobre cursos e atividades.</td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+    </tr>
+    <tr>
+      <td>Acessar arquivos de um evento disponibilizados aos participantes.</td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %> <br/><small>(evento que participou)</small></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+    </tr>
+    <tr>
+      <td>Acessar arquivos de um evento disponibilizados aos professores.</td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+    </tr>
+    <tr>
+      <td>Visualizar cadastro de pessoas.</td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+    </tr>
+    <tr>
+      <td>Editar cadastro de pessoas.</td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+    </tr>
+    <tr>
+      <td>Visualizar cadastro de voluntários.</td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+    </tr>
+    <tr>
+      <td>Editar cadastro de voluntários.</td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+    </tr>
+    <tr>
+      <td>Visualizar participantes de um evento.</td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %> </td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+    </tr>
+    <tr>
+      <td>Editar informações de um evento incluindo adicionar/remover participantes.</td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %> <br/><small>(evento em que é professor)</small></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+    </tr>
+    <tr>
+      <td>Editar as permissões de usuários do site.</td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+<h3>Afinal, que permissões tenho?</h3>
+
+<p>Acesse <em>Editar conta</em> clicando em seu nome no topo superior direito e poderá ver a listagem de papéis
+  globais que possui.</p>

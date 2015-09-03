@@ -55,7 +55,7 @@ feature 'Mostrar partes da página de eventos dependendo do papel do usuário lo
 
     scenario 'mostrar participações, pendências, tmks e btn de ações' do
 
-      user = create :user_event_manager_role
+      user = create :user_event_admin_role
       sign_in user
 
       person = create :person
