@@ -20,7 +20,7 @@
 #
 
 class User < ActiveRecord::Base
-  rolify
+  rolify strict: true
 
   validates_presence_of :name
 

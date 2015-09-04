@@ -5,6 +5,9 @@ def sign_in(user)
   click_button 'Entrar'
 end
 
+def logout
+  click_on 'Sair'
+end
 
 def sign_in_as_volunteer
   volunteer = create :volunteer

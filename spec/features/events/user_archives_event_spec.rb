@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-feature 'Arquivamento de evento por um voluntário' do
+feature 'Arquivamento de evento' do
 
   let(:user) { create :user_admin }
 

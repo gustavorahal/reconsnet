@@ -43,6 +43,13 @@ FactoryGirl.define do
       end
     end
 
+    factory :user_teacher_role do
+      after(:build) do |user, evaluator|
+        user.add_role :teacher
+        user.add_role :volunteer
+      end
+    end
+
     # required if the Devise Confirmable module is used
     # confirmed_at Time.now
   end
@@ -105,6 +112,27 @@ FactoryGirl.define do
   end
 
   factory :asset do
+
+    factory :asset_event_participant_material do
+      after(:build) do |asset, evaluator|
+        event = create :event
+        asset.assetable_id = event.id
+        asset.assetable_type = 'Event'
+        asset.save
+      end
+      asset_type :participant_material
+    end
+
+    factory :asset_event_teacher_material do
+      after(:build) do |asset, evaluator|
+        event = create :event
+        asset.assetable_id = event.id
+        asset.assetable_type = 'Event'
+        asset.save
+      end
+      asset_type :teacher_material
+    end
+
   end
 
   ## This will use the User class (Admin would have been guessed)

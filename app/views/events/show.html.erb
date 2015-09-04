@@ -192,7 +192,7 @@
 
 <!-- Anexos -->
 
-<% if policy(Asset).show? %>
+<% if policy(Asset).show_in_event?(@event) %>
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Anexos
@@ -209,13 +209,11 @@
   </div>
   <div class="panel-body">
 
-    <% if @assets.empty? %>
 
-        Não há anexos
-
-    <% else %>
-
-        <% @assets.each do |asset| %>
+    <% asset_unavaliable = true  %>
+    <% @assets.each do |asset| %>
+        <% if policy(asset).show?  %>
+            <% asset_unavaliable = false %>
             <div>
               <i class="fa fa-file"></i>
               <%= link_to asset.file_file_name, asset.file.url %> <small>(<em><%= I18n.t("asset_types.#{asset.asset_type}") if asset.asset_type.present? %></em>)</small> <small class="text-muted"> em <%= date_display asset.created_at %></small>
@@ -233,9 +231,12 @@
               <% end %>
             </div>
         <% end %>
-
     <% end %>
 
-        </div>
+    <% if asset_unavaliable %>
+        Não há anexos ou não tem permissão para visualiza-los
+    <% end %>
+
+  </div>
 </div>
 <% end %>
