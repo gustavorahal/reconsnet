@@ -16,7 +16,7 @@
 
 class Asset < ActiveRecord::Base
 
-  enum asset_type: { attendance_list: 0, teacher_material: 1, participant_material: 2, other: 99 }
+  enum asset_type: { attendance_list: 0, instructor_material: 1, participant_material: 2, other: 99 }
 
   belongs_to :assetable, :polymorphic => true
 

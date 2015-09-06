@@ -20,5 +20,5 @@ class Role < ActiveRecord::Base
 
   scopify
 
-  GLOBAL_ROLES = %w(admin event_admin volunteer_admin person_admin teacher volunteer)
+  GLOBAL_ROLES = %w(admin event_admin volunteer_admin person_admin instructor volunteer)
 end

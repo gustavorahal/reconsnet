@@ -6,7 +6,7 @@ feature 'Participations' do
     sign_in(create :user_admin)
   end
 
-  scenario 'adição de Professor a Evento' do
+  scenario 'adição de Docente a Evento' do
     person = create :person
     user = create :user, person: person
     event = create :event

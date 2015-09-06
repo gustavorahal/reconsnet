@@ -15,19 +15,19 @@ feature 'Anexo de arquivo a evento' do
     click_on 'Salvar'
   end
 
-  scenario 'admin de evento pode ver material do participante e do professor' do
+  scenario 'admin de evento pode ver material do participante e do docente' do
     event = create :event
     add_asset(event, :participant_material)
-    add_asset(event, :teacher_material)
+    add_asset(event, :instructor_material)
 
     expect(page).to have_content 'capybara.pdf (Material do Participante)'
-    expect(page).to have_content 'capybara.pdf (Material do Professor)'
+    expect(page).to have_content 'capybara.pdf (Material do Docente)'
   end
 
-  scenario 'participante pode ver material do participante mas não do professor' do
+  scenario 'participante pode ver material do participante mas não do docente' do
     event = create :event
     add_asset(event, :participant_material)
-    add_asset(event, :teacher_material)
+    add_asset(event, :instructor_material)
 
     logout
 
@@ -37,13 +37,13 @@ feature 'Anexo de arquivo a evento' do
     sign_in(user)
     visit event_path(event)
     expect(page).to have_content 'capybara.pdf (Material do Participante)'
-    expect(page).to_not have_content 'capybara.pdf (Material do Professor)'
+    expect(page).to_not have_content 'capybara.pdf (Material do Docente)'
   end
 
-  scenario 'visitante não pode ver material do participante nem do professor' do
+  scenario 'visitante não pode ver material do participante nem do docente' do
     event = create :event
     add_asset(event, :participant_material)
-    add_asset(event, :teacher_material)
+    add_asset(event, :instructor_material)
 
     logout
 
@@ -52,23 +52,23 @@ feature 'Anexo de arquivo a evento' do
     sign_in(user)
     visit event_path(event)
     expect(page).to_not have_content 'capybara.pdf (Material do Participante)'
-    expect(page).to_not have_content 'capybara.pdf (Material do Professor)'
+    expect(page).to_not have_content 'capybara.pdf (Material do Docente)'
   end
 
-  scenario 'professor GLOBAL pode ver material do participante e do professor' do
+  scenario 'docente GLOBAL pode ver material do participante e do docente' do
     event = create :event
     add_asset(event, :participant_material)
-    add_asset(event, :teacher_material)
+    add_asset(event, :instructor_material)
 
     logout
 
     user = create :user
-    user.add_role :teacher
+    user.add_role :instructor
 
     sign_in(user)
     visit event_path(event)
     expect(page).to have_content 'capybara.pdf (Material do Participante)'
-    expect(page).to have_content 'capybara.pdf (Material do Professor)'
+    expect(page).to have_content 'capybara.pdf (Material do Docente)'
   end
 
 end

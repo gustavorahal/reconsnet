@@ -16,9 +16,9 @@ describe AssetPolicy do
     it { should_not permit(:destroy)    }
   end
 
-  context 'visitante não pode ver material do professor' do
+  context 'visitante não pode ver material do docente' do
     let(:user) { nil }
-    let(:asset) { create(:asset_event_teacher_material) }
+    let(:asset) { create(:asset_event_instructor_material) }
 
     it { should_not permit(:show)       }
     it { should_not permit(:create)     }
@@ -47,8 +47,8 @@ describe AssetPolicy do
     it { should_not permit(:destroy)    }
   end
 
-  context 'usuário participante em evento NÃO pode ver material do professor' do
-    let(:asset) { create(:asset_event_teacher_material) }
+  context 'usuário participante em evento NÃO pode ver material do docente' do
+    let(:asset) { create(:asset_event_instructor_material) }
 
     let(:user) {
       user = create(:user)
@@ -64,12 +64,12 @@ describe AssetPolicy do
     it { should_not permit(:destroy)    }
   end
 
-  context 'usuário professor em evento pode administrar material do professor' do
-    let(:asset) { create(:asset_event_teacher_material) }
+  context 'usuário docente em evento pode administrar material do docente' do
+    let(:asset) { create(:asset_event_instructor_material) }
 
     let(:user) {
       user = create(:user)
-      user.add_role(:teacher, asset.assetable)
+      user.add_role(:instructor, asset.assetable)
       user
     }
 
@@ -81,12 +81,12 @@ describe AssetPolicy do
     it { should permit(:destroy)    }
   end
 
-  context 'usuário professor GLOBAL só pode ver (não editar) material do professor' do
-    let(:asset) { create(:asset_event_teacher_material) }
+  context 'usuário docente GLOBAL só pode ver (não editar) material do docente' do
+    let(:asset) { create(:asset_event_instructor_material) }
 
     let(:user) {
       user = create(:user)
-      user.add_role(:teacher)
+      user.add_role(:instructor)
       user
     }
 
@@ -99,8 +99,8 @@ describe AssetPolicy do
     it { should_not permit(:destroy)    }
   end
 
-  context 'usuário admin de evento pode administrar material do professor' do
-    let(:asset) { create(:asset_event_teacher_material) }
+  context 'usuário admin de evento pode administrar material do docente' do
+    let(:asset) { create(:asset_event_instructor_material) }
 
     let(:user) {
       user = create(:user)

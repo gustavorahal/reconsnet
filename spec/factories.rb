@@ -43,9 +43,9 @@ FactoryGirl.define do
       end
     end
 
-    factory :user_teacher_role do
+    factory :user_instructor_role do
       after(:build) do |user, evaluator|
-        user.add_role :teacher
+        user.add_role :instructor
         user.add_role :volunteer
       end
     end
@@ -123,14 +123,14 @@ FactoryGirl.define do
       asset_type :participant_material
     end
 
-    factory :asset_event_teacher_material do
+    factory :asset_event_instructor_material do
       after(:build) do |asset, evaluator|
         event = create :event
         asset.assetable_id = event.id
         asset.assetable_type = 'Event'
         asset.save
       end
-      asset_type :teacher_material
+      asset_type :instructor_material
     end
 
   end

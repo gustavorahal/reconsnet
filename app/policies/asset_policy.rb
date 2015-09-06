@@ -5,8 +5,8 @@ class AssetPolicy < ApplicationPolicy
 
     return false unless user
 
-    # Professor global pode ver todos material
-    return true if user.has_role? :teacher
+    # Docente global pode ver todos material
+    return true if user.has_role? :instructor
 
     if record.is_a?(Asset)
       event = record.assetable # assuming event for now
@@ -23,7 +23,7 @@ class AssetPolicy < ApplicationPolicy
 
   def show_in_event?(event)
     return true if can_edit?
-    return true if user.has_role?(:participant, event) or user.has_role?(:teacher, event) or user.has_role?(:teacher)
+    return true if user.has_role?(:participant, event) or user.has_role?(:instructor, event) or user.has_role?(:instructor)
   end
 
   def create?
@@ -54,7 +54,7 @@ class AssetPolicy < ApplicationPolicy
       return true if (user.is_admin? or user.is_event_admin?)
       if record.is_a?(Asset)
         event = record.assetable # assuming event for now
-        return true if user.has_role?(:teacher, event)
+        return true if user.has_role?(:instructor, event)
       end
     end
 

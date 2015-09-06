@@ -10,7 +10,7 @@
 Role.find_or_create_by(name: :admin)
 Role.find_or_create_by(name: :volunteer)
 Role.find_or_create_by(name: :participant)
-Role.find_or_create_by(name: :teacher)
+Role.find_or_create_by(name: :instructor)
 Role.find_or_create_by(name: :event_admin)
 Role.find_or_create_by(name: :volunteer_admin)
 Role.find_or_create_by(name: :person_admin)

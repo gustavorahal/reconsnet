@@ -3,7 +3,7 @@ pt-BR:
     admin: "Administrador"
     event_admin: "Administrador de Evento"
     participant: "Participante"
-    teacher: "Professor"
+    instructor: "Docente"
     volunteer: "Voluntário"
     volunteer_admin: "Administrador de Voluntário"
     person_admin: "Administrador de Cadastro"
@@ -30,7 +30,7 @@ pt-BR:
     evolutionary_duo: "Aplicando técnica da Dupla Evolutiva"
   asset_types:
     attendance_list: "Lista de presença"
-    teacher_material: "Material do Professor"
+    instructor_material: "Material do Docente"
     participant_material: "Material do Participante"
     other: "Outro"
   participation:
