@@ -88,9 +88,11 @@
 <!-- Pendências para fechamento dos participantes -->
 
 <% if policy(Participation).show? and !@event.archived %>
-    <div class="panel panel-primary">
+    <div class="panel panel-danger">
       <div class="panel-heading">
-        <h3 class="panel-title">Pendências <span class="badge"><%= @event.pending_enrollments.count %></span>
+        <% interested_count = @event.interested.count  %>
+        <% divulge_count = @event.divulge.count  %>
+        <h3 class="panel-title">Pendências <span class="badge"><%= interested_count + divulge_count %></span>
           <% unless @event.archived %>
               <div class="pull-right">
                 <%= render 'common/btn_new', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:divulge]),
@@ -100,59 +102,19 @@
         </h3>
       </div>
       <div class="panel-body">
-
         <!-- Tabela de acompanhamento de contatos e divulgação -->
-        <% if @event.pending_enrollments.empty? %>
+        <% if interested_count == 0 and divulge_count == 0 %>
 
             Não há participantes pendentes
 
         <% else %>
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th>Contatar</th>
-            <th>Situação</th>
-            <th>Participação em eventos <small>(3 últimos)</small></th>
-            <th>Contatos TMK (3 últimos)</th>
-            <th></th>
-          </tr>
-          </thead>
-          <tbody>
-          <% @event.pending_enrollments.each do |participation| %>
-              <% person = participation.person %>
-              <tr>
-                <td>
-                  <%= link_to person.name, person_path(person.id) %>
-                  <% unless participation.student? %>
-                      <!-- Por padrão não mostrar se é Aluno, porque este é 99% dos casos -->
-                      <em><%= I18n.t("participation_types.#{participation.p_type}").downcase %></em>
-                  <% end %>
-                  <br>
-                  <%= render 'common/btn_new_tmk', event: @event, with_who: participation.person %>
-                </td>
-                <td><%= I18n.t("participation.status.#{participation.status}") %></td>
-                <td class="col-md-3">
-                    <% person.participations.includes(:event).where.not(event: @event).order('events.start DESC').limit(3).each do |other_part| %>
-                      <small><%= link_to other_part.event.name_with_date, event_path(other_part.event) %></small><br>
-                    <% end %>
-                </td>
-                <td>
-                    <% person.tmks.order('tmks.contact_date DESC').limit(3).each do |tmk| %>
-                      <small><%= tmk_summary_no_with_who tmk, tmk.event == @event  %></small><br>
-                    <% end %>
-                </td>
-                <td>
-                  <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
-                             btn_label: '', size: 'btn-xs', resource: participation %>
-                  <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
-                             btn_label: '', size: 'btn-xs', resource: participation %>
-                </td>
-              </tr>
-          <% end %>
-          </tbody>
-        </table>
+            <br/>
+            <%= render 'pending_participations', title: "Interessados <span class=\"badge\">#{@event.interested.count}</span>",
+                       participations: @event.interested, color: 'warning' %>
+            <br/>
+            <%= render 'pending_participations', title: "Para divulgação <span class=\"badge\">#{@event.divulge.count}</span>",
+                       participations: @event.divulge, color: 'info' %>
         <% end %>
-
       </div>
     </div>
 <% end %>

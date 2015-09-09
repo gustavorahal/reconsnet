@@ -22,6 +22,7 @@ class AssetPolicy < ApplicationPolicy
   # Needed when we don't have the asset object but are checking against the Asset class
 
   def show_in_event?(event)
+    return false unless user
     return true if can_edit?
     return true if user.has_role?(:participant, event) or user.has_role?(:instructor, event) or user.has_role?(:instructor)
   end

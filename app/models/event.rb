@@ -76,10 +76,15 @@ class Event < ActiveRecord::Base
   end
 
 
-  def pending_enrollments
+  def interested
     participations.includes(:person).
-        where(status: [Participation.statuses[:divulge],
-                       Participation.statuses[:interested]]).order(:status, 'people.name')
+        where(status: Participation.statuses[:interested]).order(:status, 'people.name')
+  end
+
+
+  def divulge
+    participations.includes(:person).
+        where(status: Participation.statuses[:divulge]).order(:status, 'people.name')
   end
 
 

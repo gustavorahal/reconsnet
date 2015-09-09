@@ -1,0 +1,54 @@
+<% participations = local_assigns.fetch :participations, [] %>
+<% color = local_assigns.fetch :color, 'default' %>
+<% title = local_assigns.fetch :title, '' %>
+
+
+<div class="panel panel-<%= color %>">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong><%= title.html_safe %></strong></div>
+
+  <!-- Table -->
+  <table class="table">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Últimos eventos</th>
+      <th>Últimos TMKs</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% participations.each do |participation| %>
+        <% person = participation.person %>
+        <tr>
+          <td class="col-md-2">
+            <%= link_to person.name, person_path(person.id) %>
+            <% unless participation.student? %>
+                <!-- Por padrão não mostrar se é Aluno, porque este é 99% dos casos -->
+                <em><%= I18n.t("participation_types.#{participation.p_type}").downcase %></em>
+            <% end %>
+            <br>
+            <%= render 'common/btn_new_tmk', event: @event, with_who: participation.person %>
+          </td>
+          <td class="col-md-3">
+            <% person.participations.includes(:event).where.not(event: @event).order('events.start DESC').limit(3).each do |other_part| %>
+                <small><%= link_to other_part.event.name_with_date, event_path(other_part.event) %></small><br>
+            <% end %>
+          </td>
+          <td>
+            <% person.tmks.order('tmks.contact_date DESC').limit(3).each do |tmk| %>
+                <small><%= tmk_summary_no_with_who tmk, tmk.event == @event  %></small><br>
+            <% end %>
+          </td>
+          <td class="col-md-1">
+            <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
+                       btn_label: '', size: 'btn-xs', resource: participation %>
+            <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
+                       btn_label: '', size: 'btn-xs', resource: participation %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
