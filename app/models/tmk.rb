@@ -8,7 +8,7 @@
 #  event_id     :integer          not null
 #  contact_date :datetime
 #  contact_type :string(255)
-#  notes        :string(255)
+#  notes        :text
 #  created_at   :datetime
 #  updated_at   :datetime
 #
