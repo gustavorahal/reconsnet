@@ -12,7 +12,7 @@ Mostra informações sobre uma atividade e destaca/mostra quando ela ocorrerá (
 <div class="panel panel-default" style="height: 240px; position: relative">
   <div class="panel-body">
     <h4><%= link_to activity.name, activity_path(activity) %> <%= '<small><span class="label label-primary">interno</small>'.html_safe if activity.internal_only %></h4>
-    <p><%= activity.summary %>.</p>
+    <p><%= activity.summary %></p>
   </div>
 
   <% if next_event %>
