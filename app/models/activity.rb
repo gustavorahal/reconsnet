@@ -43,7 +43,7 @@ class Activity < ActiveRecord::Base
   end
 
   def next_event
-    events.where('start > ?', Time.now).take
+    events.where('start > ?', Time.now).order(:start).first
   end
 
   ##
