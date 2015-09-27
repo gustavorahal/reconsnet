@@ -85,14 +85,14 @@
 
 
 
-<!-- Pendências para fechamento dos participantes -->
-
-<% if policy(Participation).show? and !@event.archived %>
+<!-- Pendências para fechamento dos participantes / Tabela de acompanhamento de contatos e divulgação -->
+<% interested_count = @event.interested.count  %>
+<% divulge_count = @event.divulge.count  %>
+<% pending_count = interested_count + divulge_count %>
+<% if policy(Participation).show? and !@event.archived and pending_count > 0 %>
     <div class="panel panel-danger">
       <div class="panel-heading">
-        <% interested_count = @event.interested.count  %>
-        <% divulge_count = @event.divulge.count  %>
-        <h3 class="panel-title">Pendências <span class="badge"><%= interested_count + divulge_count %></span>
+        <h3 class="panel-title">Pendências <span class="badge"><%= pending_count %></span>
           <% unless @event.archived %>
               <div class="pull-right">
                 <%= render 'common/btn_new', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:divulge]),
@@ -102,19 +102,12 @@
         </h3>
       </div>
       <div class="panel-body">
-        <!-- Tabela de acompanhamento de contatos e divulgação -->
-        <% if interested_count == 0 and divulge_count == 0 %>
-
-            Não há participantes pendentes
-
-        <% else %>
-            <br/>
-            <%= render 'pending_participations', title: "Interessados <span class=\"badge\">#{@event.interested.count}</span>",
-                       participations: @event.interested, color: 'warning' %>
-            <br/>
-            <%= render 'pending_participations', title: "Para divulgação <span class=\"badge\">#{@event.divulge.count}</span>",
-                       participations: @event.divulge, color: 'info' %>
-        <% end %>
+        <br/>
+        <%= render 'pending_participations', title: "Interessados <span class=\"badge\">#{@event.interested.count}</span>",
+                   participations: @event.interested, color: 'warning' %>
+        <br/>
+        <%= render 'pending_participations', title: "Para divulgação <span class=\"badge\">#{@event.divulge.count}</span>",
+                   participations: @event.divulge, color: 'info' %>
       </div>
     </div>
 <% end %>

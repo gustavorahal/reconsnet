@@ -72,6 +72,14 @@
       <% @person.phone_numbers.each do |phone| %>
           <%= phone_display(phone) %><br>
       <% end %>
+
+      <% if @person.cpf.present? %>
+          CPF: <%= @person.cpf %><br>
+      <% end %>
+
+      <% if @person.rg.present? %>
+          RG: <%= @person.rg %><br>
+      <% end %>
     </address>
 
     <% @person.addresses.each do |address| %>
