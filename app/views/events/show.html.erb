@@ -102,12 +102,16 @@
         </h3>
       </div>
       <div class="panel-body">
-        <br/>
-        <%= render 'pending_participations', title: "Interessados <span class=\"badge\">#{@event.interested.count}</span>",
+        <% if interested_count > 0 %>
+            <br/>
+            <%= render 'pending_participations', title: "Interessados <span class=\"badge\">#{@event.interested.count}</span>",
                    participations: @event.interested, color: 'warning' %>
-        <br/>
-        <%= render 'pending_participations', title: "Para divulgação <span class=\"badge\">#{@event.divulge.count}</span>",
+        <% end %>
+        <% if divulge_count > 0 %>
+            <br/>
+            <%= render 'pending_participations', title: "Para divulgação <span class=\"badge\">#{@event.divulge.count}</span>",
                    participations: @event.divulge, color: 'info' %>
+        <% end %>
       </div>
     </div>
 <% end %>
