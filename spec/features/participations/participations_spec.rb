@@ -34,6 +34,22 @@ feature 'Participations' do
   end
 
 
+  scenario 'apenas adição de participante deve mostrar btn "Salvar e adicionar outra"' do
+
+    # Mostra na adição de participante
+    person = create :person
+    user = create :user, person: person
+    event = create :event
+    visit new_event_participation_path(event.id)
+    expect(page).to have_button 'Salvar e adicionar outra'
+
+    # Não mostra na edição de participante
+    event = create :event
+    part = create :participation, event: event
+    visit edit_event_participation_path(event.id, part.id)
+    expect(page).to_not have_button 'Salvar e adicionar outra'
+  end
+
   scenario 'deleção de Participante em Evento' do
     # Add participation (goes through controller so roles are added acordingly)
     person = create :person
