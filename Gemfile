@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.5'
 gem 'pg'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -40,7 +40,7 @@ gem 'puma', '~> 2.11.1'
 gem 'gibbon'
 
 # Detecção de gênero baseada em nome
-gem 'gendered', '~> 0.0.7'
+gem 'gendered', '~> 0.0.8'
 
 # Para geração de arquivos em PDF
 gem 'prawn'

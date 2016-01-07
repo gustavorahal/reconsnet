@@ -2,18 +2,6 @@
 module PhoneNumbersHelper
 
 
-  ##
-  # Mostra número de telefone
-  #
-  # O campo label do telefone não é obrigatório, apenas o tipo (se é Fixo ou Celular)
-  # portanto temos 2 formatos para casa label exista ou não
-  #
-  # 1. Com label
-  #    Casa (Fixo): 45 3434 9736 (Vivo)
-  #
-  # 2. Sem label
-  #    Fixo: 45 3434 9736 (Vivo)
-
   def phone_display(phone_number)
     PhoneNumbersHelper.gen_phone_display(phone_number)
   end
@@ -30,6 +18,22 @@ module PhoneNumbersHelper
 
   private
 
+    ##
+    # Mostra número de telefone
+    #
+    # Em relação ao campo 'label', sendo este não obrigatório,
+    # (apenas o 'tipo' é) temos 2 formas:
+    #
+    # 1. Com label
+    #    Casa (Fixo): 45 3434 9736 (Vivo)
+    #
+    # 2. Sem label
+    #    Fixo: 45 3434 9736 (Vivo)
+    #
+    #
+    # Em relação ao codigo internacional, só mostrar se número do telefone não for do Brasil
+
+
     def self.gen_phone_display(phone_number)
       if phone_number.label.present?
         full_label = "#{phone_number.label} (#{phone_number.phone_type})"
@@ -37,7 +41,14 @@ module PhoneNumbersHelper
         full_label = "#{phone_number.phone_type}"
       end
 
-      txt = "#{full_label}: #{phone_number.number.phony_formatted}"
+      if phone_number.number.start_with?('+55') # Brasil
+        p_number = phone_number.number.phony_formatted
+      else
+        # internacional, mostra country code
+        p_number = phone_number.number.phony_formatted(format: :international)
+      end
+
+      txt = "#{full_label}: #{p_number}"
       txt += " (#{phone_number.provider})" if phone_number.provider.present?
 
       txt
