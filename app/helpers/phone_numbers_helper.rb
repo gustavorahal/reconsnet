@@ -41,7 +41,7 @@ module PhoneNumbersHelper
         full_label = "#{phone_number.phone_type}"
       end
 
-      if phone_number.number.start_with?('+55') # Brasil
+      if phone_number.number.start_with?('55') # Brasil
         p_number = phone_number.number.phony_formatted
       else
         # internacional, mostra country code

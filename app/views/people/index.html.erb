@@ -84,7 +84,7 @@
         <td><%= link_to person.name, person_path(person, params) %></td>
         <td><%= person.email %></td>
         <td>
-          <% phones = person.phone_numbers.map { |phone| "#{phone.number.phony_formatted}" } %>
+          <% phones = person.phone_numbers.map { |phone| "#{phone_display(phone)}" } %>
           <%= phones.join(' | ') %>
         </td>
         <td><%= render 'common/btn_edit', resource: person, size: 'btn-xs', btn_label: '' %>
