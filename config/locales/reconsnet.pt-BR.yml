@@ -1,7 +1,7 @@
 pt-BR:
   roles:
     admin: "Administrador"
-    event_admin: "Administrador de Evento"
+    event_admin: "Administrador de Evento e Atividade"
     participant: "Participante"
     instructor: "Docente"
     volunteer: "Voluntário"

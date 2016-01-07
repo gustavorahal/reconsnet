@@ -21,14 +21,14 @@ que cubra todas as necessidade tendo em mente a segurança e sigilo dos dados ne
       <th class="text-center">Docente</th>
       <th class="text-center">Voluntário</th>
       <th class="text-center">Administrador</th>
-      <th class="text-center">Administrador de evento</th>
+      <th class="text-center">Administrador de evento e atividade</th>
       <th class="text-center">Administrador de voluntário</th>
       <th class="text-center">Administrador de cadastro</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Visualizar páginas públicas com informações sobre cursos e atividades.</td>
+      <td>Visualizar páginas públicas com informações sobre cursos e atividades</td>
       <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
       <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
       <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
@@ -39,7 +39,7 @@ que cubra todas as necessidade tendo em mente a segurança e sigilo dos dados ne
       <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
     </tr>
     <tr>
-      <td>Acessar arquivos de um evento disponibilizados aos participantes.</td>
+      <td>Acessar arquivos de um evento disponibilizados aos participantes</td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
       <td class="text-center"><%= fa_icon('check', class: 'text-success') %> <br/><small>(evento que participou)</small></td>
       <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
@@ -50,7 +50,7 @@ que cubra todas as necessidade tendo em mente a segurança e sigilo dos dados ne
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
     </tr>
     <tr>
-      <td>Acessar arquivos de um evento disponibilizados aos docentes.</td>
+      <td>Acessar arquivos de um evento disponibilizados aos docentes</td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
       <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
@@ -61,7 +61,7 @@ que cubra todas as necessidade tendo em mente a segurança e sigilo dos dados ne
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
     </tr>
     <tr>
-      <td>Visualizar cadastro de pessoas.</td>
+      <td>Visualizar pessoas</td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
@@ -72,7 +72,7 @@ que cubra todas as necessidade tendo em mente a segurança e sigilo dos dados ne
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
     </tr>
     <tr>
-      <td>Editar cadastro de pessoas.</td>
+      <td>Criar/editar/deletar pessoas</td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
@@ -83,7 +83,7 @@ que cubra todas as necessidade tendo em mente a segurança e sigilo dos dados ne
       <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
     </tr>
     <tr>
-      <td>Visualizar cadastro de voluntários.</td>
+      <td>Visualizar voluntários</td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
@@ -94,7 +94,7 @@ que cubra todas as necessidade tendo em mente a segurança e sigilo dos dados ne
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
     </tr>
     <tr>
-      <td>Editar cadastro de voluntários.</td>
+      <td>Criar/editar/deletar voluntários</td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
@@ -105,7 +105,7 @@ que cubra todas as necessidade tendo em mente a segurança e sigilo dos dados ne
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
     </tr>
     <tr>
-      <td>Visualizar participantes de um evento.</td>
+      <td>Visualizar participantes de um evento</td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
       <td class="text-center"><%= fa_icon('check', class: 'text-success') %> </td>
@@ -116,7 +116,18 @@ que cubra todas as necessidade tendo em mente a segurança e sigilo dos dados ne
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
     </tr>
     <tr>
-      <td>Editar informações de um evento incluindo adicionar/remover participantes.</td>
+      <td>Criar/editar/deletar um evento</td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+    </tr>
+    <tr>
+      <td>Editar informações de um evento incluindo adicionar/remover participantes</td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
       <td class="text-center"><%= fa_icon('check', class: 'text-success') %> <br/><small>(evento em que é docente)</small></td>
@@ -127,7 +138,29 @@ que cubra todas as necessidade tendo em mente a segurança e sigilo dos dados ne
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
     </tr>
     <tr>
-      <td>Editar as permissões de usuários do site.</td>
+      <td>Arquivar e desarquivar um evento</td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+    </tr>
+    <tr>
+      <td>Criar/editar/deletar atividades</td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %> <br/></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+      <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+    </tr>
+    <tr>
+      <td>Editar as permissões de usuários do site</td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
       <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
@@ -142,14 +175,39 @@ que cubra todas as necessidade tendo em mente a segurança e sigilo dos dados ne
 
 
 <br/>
-<h3>Áreas de Voluntariado e permissões</h3>
+
+<h3>Permissões globais</h3>
+<p>
+  Permissões globais se aplicam a todo conjunto de itens de uma determinada entidade no site.
+  Por exemplo, se você tem a permissão global de "administrar eventos e atividades"
+  pode editar todos os eventos e atividades do site, não apenas os eventos em que foi dado a você permissão de edição.
+  Atualmente existem 5 permissões globais:
+<ul>
+  <li><strong>Administrador</strong>. Tem permissão máxima, acesso a todo o sistema.
+  <li><strong>Administrador de Evento e Atividade</strong>. Pode criar e editar qualquer evento.
+  <li><strong>Administrador de Voluntário</strong>. Pode gerenciar toda a lista de cadastro de voluntários.
+  <li><strong>Administrador de Cadastro</strong>. Pode gerenciar toda a lista de cadastro de pessoas.
+  <li><strong>Docente</strong>. Acesso a todos arquivos docentes de eventos e editar eventos que participou.
+  <li><strong>Voluntário</strong>. Visualiza cadastro de pessoas, acessa material do aluno de eventos etc.
+</ul>
+
+<em>Para maiores detalhes do que cada permissão oferece, checar a tabela acima ("Quem pode fazer o que?")</em>
 <br/>
+<br/>
+
+<h3>Áreas de Voluntariado e permissões globais</h3>
+<br/>
+<p>
+Abaixo estão listadas as permissões globais padrão de acordo com a área de voluntariado. Isso não exclui a possibilidades
+de cada voluntário individualmente ter um conjunto de permissões globais próprias.
+</p>
+
 <table class="table">
   <thead>
   <tr>
     <th>Área de Voluntariado</th>
     <th class="text-center">Administrar site</th>
-    <th class="text-center">Administrar eventos</th>
+    <th class="text-center">Administrar eventos e atividades</th>
     <th class="text-center">Administrar voluntários</th>
     <th class="text-center">Administrar cadastro</th>
   </tr>
@@ -200,7 +258,7 @@ que cubra todas as necessidade tendo em mente a segurança e sigilo dos dados ne
   <tr>
     <td>Parapedagogia</td>
     <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
-    <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
+    <td class="text-center"><%= fa_icon('check', class: 'text-success') %></td>
     <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
     <td class="text-center"><%= fa_icon('ban', class: 'text-danger') %></td>
   </tr>
