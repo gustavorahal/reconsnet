@@ -30,7 +30,11 @@ ReconsNet::Application.routes.draw do
       put 'archive'
       put 'unarchive'
     end
-    resources :participations
+    resources :participations do
+      member do
+        put 'record_attendance'
+      end
+    end
   end
   resources :tmks
   resources :volunteers

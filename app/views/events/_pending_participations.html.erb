@@ -41,10 +41,10 @@
             <% end %>
           </td>
           <td class="col-md-1">
-            <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
-                       btn_label: '', size: 'btn-xs', resource: participation %>
             <%= render 'common/btn_edit', url: edit_event_participation_path(@event, participation),
-                       btn_label: '', size: 'btn-xs', resource: participation %>
+                       btn_label: '', size: 'btn btn-xs', resource: participation %>
+            <%= render 'common/btn_delete', url: event_participation_path(@event, participation),
+                       btn_label: '', size: 'btn btn-xs', resource: participation %>
           </td>
         </tr>
     <% end %>

@@ -29,6 +29,10 @@ class ParticipationPolicy < ApplicationPolicy
     can_manage_event? if user
   end
 
+  def record_attendance?
+    can_manage_event? if user
+  end
+
 
   private
 

@@ -39,6 +39,10 @@ pt-BR:
       interested: "Interessado"
       pre_enrolled: "Pré-inscrito"
       divulge: "Divulgação"
+    attendance:
+      present: "Presente"
+      absent: "Ausente"
+      part_time: "Meio período"
   activerecord:
     models:
       person:
@@ -51,6 +55,8 @@ pt-BR:
         one: "Endereço"
         other: "Endereços"
     attributes:
+      participation:
+        attendance: "Presença"
       person:
         name: "Nome"
         gender: "Gênero"

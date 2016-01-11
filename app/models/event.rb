@@ -103,7 +103,10 @@ class Event < ActiveRecord::Base
     # estados "temporários"
     allow = false if participations.where.not(status: Participation.statuses[:enrolled]).any?
 
-    # Deve existir ao menos uma lista de presença
+    # Todos participantes devem ter sua presença marcada
+    allow = false if participations.where(attendance: nil).any?
+
+    # Deve existir ao menos uma lista de presença escaneada
     allow = false if assets.where(asset_type: Asset.asset_types[:attendance_list]).empty?
 
     allow

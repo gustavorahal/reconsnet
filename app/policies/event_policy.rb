@@ -38,7 +38,7 @@ class EventPolicy < ApplicationPolicy
   end
 
 
-  # Para edição, o gestor de eventos LOCAL do evento em questão tem permissão
+  # Para edição, o gestor de eventos LOCAL do evento em questão tem permissão também
 
   def update?
     can_manage_event? if user
@@ -56,6 +56,10 @@ class EventPolicy < ApplicationPolicy
     can_manage_event? or user.is_volunteer? if user
   end
 
+  # Método do Participations controller
+  def record_attendance?
+    can_manage_event? if user
+  end
 
   private
 

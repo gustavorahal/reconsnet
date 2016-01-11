@@ -27,6 +27,16 @@
                  ),
                  control_col: 'col-sm-3' %>
 
+    <!-- Só faz sentido marcar presença se participante esta inscrito -->
+    <% if @participation.persisted? and @participation.enrolled? %>
+      <%= f.select :attendance,
+                 options_for_select(Participation.attendances.keys.to_a.map { |w| [ I18n.t("participation.attendance.#{w}"), w] },
+                                    @participation.persisted? ? @participation.attendance : Participation.attendances.key(params[:attendance].to_i)
+                 ),
+                 control_col: 'col-sm-3', include_blank: true, default: nil %>
+
+    <% end %>
+
     <%= f.select :p_type,
                  Participation.p_types.keys.to_a.map { |w| [ I18n.t("participation_types.#{w}"), w] },
                  label: 'Tipo de participação ', control_col: 'col-sm-3' %>

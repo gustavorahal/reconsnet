@@ -2,7 +2,7 @@
 class ParticipationsController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :set_participation, only: [:show, :edit, :update, :destroy]
+  before_action :set_participation, only: [:show, :edit, :update, :destroy, :record_attendance]
   after_action :verify_authorized
 
   def new
@@ -59,6 +59,18 @@ class ParticipationsController < ApplicationController
   end
 
 
+  def record_attendance
+    if params[:attendance].present?
+      @participation.attendance = params[:attendance].to_i
+      if @participation.save
+        redirect_to event_path(@participation.event)
+      else
+        redirect_to event_path(@participation.event), alert: "Erro ao tentar marcar presença para #{@participation.person.name}"
+      end
+    end
+  end
+
+
   private
 
     ##
@@ -93,7 +105,7 @@ class ParticipationsController < ApplicationController
     end
 
     def secure_params
-      params.require(:participation).permit(:person_id, :event_id, :p_type, :status, :original_updated_at)
+      params.require(:participation).permit(:person_id, :event_id, :p_type, :status, :attendance, :original_updated_at)
     end
 
 end

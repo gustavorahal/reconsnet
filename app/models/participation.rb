@@ -26,6 +26,8 @@ class Participation < ActiveRecord::Base
                 teacher_intro: 8 }
 
 
+  enum attendance: { present: 0, part_time: 1, absent: 2}
+
   # Participation types that are considered event organizers
   ORGANIZER_P_TYPES = [ p_types[:teacher],
                         p_types[:teacher_theme],

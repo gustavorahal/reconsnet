@@ -16,6 +16,7 @@ describe ParticipationPolicy do
     it { should_not permit(:update)     }
     it { should_not permit(:edit)       }
     it { should_not permit(:destroy)    }
+    it { should_not permit(:record_attendance)    }
   end
 
 
@@ -33,6 +34,7 @@ describe ParticipationPolicy do
     it { should_not permit(:update)     }
     it { should_not permit(:edit)       }
     it { should_not permit(:destroy)    }
+    it { should_not permit(:record_attendance)    }
   end
 
 
@@ -47,6 +49,7 @@ describe ParticipationPolicy do
     it { should_not permit(:update)     }
     it { should_not permit(:edit)       }
     it { should_not permit(:destroy)    }
+    it { should_not permit(:record_attendance)    }
   end
 
 
@@ -60,6 +63,7 @@ describe ParticipationPolicy do
     it { should permit(:update)     }
     it { should permit(:edit)       }
     it { should permit(:destroy)    }
+    it { should permit(:record_attendance)    }
   end
 
   context 'Voluntário COM papel de gestor de eventos no evento em questão' do
@@ -76,6 +80,7 @@ describe ParticipationPolicy do
     it { should permit(:update)     }
     it { should permit(:edit)       }
     it { should permit(:destroy)    }
+    it { should permit(:record_attendance)    }
   end
 
 
