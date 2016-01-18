@@ -6,5 +6,5 @@
 
 <% if policy(resource).edit? %>
     <%= link_to "<i title=\"Editar\" class=\"fa fa-pencil text-info\"></i> #{btn_label}".html_safe,
-                url, class: "btn btn-default #{size}", disabled: disabled %>
+                url, class: "btn btn-link #{size}", disabled: disabled %>
 <% end %>

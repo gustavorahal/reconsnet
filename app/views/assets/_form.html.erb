@@ -15,8 +15,12 @@
         <%= f.file_field :file %>
     <% end %>
 
-    <%= f.select :asset_type, Asset.asset_types.keys.to_a.map { |w| [ I18n.t("asset_types.#{w}"), w] },
-                 include_blank: true, control_col: 'col-sm-3' %>
+    <% if params[:asset_type].present? %>
+        <%= f.hidden_field :asset_type, value: params[:asset_type] %>
+    <% else %>
+        <%= f.select :asset_type, Asset.asset_types.keys.to_a.map { |w| [ I18n.t("asset_types.#{w}"), w] },
+                     include_blank: true, control_col: 'col-sm-3' %>
+    <% end %>
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>

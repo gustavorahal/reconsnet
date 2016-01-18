@@ -11,8 +11,10 @@ feature 'Arquivamento de evento' do
 
   scenario 'evento não tem restrições para ser arquivado' do
     event = create(:event)
-    part1 = create :participation, p_type: Participation.p_types[:student], event: event
-    part2 = create :participation, p_type: Participation.p_types[:teacher], event: event
+    part1 = create :participation, p_type: Participation.p_types[:student], event: event,
+                   attendance: Participation.attendances[:present]
+    part2 = create :participation, p_type: Participation.p_types[:teacher], event: event,
+                   attendance: Participation.attendances[:present]
     asset = create :asset, asset_type: Asset.asset_types[:attendance_list],
                    assetable_id: event.id, assetable_type: 'Event'
 
@@ -33,7 +35,8 @@ feature 'Arquivamento de evento' do
 
   scenario 'evento tem participações pendentes, não inscritos' do
     event = create(:event)
-    part1 = create :participation, p_type: Participation.p_types[:student], status: Participation.statuses[:pre_enrolled], event: event
+    part1 = create :participation, p_type: Participation.p_types[:student],
+                   status: Participation.statuses[:pre_enrolled], event: event
     part2 = create :participation, p_type: Participation.p_types[:teacher], event: event
     asset = create :asset, asset_type: Asset.asset_types[:attendance_list],
                    assetable_id: event.id, assetable_type: 'Event'
@@ -49,8 +52,10 @@ feature 'Arquivamento de evento' do
 
   scenario 'evento não tem lista de presença anexada' do
     event = create(:event)
-    part1 = create :participation, p_type: Participation.p_types[:student], event: event
-    part2 = create :participation, p_type: Participation.p_types[:teacher], event: event
+    part1 = create :participation, p_type: Participation.p_types[:student], event: event,
+                   attendance: Participation.attendances[:present]
+    part2 = create :participation, p_type: Participation.p_types[:teacher], event: event,
+                   attendance: Participation.attendances[:present]
     asset = create :asset, asset_type: Asset.asset_types[:participant_material],
                    assetable_id: event.id, assetable_type: 'Event'
 

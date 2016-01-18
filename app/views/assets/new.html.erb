@@ -1,3 +1,4 @@
-<%= render 'common/page_title', titulo: 'Novo anexo' %>
+<% title_frag = params[:asset_type].present? ? I18n.t("asset_types.#{params[:asset_type]}"): 'anexo' %>
+<%= render 'common/page_title', titulo: "Adicionar <em>#{title_frag}</em>".html_safe  %>
 
 <%= render 'form' %>

@@ -27,175 +27,158 @@
 <br>
 
 
-<!-- Participantes -->
-<% if policy(Participation).show? %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Participantes
-          <div class="pull-right">
-            <%= link_to '<i class="fa fa-envelope"></i> E-mails'.html_safe,
-                        emails_event_path(@event), class: 'btn btn-xs btn-default' %>
-            <% unless @event.archived %>
-                <%= link_to '<i class="fa fa-users"></i> Gerar lista de presença'.html_safe,
-                        attendance_event_path(@event, format: :pdf), class: 'btn btn-xs btn-default' %>
-                <%= render 'common/btn_new', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:enrolled]),
-                       btn_label: 'Nova participação', size: 'btn-xs', resource: @event %>
+
+<div class="row">
+
+  <!--
+
+    Corpo
+
+  -->
+  <div class="col-xs-8">
+    <!-- Participantes -->
+    <% if policy(Participation).show? %>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Participantes
+              <div class="pull-right">
+                <%= link_to '<i class="fa fa-envelope"></i> E-mails'.html_safe,
+                            emails_event_path(@event), class: 'btn btn-xs btn-default' %>
+                <% unless @event.archived %>
+                    <%= link_to '<i class="fa fa-users"></i> Gerar lista de presença'.html_safe,
+                            attendance_event_path(@event, format: :pdf), class: 'btn btn-xs btn-default' %>
+                    <%= render 'common/btn_new', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:enrolled]),
+                           btn_label: 'Nova participação', size: 'btn-xs', resource: @event %>
+                <% end %>
+              </div>
+            </h3>
+          </div>
+          <div class="panel-body">
+
+            <!--
+                Equipe docente
+            -->
+            <% organizers = @event.enrolls.where(p_type: Participation::ORGANIZER_P_TYPES)  %>
+            <h5>Equipe Docente <span class="badge"><%= organizers.count %></span></h5>
+            <br>
+            <%= render 'list_participations',
+                       participations: organizers,
+                       msg_when_empty: 'Não existe equipe docente para este evento' %>
+            <br/>
+
+
+            <!--
+                Alunos inscritos
+            -->
+            <% student_enrolls = @event.enrolls.where.not(p_type: Participation::ORGANIZER_P_TYPES) %>
+            <h5>Alunos inscritos <span class="badge"><%= student_enrolls.count %></span></h5>
+            <br>
+            <%= render 'list_participations',
+                       participations: student_enrolls,
+                       hide_ptype: true,
+                       msg_when_empty: 'Não existem inscritos para este evento' %>
+            <br/>
+
+
+            <!--
+                Pré-inscritos
+            -->
+            <% pre_enrolls = @event.pre_enrolls  %>
+            <h5>Pré-inscritos <span class="badge"><%= pre_enrolls.count %></span></h5>
+            <br>
+            <%= render 'list_participations',
+                       participations: pre_enrolls,
+                       msg_when_empty: 'Não existem pré-inscritos para este evento' %>
+
+
+          </div>
+        </div>
+
+    <% end %>
+
+
+
+    <!-- Pendências para fechamento dos participantes / Tabela de acompanhamento de contatos e divulgação -->
+    <% interested_count = @event.interested.count  %>
+    <% divulge_count = @event.divulge.count  %>
+    <% pending_count = interested_count + divulge_count %>
+    <% if policy(Participation).show? and !@event.archived and pending_count > 0 %>
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <h3 class="panel-title">Pendências <span class="badge"><%= pending_count %></span>
+              <% unless @event.archived %>
+                  <div class="pull-right">
+                    <%= render 'common/btn_new', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:divulge]),
+                               size: 'btn-xs', btn_label: 'Nova participação', resource: @event %>
+                  </div>
+              <% end %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <% if interested_count > 0 %>
+                <br/>
+                <%= render 'pending_participations', title: "Interessados <span class=\"badge\">#{@event.interested.count}</span>",
+                       participations: @event.interested, color: 'warning' %>
+            <% end %>
+            <% if divulge_count > 0 %>
+                <br/>
+                <%= render 'pending_participations', title: "Para divulgação <span class=\"badge\">#{@event.divulge.count}</span>",
+                       participations: @event.divulge, color: 'info' %>
             <% end %>
           </div>
-        </h3>
-      </div>
-      <div class="panel-body">
-
-        <!--
-            Equipe docente
-        -->
-        <% organizers = @event.enrolls.where(p_type: Participation::ORGANIZER_P_TYPES)  %>
-        <h5>Equipe Docente <span class="badge"><%= organizers.count %></span></h5>
-        <%= render 'list_participations',
-                   participations: organizers,
-                   msg_when_empty: 'Não existe equipe docente para este evento' %>
-        <br/>
-
-
-        <!--
-            Alunos inscritos
-        -->
-        <% student_enrolls = @event.enrolls.where.not(p_type: Participation::ORGANIZER_P_TYPES) %>
-        <h5>Alunos inscritos <span class="badge"><%= student_enrolls.count %></span></h5>
-        <%= render 'list_participations',
-                   participations: student_enrolls,
-                   msg_when_empty: 'Não existem inscritos para este evento' %>
-        <br/>
-
-
-        <!--
-            Pré-inscritos
-        -->
-        <% pre_enrolls = @event.pre_enrolls  %>
-        <h5>Pré-inscritos <span class="badge"><%= pre_enrolls.count %></span></h5>
-        <%= render 'list_participations',
-                   participations: pre_enrolls,
-                   msg_when_empty: 'Não existem pré-inscritos para este evento' %>
-
-
-      </div>
-    </div>
-
-<% end %>
+        </div>
+    <% end %>
 
 
 
-<!-- Pendências para fechamento dos participantes / Tabela de acompanhamento de contatos e divulgação -->
-<% interested_count = @event.interested.count  %>
-<% divulge_count = @event.divulge.count  %>
-<% pending_count = interested_count + divulge_count %>
-<% if policy(Participation).show? and !@event.archived and pending_count > 0 %>
-    <div class="panel panel-danger">
+    <!-- TMKs -->
+    <% if policy(Tmk).show? %>
+    <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Pendências <span class="badge"><%= pending_count %></span>
-          <% unless @event.archived %>
-              <div class="pull-right">
-                <%= render 'common/btn_new', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:divulge]),
-                           size: 'btn-xs', btn_label: 'Nova participação', resource: @event %>
-              </div>
-          <% end %>
+        <h3 class="panel-title">TMKs <span class="badge"><%= @event.tmks.count %></span>
         </h3>
       </div>
       <div class="panel-body">
-        <% if interested_count > 0 %>
-            <br/>
-            <%= render 'pending_participations', title: "Interessados <span class=\"badge\">#{@event.interested.count}</span>",
-                   participations: @event.interested, color: 'warning' %>
+
+        <% if @event.tmks.empty? %>
+
+            Nenhum TMK foi realizado
+
+        <% else %>
+
+            <% @event.tmks.order('tmks.contact_date DESC').each do |tmk| %>
+                <div>
+                  <%= tmk_summary_no_event(tmk) %>
+                  <% unless @event.archived %>
+                    <%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
+                  <% end %>
+                </div>
+                <br>
+            <% end %>
+
         <% end %>
-        <% if divulge_count > 0 %>
-            <br/>
-            <%= render 'pending_participations', title: "Para divulgação <span class=\"badge\">#{@event.divulge.count}</span>",
-                   participations: @event.divulge, color: 'info' %>
-        <% end %>
+
       </div>
     </div>
-<% end %>
+    <% end %>
+
+    </div>
 
 
 
-<!-- TMKs -->
-<% if policy(Tmk).show? %>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">TMKs <span class="badge"><%= @event.tmks.count %></span>
-    </h3>
-  </div>
-  <div class="panel-body">
 
-    <% if @event.tmks.empty? %>
+  <!--
 
-        Nenhum TMK foi realizado
+     Lateral
 
-    <% else %>
+  -->
 
-        <% @event.tmks.order('tmks.contact_date DESC').each do |tmk| %>
-            <p>
-              <%= tmk_summary_no_event(tmk) %>
-              <% unless @event.archived %>
-                <%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
-              <% end %>
-            </p>
-        <% end %>
+  <div class="col-xs-4">
 
+    <% if policy(Asset).show_in_event?(@event) %>
+        <%= render 'assets' %>
     <% end %>
 
   </div>
+
 </div>
-<% end %>
-
-
-<!-- Anexos -->
-
-<% if policy(Asset).show_in_event?(@event) %>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Anexos
-      <% unless @event.archived %>
-          <div class="pull-right">
-            <%= render 'common/btn_new', url: new_asset_path(assetable_id: @event.id,
-                                                             assetable_type: 'Event'),
-                       size: 'btn-xs',
-                       btn_label: 'Novo anexo',
-                       resource: Asset.new %>
-          </div>
-      <% end %>
-    </h3>
-  </div>
-  <div class="panel-body">
-
-
-    <% asset_unavaliable = true  %>
-    <% @assets.each do |asset| %>
-        <% if policy(asset).show?  %>
-            <% asset_unavaliable = false %>
-            <div>
-              <i class="fa fa-file"></i>
-              <%= link_to asset.file_file_name, asset.file.url %> <small>(<em><%= I18n.t("asset_types.#{asset.asset_type}") if asset.asset_type.present? %></em>)</small> <small class="text-muted"> em <%= date_display asset.created_at %></small>
-              <span class="pull-right text-muted"><%= number_to_human_size asset.file.size %></span>
-
-              <% unless @event.archived %>
-                  <%= render 'common/btn_edit', btn_label: '', url: edit_asset_path(asset,
-                                                                                    assetable_id: @event.id,
-                                                                                    assetable_type: 'Event'),
-                                                                size: 'btn-xs', resource: asset %>
-                  <%= render 'common/btn_delete', btn_label: '', url: asset_path(asset,
-                                                                                 assetable_id: @event.id,
-                                                                                 assetable_type: 'Event'),
-                                                                 size: 'btn-xs', resource: asset %>
-              <% end %>
-            </div>
-        <% end %>
-    <% end %>
-
-    <% if asset_unavaliable %>
-        Não há anexos ou não tem permissão para visualiza-los
-    <% end %>
-
-  </div>
-</div>
-<% end %>

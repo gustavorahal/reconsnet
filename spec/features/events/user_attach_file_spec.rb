@@ -9,8 +9,7 @@ feature 'Anexo de arquivo a evento' do
 
   def add_asset(event, asset_type)
     visit event_path(event)
-    click_on 'Novo anexo'
-    select I18n.t("asset_types.#{asset_type}")
+    click_on I18n.t("asset_types.#{asset_type}")
     page.attach_file 'Arquivo', 'spec/data/capybara.pdf'
     click_on 'Salvar'
   end
@@ -20,8 +19,8 @@ feature 'Anexo de arquivo a evento' do
     add_asset(event, :participant_material)
     add_asset(event, :instructor_material)
 
-    expect(page).to have_content 'capybara.pdf (Material do Participante)'
-    expect(page).to have_content 'capybara.pdf (Material do Docente)'
+    expect(page).to have_content 'Material do Participante capybara.pdf'
+    expect(page).to have_content 'Material do Docente capybara.pdf'
   end
 
   scenario 'participante pode ver material do participante mas não do docente' do
@@ -36,8 +35,8 @@ feature 'Anexo de arquivo a evento' do
 
     sign_in(user)
     visit event_path(event)
-    expect(page).to have_content 'capybara.pdf (Material do Participante)'
-    expect(page).to_not have_content 'capybara.pdf (Material do Docente)'
+    expect(page).to have_content 'Material do Participante capybara.pdf'
+    expect(page).to_not have_content 'Material do Docente capybara.pdf'
   end
 
   scenario 'visitante não pode ver material do participante nem do docente' do
@@ -51,8 +50,8 @@ feature 'Anexo de arquivo a evento' do
 
     sign_in(user)
     visit event_path(event)
-    expect(page).to_not have_content 'capybara.pdf (Material do Participante)'
-    expect(page).to_not have_content 'capybara.pdf (Material do Docente)'
+    expect(page).to_not have_content 'Material do Participante capybara.pdf'
+    expect(page).to_not have_content 'Material do Docente capybara.pdf'
   end
 
   scenario 'docente GLOBAL pode ver material do participante e do docente' do
@@ -67,8 +66,8 @@ feature 'Anexo de arquivo a evento' do
 
     sign_in(user)
     visit event_path(event)
-    expect(page).to have_content 'capybara.pdf (Material do Participante)'
-    expect(page).to have_content 'capybara.pdf (Material do Docente)'
+    expect(page).to have_content 'Material do Participante capybara.pdf'
+    expect(page).to have_content 'Material do Docente capybara.pdf'
   end
 
 end

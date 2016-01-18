@@ -10,10 +10,10 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 
 # UI/Web
-gem 'sass-rails', '~> 4.0.0'
-gem 'bootstrap-sass', '~> 3.3.5'
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'sass-rails', '>= 3.2'
 gem 'font-awesome-rails'
-gem 'autoprefixer-rails', '~> 5.0.0.1' # recommended for bootstrap-sass
+gem 'autoprefixer-rails', '>= 5.2.1' # recommended for bootstrap-sass
 gem 'bootstrap_form'
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
@@ -34,7 +34,7 @@ gem 'devise'
 gem 'paperclip', '~> 4.2'
 gem 'paper_trail', '~> 4.0.0'
 
-gem 'puma', '~> 2.11.1'
+gem 'puma', '~> 2.15.3'
 
 # mailchimp api wrapper
 gem 'gibbon'

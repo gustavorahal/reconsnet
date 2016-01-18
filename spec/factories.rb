@@ -99,7 +99,7 @@ FactoryGirl.define do
   factory :participation do
     person { |c| c.association(:person) }
     event { |c| c.association(:event) }
-    status 0
+    status Participation.statuses[:enrolled]
     p_type Participation.p_types[:teacher]
   end
 
@@ -112,6 +112,9 @@ FactoryGirl.define do
   end
 
   factory :asset do
+
+    file_file_name 'lista_de_presenca.pdf'
+    file_file_size 1234
 
     factory :asset_event_participant_material do
       after(:build) do |asset, evaluator|

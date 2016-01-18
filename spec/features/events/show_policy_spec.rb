@@ -33,9 +33,12 @@ feature 'Mostrar partes da página de eventos dependendo do papel do usuário lo
       user = create :user_volunteer_role
       sign_in user
 
-      person = create :person
+      person1 = create :person
+      person2 = create :person
       event = create :event
-      create :participation, person: person, event: event
+      create :participation, person: person1, event: event, status: Participation.statuses[:enrolled]
+      create :participation, person: person2, event: event, status: Participation.statuses[:divulge]
+
 
       visit event_path(event)
 
@@ -58,9 +61,11 @@ feature 'Mostrar partes da página de eventos dependendo do papel do usuário lo
       user = create :user_event_admin_role
       sign_in user
 
-      person = create :person
+      person1 = create :person
+      person2 = create :person
       event = create :event
-      create :participation, person: person, event: event
+      create :participation, person: person1, event: event, status: Participation.statuses[:enrolled]
+      create :participation, person: person2, event: event, status: Participation.statuses[:divulge]
 
       visit event_path(event)
 

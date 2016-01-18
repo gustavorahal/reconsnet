@@ -1,47 +1,53 @@
 <% participations = local_assigns.fetch :participations, nil %>
 <% msg_when_empty = local_assigns.fetch :msg_when_empty, '' %>
+<% hide_ptype = local_assigns.fetch :hide_ptype, false  %>
 
 <% empty = true %>
 <% participations.each do |part| %>
     <% empty = false %>
     <div>
       <%= link_to part.person.name, person_path(part.person.id) %>
-      <em>(<%= I18n.t("participation_types.#{part.p_type}").downcase %>)</em>
+      <% unless hide_ptype  %>
+        <em>(<%= I18n.t("participation_types.#{part.p_type}").downcase %>)</em>
+      <% end  %>
 
-      <% if part.present? or part.part_time? %>
-          &nbsp;<i class="fa fa-thumbs-up text-success" title="<%= I18n.t("participation.attendance.#{part.attendance}") %>"></i>&nbsp;
-      <% elsif part.absent? %>
-          &nbsp;<i class="fa fa-thumbs-down text-danger" title="<%= I18n.t("participation.attendance.#{part.attendance}") %>"></i>&nbsp;
-      <% end %>
+      <span class="pull-right">
+        <% if part.present? or part.part_time? %>
+            &nbsp;<i class="fa fa-thumbs-up text-success" title="<%= I18n.t("participation.attendance.#{part.attendance}") %>"></i>&nbsp;
+        <% elsif part.absent? %>
+            &nbsp;<i class="fa fa-thumbs-down text-danger" title="<%= I18n.t("participation.attendance.#{part.attendance}") %>"></i>&nbsp;
+        <% end %>
 
-      <% unless @event.archived %>
-          <!-- Só faz sentido marcar presença se participante esta inscrito -->
-          <% if part.enrolled? and part.attendance.nil? %>
-              &nbsp;
-              <small>
-                <%= link_to '<i class="fa fa-thumbs-up text-success"></i> Presente'.html_safe,
-                            record_attendance_event_participation_path(@event, part,
-                                                                       attendance: Participation.attendances[:present]),
-                                                                       method: :put, class: 'btn btn-default btn-xs' %>
-                <%= link_to '<i class="fa fa-thumbs-up text-success"></i> Presente meio período'.html_safe,
-                            record_attendance_event_participation_path(@event, part,
-                                                                       attendance: Participation.attendances[:part_time]),
-                                                                       method: :put, class: 'btn btn-default btn-xs' %>
-                <%= link_to '<i class="fa fa-thumbs-down text-danger"></i> Ausente'.html_safe,
-                            record_attendance_event_participation_path(@event, part,
-                                                                       attendance: Participation.attendances[:absent]),
-                                                                       method: :put, class: 'btn btn-default btn-xs' %>
-              </small>
-          <% end %>
+        <% unless @event.archived %>
+            <!-- Só faz sentido marcar presença se participante esta inscrito -->
+            <% if part.enrolled? and part.attendance.nil? %>
+                &nbsp;
+                <small>
+                  <%= link_to '<i class="fa fa-thumbs-up text-success"></i> Presente'.html_safe,
+                              record_attendance_event_participation_path(@event, part,
+                                                                         attendance: Participation.attendances[:present]),
+                                                                         method: :put, class: 'btn btn-link btn-xs' %>
+                  <%= link_to '<i class="fa fa-thumbs-up text-success"></i> Presente meio período'.html_safe,
+                              record_attendance_event_participation_path(@event, part,
+                                                                         attendance: Participation.attendances[:part_time]),
+                                                                         method: :put, class: 'btn btn-link btn-xs' %>
+                  <%= link_to '<i class="fa fa-thumbs-down text-danger"></i> Ausente'.html_safe,
+                              record_attendance_event_participation_path(@event, part,
+                                                                         attendance: Participation.attendances[:absent]),
+                                                                         method: :put, class: 'btn btn-link btn-xs' %>
+                </small>
+            <% end %>
 
-          <%= render 'common/btn_edit', url: edit_event_participation_path(@event, part),
-                     btn_label: '', size: 'btn btn-default btn-xs', resource: part %>
+            <%= render 'common/btn_edit', url: edit_event_participation_path(@event, part),
+                       btn_label: '', size: 'btn btn-default btn-xs', resource: part %>
 
-          <%= render 'common/btn_delete', url: event_participation_path(@event, part),
-                     btn_label: '', size: 'btn btn-default btn-xs', resource: part %>
+            <%= render 'common/btn_delete', url: event_participation_path(@event, part),
+                       btn_label: '', size: 'btn btn-default btn-xs', resource: part %>
 
-      <% end %>
+        <% end %>
+      </span>
     </div>
+    <hr>
 <% end %>
 
 <%= "<p>#{msg_when_empty}</p>".html_safe if empty %>

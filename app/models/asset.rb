@@ -16,11 +16,16 @@
 
 class Asset < ActiveRecord::Base
 
-  enum asset_type: { attendance_list: 0, instructor_material: 1, participant_material: 2, other: 99 }
+  enum asset_type: { attendance_list: 0,
+                     instructor_material: 1,
+                     participant_material: 2,
+                     leaflet: 3,
+                     other: 99 }
 
   belongs_to :assetable, :polymorphic => true
 
   has_attached_file :file
+  validates_presence_of :asset_type
   validates_attachment_content_type :file, content_type: %w(application/vnd.ms-excel
                                                            application/vnd.ms-powerpoint
                                                            application/msword

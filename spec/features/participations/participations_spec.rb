@@ -66,12 +66,12 @@ feature 'Participations' do
 
     visit event_path(event)
 
-    expect(page).to have_content "#{person.name} (aluno)"
+    expect(page).to have_content "#{person.name}"
     expect(person.user.has_role?(:participant, event)).to be true
 
     find(:linkhref, event_participation_path(event, part)).click
 
-    expect(page).to_not have_content "#{person.name} (aluno)"
+    expect(page).to_not have_content "#{person.name}"
     expect(person.user.has_role?(:participant, event)).to be false
   end
 

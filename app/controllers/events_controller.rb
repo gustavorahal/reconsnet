@@ -14,7 +14,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    @assets = @event.assets
+    @assets = @event.assets.order(:asset_type)
   end
 
   def new

@@ -32,6 +32,7 @@ pt-BR:
     attendance_list: "Lista de presença"
     instructor_material: "Material do Docente"
     participant_material: "Material do Participante"
+    leaflet: "Folder"
     other: "Outro"
   participation:
     status:
