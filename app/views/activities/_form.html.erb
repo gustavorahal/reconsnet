@@ -6,6 +6,9 @@
     <%= f.text_field :name, label: 'Nome', control_col: 'col-sm-5' %>
     <%= f.text_area :summary, label: 'Sumário', control_col: 'col-sm-8', rows: 4, maxlength: 400,
                      help: 'Descreva em poucas palavras o que é esta atividade. Suporta tags HTML, por exemplo <i></i> para itálico e <b></b> para negrito. <strong>Máximo de 400 caracteres</strong>'.html_safe %>
+
+    <%= render 'common/avatar_field', form: f, resource: @activity %>
+
     <%= f.select :activity_type, Activity::TYPES, label: 'Tipo de atividade', control_col: 'col-sm-3' %>
     <!-- Por ora não queremos aninhar mais que um nível as atividades portanto excluir atividades
     que tem um pai -->

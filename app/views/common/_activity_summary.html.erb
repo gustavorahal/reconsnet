@@ -9,15 +9,22 @@ Mostra informações sobre uma atividade e destaca/mostra quando ela ocorrerá (
 <% activity = local_assigns.fetch :activity, nil %>
 <% next_event = activity.next_event %>
 
-<div class="panel panel-default" style="height: 240px; position: relative">
-  <div class="panel-body">
+
+<div class="thumbnail" style="height: 350px;">
+
+  <% if activity.avatar.present? %>
+      <%= image_tag activity.avatar.url(:medium) %>
+  <% else %>
+      <%= holder_tag '350x170', activity.name %>
+  <% end %>
+
+  <div class="caption">
     <h4><%= link_to activity.name, activity_path(activity) %> <%= '<small><span class="label label-primary">interno</small>'.html_safe if activity.internal_only %></h4>
+    <!-- por ora desabilitado... -->
+    <% if next_event and false %>
+        <p class="pull-right"><%= fa_icon 'clock-o' %> Começa em <%= time_ago_in_words next_event.start %></p>
+    <% end %>
     <p><%= activity.summary %></p>
   </div>
 
-  <% if next_event %>
-      <div class="panel-footer" style="bottom: 0px; position: absolute; width: 100%">
-            <%= fa_icon 'clock-o' %> Começa em <%= time_ago_in_words next_event.start %>
-      </div>
-  <% end %>
 </div>

@@ -14,22 +14,35 @@
 -->
 <div class="row">
 
-<div class="col-xs-8">
+    <div class="col-xs-8">
+        <%= render 'common/page_title', titulo: title.html_safe, sub_title: sub_title %>
 
-    <%= render 'common/page_title', titulo: title.html_safe, sub_title: sub_title %>
-
-    <% content_for :actions do %>
-      <%= render 'common/btn_edit', resource: @activity %>
-      <%= render 'common/btn_delete', resource: @activity %>
-    <% end %>
-
-    <br>
-
-    <div class="lead">
-      <%= @activity.summary.html_safe %>
+        <% content_for :actions do %>
+          <%= render 'common/btn_edit', resource: @activity %>
+          <%= render 'common/btn_delete', resource: @activity %>
+        <% end %>
+        <br>
+        <div class="lead">
+          <%= @activity.summary %>
+        </div>
     </div>
 
-    <div>
+    <div class="col-xs-4">
+      <% if @activity.avatar.present? %>
+        <%= image_tag @activity.avatar.url(:medium), class: 'img-rounded' %>
+      <% end %>
+    </div>
+
+</div>
+
+<br>
+<hr class="featurette-divider">
+<br>
+
+
+<div class="row">
+
+    <div class="col-xs-8">
       <!-- Caso esta atividade não tenha descrição, pegar descrição da atividade pai, se existir -->
       <% if @activity.description.blank? and @activity.parent.present? and @activity.parent.description.present? %>
         <div class="text-muted"><em>Descrição da atividade <%= @activity.parent.name %>:</em></div>
@@ -39,16 +52,13 @@
       <%= @activity.description.html_safe %>
     </div>
 
-</div>
+  <!--
 
+   Lateral direita
 
-<!--
+  -->
 
-   Lateral
-
--->
-
-<div class="col-xs-4">
+  <div class="col-xs-4">
 
 
     <% if @activity.children.any? %>
@@ -61,7 +71,6 @@
             <div><%= link_to child_activity.name, activity_path(child_activity) %></div>
           <% end %>
         </div>
-      </div>
     <% end %>
 
 
@@ -128,5 +137,8 @@
       </div>
     </div>
 
+  </div>
+
 </div>
+
 </div>

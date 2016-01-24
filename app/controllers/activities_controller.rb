@@ -56,7 +56,7 @@ class ActivitiesController < ApplicationController
     end
 
     def secure_params
-      params.require(:activity).permit(:name, :summary, :parent_id,
+      params.require(:activity).permit(:name, :summary, :parent_id, :avatar, :delete_avatar,
                                        :description, :activity_type, :internal_only)
     end
 

@@ -1,55 +1,92 @@
 
-<div class="alert alert-warning alert-dismissible" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <strong>Site em construção.</strong> Informações apresentadas podem estar incompletas.
-</div>
-
-<div class='row'>
-
-  <div class="well col-lg-6 tasks-box">
-    <h4>Próximos eventos <small><%= link_to 'ver todos &raquo;'.html_safe, events_path %></small>
-      <div class="pull-right">
-        <%= render 'common/btn_calendar', size: 'btn-xs' %>
-      </div>
-    </h4>
-    <% @events.each do |event| %>
-      <div><%= link_to event.name, event_path(event) %> <small class="text-muted">começa em <%= time_ago_in_words event.start %></small></div>
-    <% end %>
+  <div class="jumbotron text-center">
+    <h1>Associação Internacional de Pesquisologia para Megaconscientização</h1>
+    <p>Autoconscientização via pesquisa </p>
+    <br><br>
+    <p><%= link_to "Saiba Mais #{fa_icon('angle-right')}".html_safe, about_path, class: 'btn btn-default btn-lg' %></p>
   </div>
 
-  <% if @next_event and policy(Participation).show? %>
-      <div class="well col-lg-5 tasks-box">
-        <h4>Inscritos em <em><%= @next_event.name %></em>
-          <small><%= link_to 'mais &raquo;'.html_safe, event_path(@next_event) %></small></h4>
-        <% @next_event.enrolls.each do |participant| %>
-            <div><%= participant.person.name %>
-              <small class="text-muted"> a <%= time_ago_in_words participant.updated_at %></small>
+
+  <!-- Atividades em destaque -->
+
+  <div class="container">
+
+    <h1 class="text-center">Atividades em destaque</h1>
+    <h4 class="text-center">Ver <%= link_to 'agenda', events_path %>
+      ou <%= link_to 'atividades', activities_path %>
+    </h4>
+
+
+    <br><br>
+    <div class="row">
+        <% @events.limit(3).each do |event| %>
+            <div class="col-sm-6 col-md-4">
+              <%= render 'common/activity_summary', activity: event.activity %>
             </div>
         <% end %>
+    </div>
+
+  </div>
+
+
+  <br><br>
+
+
+  <!-- Depoimentos -->
+
+  <!--
+  <h1 class="text-center">Depoimentos</h1>
+
+  <br><br>
+
+  <div role="tabpanel" class="text-center">
+
+
+    <div class="tab-content text-center">
+
+      <div role="tabpanel" class="tab-pane fade in active" id="home">
+        <div class="row">
+          <div class="col-lg-offset-3 col-lg-6">
+            <%= render 'testimonial', person: Person.find(1), text: 'Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.' %>
+          </div>
+        </div>
       </div>
-  <% end %>
 
-  <% if @tmks %>
-      <div class="well col-lg-6 tasks-box">
-        <h4>Últimos TMKs <small><%= link_to 'mais &raquo;'.html_safe, tmks_path %></small></h4>
-        <% @tmks.each do |tmk| %>
-            <div><em><%= tmk.with_who.name %></em> sobre o evento <em><%= tmk.event.name %></em>
-              <small class="text-muted"> a <%= time_ago_in_words tmk.contact_date %></small>
-            </div>
-        <% end %>
+      <div role="tabpanel" class="tab-pane fade" id="profile">
+        <div class="row">
+          <div class="col-lg-offset-3 col-lg-6">
+            <%= render 'testimonial', person: Person.find(1), text: 'Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.' %>
+          </div>
+        </div>
       </div>
-  <% end %>
 
-  <% if @people %>
-      <div class="well col-lg-5 tasks-box">
-        <h4>Pessoas cadastradas recentemente <small><%= link_to 'mais &raquo;'.html_safe, people_path(order: 'created_at') %></small></h4>
-        <% @people.each do |person| %>
-            <div><%= link_to person.name, person_path(person) %>
-              <small class="text-muted"> a <%= time_ago_in_words person.created_at %></small>
-            </div>
-        <% end %>
+      <div role="tabpanel" class="tab-pane fade" id="messages">
+        <div class="row">
+          <div class="col-lg-offset-3 col-lg-6">
+            <%= render 'testimonial', person: Person.find(1), text: 'Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.' %>
+          </div>
+        </div>
       </div>
-  <% end %>
 
-</div>
+    </div>
 
+    <br>
+
+    <ul class="nav nav-pills center-pills" role="tablist">
+      <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Gustavo</a></li>
+      <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Rodrigo</a></li>
+      <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">João</a></li>
+    </ul>
+
+  </div>
+
+-->
+
+  <br>
+  <hr>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="pull-right"><a href="#">Voltar ao topo</a></p>
+    <p>© 2016 Reconscientia - Associação Internacional para Megaconscientização</p>
+  </footer>

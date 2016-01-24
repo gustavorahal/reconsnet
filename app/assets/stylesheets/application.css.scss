@@ -13,12 +13,17 @@
  *= require rails_bootstrap_forms
  */
 
-@import "bootstrap-sprockets";
 @import "bootstrap";
 @import "font-awesome";
 
 // Para conteúdo do body aparecer depois do navbar e não embaixo dele
 body { padding-top: 70px; }
+
+
+.center-pills {
+  display: flex;
+  justify-content: center;
+}
 
 .tasks-box {
   margin: 10px;

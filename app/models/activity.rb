@@ -14,6 +14,12 @@
 #
 
 class Activity < ActiveRecord::Base
+
+  has_attached_file :avatar, styles: { banner: '450x220#', medium: '350x170#', thumb: '200x100#' }
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+
+  include DeletableAttachment
+
   has_many :children, class_name: 'Activity', foreign_key: 'parent_id'
   belongs_to :parent, class_name: 'Activity'
   has_many :events

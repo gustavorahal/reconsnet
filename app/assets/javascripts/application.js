@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require tinymce-jquery
+//= require holder
 //= require_tree .
 //= require turbolinks
 

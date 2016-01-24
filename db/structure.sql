@@ -42,7 +42,11 @@ CREATE TABLE activities (
     parent_id integer,
     internal_only boolean DEFAULT false,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    avatar_file_name character varying,
+    avatar_content_type character varying,
+    avatar_file_size integer,
+    avatar_updated_at timestamp without time zone
 );
 
 
@@ -879,4 +883,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150814132526');
 INSERT INTO schema_migrations (version) VALUES ('20150911172128');
 
 INSERT INTO schema_migrations (version) VALUES ('20160108222336');
+
+INSERT INTO schema_migrations (version) VALUES ('20160109333333');
 

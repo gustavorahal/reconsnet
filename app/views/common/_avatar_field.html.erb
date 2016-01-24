@@ -1,0 +1,15 @@
+<% resource = local_assigns.fetch :resource, nil %>
+<% form = local_assigns.fetch :form, nil %>
+
+<% if resource.avatar.present? %>
+    <div class="form-group">
+      <label class="col-sm-2 control-label"></label>
+      <div class="col-sm-6">
+        <%= image_tag resource.avatar.url(:thumb), class: 'img-rounded' %>
+        <%= form.check_box :delete_avatar, label: 'Deletar imagem <small>(Após deletar será possivel adicionar uma nova)</small>'.html_safe %>
+      </div>
+    </div>
+<% else %>
+    <% label = 'Upload de imagem' %>
+    <%= form.file_field :avatar, label: label %>
+<% end %>

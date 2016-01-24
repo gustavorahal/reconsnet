@@ -76,7 +76,7 @@ GEM
     connection_pool (2.2.0)
     database_cleaner (1.5.1)
     debug_inspector (0.0.2)
-    devise (3.5.3)
+    devise (3.5.5)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -109,6 +109,8 @@ GEM
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     hike (1.2.3)
+    holder_rails (2.9.1)
+      railties (>= 3.1.0)
     http (1.0.2)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -147,13 +149,13 @@ GEM
     mime-types (2.99)
     mimemagic (0.3.0)
     mini_portile2 (2.0.0)
-    minitest (5.8.3)
+    minitest (5.8.4)
     multi_json (1.11.2)
     multipart-post (2.0.0)
-    nokogiri (1.6.7.1)
+    nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     orm_adapter (0.5.0)
-    paper_trail (4.0.1)
+    paper_trail (4.0.2)
       activerecord (>= 3.0, < 6.0)
       activesupport (>= 3.0, < 6.0)
       request_store (~> 1.1)
@@ -281,7 +283,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
-    tinymce-rails (4.3.2)
+    tinymce-rails (4.3.3)
       railties (>= 3.1.1)
     tinymce-rails-imageupload (4.0.16.beta)
       railties (>= 3.2, < 5)
@@ -330,6 +332,7 @@ DEPENDENCIES
   font-awesome-rails
   gendered (~> 0.0.8)
   gibbon
+  holder_rails
   jbuilder (~> 1.2)
   jquery-rails
   jquery-turbolinks
