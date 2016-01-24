@@ -48,6 +48,14 @@ class Activity < ActiveRecord::Base
     name
   end
 
+  def self.next_activities(exclude_internal=false, limit=3)
+    query = includes(:events).where('events.start > ?', Time.now).order('events.start').limit(limit).distinct
+    if exclude_internal
+      query = query.where.not(internal_only: true)
+    end
+    query
+  end
+
   def next_event
     events.where('start > ?', Time.now).order(:start).first
   end

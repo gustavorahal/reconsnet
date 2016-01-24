@@ -10,17 +10,13 @@ class ApplicationController < ActionController::Base
 
   def index
     user = current_user
+
     if user and user.is_volunteer?
-      @next_event = Event.next_event
-      @events = Event.sorted.where('start > ?', Time.now)
-      @tmks = Tmk.all.order('contact_date DESC').limit(5)
-      @people = Person.all.order('created_at DESC').limit(5)
+      @activities = Activity.next_activities
     else
-      @next_event = Event.next_event(exclude_internal = true)
-      @events = Event.sorted.all_exclude_internal.where('start > ?', Time.now)
-      @tmks = nil
-      @people = nil
+      @activities = Activity.next_activities(exclude_internal=true)
     end
+
   end
 
   def about
