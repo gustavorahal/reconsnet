@@ -14,7 +14,10 @@ class EventsController < ApplicationController
   end
 
   def show
-    @assets = @event.assets.order(:asset_type)
+    @assets_by_type = ActiveSupport::OrderedHash[Asset.asset_types.map { |f| [f[0], []]}]
+    @event.assets.group('asset_type, id').each do |asset|
+      @assets_by_type[asset.asset_type].push asset
+    end
   end
 
   def new
