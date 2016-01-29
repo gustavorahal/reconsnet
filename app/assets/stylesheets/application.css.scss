@@ -44,6 +44,14 @@ $colHighlight   : #ffffff;
 .navbar-custom {
   background-color: $bgDefault;
   border-color: $bgHighlight;
+
+  .navbar-toggle {
+    background-color: $colDefault;
+    .icon-bar {
+      background-color: $bgDefault;
+    }
+  }
+
   .navbar-brand {
     color: $colDefault;
     &:hover, &:focus {
