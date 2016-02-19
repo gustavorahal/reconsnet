@@ -6,7 +6,7 @@
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
-
+  <%= favicon_link_tag %>
 </head>
 <body>
 
@@ -23,7 +23,7 @@
           </button>
 
           <a class="navbar-brand" href="<%= root_path %>">
-            Reconscientia
+            <%= image_tag 'reconscientia.png', style: 'max-width:100%; max-height:100%;', alt: 'Brand' %>
           </a>
         </div>
 
@@ -94,7 +94,36 @@
 
     <% end %>
 
-
-
 </body>
+
+
+<footer class="recons-footer">
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-md-3">
+        <%= image_tag 'logo-cor-transparente.png', style: 'max-width:100%; max-height:100%;' %>
+      </div>
+
+      <div class="col-md-5">
+        <address>
+          Av. Felipe Wandscheer, 6200, sala 104, Pólo Discernimentum<br>
+          Bairro Cognópolis<br>
+          Foz do Iguaçu - PR, Brasil, CEP: 85856-530
+        </address>
+      </div>
+
+      <div class="col-md-4">
+        <p><%= fa_icon 'envelope' %> <strong>e-mail: reconscientia@gmail.com</strong></p>
+        <p><%= fa_icon 'facebook-official' %> <strong>facebook.com/Reconscientia</strong></p>
+        <p><%= fa_icon 'whatsapp' %> <strong>(45) 9993-2000</strong></p>
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>
+
 </html>

@@ -35,6 +35,30 @@ body { padding-top: 70px; }
   align-items: center;
 }
 
+// Sticky footer solution
+// http://stackoverflow.com/questions/21324395/bootstrap-3-flush-footer-to-bottom-not-fixed
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 190px; // set a 30px margin from footer, só always 30px more then footer height
+}
+
+.recons-footer {
+  position: absolute;
+  bottom: 0;
+  padding: 30px;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 160px;
+  color: #ffffff;
+  background-color: #959697;
+}
+
+
 $bgDefault      : #1059a6;
 $bgHighlight    : #124294;
 $colDefault     : #ffffff;
