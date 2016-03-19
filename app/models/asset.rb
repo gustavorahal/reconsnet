@@ -26,8 +26,11 @@ class Asset < ActiveRecord::Base
 
   has_attached_file :file
   validates_presence_of :asset_type
-  validates_attachment_content_type :file, content_type: %w(application/vnd.ms-excel
+  validates_attachment_content_type :file, content_type: %w(
+                                                           application/vnd.ms-excel
+                                                           application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
                                                            application/vnd.ms-powerpoint
+                                                           application/vnd.openxmlformats-officedocument.presentationml.presentation
                                                            application/msword
                                                            application/vnd.openxmlformats-officedocument.wordprocessingml.document
                                                            application/pdf
