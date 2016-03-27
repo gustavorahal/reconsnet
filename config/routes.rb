@@ -10,6 +10,7 @@ ReconsNet::Application.routes.draw do
 
   get 'marketing', to: 'marketing#index'
   get 'inventoriology', to: 'inventoriology#index'
+  post 'inventoriology', to: 'inventoriology#create'
   get 'about', to: 'application#about'
   post '/tinymce_assets' => 'tinymce_assets#create'
 

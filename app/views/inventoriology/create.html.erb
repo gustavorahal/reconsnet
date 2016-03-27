@@ -1,0 +1,25 @@
+<%= render 'common/page_title',
+           titulo: "Inventariologia de #{@start.month}/#{@start.year} a #{@finish.month}/#{@finish.year}",
+           back_url: inventoriology_path %>
+
+<h2>Eventos</h2>
+
+<br>
+
+<h4>Total de <%= @events.count %> eventos dos quais: </h4>
+
+<%= render 'common/event_listing', events: @events %>
+
+<br/>
+
+<h2>Perfil dos participantes</h2>
+<br/>
+<div><em>Total de pessoas:</em> <%= @people.size %></div>
+<div><em>Homens:</em> <%= @male_count %></div>
+<div><em>Mulheres:</em> <%= @female_count %></div>
+<div><em>Gênero não especificado:</em> <%= @gen_undef_count %></div>
+<div><em>Ocupação (total: <%= @occupations.size %>):</em>
+  <% @occupations.each do |o| %>
+    <div><%= "(#{o[1]}) #{o[0]}" %></div>
+  <% end %>
+</div>

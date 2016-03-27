@@ -1,19 +1,18 @@
-<%= render 'common/page_title', titulo: "Inventariologia de #{@start.month}/#{@start.year} a #{@finish.month}/#{@finish.year}" %>
+<%= render 'common/page_title', titulo: 'Inventariologia' %>
 
+<p>
+  Nesta página você pode gerar inventários (dados estatísticos) sobre os eventos realizados na <i>Reconscientia</i>.
+  Para isso basta escolher o período de início e fim de interesse.
+</p>
 
-<h2>Eventos <small>(<%= @events.count %>)</small></h2>
+<br>
 
+<h4>Qual período de inventário?</h4>
 
-<%= render 'common/event_listing', events: @events %>
+<%= bootstrap_form_tag url: '/inventoriology', layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
 
-<br/>
-<h4>Perfil dos participantes</h4>
-<div><em>Total de pessoas:</em> <%= @people.size %></div>
-<div><em>Homens:</em> <%= @male_count %></div>
-<div><em>Mulheres:</em> <%= @female_count %></div>
-<div><em>Gênero não especificado:</em> <%= @gen_undef_count %></div>
-<div><em>Ocupação (total: <%= @occupations.size %>):</em>
-  <% @occupations.each do |o| %>
-    <div><%= "(#{o[1]}) #{o[0]}" %></div>
-  <% end %>
-</div>
+    <%= f.date_select :start, label: 'Início' %>
+    <%= f.date_select :end, label: 'Fim' %>
+    <%= f.submit 'Gerar' %>
+
+<% end %>

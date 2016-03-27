@@ -10,8 +10,8 @@
         <th class="text-center">Arquivado?</th>
     <% end %>
     <% if policy(Participation).show? %>
-        <th class="text-center">Participações</th>
-        <th class="text-center">Participações acumuladas</th>
+        <th class="text-center">Presenças</th>
+        <th class="text-center">Presenças acumuladas</th>
     <% end %>
   </tr>
   </thead>
@@ -40,7 +40,13 @@
             </td>
         <% end %>
         <% if policy(Participation).show? %>
-            <td class="text-center col-md-1"><strong><%= part_num = event.participations.where(status: Participation.statuses[:enrolled]).size; part_num %></strong></td>
+            <td class="text-center col-md-1">
+              <strong><%= part_num = event.participations.
+                                                    where(status: Participation.statuses[:enrolled]).
+                                                    where(attendance: [Participation.attendances[:present],
+                                                                       Participation.attendances[:part_time]]).size; part_num %>
+              </strong>
+            </td>
             <td class="text-center col-md-1"><%= part_count += part_num; part_count %></td>
         <% end %>
       </tr>
