@@ -1,4 +1,4 @@
-<%= render 'common/page_title', titulo: "Inventariologia de #{@start.year}" %>
+<%= render 'common/page_title', titulo: "Inventariologia de #{@start.month}/#{@start.year} a #{@finish.month}/#{@finish.year}" %>
 
 
 <h2>Eventos <small>(<%= @events.count %>)</small></h2>
@@ -14,6 +14,6 @@
 <div><em>Gênero não especificado:</em> <%= @gen_undef_count %></div>
 <div><em>Ocupação (total: <%= @occupations.size %>):</em>
   <% @occupations.each do |o| %>
-    <%= "#{o[0]} (#{o[1]})," %>
+    <div><%= "(#{o[1]}) #{o[0]}" %></div>
   <% end %>
 </div>
