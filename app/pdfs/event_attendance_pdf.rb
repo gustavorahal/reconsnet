@@ -30,7 +30,7 @@ class EventAttendancePdf < EventBasePdf
     count = 1
     organizers = [['#', 'Nome', 'Função'] + @dates]
     @event.enrolls.where(p_type: Participation::ORGANIZER_P_TYPES).each do |p|
-      organizers.append [count, p.person.name, I18n.t("participation_types.#{p.p_type}")] + @dates.map {|d| Prawn::Text::NBSP * 13}
+      organizers.append [count, p.person.name, I18n.t("participation.types.#{p.p_type}")] + @dates.map {|d| Prawn::Text::NBSP * 13}
       count += 1
     end
 

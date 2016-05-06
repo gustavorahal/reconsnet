@@ -1,0 +1,5 @@
+<%= render 'common/back_link', destino: @event.name, url: event_path(@event) %>
+<%= render 'common/page_title', titulo: "Alterações relacionadas a evento <em>#{@event.name}</em>".html_safe %>
+
+<%= render 'versions/versions' %>
+<%= paginate @versions %>

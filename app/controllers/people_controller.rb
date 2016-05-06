@@ -80,15 +80,9 @@ class PeopleController < ApplicationController
   end
 
   def versions
-
     sql = "(item_type='Person' AND item_id=#{@person.id})"
-
-    @person.phone_numbers.each do |pn|
-      sql += " OR (item_type='PhoneNumber' AND item_id=#{pn.id})"
-    end
-    @person.addresses.each do |ad|
-      sql += " OR (item_type='Address' AND item_id=#{ad.id})"
-    end
+    sql += " OR (item_type='PhoneNumber' AND person_id=#{@person.id})"
+    sql += " OR (item_type='Address' AND person_id=#{@person.id})"
 
     @versions = PaperTrail::Version.where(sql).order(created_at: :desc).page(params[:page]).per(10)
     authorize @person

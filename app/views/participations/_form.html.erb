@@ -38,7 +38,7 @@
     <% end %>
 
     <%= f.select :p_type,
-                 Participation.p_types.keys.to_a.map { |w| [ I18n.t("participation_types.#{w}"), w] },
+                 Participation.p_types.keys.to_a.map { |w| [ I18n.t("participation.types.#{w}"), w] },
                  label: 'Tipo de participação ', control_col: 'col-sm-3' %>
 
     <%= f.form_group do %>

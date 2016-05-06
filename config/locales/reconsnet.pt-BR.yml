@@ -7,16 +7,6 @@ pt-BR:
     volunteer: "Voluntário"
     volunteer_admin: "Administrador de Voluntário"
     person_admin: "Administrador de Cadastro"
-  participation_types:
-    student: "Aluno"
-    lecturer: "Palestrante/Conferencista"
-    scribe: "Escriba"
-    mediator: "Mediador"
-    master_of_ceremony: "Mestre de Cerimônia"
-    monitor: "Monitor"
-    teacher: "Professor"
-    teacher_theme: "Professor Temático"
-    teacher_intro: "Professor Introdução"
   relationship:
     single: "Solteiro(a)"
     relationship: "Em um relacionamento"
@@ -35,6 +25,16 @@ pt-BR:
     leaflet: "Folder"
     other: "Outro"
   participation:
+    types:
+      student: "Aluno"
+      lecturer: "Palestrante/Conferencista"
+      scribe: "Escriba"
+      mediator: "Mediador"
+      master_of_ceremony: "Mestre de Cerimônia"
+      monitor: "Monitor"
+      teacher: "Professor"
+      teacher_theme: "Professor Temático"
+      teacher_intro: "Professor Introdução"
     status:
       enrolled: "Inscrito"
       interested: "Interessado"
@@ -55,9 +55,21 @@ pt-BR:
       address:
         one: "Endereço"
         other: "Endereços"
+      event:
+        one: "Evento"
+        other: "Eventos"
+      participation:
+        one: "Participação"
+        other: "Participações"
+      activity:
+        one: "Atividade"
+        other: "Atividades"
     attributes:
       participation:
         attendance: "Presença"
+        p_type: "Tipo de participação"
+        event_id: "Evento"
+        person_id: "Pessoa"
       person:
         name: "Nome"
         gender: "Gênero"
@@ -93,6 +105,10 @@ pt-BR:
         description: "Descrição"
         start: "Início"
         finish: "Fim"
+        archived: "Arquivado"
+      activity:
+        name: "Nome"
+        description: "Descrição"
       asset:
         file: "Arquivo"
         asset_type: "Tipo"

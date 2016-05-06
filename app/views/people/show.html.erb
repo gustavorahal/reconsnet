@@ -120,7 +120,7 @@
       <% @enrolls.each do |participation| %>
             <div>
               <%= link_to participation.event.name_with_date, event_path(participation.event) %>
-              <em>(<%= I18n.t("participation_types.#{participation.p_type}").downcase %>)</em>
+              <em>(<%= I18n.t("participation.types.#{participation.p_type}").downcase %>)</em>
             </div>
         <% end %>
     <% end %>

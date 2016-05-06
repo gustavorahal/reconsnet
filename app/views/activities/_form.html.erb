@@ -1,5 +1,6 @@
 
-<%= bootstrap_form_for @activity, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f| %>
+<%= bootstrap_form_for @activity, layout: :horizontal, html: { multipart: true },
+                       label_col: 'col-sm-2', control_col: 'col-sm-10' do |f| %>
 
     <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
 

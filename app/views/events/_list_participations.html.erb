@@ -8,7 +8,7 @@
     <div>
       <%= link_to part.person.name, person_path(part.person.id) %>
       <% unless hide_ptype  %>
-        <em>(<%= I18n.t("participation_types.#{part.p_type}").downcase %>)</em>
+        <em>(<%= I18n.t("participation.types.#{part.p_type}").downcase %>)</em>
       <% end  %>
 
       <span class="pull-right">

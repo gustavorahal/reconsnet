@@ -1,0 +1,5 @@
+<%= render 'common/back_link', destino: @activity.name, url: activity_path(@activity) %>
+<%= render 'common/page_title', titulo: "Alterações relacionadas a atividade <em>#{@activity.name}</em>".html_safe %>
+
+<%= render 'versions/versions' %>
+<%= paginate @versions %>

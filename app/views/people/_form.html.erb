@@ -1,4 +1,5 @@
-<%= bootstrap_form_for @person, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-7' do |f| %>
+<%= bootstrap_form_for @person, layout: :horizontal, html: { multipart: true },
+                            label_col: 'col-sm-2', control_col: 'col-sm-7' do |f| %>
 
     <% if @person.errors[:base].present? %>
         <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo. ' + @person.errors[:base][0] %>

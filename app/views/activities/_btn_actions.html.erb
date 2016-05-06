@@ -1,0 +1,30 @@
+
+<% if policy(@activity).edit? %>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        Ações <span class="caret"></span>
+      </button>
+
+      <ul class="dropdown-menu dropdown-menu-right" role="menu">
+        <li>
+          <%= link_to 'Editar', edit_activity_path(@activity) %>
+        </li>
+
+        <% if policy(@activity).destroy? %>
+            <% @activity.safely_destroyable? ? disabled = false : disabled = true%>
+            <li>
+              <%= link_to 'Deletar',
+                          activity_path(@activity, page: params[:page], query: params[:query], order: params[:order]),
+                          method: :delete,
+                          data: { confirm: "Você tem certeza que deseja deletar \"#{@event.to_s}\"?" },
+                          disabled: disabled %>
+            </li>
+        <% end %>
+
+        <li class="divider"></li>
+
+        <li><%= link_to 'Histórico de alterações', versions_activity_path(@activity) %></li>
+
+      </ul>
+    </div>
+<% end %>

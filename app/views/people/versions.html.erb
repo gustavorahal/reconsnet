@@ -1,5 +1,5 @@
 <%= render 'common/back_link', destino: @person.name, url: person_path(params.except(:id)) %>
-<%= render 'common/page_title', titulo: "Alterações em <em>#{@person.name}</em>".html_safe %>
+<%= render 'common/page_title', titulo: "Alterações relacionadas a pessoa <em>#{@person.name}</em>".html_safe %>
 
-<%= render 'versions/versions', short: true %>
+<%= render 'versions/versions' %>
 <%= paginate @versions %>

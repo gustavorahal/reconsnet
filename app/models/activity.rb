@@ -15,6 +15,7 @@
 
 class Activity < ActiveRecord::Base
 
+  has_paper_trail meta: { activity_id: :id }
   has_attached_file :avatar, styles: { banner: '450x220#', medium: '350x170#', thumb: '200x100#' }
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
@@ -77,6 +78,10 @@ class Activity < ActiveRecord::Base
     "parte do(a) #{parent.activity_type} #{parent.name}"
   end
 
+
+  def safely_destroyable?
+    events.empty? and children.empty?
+  end
 
   private
 

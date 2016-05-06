@@ -25,7 +25,7 @@
 #
 
 class Person < ActiveRecord::Base
-  has_paper_trail
+  has_paper_trail meta: { person_id: :id }
 
   has_attached_file :avatar, styles: { large: '300x300>', medium: '180x180>', thumb: '100x100>' }
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/

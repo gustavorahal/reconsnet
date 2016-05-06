@@ -1,3 +1,5 @@
+# Source: http://stackoverflow.com/questions/4435826/rails-paperclip-how-to-delete-attachment
+
 # This needs to be included after all has_attached_file statements in a class
 module DeletableAttachment
   extend ActiveSupport::Concern
@@ -11,7 +13,7 @@ module DeletableAttachment
 
       define_method :"delete_#{name}=" do |value|
         instance_variable_set :"@delete_#{name}", value
-        send("#{name}_file_name_will_change!")
+        send("#{name}_file_name_will_change!") if value == '1'
       end
 
     end

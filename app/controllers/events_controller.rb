@@ -1,6 +1,8 @@
 class EventsController < ApplicationController
 
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :participants, :attendance, :emails, :archive, :unarchive, :roles]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :participants,
+                                   :attendance, :emails, :archive, :unarchive, :roles,
+                                   :versions]
   after_action :verify_authorized
 
   def index
@@ -57,8 +59,11 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @event.destroy
-    redirect_to events_path, notice: "Evento '#{@event.name}' deletado com sucesso!"
+    if @event.safely_destroyable?
+      redirect_to events_path, notice: "Evento '#{@event.name}' deletado com sucesso!" if @event.destroy
+    else
+      redirect_to events_path, alert: "Evento '#{@event.name}' tem restrições para ser deletado!"
+    end
   end
 
   def archive
@@ -135,6 +140,15 @@ class EventsController < ApplicationController
 
   def roles
   end
+
+  def versions
+    sql = "(item_type='Event' AND item_id=#{@event.id})"
+    sql += " OR (item_type='Participation' AND event_id=#{@event.id})"
+
+    @versions = PaperTrail::Version.where(sql).order(created_at: :desc).page(params[:page]).per(10)
+    authorize @event
+  end
+
 
   private
 

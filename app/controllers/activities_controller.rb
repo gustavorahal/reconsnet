@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
 
-  before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  before_action :set_activity, only: [:show, :edit, :update, :destroy, :versions]
   after_action :verify_authorized
 
   def index
@@ -43,10 +43,19 @@ class ActivitiesController < ApplicationController
   end
 
   def destroy
-    @activity.destroy
-    redirect_to activities_path, notice: "Atividade '#{@activity.name}' deletada com sucesso!"
+    if @activity.safely_destroyable?
+      redirect_to activities_path, notice: "Atividade '#{@activity.name}' deletada com sucesso!" if @activity.destroy
+    else
+      redirect_to activities_path, alert: "Atividade '#{@activity.name}' tem restrições para ser deletado!"
+    end
   end
 
+  def versions
+    sql = "(item_type='Activity' AND item_id=#{@activity.id})"
+
+    @versions = PaperTrail::Version.where(sql).order(created_at: :desc).page(params[:page]).per(10)
+    authorize @activity
+  end
 
   private
 

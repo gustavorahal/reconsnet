@@ -25,7 +25,7 @@
             <%= link_to person.name, person_path(person.id) %>
             <% unless participation.student? %>
                 <!-- Por padrão não mostrar se é Aluno, porque este é 99% dos casos -->
-                <em>(<%= I18n.t("participation_types.#{participation.p_type}").downcase %>)</em>
+                <em>(<%= I18n.t("participation.types.#{participation.p_type}").downcase %>)</em>
             <% end %>
             <br>
             <%= render 'common/btn_new_tmk', event: @event, with_who: participation.person %>

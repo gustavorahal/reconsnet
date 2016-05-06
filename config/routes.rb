@@ -28,6 +28,7 @@ ReconsNet::Application.routes.draw do
       get 'attendance'
       get 'emails'
       get 'roles'
+      get 'versions'
       put 'archive'
       put 'unarchive'
     end
@@ -40,7 +41,11 @@ ReconsNet::Application.routes.draw do
   resources :tmks
   resources :volunteers
   resources :assets
-  resources :activities
+  resources :activities do
+    member do
+      get 'versions'
+    end
+  end
   get 'versions', to: 'versions#index'
 
   # Help

@@ -1,41 +1,44 @@
-<% short = local_assigns.fetch :short, false %>
 
-<% ignore_attrs = %w(updated_at created_at id phonable_id phonable_type addressable_id addressable_type)  %>
+
 
 <% @versions.each do |v| %>
-    <div>
-      <% if v.event == 'update' %>
-         <span class="fa fa-pencil text-info"></span>
-      <% elsif v.event == 'destroy' %>
-         <span class="fa fa-times text-danger"></span>
-      <% elsif v.event == 'create' %>
-          <span class="fa fa-plus text-success"></span>
-      <% end %>
 
-      <!-- || v.item_type.constantize.find(v.item_id) -->
+  <% resource = v.reify(dup: true) %>
+  <% resource_class = v.item_type.constantize %>
 
-      <% resource = v.reify(dup: true) %>
-      <% resource_class = v.item_type.constantize %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">
 
-      <!-- O que alterou, por quem -->
-      <%= v.whodunnit ? User.find(v.whodunnit).name : '<em>Sistema</em>'.html_safe %> <%= VersionsHelper::event_name_i18n(v.event) %>
-      <% unless short %>
-          o(a) <%= resource_class.model_name.human.downcase %> <%= "<em>#{resource}</em>".html_safe unless resource.nil? %>
-      <% end %>
+        <%= VersionsHelper::event_action_icon(v) %>
+        <!-- O que alterou, por quem -->
+        <%= v.whodunnit ? User.find(v.whodunnit).name : '<em>Sistema</em>'.html_safe %> <%= VersionsHelper::event_name_i18n(v.event) %>
+        <%= resource_class.model_name.human.downcase %> <%= "<em>#{resource}</em>".html_safe unless resource.nil? %>
 
-      <!-- Data da alteração -->
-      <span class="text-muted pull-right"><%= date_display v.created_at %> <small>(há <%= time_ago_in_words v.created_at %>)</small></span>
-
-      <!-- Atributos alterados -->
-      <% v.changeset.dup.except(*ignore_attrs).each do |k,v| %>
-          <div class="text-muted"><small>
-            <%= resource_class.human_attribute_name(k) %>:
-            <%= v[0].present? ? "<s>#{v[0]}</s>".html_safe : '<em class=text-muted>&ltvazio&gt</em>'.html_safe %>
-             -> <%= v[1].present? ? "<em>#{v[1]}</em>".html_safe : '<em class=text-muted>&ltvazio&gt</em>'.html_safe %>
-          </small>
-          </div>
-      <% end %>
+        <!-- Data da alteração -->
+        <span class="text-muted pull-right"><%= date_display v.created_at %> (há <%= time_ago_in_words v.created_at %>)</span>
+      </h3>
     </div>
-    <hr>
+    <div class="panel-body">
+      <table class="table table-condensed">
+        <thead>
+          <th>Atributo</th>
+          <th>De</th>
+          <th>Para</th>
+        </thead>
+        <tbody>
+        <!-- Atributos alterados -->
+        <% VersionsHelper.changeset(v, resource).each do |k,v| %>
+            <tr>
+              <td class="col-md-2"><%= resource_class.human_attribute_name(k) %></td>
+              <td class="col-md-5 danger"><%= VersionsHelper::attribute_display(resource_class.model_name, k, v[0]) %></td>
+              <td class="col-md-5 success"><%= VersionsHelper::attribute_display(resource_class.model_name, k, v[1]) %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
 
 <% end %>

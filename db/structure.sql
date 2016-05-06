@@ -440,7 +440,10 @@ CREATE TABLE versions (
     whodunnit character varying(255),
     object text,
     created_at timestamp without time zone,
-    object_changes text
+    object_changes text,
+    event_id integer,
+    person_id integer,
+    activity_id integer
 );
 
 
@@ -885,4 +888,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150911172128');
 INSERT INTO schema_migrations (version) VALUES ('20160108222336');
 
 INSERT INTO schema_migrations (version) VALUES ('20160109333333');
+
+INSERT INTO schema_migrations (version) VALUES ('20160424041349');
 

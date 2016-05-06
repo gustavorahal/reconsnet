@@ -14,7 +14,7 @@
 #
 
 class PhoneNumber < ActiveRecord::Base
-  has_paper_trail
+  has_paper_trail meta: { person_id: lambda { |pn| pn.phonable_id if pn.phonable_type == 'Person' } }
 
   belongs_to :phonable, :polymorphic => true
 

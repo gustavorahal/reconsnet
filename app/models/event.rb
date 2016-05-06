@@ -15,6 +15,7 @@
 
 class Event < ActiveRecord::Base
   resourcify
+  has_paper_trail meta: { event_id: :id, activity_id: :activity_id }
 
   include ConflictResolutionable
 

@@ -14,7 +14,7 @@
             <% end %>
 
             <% if policy(@event).destroy? %>
-                <% @event.safely_destroyable? ? disabled = false : disabled = true%>
+                <% @event.safely_destroyable? ? disabled = false : disabled = true %>
                 <li>
                   <%= link_to 'Deletar',
                               event_path(@event, page: params[:page], query: params[:query], order: params[:order]),
@@ -29,6 +29,9 @@
 
         <% if policy(@event).roles? %>
             <li><%= link_to 'Permissões', roles_event_path(@event) %></li>
+        <% end %>
+        <% if policy(@event).show? %>
+            <li><%= link_to 'Histórico de alterações', versions_event_path(@event) %></li>
         <% end %>
 
       </ul>

@@ -18,9 +18,9 @@
         <%= render 'common/page_title', titulo: title.html_safe, sub_title: sub_title %>
 
         <% content_for :actions do %>
-          <%= render 'common/btn_edit', resource: @activity %>
-          <%= render 'common/btn_delete', resource: @activity %>
+            <%= render 'btn_actions' %>
         <% end %>
+
         <br>
         <div class="lead">
           <%= @activity.summary %>
