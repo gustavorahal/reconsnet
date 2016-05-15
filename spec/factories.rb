@@ -75,6 +75,7 @@ FactoryGirl.define do
   end
 
   factory :address do
+    label 'Casa'
     line1 'Rua Diamantina, 439'
     zip '85868-210'
     city 'Foz do Iguaçu'

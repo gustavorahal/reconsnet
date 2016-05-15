@@ -9,20 +9,16 @@ feature 'Versionamento para atividades', versioning: true do
   end
 
   scenario 'atividade é adicionada' do
-
-    def check_changes(activity)
-      expect(page).to have_content("Sistema adicionou atividade")
-      expect(page).to have_content("Nome &ltvazio&gt #{activity.name}")
-    end
-
     activity = create :activity
 
     visit versions_activity_path(activity)
     expect(page).to have_content("Alterações relacionadas a atividade #{activity.name}")
-    check_changes(activity)
+    expect(page).to have_content("Sistema adicionou atividade")
+    expect(page).to have_content("Nome &ltvazio&gt #{activity.name}")
 
     visit versions_path
-    check_changes(activity)
+    expect(page).to have_content("Sistema adicionou atividade")
+    expect(page).to have_content("Nome &ltvazio&gt #{activity.name}")
   end
 
 
@@ -43,7 +39,14 @@ feature 'Versionamento para atividades', versioning: true do
     activity.save
 
     visit versions_activity_path(activity)
+    expect(page).to have_content("Alterações relacionadas a atividade #{activity.name}")
+    expect(page).to have_content("Sistema editou atividade")
     expect(page).to have_content("Descrição #{old_desc} #{new_desc}")
+
+    visit versions_path
+    expect(page).to have_content("Sistema editou atividade #{activity.name}")
+    expect(page).to have_content("Descrição #{old_desc} #{new_desc}")
+
   end
 
 

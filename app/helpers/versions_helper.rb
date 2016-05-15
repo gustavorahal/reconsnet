@@ -17,6 +17,8 @@ module VersionsHelper
     ignore_attrs = %w(updated_at created_at id)
     # Para PhoneNumber e Address
     ignore_attrs += %w(phonable_id phonable_type addressable_id addressable_type)
+    # Para Participation. O nome do evento e da pessoa já aparecem no título então não é necessário aparecer no changeset
+    ignore_attrs += %w(event_id person_id)
 
     changeset = {}
     if version.event == 'destroy'
@@ -30,20 +32,6 @@ module VersionsHelper
     changeset
   end
 
-  def self.event_action_icon(version)
-    icon = ''
-    if version.event == 'update'
-      icon = '<span class="fa fa-pencil text-info"></span>'
-    elsif version.event == 'destroy'
-      icon = '<span class="fa fa-times text-danger"></span>'
-    elsif version.event == 'create'
-      icon = '<span class="fa fa-plus text-success"></span>'
-    end
-
-    return icon.html_safe
-  end
-
-
   def self.attribute_display(resource_name, attrib_name, attrib_value, stripped = false)
 
     return '<em class=text-muted>&ltvazio&gt</em>'.html_safe if attrib_value.blank?
@@ -54,6 +42,8 @@ module VersionsHelper
       html += Person.find(attrib_value).name
     elsif resource_name == 'Participation' and attrib_name == 'event_id'
       html += Event.find(attrib_value).name
+    elsif resource_name == 'Participation' and attrib_name == 'attendance'
+      html += I18n.t("participation.attendance.#{attrib_value}").downcase
     elsif resource_name == 'Participation' and attrib_name == 'p_type'
       html += I18n.t("participation.types.#{attrib_value}").downcase
     elsif resource_name == 'Participation' and attrib_name == 'status'

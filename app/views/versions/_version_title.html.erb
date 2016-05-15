@@ -1,0 +1,54 @@
+<% full_description = local_assigns.fetch :full_description, false %>
+<% version = local_assigns.fetch :version, false %>
+
+
+<!-- Mostra ícone apropriado de acordo com evento -->
+<% if version.event == 'update' %>
+  <span class="fa fa-pencil text-info"></span>
+<% elsif version.event == 'destroy' %>
+  <span class="fa fa-times text-danger"></span>
+<% elsif version.event == 'create' %>
+  <span class="fa fa-plus text-success"></span>
+<% end %>
+
+
+<!-- Quem mudou -->
+<%= version.whodunnit ? User.find(version.whodunnit).name : '<em>Sistema</em>'.html_safe %>
+
+<!-- Editou, adicionou ou excluiu? -->
+<%= VersionsHelper::event_name_i18n(version.event) %>
+
+<!-- Nome do tipo do resource -->
+<%= resource_class.model_name.human.downcase %>
+
+<!--
+  Nome do resource em si
+-->
+<% if resource_name == 'Participation' %>
+  <!-- no caso de participação, o nome do resource seria a própria pessoa -->
+  <%= "<em>#{Person.find(version.person_id).name}</em>".html_safe %>
+<% elsif full_description or resource_name == 'PhoneNumber' or resource_name == 'Address' %>
+  <%= "<em>#{resource}</em>".html_safe unless resource.nil? %>
+<% end %>
+
+
+<!--
+  Este resource pertence a algum outro (belongs_to)?
+-->
+<% if full_description %>
+  <% if resource_name == 'Participation' %>
+      <% event = Event.find(version.event_id) %>
+      ao <%= "<em>#{event.name}<em>".html_safe %>
+  <% elsif resource_name == 'Address' or resource_name == 'PhoneNumber' %>
+      <% person = Person.find(version.person_id) %>
+        de <%= "<em>#{person.name}<em>".html_safe %>
+  <% end %>
+<% end %>
+
+
+<!--
+  Data da alteração
+-->
+<span class="text-muted pull-right">
+  <%= date_display version.created_at %> (há <%= time_ago_in_words version.created_at %>)
+</span>

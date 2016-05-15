@@ -1,22 +1,17 @@
+<% full_description = local_assigns.fetch :full_description, false %>
 
+<% @versions.each do |version| %>
 
-
-<% @versions.each do |v| %>
-
-  <% resource = v.reify(dup: true) %>
-  <% resource_class = v.item_type.constantize %>
+  <% resource = version.reify(dup: true) %>
+  <% resource_class = version.item_type.constantize %>
+  <% resource_name = resource_class.model_name %>
 
   <div class="panel panel-default">
     <div class="panel-heading">
       <h3 class="panel-title">
-
-        <%= VersionsHelper::event_action_icon(v) %>
-        <!-- O que alterou, por quem -->
-        <%= v.whodunnit ? User.find(v.whodunnit).name : '<em>Sistema</em>'.html_safe %> <%= VersionsHelper::event_name_i18n(v.event) %>
-        <%= resource_class.model_name.human.downcase %> <%= "<em>#{resource}</em>".html_safe unless resource.nil? %>
-
-        <!-- Data da alteração -->
-        <span class="text-muted pull-right"><%= date_display v.created_at %> (há <%= time_ago_in_words v.created_at %>)</span>
+        <%= render 'versions/version_title', version: version, resource: resource,
+                   resource_class: resource_class, resource_name: resource_name,
+                   full_description: full_description %>
       </h3>
     </div>
     <div class="panel-body">
@@ -28,11 +23,11 @@
         </thead>
         <tbody>
         <!-- Atributos alterados -->
-        <% VersionsHelper.changeset(v, resource).each do |k,v| %>
+        <% VersionsHelper.changeset(version, resource).each do |k,v| %>
             <tr>
               <td class="col-md-2"><%= resource_class.human_attribute_name(k) %></td>
-              <td class="col-md-5 danger"><%= VersionsHelper::attribute_display(resource_class.model_name, k, v[0]) %></td>
-              <td class="col-md-5 success"><%= VersionsHelper::attribute_display(resource_class.model_name, k, v[1]) %></td>
+              <td class="col-md-5 danger"><%= VersionsHelper::attribute_display(resource_name, k, v[0]) %></td>
+              <td class="col-md-5 success"><%= VersionsHelper::attribute_display(resource_name, k, v[1]) %></td>
             </tr>
         <% end %>
         </tbody>

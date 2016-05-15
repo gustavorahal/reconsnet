@@ -22,6 +22,6 @@ class Address < ActiveRecord::Base
 
 
   def to_s
-    line1
+    label or ''
   end
 end
