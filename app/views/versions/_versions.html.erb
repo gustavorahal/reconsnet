@@ -20,9 +20,9 @@
         <!-- Atributos alterados -->
         <% VersionsHelper.changeset(version, resource).each do |k,v| %>
             <tr>
-              <td class="col-md-2"><%= resource_class.human_attribute_name(k) %></td>
-              <td class="col-md-5 danger"><%= VersionsHelper::attribute_display(resource_name, k, v[0]) %></td>
-              <td class="col-md-5 success"><%= VersionsHelper::attribute_display(resource_name, k, v[1]) %></td>
+              <td class="col-md-2"><span class="text-muted"><%= resource_class.human_attribute_name(k) %></span></td>
+              <td class="col-md-5"><%= VersionsHelper::attribute_display(resource_name, k, v[0], true) %></td>
+              <td class="col-md-5"><%= VersionsHelper::attribute_display(resource_name, k, v[1]) %></td>
             </tr>
         <% end %>
         </tbody>
