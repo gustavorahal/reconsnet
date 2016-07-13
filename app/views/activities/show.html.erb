@@ -1,4 +1,9 @@
-<% title = "<em>#{@activity.activity_type}</em> #{@activity.name}" %>
+<% if @activity.activity_type == 'Curso' %>
+  <% title = "<em>#{@activity.activity_type}</em> #{@activity.name}" %>
+<% else %>
+  <% title = @activity.name %>
+<% end %>
+
 <% if @activity.parent.present? %>
     <% parent = @activity.parent %>
     <% sub_title = 'Parte do(a) ' + link_to("#{parent.activity_type} #{parent.name}", activity_path(parent)) %>
