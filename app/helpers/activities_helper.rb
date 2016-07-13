@@ -4,7 +4,7 @@ module ActivitiesHelper
     link = link_to(activity.name, activity_path(activity))
     if activity.parent.present?
       parent = activity.parent
-      link += "parte do(a) #{parent.name}".html_safe
+      link += " parte do(a) #{parent.name}".html_safe
     end
 
     link
