@@ -1,12 +1,7 @@
-<% if @activity.activity_type == 'Curso' %>
-  <% title = "<em>#{@activity.activity_type}</em> #{@activity.name}" %>
-<% else %>
-  <% title = @activity.name %>
-<% end %>
+<% title = @activity.name %>
 
 <% if @activity.parent.present? %>
-    <% parent = @activity.parent %>
-    <% sub_title = 'Parte do(a) ' + link_to("#{parent.activity_type} #{parent.name}", activity_path(parent)) %>
+    <% sub_title = 'Parte do(a) ' + link_to(@activity.parent.name, activity_path(@activity.parent)) %>
 <% end %>
 <% if @activity.internal_only %>
     <% title += ' <small><span class="label label-primary">interno</small>' %>

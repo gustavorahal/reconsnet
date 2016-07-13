@@ -12,7 +12,7 @@
 
 <%= render 'common/page_title',
            titulo: title.html_safe,
-           sub_title: "#{date_str}, relacionado à atividade #{activity_link_display @event.activity}" %>
+           sub_title: "#{date_str}, relacionado à atividade <small class=text-muted>#{activity_link_display @event.activity}</small>" %>
 
 <% content_for :actions do %>
     <%= render 'btn_archive' %>

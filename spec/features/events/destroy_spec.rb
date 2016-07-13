@@ -17,7 +17,7 @@ describe 'Deleta evento' do
   end
 
 
-  it 'deleta um evento deve deletar todas as participações' do
+  it 'evento não pode ser deletado se tem participações' do
     event = create :event
     visit event_path(event)
     expect(page).to have_content(event.name)
@@ -25,9 +25,9 @@ describe 'Deleta evento' do
     create :participation, person: create(:person), event: event
     create :participation, person: create(:person), event: event
     click_on 'Deletar'
-    expect(page).to have_content "Evento '#{event.name}' deletado com sucesso!"
+    expect(page).to have_content "Evento '#{event.name}' tem restrições para ser deletado!"
 
-    expect(Participation.where(event: event)).to be_empty
+    expect(Participation.where(event: event)).to_not be_empty
   end
 
 end

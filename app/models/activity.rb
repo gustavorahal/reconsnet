@@ -71,13 +71,6 @@ class Activity < ActiveRecord::Base
     Event.where(activity_id: activities_ids)
   end
 
-  ##
-  # Inclui informações da atividade pai, caso exista
-
-  def parent_display
-    "parte do(a) #{parent.activity_type} #{parent.name}"
-  end
-
 
   def safely_destroyable?
     events.empty? and children.empty?
