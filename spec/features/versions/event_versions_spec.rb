@@ -13,7 +13,7 @@ feature 'Versionamento para eventos', versioning: true do
     event = create :event
 
     visit versions_event_path(event)
-    expect(page).to have_content("Alterações relacionadas a evento #{event.name}")
+    expect(page).to have_content("Alterações relacionadas ao evento #{event.name}")
     expect(page).to have_content("Sistema adicionou evento")
     expect(page).to have_content("Nome &ltvazio&gt #{event.name}")
 
