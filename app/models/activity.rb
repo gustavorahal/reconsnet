@@ -89,7 +89,7 @@ class Activity < ActiveRecord::Base
     # da imagem. Este procedimento é feito aqui.
 
     def check_images
-      Asset.where(assetable_id: id, assetable_type: 'Activity').each do |asset|
+      ResourceAsset.where(assetable_id: id, assetable_type: 'Activity').each do |asset|
         unless description.include? asset.file.url
           asset.destroy
         end

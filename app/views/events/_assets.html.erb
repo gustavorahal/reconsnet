@@ -14,11 +14,11 @@
               </button>
 
               <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                <% Asset.asset_types.keys.to_a.each do |asset_type| %>
+                <% ResourceAsset.asset_types.keys.to_a.each do |asset_type| %>
                     <li>
                       <%= link_to I18n.t("asset_types.#{asset_type}"),
-                                  new_asset_path(assetable_id: @event.id,
-                                                 assetable_type: 'Event', asset_type: asset_type) %>
+                                  new_resource_asset_path(assetable_id: @event.id,
+                                                         assetable_type: 'Event', asset_type: asset_type) %>
                     </li>
 
                 <% end %>
@@ -51,10 +51,10 @@
                 <span class="pull-right">
                   <%= link_to fa_icon('download'), asset.file.url, class: 'btn btn-link btn-xs', target: '_blank' %>
                   <% unless @event.archived %>
-                      <%= render 'common/btn_delete', btn_label: '', url: asset_path(asset,
-                                                                                     assetable_id: @event.id,
-                                                                                     assetable_type: 'Event',
-                                                                                     asset_type: asset.asset_type),
+                      <%= render 'common/btn_delete', btn_label: '', url: resource_asset_path(asset,
+                                                                                             assetable_id: @event.id,
+                                                                                             assetable_type: 'Event',
+                                                                                             asset_type: asset.asset_type),
                                  size: 'btn-xs', resource: asset %>
                   <% end %>
                 </span>

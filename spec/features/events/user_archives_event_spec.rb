@@ -15,7 +15,7 @@ feature 'Arquivamento de evento' do
                    attendance: Participation.attendances[:present]
     part2 = create :participation, p_type: Participation.p_types[:teacher], event: event,
                    attendance: Participation.attendances[:present]
-    asset = create :asset, asset_type: Asset.asset_types[:attendance_list],
+    asset = create :resource_asset, asset_type: ResourceAsset.asset_types[:attendance_list],
                    assetable_id: event.id, assetable_type: 'Event'
 
     visit event_path(event)
@@ -38,7 +38,7 @@ feature 'Arquivamento de evento' do
     part1 = create :participation, p_type: Participation.p_types[:student],
                    status: Participation.statuses[:pre_enrolled], event: event
     part2 = create :participation, p_type: Participation.p_types[:teacher], event: event
-    asset = create :asset, asset_type: Asset.asset_types[:attendance_list],
+    asset = create :resource_asset, asset_type: ResourceAsset.asset_types[:attendance_list],
                    assetable_id: event.id, assetable_type: 'Event'
 
     visit event_path(event)
@@ -56,7 +56,7 @@ feature 'Arquivamento de evento' do
                    attendance: Participation.attendances[:present]
     part2 = create :participation, p_type: Participation.p_types[:teacher], event: event,
                    attendance: Participation.attendances[:present]
-    asset = create :asset, asset_type: Asset.asset_types[:participant_material],
+    asset = create :resource_asset, asset_type: ResourceAsset.asset_types[:participant_material],
                    assetable_id: event.id, assetable_type: 'Event'
 
     visit event_path(event)

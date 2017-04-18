@@ -109,7 +109,7 @@ pt-BR:
       activity:
         name: "Nome"
         description: "Descrição"
-      asset:
+      resource_asset:
         file: "Arquivo"
         asset_type: "Tipo"
     errors:

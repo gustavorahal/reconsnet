@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe AssetPolicy do
-  subject { AssetPolicy.new(user, asset) }
+describe ResourceAssetPolicy do
+  subject { ResourceAssetPolicy.new(user, resource_asset) }
 
 
   context 'visitante não pode ver material do participante' do
     let(:user) { nil }
-    let(:asset) { create(:asset_event_participant_material) }
+    let(:resource_asset) { create(:asset_event_participant_material) }
 
     it { should_not permit(:show)       }
     it { should_not permit(:create)     }
@@ -18,7 +18,7 @@ describe AssetPolicy do
 
   context 'visitante não pode ver material do docente' do
     let(:user) { nil }
-    let(:asset) { create(:asset_event_instructor_material) }
+    let(:resource_asset) { create(:asset_event_instructor_material) }
 
     it { should_not permit(:show)       }
     it { should_not permit(:create)     }
@@ -30,11 +30,11 @@ describe AssetPolicy do
 
 
   context 'usuário participante em evento pode ver material do participante' do
-    let(:asset) { create(:asset_event_participant_material) }
+    let(:resource_asset) { create(:asset_event_participant_material) }
 
     let(:user) {
       user = create(:user)
-      user.add_role(:participant, asset.assetable)
+      user.add_role(:participant, resource_asset.assetable)
       user
     }
 
@@ -48,11 +48,11 @@ describe AssetPolicy do
   end
 
   context 'usuário participante em evento NÃO pode ver material do docente' do
-    let(:asset) { create(:asset_event_instructor_material) }
+    let(:resource_asset) { create(:asset_event_instructor_material) }
 
     let(:user) {
       user = create(:user)
-      user.add_role(:participant, asset.assetable)
+      user.add_role(:participant, resource_asset.assetable)
       user
     }
 
@@ -65,11 +65,11 @@ describe AssetPolicy do
   end
 
   context 'usuário docente em evento pode administrar material do docente' do
-    let(:asset) { create(:asset_event_instructor_material) }
+    let(:resource_asset) { create(:asset_event_instructor_material) }
 
     let(:user) {
       user = create(:user)
-      user.add_role(:instructor, asset.assetable)
+      user.add_role(:instructor, resource_asset.assetable)
       user
     }
 
@@ -82,7 +82,7 @@ describe AssetPolicy do
   end
 
   context 'usuário docente GLOBAL só pode ver (não editar) material do docente' do
-    let(:asset) { create(:asset_event_instructor_material) }
+    let(:resource_asset) { create(:asset_event_instructor_material) }
 
     let(:user) {
       user = create(:user)
@@ -100,7 +100,7 @@ describe AssetPolicy do
   end
 
   context 'usuário admin de evento pode administrar material do docente' do
-    let(:asset) { create(:asset_event_instructor_material) }
+    let(:resource_asset) { create(:asset_event_instructor_material) }
 
     let(:user) {
       user = create(:user)

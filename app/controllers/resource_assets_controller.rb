@@ -1,12 +1,12 @@
-class AssetsController < ApplicationController
+class ResourceAssetsController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_asset, only: [:show, :edit, :update, :destroy]
   after_action :verify_authorized
 
   def new
-    @asset = Asset.new
-    authorize @asset
+    @resource_asset = ResourceAsset.new
+    authorize @resource_asset
     @assetable = get_assetable
   end
 
@@ -14,13 +14,13 @@ class AssetsController < ApplicationController
   end
 
   def create
-    @asset = Asset.new(secure_params)
-    authorize @asset
+    @resource_asset = ResourceAsset.new(secure_params)
+    authorize @resource_asset
     @assetable = get_assetable
-    @asset.assetable_id = @assetable.id
-    @asset.assetable_type = @assetable.class.name
+    @resource_asset.assetable_id = @assetable.id
+    @resource_asset.assetable_type = @assetable.class.name
 
-    if @asset.save
+    if @resource_asset.save
       redirect_to polymorphic_path(@assetable)
     else
       render 'new'
@@ -28,7 +28,7 @@ class AssetsController < ApplicationController
   end
 
   def update
-    if @asset.update(secure_params)
+    if @resource_asset.update(secure_params)
       redirect_to polymorphic_path(@assetable)
     else
       render 'edit'
@@ -36,7 +36,7 @@ class AssetsController < ApplicationController
   end
 
   def destroy
-    @asset.destroy
+    @resource_asset.destroy
     redirect_to polymorphic_path(@assetable)
   end
 
@@ -48,13 +48,13 @@ class AssetsController < ApplicationController
     end
 
     def set_asset
-      @asset = Asset.find params[:id]
-      authorize @asset
+      @resource_asset = ResourceAsset.find params[:id]
+      authorize @resource_asset
       @assetable = get_assetable
     end
 
     def secure_params
-      params.require(:asset).permit(:file, :asset_type, :assetable_type, :assetable_id)
+      params.require(:resource_asset).permit(:file, :asset_type, :assetable_type, :assetable_id)
     end
 
 end

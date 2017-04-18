@@ -112,7 +112,7 @@ FactoryGirl.define do
     contact_type 'Telefônico'
   end
 
-  factory :asset do
+  factory :resource_asset do
 
     file_file_name 'lista_de_presenca.pdf'
     file_file_size 1234

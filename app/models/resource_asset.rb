@@ -14,7 +14,7 @@
 #  asset_type        :integer
 #
 
-class Asset < ActiveRecord::Base
+class ResourceAsset < ActiveRecord::Base
 
   enum asset_type: { attendance_list: 0,
                      instructor_material: 1,

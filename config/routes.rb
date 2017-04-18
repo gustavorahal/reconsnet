@@ -40,7 +40,7 @@ ReconsNet::Application.routes.draw do
   end
   resources :tmks
   resources :volunteers
-  resources :assets
+  resources :resource_assets
   resources :activities do
     member do
       get 'versions'

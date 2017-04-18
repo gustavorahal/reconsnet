@@ -1,7 +1,7 @@
-class TinymceAssetsController < ApplicationController
+class TinymceResourceAssetsController < ApplicationController
   def create
     assetable_id, assetable_type = params[:hint].split(',')
-    asset = Asset.new(file: params[:file], assetable_id: assetable_id, assetable_type: assetable_type)
+    asset = ResourceAsset.new(file: params[:file], assetable_id: assetable_id, assetable_type: assetable_type)
     asset.save!
 
     render json: {

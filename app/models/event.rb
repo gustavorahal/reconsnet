@@ -28,10 +28,10 @@ class Event < ActiveRecord::Base
   belongs_to :activity
   has_many :participations, dependent: :destroy
   has_many :people, through: :participations
-  has_many :assets, as: :assetable, dependent: :destroy
+  has_many :resource_assets, as: :assetable, dependent: :destroy
   has_many :tmks
 
-  accepts_nested_attributes_for :assets, allow_destroy: true
+  accepts_nested_attributes_for :resource_assets, allow_destroy: true
 
   scope :all_exclude_internal, -> { joins(:activity).where.not('activities.internal_only = true') }
   scope :sorted, -> { order('start DESC') }
@@ -52,7 +52,7 @@ class Event < ActiveRecord::Base
 
 
   def safely_destroyable?
-    participations.empty? and tmks.empty? and assets.empty?
+    participations.empty? and tmks.empty? and resource_assets.empty?
   end
 
 
@@ -99,7 +99,7 @@ class Event < ActiveRecord::Base
     allow = false if participations.where(attendance: nil).any?
 
     # Deve existir ao menos uma lista de presença escaneada
-    allow = false if assets.where(asset_type: Asset.asset_types[:attendance_list]).empty?
+    allow = false if resource_assets.where(asset_type: ResourceAsset.asset_types[:attendance_list]).empty?
 
     allow
   end

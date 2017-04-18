@@ -1,4 +1,4 @@
-class AssetPolicy < ApplicationPolicy
+class ResourceAssetPolicy < ApplicationPolicy
 
   def show?
     return true if can_edit?
@@ -8,7 +8,7 @@ class AssetPolicy < ApplicationPolicy
     # Docente global pode ver todos material
     return true if user.has_role? :instructor
 
-    if record.is_a?(Asset)
+    if record.is_a?(ResourceAsset)
       event = record.assetable # assuming event for now
       # Material do participante
       return true if record.asset_type == 'participant_material' and
@@ -53,7 +53,7 @@ class AssetPolicy < ApplicationPolicy
     def can_edit?
       return false unless user
       return true if (user.is_admin? or user.is_event_admin?)
-      if record.is_a?(Asset)
+      if record.is_a?(ResourceAsset)
         event = record.assetable # assuming event for now
         return true if user.has_role?(:instructor, event)
       end

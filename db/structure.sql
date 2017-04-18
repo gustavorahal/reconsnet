@@ -2,12 +2,16 @@
 -- PostgreSQL database dump
 --
 
+-- Dumped from database version 9.5.4
+-- Dumped by pg_dump version 9.5.4
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
+SET row_security = off;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
@@ -30,7 +34,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: activities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: activities; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE activities (
@@ -70,7 +74,7 @@ ALTER SEQUENCE activities_id_seq OWNED BY activities.id;
 
 
 --
--- Name: addresses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: addresses; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE addresses (
@@ -108,44 +112,7 @@ ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
 
 
 --
--- Name: assets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE assets (
-    id integer NOT NULL,
-    file_file_name character varying(255),
-    file_content_type character varying(255),
-    file_file_size integer,
-    file_updated_at timestamp without time zone,
-    assetable_id integer,
-    assetable_type character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    asset_type integer
-);
-
-
---
--- Name: assets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE assets_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: assets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE assets_id_seq OWNED BY assets.id;
-
-
---
--- Name: events; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: events; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE events (
@@ -181,7 +148,7 @@ ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 
 --
--- Name: participations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: participations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE participations (
@@ -216,7 +183,7 @@ ALTER SEQUENCE participations_id_seq OWNED BY participations.id;
 
 
 --
--- Name: people; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: people; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE people (
@@ -263,7 +230,7 @@ ALTER SEQUENCE people_id_seq OWNED BY people.id;
 
 
 --
--- Name: phone_numbers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: phone_numbers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE phone_numbers (
@@ -299,7 +266,44 @@ ALTER SEQUENCE phone_numbers_id_seq OWNED BY phone_numbers.id;
 
 
 --
--- Name: roles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: resource_assets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE resource_assets (
+    id integer NOT NULL,
+    file_file_name character varying(255),
+    file_content_type character varying(255),
+    file_file_size integer,
+    file_updated_at timestamp without time zone,
+    assetable_id integer,
+    assetable_type character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    asset_type integer
+);
+
+
+--
+-- Name: resource_assets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE resource_assets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: resource_assets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE resource_assets_id_seq OWNED BY resource_assets.id;
+
+
+--
+-- Name: roles; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE roles (
@@ -332,7 +336,7 @@ ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE schema_migrations (
@@ -341,7 +345,7 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: tmks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: tmks; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE tmks (
@@ -377,7 +381,7 @@ ALTER SEQUENCE tmks_id_seq OWNED BY tmks.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE users (
@@ -419,7 +423,7 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: users_roles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: users_roles; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE users_roles (
@@ -429,7 +433,7 @@ CREATE TABLE users_roles (
 
 
 --
--- Name: versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: versions; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE versions (
@@ -467,7 +471,7 @@ ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
 
 
 --
--- Name: volunteers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: volunteers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE volunteers (
@@ -517,13 +521,6 @@ ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY assets ALTER COLUMN id SET DEFAULT nextval('assets_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
 
 
@@ -546,6 +543,13 @@ ALTER TABLE ONLY people ALTER COLUMN id SET DEFAULT nextval('people_id_seq'::reg
 --
 
 ALTER TABLE ONLY phone_numbers ALTER COLUMN id SET DEFAULT nextval('phone_numbers_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY resource_assets ALTER COLUMN id SET DEFAULT nextval('resource_assets_id_seq'::regclass);
 
 
 --
@@ -584,7 +588,7 @@ ALTER TABLE ONLY volunteers ALTER COLUMN id SET DEFAULT nextval('volunteers_id_s
 
 
 --
--- Name: activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY activities
@@ -592,7 +596,7 @@ ALTER TABLE ONLY activities
 
 
 --
--- Name: addresses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: addresses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY addresses
@@ -600,15 +604,7 @@ ALTER TABLE ONLY addresses
 
 
 --
--- Name: assets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY assets
-    ADD CONSTRAINT assets_pkey PRIMARY KEY (id);
-
-
---
--- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY events
@@ -616,7 +612,7 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY participations
@@ -624,7 +620,7 @@ ALTER TABLE ONLY participations
 
 
 --
--- Name: people_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: people_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY people
@@ -632,7 +628,7 @@ ALTER TABLE ONLY people
 
 
 --
--- Name: phone_numbers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: phone_numbers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY phone_numbers
@@ -640,7 +636,15 @@ ALTER TABLE ONLY phone_numbers
 
 
 --
--- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: resource_assets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY resource_assets
+    ADD CONSTRAINT resource_assets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY roles
@@ -648,7 +652,7 @@ ALTER TABLE ONLY roles
 
 
 --
--- Name: tmks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: tmks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tmks
@@ -656,7 +660,7 @@ ALTER TABLE ONLY tmks
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -664,7 +668,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY versions
@@ -672,7 +676,7 @@ ALTER TABLE ONLY versions
 
 
 --
--- Name: volunteers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: volunteers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY volunteers
@@ -680,140 +684,140 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: index_addresses_on_addressable_type_and_addressable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_addresses_on_addressable_type_and_addressable_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_addresses_on_addressable_type_and_addressable_id ON addresses USING btree (addressable_type, addressable_id);
 
 
 --
--- Name: index_assets_on_assetable_type_and_assetable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_assets_on_assetable_type_and_assetable_id ON assets USING btree (assetable_type, assetable_id);
-
-
---
--- Name: index_events_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_events_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_events_on_name ON events USING btree (name);
 
 
 --
--- Name: index_participations_on_event_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_participations_on_event_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_participations_on_event_id ON participations USING btree (event_id);
 
 
 --
--- Name: index_participations_on_person_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_participations_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_participations_on_person_id ON participations USING btree (person_id);
 
 
 --
--- Name: index_people_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_people_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_people_on_name ON people USING btree (name);
 
 
 --
--- Name: index_phone_numbers_on_number; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_phone_numbers_on_number; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_phone_numbers_on_number ON phone_numbers USING btree (number);
 
 
 --
--- Name: index_phone_numbers_on_phonable_type_and_phonable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_phone_numbers_on_phonable_type_and_phonable_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_phone_numbers_on_phonable_type_and_phonable_id ON phone_numbers USING btree (phonable_type, phonable_id);
 
 
 --
--- Name: index_roles_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_resource_assets_on_assetable_type_and_assetable_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_resource_assets_on_assetable_type_and_assetable_id ON resource_assets USING btree (assetable_type, assetable_id);
+
+
+--
+-- Name: index_roles_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_roles_on_name ON roles USING btree (name);
 
 
 --
--- Name: index_roles_on_name_and_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_roles_on_name_and_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_roles_on_name_and_resource_type_and_resource_id ON roles USING btree (name, resource_type, resource_id);
 
 
 --
--- Name: index_tmks_on_event_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_tmks_on_event_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_tmks_on_event_id ON tmks USING btree (event_id);
 
 
 --
--- Name: index_tmks_on_from_who_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_tmks_on_from_who_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_tmks_on_from_who_id ON tmks USING btree (from_who_id);
 
 
 --
--- Name: index_tmks_on_with_who_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_tmks_on_with_who_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_tmks_on_with_who_id ON tmks USING btree (with_who_id);
 
 
 --
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
--- Name: index_users_on_person_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_users_on_person_id ON users USING btree (person_id);
 
 
 --
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
 
 
 --
--- Name: index_users_roles_on_user_id_and_role_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_roles_on_user_id_and_role_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_users_roles_on_user_id_and_role_id ON users_roles USING btree (user_id, role_id);
 
 
 --
--- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (item_type, item_id);
 
 
 --
--- Name: index_volunteers_on_person_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_volunteers_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_volunteers_on_person_id ON volunteers USING btree (person_id);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
@@ -823,7 +827,7 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user",public;
+SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20140330205100');
 
@@ -890,4 +894,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160108222336');
 INSERT INTO schema_migrations (version) VALUES ('20160109333333');
 
 INSERT INTO schema_migrations (version) VALUES ('20160424041349');
+
+INSERT INTO schema_migrations (version) VALUES ('20170418084352');
 
