@@ -15,7 +15,7 @@
 #  updated_at       :datetime
 #
 
-class Address < ActiveRecord::Base
+class Address < ApplicationRecord
   has_paper_trail meta: { person_id: lambda { |addr| addr.addressable_id if addr.addressable_type == 'Person' } }
 
   belongs_to :addressable, :polymorphic => true

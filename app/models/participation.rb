@@ -11,7 +11,7 @@
 #  updated_at :datetime
 #
 
-class Participation < ActiveRecord::Base
+class Participation < ApplicationRecord
   has_paper_trail meta: { event_id: :event_id, person_id: :person_id }
 
   enum status: { enrolled: 0, pre_enrolled: 1, interested: 2, divulge: 3 }

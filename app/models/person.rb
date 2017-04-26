@@ -24,7 +24,7 @@
 #  avatar_updated_at   :datetime
 #
 
-class Person < ActiveRecord::Base
+class Person < ApplicationRecord
   has_paper_trail meta: { person_id: :id }
 
   has_attached_file :avatar, styles: { large: '300x300>', medium: '180x180>', thumb: '100x100>' }

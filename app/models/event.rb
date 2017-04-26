@@ -13,7 +13,7 @@
 #  archived    :boolean          default(FALSE)
 #
 
-class Event < ActiveRecord::Base
+class Event < ApplicationRecord
   resourcify
   has_paper_trail meta: { event_id: :id, activity_id: :activity_id }
 

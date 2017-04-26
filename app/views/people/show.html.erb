@@ -1,4 +1,4 @@
-<%= render 'common/back_link', destino: 'Pessoas', url: people_path(params.except(:id)) %>
+<%= render 'common/back_link', destino: 'Pessoas', url: people_path(whitelist_params.except(:id)) %>
 <%= render 'common/page_title', titulo: "<em>#{@person.name}</em>".html_safe %>
 
 <% content_for :actions do %>

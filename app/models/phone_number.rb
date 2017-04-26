@@ -13,7 +13,7 @@
 #  updated_at    :datetime
 #
 
-class PhoneNumber < ActiveRecord::Base
+class PhoneNumber < ApplicationRecord
   has_paper_trail meta: { person_id: lambda { |pn| pn.phonable_id if pn.phonable_type == 'Person' } }
 
   belongs_to :phonable, :polymorphic => true

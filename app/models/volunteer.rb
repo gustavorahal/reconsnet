@@ -10,7 +10,7 @@
 #  updated_at        :datetime
 #
 
-class Volunteer < ActiveRecord::Base
+class Volunteer < ApplicationRecord
 
   AREAS = %w(
 Banco\ de\ Dados

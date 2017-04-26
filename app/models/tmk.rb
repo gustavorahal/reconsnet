@@ -13,7 +13,7 @@
 #  updated_at   :datetime
 #
 
-class Tmk < ActiveRecord::Base
+class Tmk < ApplicationRecord
   belongs_to :with_who, class_name: 'Person', foreign_key: 'with_who_id'
   belongs_to :from_who, class_name: 'Person', foreign_key: 'from_who_id'
   belongs_to :event

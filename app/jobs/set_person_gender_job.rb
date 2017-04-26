@@ -1,4 +1,4 @@
-class SetPersonGenderJob < ActiveJob::Base
+class SetPersonGenderJob < ApplicationJob
   queue_as :default
 
   def perform(person)

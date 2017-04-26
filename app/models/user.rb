@@ -19,7 +19,7 @@
 #  person_id              :integer
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   rolify strict: true
 
   validates_presence_of :name

@@ -8,6 +8,10 @@ module ApplicationHelper
     end
   end
 
+  def whitelist_params
+    params.permit(:filter, :order, :event_id)
+  end
+
   # mais detalhes em http://railscasts.com/episodes/196-nested-model-form-revised
   def link_to_add_fields(name, f, association, html_class='')
     new_object = f.object.send(association).klass.new

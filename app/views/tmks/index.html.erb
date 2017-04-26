@@ -34,7 +34,7 @@
 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
   <% @events.each do |event| %>
       <li role="presentation">
-        <%= link_to event.name_with_date, tmks_path(params.merge(event_id: event.id)) %>
+        <%= link_to event.name_with_date, tmks_path(whitelist_params.merge(event_id: event.id)) %>
       </li>
   <% end %>
 </ul>

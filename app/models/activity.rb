@@ -13,7 +13,7 @@
 #  updated_at    :datetime
 #
 
-class Activity < ActiveRecord::Base
+class Activity < ApplicationRecord
 
   has_paper_trail meta: { activity_id: :id }
   has_attached_file :avatar, styles: { banner: '450x220#', medium: '350x170#', thumb: '200x100#' }
