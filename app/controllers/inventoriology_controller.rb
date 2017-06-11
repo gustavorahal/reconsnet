@@ -19,7 +19,7 @@ class InventoriologyController < ApplicationController
     @male_count = @people.where(gender: 'Masculino').count
     @female_count = @people.where(gender: 'Feminino').count
     @gen_undef_count = @people.where(gender: ['', nil]).count
-    @occupations = @people.where.not(occupation: [nil, '']).group(:occupation).order('occupation').count
+    @occupations = @people.where.not(occupation: [nil, '']).group(:occupation).order('people.occupation').count
     #@cities = Address.joins(:person).where(person: @people).where.not(city: [nil, '']).group(:city).count
   end
 
