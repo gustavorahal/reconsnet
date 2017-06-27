@@ -24,7 +24,9 @@ class User < ApplicationRecord
 
   validates_presence_of :name
 
-  belongs_to :person
+  # In many cases the user being created will not have a corresponding person
+  # therefore do not require
+  belongs_to :person, required: false
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

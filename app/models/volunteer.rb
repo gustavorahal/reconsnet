@@ -32,7 +32,7 @@ Voluntariado)
 
   belongs_to :person
 
-  after_update :set_roles, if: :area_of_operation_changed?
+  after_update :set_roles, if: :saved_change_to_area_of_operation?
 
   after_create :set_roles
 
@@ -58,10 +58,10 @@ Voluntariado)
       # Make sure volunteer role is always set
       u.add_role :volunteer
 
-      u.remove_role(:person_admin) if PERSON_ADMIN_ROLE_AREAS.include?(area_of_operation_was)
-      u.remove_role(:event_admin) if EVENT_ADMIN_ROLE_AREAS.include?(area_of_operation_was)
-      u.remove_role(:volunteer_admin) if VOLUNTEER_ADMIN_ROLE_AREAS.include?(area_of_operation_was)
-      u.remove_role(:admin) if ADMIN_ROLE_AREAS.include?(area_of_operation_was)
+      u.remove_role(:person_admin) if PERSON_ADMIN_ROLE_AREAS.include?(area_of_operation_before_last_save)
+      u.remove_role(:event_admin) if EVENT_ADMIN_ROLE_AREAS.include?(area_of_operation_before_last_save)
+      u.remove_role(:volunteer_admin) if VOLUNTEER_ADMIN_ROLE_AREAS.include?(area_of_operation_before_last_save)
+      u.remove_role(:admin) if ADMIN_ROLE_AREAS.include?(area_of_operation_before_last_save)
 
       u.add_role(:person_admin) if PERSON_ADMIN_ROLE_AREAS.include?(area_of_operation)
       u.add_role(:event_admin) if EVENT_ADMIN_ROLE_AREAS.include?(area_of_operation)

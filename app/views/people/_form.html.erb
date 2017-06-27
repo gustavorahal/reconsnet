@@ -32,10 +32,7 @@
                         layout: :inline %>
     <% end %>
 
-    <% if @person.persisted? and @person.gender.blank? %>
-        <%= f.select :gender, Person::GENDERS, include_blank: true, control_col: 'col-sm-3',
-                     help: 'Favor especificar um gênero já que o sistema não conseguiu detectar automaticamente.' %>
-    <% end %>
+    <%= f.select :gender, Person::GENDERS, include_blank: true, control_col: 'col-sm-3' %>
 
     <%= f.select :relationship, Person.relationships.keys.to_a.map { |w| [ I18n.t("relationship.#{w}"), w] },
                  include_blank: true, control_col: 'col-sm-3' %>

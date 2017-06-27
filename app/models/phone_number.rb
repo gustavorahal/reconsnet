@@ -16,7 +16,7 @@
 class PhoneNumber < ApplicationRecord
   has_paper_trail meta: { person_id: lambda { |pn| pn.phonable_id if pn.phonable_type == 'Person' } }
 
-  belongs_to :phonable, :polymorphic => true
+  belongs_to :phonable, :polymorphic => true, required: false
 
   # Deixar lista em ordem alfabética
   PROVIDERS = %w(Claro GVT Net Oi Telefônica Tim Vivo)

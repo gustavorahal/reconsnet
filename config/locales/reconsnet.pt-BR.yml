@@ -109,6 +109,7 @@ pt-BR:
       activity:
         name: "Nome"
         description: "Descrição"
+        summary: "Sumário"
       resource_asset:
         file: "Arquivo"
         asset_type: "Tipo"

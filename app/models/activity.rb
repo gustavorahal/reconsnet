@@ -22,7 +22,7 @@ class Activity < ApplicationRecord
   include DeletableAttachment
 
   has_many :children, class_name: 'Activity', foreign_key: 'parent_id'
-  belongs_to :parent, class_name: 'Activity'
+  belongs_to :parent, class_name: 'Activity', required: false
   has_many :events
 
   # Deixar lista em ordem alfabética
@@ -32,7 +32,7 @@ class Activity < ApplicationRecord
   validates :summary, presence: true
   validates :activity_type, inclusion: { in: TYPES }
 
-  after_update :check_images, if: :description_changed?
+  after_update :check_images, if: :saved_change_to_description?
 
 
   def self.parent_activities

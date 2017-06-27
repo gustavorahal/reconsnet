@@ -28,7 +28,7 @@ feature 'Suporte a integração com backend de mail marketing', slow: true do
     expect(EmailMktService.subscribed?(person.email)).to be true
 
     # restaura situação no sistema backend
-    EmailMktService.unsubscribe(person.email)
+    EmailMktService.delete(person.email)
   end
 
 
@@ -76,7 +76,7 @@ feature 'Suporte a integração com backend de mail marketing', slow: true do
     expect(EmailMktService.subscribed?(person.email)).to be true
 
     # restaura situação no sistema backend
-    EmailMktService.unsubscribe(person.email)
+    EmailMktService.delete(person.email)
   end
 
 

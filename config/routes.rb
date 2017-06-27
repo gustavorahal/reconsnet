@@ -50,6 +50,6 @@ Rails.application.routes.draw do
 
   # Help
   get 'help' => 'help#index'
-  get ':controller/:action/', controller: 'help'
+  get 'help/authorization' => 'help#authorization'
 
 end

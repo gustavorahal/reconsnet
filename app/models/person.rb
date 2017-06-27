@@ -55,9 +55,8 @@ class Person < ApplicationRecord
   validates_inclusion_of :gender, in:  GENDERS, allow_nil: true, allow_blank: true
   validates_inclusion_of :nationality, in: NATIONALITIES, allow_nil: true, allow_blank: true
   validate :handle_conflict, on: :update
-  after_commit :detect_gender, unless: :gender?, on: [:create]
   after_commit :subscribe_email_mkt, if: :marketing?, on: [:create]
-  after_update :update_email_mkt, if: :marketing_changed?
+  after_update :update_email_mkt, if: :saved_change_to_marketing?
   after_commit :unsubscribe_email_mkt, on: [:destroy]
 
   has_one :volunteer, dependent: :destroy
@@ -125,21 +124,12 @@ class Person < ApplicationRecord
     end
   end
 
-
-  ##
-  # Como a detecção do gênero exige uma chamada à API do genderize.io escolheu-se fazer disso um job
-  # para evitar transtornos por eventuais demoras decorrentes da rede
-
-  def detect_gender
-    SetPersonGenderJob.perform_later self
-  end
-
   def unsubscribe_email_mkt
-    EmailMktService.delay.unsubscribe(email)
+    UnsubscribeEmailJob.perform_later email
   end
 
   def subscribe_email_mkt
-    EmailMktService.delay.subscribe(self)
+    SubscribeEmailJob.perform_later email, first_name, last_name
   end
 
 

@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.2'
+gem 'rails', '~> 5.1.0'
 gem 'pg'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
@@ -33,16 +33,13 @@ gem 'holder_rails'
 gem 'pundit'
 gem 'rolify'
 gem 'devise'
-gem 'paperclip', '~> 4.2'
-gem 'paper_trail', '~> 4.0.0'
+gem 'paperclip'
+gem 'paper_trail'
 
-gem 'puma', '~> 3.0'
+gem 'puma'
 
 # mailchimp api wrapper
 gem 'gibbon'
-
-# Detecção de gênero baseada em nome
-gem 'gendered', '~> 0.0.8'
 
 # Para geração de arquivos em PDF
 gem 'prawn'
@@ -68,24 +65,23 @@ end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
-  gem 'rspec-rails'
-  gem 'factory_girl_rails'
-  gem 'database_cleaner'
-  gem 'poltergeist'
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
   gem 'launchy' # for save_and_open_page
+  gem 'poltergeist'
+  gem 'rspec-rails'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '~> 3.0.5'
   gem 'annotate'
-  gem 'pry-rails'
+  gem 'listen', '~> 3.0.5'
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring-commands-rspec'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'web-console', '>= 3.3.0'
 end
 
 # Use ActiveModel has_secure_password
