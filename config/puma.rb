@@ -54,3 +54,9 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
+
+after_worker_boot do
+  if Rails.env.production?
+    Dumper::Agent.start(:app_key => ENV.fetch("DUMPER_KEY"))
+  end
+end
