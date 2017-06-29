@@ -24,3 +24,4 @@
 /public/assets/
 
 config/secrets.yml
+config/reconsnet.yml

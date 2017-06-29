@@ -95,6 +95,6 @@ Rails.application.configure do
                                          port: 587,
                                          domain: 'mg.reconscientia.org',
                                          authentication: :plain,
-                                         user_name: ENV['SMTP_USERNAME'],
-                                         password: ENV['SMTP_PASSWORD']}
+                                         user_name: Rails.configuration.reconsnet['smtp_username'],
+                                         password: Rails.configuration.reconsnet['smtp_password']}
 end

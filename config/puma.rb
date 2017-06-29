@@ -7,13 +7,19 @@
 threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
 threads threads_count, threads_count
 
-# Specifies the `port` that Puma will listen on to receive requests; default is 3000.
-#
-port        ENV.fetch("PORT") { 3000 }
-
 # Specifies the `environment` that Puma will run in.
 #
-environment ENV.fetch("RAILS_ENV") { "development" }
+curr_env = ENV.fetch("RAILS_ENV") { "development" }
+environment curr_env
+
+if curr_env == 'production'
+  bind 'unix:///tmp/reconsnet_app.sock'
+  state_path '/tmp/reconsnet_app.state'
+else
+  # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
+  #
+  port ENV.fetch("PORT") { 3000 }
+end
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
@@ -55,8 +61,10 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
 
+
 after_worker_boot do
-  if Rails.env.production?
-    Dumper::Agent.start(:app_key => ENV.fetch("DUMPER_KEY"))
+  Dumper::Agent.start_if(app_key: Rails.configuration.reconsnet['dumperio_key']) do
+    Rails.configuration.reconsnet['dumperio_key'].present? && dumper_enabled_host?
   end
 end
+

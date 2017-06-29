@@ -6,7 +6,8 @@
 
 class EmailMktService
 
-  @list_id = Rails.env.test? ? 'a7e5ae6a0e' : 'a11c726e0c'
+  @list_id = Rails.configuration.reconsnet['mailchimp_list_id']
+  @api_key = Rails.configuration.reconsnet['mailchimp_api_key']
 
   def self.subscribe(email, first_name, last_name)
     gb = self.get_conn
@@ -65,7 +66,7 @@ class EmailMktService
     end
 
     def self.get_conn
-      Gibbon::Request.new(api_key: Rails.application.secrets.mailchimp_api_key)
+      Gibbon::Request.new(api_key: @api_key)
     end
 
     def self.refresh_subscribed_list
