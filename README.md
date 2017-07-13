@@ -8,6 +8,7 @@ Website e intranet da Reconscientia
 1. Instalar postgresql `apt-get install postgresql postgresql-server-dev-all`
 1. Instalar redis `apt-get install redis-server`
 1. Instalar nginx `apt-get install nginx`
+1. Instalar Image Magick `apt-get install imagemagick`
 1. Instalar Ruby >= 2.4 (sugestão: instalar usando http://rvm.io)
 1. Git checkout do `reconsnet`
 1. `gem install bundler`

@@ -38,8 +38,7 @@ Voluntariado)
 
   after_destroy do
     u = User.find_by(person_id: person_id)
-    return unless u
-    u.remove_role :volunteer
+    u.remove_role :volunteer if u
   end
 
 

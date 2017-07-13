@@ -23,6 +23,26 @@ describe 'Volunteers' do
     expect(user.has_role? :volunteer).to be_truthy
   end
 
+  it 'ao deletar voluntário, remover role de usuário' do
+    expect(user.has_role? :volunteer).to be_falsey
+    # cria voluntário
+    person = create :person, name: user.name, email: user.email
+    user.person = person
+    user.save!
+    visit new_volunteer_path
+    select person.name, from: 'Pessoa'
+    select 'Eventos', from: 'Área de atuação'
+    click_on 'Salvar'
+
+    expect(user.has_role? :volunteer).to be_truthy
+
+    # agora deleta
+    visit volunteers_path
+    find(:linkhref, volunteer_path(Volunteer.last!)).click
+
+    expect(user.has_role? :volunteer).to be_falsey
+  end
+
   it 'não permite adicionar a mesma pessoa 2x como voluntário' do
     person = create(:person)
     # Adiciona pessoa a primeira vez como voluntário
