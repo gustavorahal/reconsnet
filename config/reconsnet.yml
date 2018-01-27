@@ -1,0 +1,18 @@
+production:
+  mailchimp_list_id:
+  mailchimp_api_key:
+  smtp_username:
+  smtp_password:
+  dumperio_key:
+development:
+  mailchimp_list_id:
+  mailchimp_api_key:
+  smtp_username:
+  smtp_password:
+  dumperio_key:
+test:
+  mailchimp_list_id: 
+  mailchimp_api_key:
+  smtp_username:
+  smtp_password:
+  dumperio_key:
