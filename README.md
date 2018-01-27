@@ -27,19 +27,16 @@ Website e intranet da Reconscientia
       mailchimp_api_key:
       smtp_username:
       smtp_password:
-      dumperio_key:
     development:
       mailchimp_list_id:
       mailchimp_api_key:
       smtp_username:
       smtp_password:
-      dumperio_key:
     test:
       mailchimp_list_id:
       mailchimp_api_key:
       smtp_username:
       smtp_password:
-      dumperio_key:
      ```
 1. Configurar nginx. Ver exemplo de arquivo de configuração abaixo
 1. Colocar para rodar: `rails s`
@@ -72,13 +69,6 @@ um servidor SMTP, seja em servidor próprio ou usando um serviço em Cloud. Reco
 Sidekiq é uma biblioteca para Ruby/Rails que permite a execução de jobs de maneira asyncrona em segundo plano 
 e para funcionar que usa o [redis](http://redis.io) como "backend". No momento o sidekiq é usado para interagir com a API do 
 MailChimp para adição/remoção de emails da lista de divulgação.
-
-
-### Dumper.io
-
-Dumper.io é um serviço muito simples e prático para backup do banco de dados. Recomenda-se criar uma conta
-neste serviço [dumper.io](http://dumper.io) e para os backups automáticos do banco começarem a funcionar basta especificar o `dumperio_key` em 
-`config/reconsnet.yml`.
 
 ### Arquivo de configuração para nginx
 

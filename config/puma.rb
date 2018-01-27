@@ -62,9 +62,3 @@ end
 plugin :tmp_restart
 
 
-after_worker_boot do
-  Dumper::Agent.start_if(app_key: Rails.configuration.reconsnet['dumperio_key']) do
-    Rails.configuration.reconsnet['dumperio_key'].present? && dumper_enabled_host?
-  end
-end
-

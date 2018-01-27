@@ -49,9 +49,6 @@ gem 'prawn-table'
 gem 'sidekiq'
 gem 'sinatra', :require => nil # para web do sidekiq
 
-# Solução de Backup do BD em cloud
-gem 'dumper'
-
 # para manipulação de números de telefone
 gem 'phony_rails'
 
