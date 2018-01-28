@@ -20,25 +20,12 @@ Website e intranet da Reconscientia
 1. `rails db:migrate`
 1. `rails db:seed`
 1. `./bin/assets_precompile`
-1. Criar arquivo `config/reconsnet.yml` com a estrutura abaixo a preencher com os valores apropriados:
-    ```yaml
-    production:
-      mailchimp_list_id:
-      mailchimp_api_key:
-      smtp_username:
-      smtp_password:
-    development:
-      mailchimp_list_id:
-      mailchimp_api_key:
-      smtp_username:
-      smtp_password:
-    test:
-      mailchimp_list_id:
-      mailchimp_api_key:
-      smtp_username:
-      smtp_password:
-     ```
 1. Configurar nginx. Ver exemplo de arquivo de configuração abaixo
+1. Setar as seguintes variáveis de ambiente com as informações relevantes:
+    1. MAILCHIMP_LIST_ID
+    1. MAILCHIMP_API_KEY
+    1. SMTP_USERNAME
+    1. SMTP_PASSWORD
 1. Colocar para rodar: `rails s`
 1. Criação de primeiro usuário com permissão de 'admin'
     1. Acesse `http://meuhost.com/users/sign_up`
@@ -55,7 +42,7 @@ Website e intranet da Reconscientia
 ### Integração com MailChimp
 
 Sempre que uma pessoa é adiciona ou removida, seu email é adicionado (ou removido) de uma lista de divulgação
-especificada (`mailchimp_list_id`). É possível também ter a pessoa cadastrada no sistema e não na lista de emails,
+especificada (`MAILCHIMP_LIST_ID`). É possível também ter a pessoa cadastrada no sistema e não na lista de emails,
 bastando para isso selecionar 'Não deseja receber divulgação' no cadastro da pessoa em questão.
 
 ### Integração com um "SMTP em cloud" para envio de emails do sistema

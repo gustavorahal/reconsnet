@@ -6,8 +6,8 @@
 
 class EmailMktService
 
-  @list_id = Rails.configuration.reconsnet['mailchimp_list_id']
-  @api_key = Rails.configuration.reconsnet['mailchimp_api_key']
+  @list_id = ENV['MAILCHIMP_LIST_ID']
+  @api_key = ENV['MAILCHIMP_API_KEY']
 
   def self.subscribe(email, first_name, last_name)
     gb = self.get_conn
