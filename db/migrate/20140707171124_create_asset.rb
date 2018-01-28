@@ -1,4 +1,4 @@
-class CreateAsset < ActiveRecord::Migration
+class CreateAsset < ActiveRecord::Migration[4.2]
   def change
     create_table :assets do |t|
       t.string :name

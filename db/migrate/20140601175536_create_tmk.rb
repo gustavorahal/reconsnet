@@ -1,4 +1,4 @@
-class CreateTmk < ActiveRecord::Migration
+class CreateTmk < ActiveRecord::Migration[4.2]
   def change
     create_table :tmks do |t|
       t.references :with_who, references: :people, index: true, null: false

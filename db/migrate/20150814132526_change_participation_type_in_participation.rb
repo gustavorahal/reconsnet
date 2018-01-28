@@ -1,4 +1,4 @@
-class ChangeParticipationTypeInParticipation < ActiveRecord::Migration
+class ChangeParticipationTypeInParticipation < ActiveRecord::Migration[4.2]
   def change
     connection.execute(%q{
   ALTER TABLE participations ALTER COLUMN participation_type TYPE integer USING (participation_type::integer);

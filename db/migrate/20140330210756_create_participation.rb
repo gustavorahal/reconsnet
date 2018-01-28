@@ -1,4 +1,4 @@
-class CreateParticipation < ActiveRecord::Migration
+class CreateParticipation < ActiveRecord::Migration[4.2]
   def change
     create_table :participations do |t|
       t.references :event, index: true, null: false

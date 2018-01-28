@@ -1,4 +1,4 @@
-class CreatePhoneNumber < ActiveRecord::Migration
+class CreatePhoneNumber < ActiveRecord::Migration[4.2]
   def change
     create_table :phone_numbers do |t|
       t.string :label
