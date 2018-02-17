@@ -26,6 +26,10 @@ Website e intranet da Reconscientia
     1. MAILCHIMP_API_KEY
     1. SMTP_USERNAME
     1. SMTP_PASSWORD
+    1. AWS_ACCESS_KEY_ID
+    1. AWS_SECRET_ACCESS_KEY
+    1. AWS_REGION
+    1. S3_BUCKET_NAME
 1. Colocar para rodar: `rails s`
 1. Criação de primeiro usuário com permissão de 'admin'
     1. Acesse `http://meuhost.com/users/sign_up`
