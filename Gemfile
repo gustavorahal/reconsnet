@@ -6,8 +6,10 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.6'
-gem 'pg'
+gem 'rails', '~> 5.2.0'
+gem 'pg', '>= 0.18', '< 2.0'
+gem 'puma', '~> 3.11'
+gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 
@@ -17,7 +19,6 @@ gem 'aws-sdk', '~> 2.3.0'
 
 # UI/Web
 gem 'bootstrap-sass', '~> 3.3.6'
-gem 'sass-rails', '~> 5.0'
 gem 'font-awesome-rails'
 gem 'autoprefixer-rails', '>= 5.2.1' # recommended for bootstrap-sass
 gem 'bootstrap_form'
@@ -37,7 +38,8 @@ gem 'devise'
 gem 'paperclip'
 gem 'paper_trail'
 
-gem 'puma'
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.1.0', require: false
 
 # mailchimp api wrapper
 gem 'gibbon'
@@ -74,7 +76,6 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'annotate'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-commands-rspec'
