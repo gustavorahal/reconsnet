@@ -28,8 +28,8 @@
     </div>
 
     <div class="col-xs-4">
-      <% if @activity.avatar.present? %>
-        <%= image_tag @activity.avatar.url(:medium), class: 'img-rounded' %>
+      <% if @activity.avatar.attached? %>
+        <%= image_tag @activity.avatar.variant(resize: '350x170'), class: 'img-rounded' %>
       <% end %>
     </div>
 

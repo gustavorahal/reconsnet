@@ -12,8 +12,8 @@ Mostra informações sobre uma atividade e destaca/mostra quando ela ocorrerá (
 
 <div class="thumbnail" style="height: 380px;">
 
-  <% if activity.avatar.present? %>
-      <%= image_tag activity.avatar.url(:medium) %>
+  <% if activity.avatar.attached? %>
+      <%= image_tag activity.avatar.variant(resize: '350x170') %>
   <% else %>
       <%= holder_tag '350x170', activity.name %>
   <% end %>

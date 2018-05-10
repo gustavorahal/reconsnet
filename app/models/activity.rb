@@ -16,14 +16,11 @@
 class Activity < ApplicationRecord
 
   has_paper_trail meta: { activity_id: :id }
-  has_attached_file :avatar, styles: { banner: '450x220#', medium: '350x170#', thumb: '200x100#' }
-  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
-
-  include DeletableAttachment
 
   has_many :children, class_name: 'Activity', foreign_key: 'parent_id'
   belongs_to :parent, class_name: 'Activity', required: false
   has_many :events
+  has_one_attached :avatar
 
   # Deixar lista em ordem alfabética
   TYPES = %w(Curso Oficina Programa Reunião Simpósio)
@@ -33,6 +30,7 @@ class Activity < ApplicationRecord
   validates :activity_type, inclusion: { in: TYPES }
 
   after_update :check_images, if: :saved_change_to_description?
+  before_save :destroy_avatar?
 
 
   def self.parent_activities
@@ -76,7 +74,21 @@ class Activity < ApplicationRecord
     events.empty? and children.empty?
   end
 
+
+  def avatar_delete
+    @avatar_delete ||= '0'
+  end
+
+  def avatar_delete=(value)
+    @avatar_delete = value
+  end
+
+
   private
+
+    def destroy_avatar?
+      self.avatar.purge if @avatar_delete == '1'
+    end
 
     def self.parent_activities_ids
       Activity.select(:parent_id).distinct.pluck(:parent_id)
