@@ -30,7 +30,6 @@ class Person < ApplicationRecord
   has_attached_file :avatar, styles: { large: '300x300>', medium: '180x180>', thumb: '100x100>' }
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
-  include ConflictResolutionable
   include DeletableAttachment
 
   # manter em ordem alfabética
@@ -54,7 +53,6 @@ class Person < ApplicationRecord
   validates_uniqueness_of :email, case_sensitive: false, allow_blank: true, allow_nil: true
   validates_inclusion_of :gender, in:  GENDERS, allow_nil: true, allow_blank: true
   validates_inclusion_of :nationality, in: NATIONALITIES, allow_nil: true, allow_blank: true
-  validate :handle_conflict, on: :update
   after_commit :subscribe_email_mkt, if: :marketing?, on: [:create]
   after_update :update_email_mkt, if: :saved_change_to_marketing?
   after_commit :unsubscribe_email_mkt, on: [:destroy]

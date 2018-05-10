@@ -105,7 +105,7 @@ class ParticipationsController < ApplicationController
     end
 
     def secure_params
-      params.require(:participation).permit(:person_id, :event_id, :p_type, :status, :attendance, :original_updated_at)
+      params.require(:participation).permit(:person_id, :event_id, :p_type, :status, :attendance)
     end
 
 end

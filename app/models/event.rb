@@ -17,13 +17,11 @@ class Event < ApplicationRecord
   resourcify
   has_paper_trail meta: { event_id: :id, activity_id: :activity_id }
 
-  include ConflictResolutionable
 
   # O usuário pode deixar em branco o field que o evento terá o nome da atividade
   #validates :name, presence: true, length: { minimum: 5 }
   validates :start, presence: true
   validates :finish, presence: true
-  validate :handle_conflict, on: :update
 
   belongs_to :activity
   has_many :participations, dependent: :destroy

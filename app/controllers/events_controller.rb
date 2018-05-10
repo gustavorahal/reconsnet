@@ -158,7 +158,7 @@ class EventsController < ApplicationController
     end
 
     def secure_params
-      params.require(:event).permit(:activity_id, :name, :description, :event_type, :start, :finish, :original_updated_at)
+      params.require(:event).permit(:activity_id, :name, :description, :event_type, :start, :finish)
     end
 
 end
