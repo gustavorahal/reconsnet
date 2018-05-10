@@ -36,7 +36,6 @@ gem 'holder_rails'
 gem 'pundit'
 gem 'rolify'
 gem 'devise'
-gem 'paperclip', '~> 6.0.0'
 gem 'paper_trail'
 
 # Reduces boot times through caching; required in config/boot.rb

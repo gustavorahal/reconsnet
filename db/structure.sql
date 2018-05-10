@@ -337,10 +337,6 @@ ALTER SEQUENCE phone_numbers_id_seq OWNED BY phone_numbers.id;
 
 CREATE TABLE resource_assets (
     id integer NOT NULL,
-    file_file_name character varying(255),
-    file_content_type character varying(255),
-    file_file_size integer,
-    file_updated_at timestamp without time zone,
     assetable_id integer,
     assetable_type character varying(255),
     created_at timestamp without time zone,
@@ -991,6 +987,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170418084352'),
 ('20180510190651'),
 ('20180510201748'),
-('20180510221551');
+('20180510221551'),
+('20180510225053');
 
 
