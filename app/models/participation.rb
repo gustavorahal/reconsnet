@@ -9,6 +9,7 @@
 #  status     :integer          not null
 #  created_at :datetime
 #  updated_at :datetime
+#  attendance :integer
 #
 
 class Participation < ApplicationRecord

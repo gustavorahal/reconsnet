@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: assets
+# Table name: resource_assets
 #
 #  id                :integer          not null, primary key
 #  file_file_name    :string(255)
