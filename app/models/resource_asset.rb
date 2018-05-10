@@ -24,24 +24,30 @@ class ResourceAsset < ApplicationRecord
 
   belongs_to :assetable, :polymorphic => true
 
-  has_attached_file :file
-  validates_presence_of :asset_type
-  validates_attachment_content_type :file, content_type: %w(
-                                                           application/vnd.ms-excel
-                                                           application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-                                                           application/vnd.ms-powerpoint
-                                                           application/vnd.openxmlformats-officedocument.presentationml.presentation
-                                                           application/msword
-                                                           application/vnd.openxmlformats-officedocument.wordprocessingml.document
-                                                           application/pdf
-                                                           image/jpeg
-                                                           image/png)
+  has_one_attached :file
 
-  validates_attachment_size :file, :less_than => 15.megabytes
-
-
-  def to_s
-    file_file_name
+  before_destroy do |asset|
+    # For some reason ActiveStorage does not delete the Blob file, only the
+    # entry in the attachment table
+    asset.file.purge
   end
+
+  validates_presence_of :asset_type
+
+  ## TODO: Once activestorage supports validation, use the legacy paperclip
+  ## validation below as a reference
+  #
+  # validates_attachment_content_type :file, content_type: %w(
+  #                                                          application/vnd.ms-excel
+  #                                                          application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+  #                                                          application/vnd.ms-powerpoint
+  #                                                          application/vnd.openxmlformats-officedocument.presentationml.presentation
+  #                                                          application/msword
+  #                                                          application/vnd.openxmlformats-officedocument.wordprocessingml.document
+  #                                                          application/pdf
+  #                                                          image/jpeg
+  #                                                          image/png)
+
+  #validates_attachment_size :file, :less_than => 15.megabytes
 
 end

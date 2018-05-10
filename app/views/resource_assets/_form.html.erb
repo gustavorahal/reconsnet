@@ -10,7 +10,7 @@
 
     <% if @resource_asset.persisted? %>
         <%= f.static_control nil, label: 'Arquivo' do %>
-            <%= @resource_asset.file_file_name %>
+            <%= @resource_asset.file.filename %>
         <% end %>
     <% else %>
         <%= f.file_field :file %>
