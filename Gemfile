@@ -15,7 +15,7 @@ gem 'coffee-rails', '~> 4.2'
 
 gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
-gem 'aws-sdk', '~> 2.3.0'
+gem 'aws-sdk-s3', require: false
 
 # UI/Web
 gem 'bootstrap-sass', '~> 3.3.6'
@@ -35,7 +35,7 @@ gem 'holder_rails'
 gem 'pundit'
 gem 'rolify'
 gem 'devise'
-gem 'paperclip'
+gem 'paperclip', '~> 6.0.0'
 gem 'paper_trail'
 
 # Reduces boot times through caching; required in config/boot.rb
