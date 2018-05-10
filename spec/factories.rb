@@ -113,9 +113,6 @@ FactoryGirl.define do
 
   factory :resource_asset do
 
-    file_file_name 'lista_de_presenca.pdf'
-    file_file_size 1234
-
     factory :asset_event_participant_material do
       after(:build) do |asset, evaluator|
         event = create :event
