@@ -18,19 +18,10 @@
 #  relationship        :integer
 #  needs_review        :boolean          default(FALSE)
 #  needs_review_reason :string
-#  avatar_file_name    :string
-#  avatar_content_type :string
-#  avatar_file_size    :integer
-#  avatar_updated_at   :datetime
 #
 
 class Person < ApplicationRecord
   has_paper_trail meta: { person_id: :id }
-
-  has_attached_file :avatar, styles: { large: '300x300>', medium: '180x180>', thumb: '100x100>' }
-  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
-
-  include DeletableAttachment
 
   # manter em ordem alfabética
   NATIONALITIES = %w(Afegão Alemão Americano Angolano Antiguano Árabe Argélia Argentino Armeno Australiano Austríaco Bahamense Bangladesh Barbadiano Bechuano Belga Belizenho Boliviano Brasileiro Britânico Camaronense Canadense Chileno Chinês Cingalês Colombiano Comorense Costarriquenho Croata Cubano Dinamarquês Dominicana Dominicano Egípcio Equatoriano Escocês Eslovaco Esloveno Espanhol Francês Galês Ganés Granadino Grego Guatemalteco Guianense Guianês Haitiano Holandês Hondurenho Húngaro Iemenita Indiano Indonésio Inglês Iraniano Iraquiano Irlandês Israelita Italiano Jamaicano Japonês Líbio Malaio Marfinense Marroquino Mexicano Moçambicano Neozelandês Nepalês Nicaraguense Nigeriano Norte-coreano Noruego Omanense Palestino Panamenho Paquistanês Paraguaio Peruano Polonês Portorriquenho Português Qatarense Queniano Romeno Ruandês Russo Salvadorenho Santa-lucense São-cristovense São-vicentino Saudita Sérvio Sírio Somali Sueco Suíço Sul-africano Sul-coreano Surinamês Tailandês Timorense Trindadense Turco Ucraniano Ugandense Uruguaio Venezuelano Vietnamita Zimbabuense)
@@ -56,6 +47,7 @@ class Person < ApplicationRecord
   after_commit :subscribe_email_mkt, if: :marketing?, on: [:create]
   after_update :update_email_mkt, if: :saved_change_to_marketing?
   after_commit :unsubscribe_email_mkt, on: [:destroy]
+  before_save :destroy_avatar?
 
   has_one :volunteer, dependent: :destroy
   has_one :user
@@ -63,6 +55,7 @@ class Person < ApplicationRecord
   has_many :addresses, as: :addressable, dependent: :destroy
   has_many :phone_numbers, as: :phonable, dependent: :destroy
   has_many :tmks, foreign_key: 'with_who_id', dependent: :destroy
+  has_one_attached :avatar
 
   accepts_nested_attributes_for :addresses, allow_destroy: true
   accepts_nested_attributes_for :phone_numbers, allow_destroy: true, reject_if: lambda {|attributes| attributes['number'].blank?}
@@ -130,8 +123,19 @@ class Person < ApplicationRecord
     SubscribeEmailJob.perform_later email, first_name, last_name
   end
 
+  def avatar_delete
+    @avatar_delete ||= '0'
+  end
+
+  def avatar_delete=(value)
+    @avatar_delete = value
+  end
 
   private
+
+    def destroy_avatar?
+      self.avatar.purge if @avatar_delete == '1'
+    end
 
     def update_email_mkt
       if marketing and not EmailMktService.subscribed?(email)

@@ -25,8 +25,10 @@
 
 <div class="row">
   <div class="col-xs-2">
-    <% if @person.avatar.present? %>
-        <p class="text-center"><%= image_tag @person.avatar.url(:medium), class: 'img-circle' %></p>
+    <% if @person.avatar.attached? %>
+        <p class="text-center">
+          <%= image_tag @person.avatar.variant(resize: "180x180"), class: 'img-circle' %>
+        </p>
     <% else %>
         <p class="text-center">
           <i class="fa fa-user text-muted" style="font-size: 100px;" aria-hidden="true"></i><br>

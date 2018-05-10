@@ -1,12 +1,6 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 9.5.4
--- Dumped by pg_dump version 9.5.4
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -32,6 +26,74 @@ SET search_path = public, pg_catalog;
 SET default_tablespace = '';
 
 SET default_with_oids = false;
+
+--
+-- Name: active_storage_attachments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE active_storage_attachments (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    record_type character varying NOT NULL,
+    record_id bigint NOT NULL,
+    blob_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: active_storage_attachments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE active_storage_attachments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: active_storage_attachments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE active_storage_attachments_id_seq OWNED BY active_storage_attachments.id;
+
+
+--
+-- Name: active_storage_blobs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE active_storage_blobs (
+    id bigint NOT NULL,
+    key character varying NOT NULL,
+    filename character varying NOT NULL,
+    content_type character varying,
+    metadata text,
+    byte_size bigint NOT NULL,
+    checksum character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: active_storage_blobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE active_storage_blobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: active_storage_blobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE active_storage_blobs_id_seq OWNED BY active_storage_blobs.id;
+
 
 --
 -- Name: activities; Type: TABLE; Schema: public; Owner: -
@@ -109,6 +171,18 @@ CREATE SEQUENCE addresses_id_seq
 --
 
 ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
+
+
+--
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
 
 
 --
@@ -202,11 +276,7 @@ CREATE TABLE people (
     scholarity character varying(255),
     relationship integer,
     needs_review boolean DEFAULT false,
-    needs_review_reason character varying,
-    avatar_file_name character varying,
-    avatar_content_type character varying,
-    avatar_file_size integer,
-    avatar_updated_at timestamp without time zone
+    needs_review_reason character varying
 );
 
 
@@ -504,91 +574,121 @@ ALTER SEQUENCE volunteers_id_seq OWNED BY volunteers.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: active_storage_attachments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY active_storage_attachments ALTER COLUMN id SET DEFAULT nextval('active_storage_attachments_id_seq'::regclass);
+
+
+--
+-- Name: active_storage_blobs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY active_storage_blobs ALTER COLUMN id SET DEFAULT nextval('active_storage_blobs_id_seq'::regclass);
+
+
+--
+-- Name: activities id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY activities ALTER COLUMN id SET DEFAULT nextval('activities_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: addresses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: events id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: participations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY participations ALTER COLUMN id SET DEFAULT nextval('participations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: people id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY people ALTER COLUMN id SET DEFAULT nextval('people_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: phone_numbers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY phone_numbers ALTER COLUMN id SET DEFAULT nextval('phone_numbers_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: resource_assets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY resource_assets ALTER COLUMN id SET DEFAULT nextval('resource_assets_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: roles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: tmks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tmks ALTER COLUMN id SET DEFAULT nextval('tmks_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: versions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: volunteers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY volunteers ALTER COLUMN id SET DEFAULT nextval('volunteers_id_seq'::regclass);
 
 
 --
--- Name: activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: active_storage_attachments active_storage_attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY active_storage_attachments
+    ADD CONSTRAINT active_storage_attachments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: active_storage_blobs active_storage_blobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY active_storage_blobs
+    ADD CONSTRAINT active_storage_blobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activities activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY activities
@@ -596,7 +696,7 @@ ALTER TABLE ONLY activities
 
 
 --
--- Name: addresses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: addresses addresses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY addresses
@@ -604,7 +704,15 @@ ALTER TABLE ONLY addresses
 
 
 --
--- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: events events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY events
@@ -612,7 +720,7 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: participations participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY participations
@@ -620,7 +728,7 @@ ALTER TABLE ONLY participations
 
 
 --
--- Name: people_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: people people_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY people
@@ -628,7 +736,7 @@ ALTER TABLE ONLY people
 
 
 --
--- Name: phone_numbers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: phone_numbers phone_numbers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY phone_numbers
@@ -636,7 +744,7 @@ ALTER TABLE ONLY phone_numbers
 
 
 --
--- Name: resource_assets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: resource_assets resource_assets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY resource_assets
@@ -644,7 +752,7 @@ ALTER TABLE ONLY resource_assets
 
 
 --
--- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY roles
@@ -652,7 +760,7 @@ ALTER TABLE ONLY roles
 
 
 --
--- Name: tmks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: tmks tmks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tmks
@@ -660,7 +768,7 @@ ALTER TABLE ONLY tmks
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -668,7 +776,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: versions versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY versions
@@ -676,11 +784,32 @@ ALTER TABLE ONLY versions
 
 
 --
--- Name: volunteers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: volunteers volunteers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY volunteers
     ADD CONSTRAINT volunteers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_active_storage_attachments_on_blob_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_active_storage_attachments_on_blob_id ON active_storage_attachments USING btree (blob_id);
+
+
+--
+-- Name: index_active_storage_attachments_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_active_storage_attachments_uniqueness ON active_storage_attachments USING btree (record_type, record_id, name, blob_id);
+
+
+--
+-- Name: index_active_storage_blobs_on_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON active_storage_blobs USING btree (key);
 
 
 --
@@ -829,71 +958,42 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20140330205100');
+INSERT INTO "schema_migrations" (version) VALUES
+('20140330205100'),
+('20140330210526'),
+('20140330210756'),
+('20140330220644'),
+('20140330221658'),
+('20140330221728'),
+('20140504200029'),
+('20140504200030'),
+('20140601175536'),
+('20140618034452'),
+('20140624000637'),
+('20140707171124'),
+('20140708165800'),
+('20140708171211'),
+('20140728124727'),
+('20140921230335'),
+('20141102220305'),
+('20141102220306'),
+('20150107213212'),
+('20150219010907'),
+('20150315191029'),
+('20150318162711'),
+('20150318164747'),
+('20150328235411'),
+('20150403185402'),
+('20150403190042'),
+('20150606155758'),
+('20150630202607'),
+('20150814132526'),
+('20150911172128'),
+('20160108222336'),
+('20160109333333'),
+('20160424041349'),
+('20170418084352'),
+('20180510190651'),
+('20180510201748');
 
-INSERT INTO schema_migrations (version) VALUES ('20140330210526');
-
-INSERT INTO schema_migrations (version) VALUES ('20140330210756');
-
-INSERT INTO schema_migrations (version) VALUES ('20140330220644');
-
-INSERT INTO schema_migrations (version) VALUES ('20140330221658');
-
-INSERT INTO schema_migrations (version) VALUES ('20140330221728');
-
-INSERT INTO schema_migrations (version) VALUES ('20140504200029');
-
-INSERT INTO schema_migrations (version) VALUES ('20140504200030');
-
-INSERT INTO schema_migrations (version) VALUES ('20140601175536');
-
-INSERT INTO schema_migrations (version) VALUES ('20140618034452');
-
-INSERT INTO schema_migrations (version) VALUES ('20140624000637');
-
-INSERT INTO schema_migrations (version) VALUES ('20140707171124');
-
-INSERT INTO schema_migrations (version) VALUES ('20140708165800');
-
-INSERT INTO schema_migrations (version) VALUES ('20140708171211');
-
-INSERT INTO schema_migrations (version) VALUES ('20140728124727');
-
-INSERT INTO schema_migrations (version) VALUES ('20140921230335');
-
-INSERT INTO schema_migrations (version) VALUES ('20141102220305');
-
-INSERT INTO schema_migrations (version) VALUES ('20141102220306');
-
-INSERT INTO schema_migrations (version) VALUES ('20150107213212');
-
-INSERT INTO schema_migrations (version) VALUES ('20150219010907');
-
-INSERT INTO schema_migrations (version) VALUES ('20150315191029');
-
-INSERT INTO schema_migrations (version) VALUES ('20150318162711');
-
-INSERT INTO schema_migrations (version) VALUES ('20150318164747');
-
-INSERT INTO schema_migrations (version) VALUES ('20150328235411');
-
-INSERT INTO schema_migrations (version) VALUES ('20150403185402');
-
-INSERT INTO schema_migrations (version) VALUES ('20150403190042');
-
-INSERT INTO schema_migrations (version) VALUES ('20150606155758');
-
-INSERT INTO schema_migrations (version) VALUES ('20150630202607');
-
-INSERT INTO schema_migrations (version) VALUES ('20150814132526');
-
-INSERT INTO schema_migrations (version) VALUES ('20150911172128');
-
-INSERT INTO schema_migrations (version) VALUES ('20160108222336');
-
-INSERT INTO schema_migrations (version) VALUES ('20160109333333');
-
-INSERT INTO schema_migrations (version) VALUES ('20160424041349');
-
-INSERT INTO schema_migrations (version) VALUES ('20170418084352');
 

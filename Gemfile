@@ -22,6 +22,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'font-awesome-rails'
 gem 'autoprefixer-rails', '>= 5.2.1' # recommended for bootstrap-sass
 gem 'bootstrap_form'
+gem 'mini_magick' # for activestorage to create variation of a image
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem 'tinymce-rails-imageupload', '~> 4.0.0.beta'
@@ -77,6 +78,7 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'listen', '~> 3.0.5'
+  gem 'annotate'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-watcher-listen', '~> 2.0.0'
