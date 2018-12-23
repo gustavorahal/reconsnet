@@ -13,7 +13,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 
-gem 'therubyracer', platforms: :ruby
+gem 'mini_racer'
 gem 'jquery-rails'
 gem 'aws-sdk-s3', require: false
 
@@ -21,7 +21,7 @@ gem 'aws-sdk-s3', require: false
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'font-awesome-rails'
 gem 'autoprefixer-rails', '>= 5.2.1' # recommended for bootstrap-sass
-gem 'bootstrap_form'
+gem 'bootstrap_form', '~> 2.7' # for bootstrap v3
 gem 'mini_magick' # for activestorage to create variation of a image
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
@@ -68,7 +68,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'launchy' # for save_and_open_page
   gem 'poltergeist'
   gem 'rspec-rails'

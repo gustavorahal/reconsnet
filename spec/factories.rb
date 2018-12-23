@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :role do
   end
@@ -6,8 +6,8 @@ FactoryGirl.define do
   factory :user do
     sequence(:name) { |n| "Test User n. #{n}" }
     sequence(:email) { |n| "test_user#{n}@email.com" }
-    password 'changeme'
-    password_confirmation 'changeme'
+    password { 'changeme' }
+    password_confirmation { 'changeme' }
 
     factory :user_admin do
       after(:build) do |user, evaluator|
@@ -56,51 +56,51 @@ FactoryGirl.define do
   factory :person do
     sequence(:name) { |n| "João n. #{n}" }
     sequence(:email) { |n| "joao#{n}@email.com" }
-    gender 'Masculino'
+    gender { 'Masculino' }
   end
 
   factory :volunteer do
     person { |c| c.association(:person) }
     admission { Time.now }
-    area_of_operation 'Voluntariado'
+    area_of_operation { 'Voluntariado' }
   end
 
   factory :phone_number do
     # adiciona telefone já normalizado de acordo com o que o phony espera
-    number '554599440907'
-    phone_type 'Celular'
-    provider 'Tim'
-    label 'Casa'
+    number { '554599440907' }
+    phone_type { 'Celular' }
+    provider { 'Tim' }
+    label { 'Casa' }
   end
 
   factory :address do
-    label 'Casa'
-    line1 'Rua Diamantina, 439'
-    zip '85868-210'
-    city 'Foz do Iguaçu'
-    state 'Paraná'
-    country 'Brasil'
+    label { 'Casa' }
+    line1 { 'Rua Diamantina, 439' }
+    zip { '85868-210' }
+    city { 'Foz do Iguaçu' }
+    state { 'Paraná' }
+    country { 'Brasil' }
   end
 
   factory :event do
     sequence(:name) { |n| "Evento n. #{n}" }
-    start Time.now
-    finish (Time.now + 1.day)
+    start { Time.now }
+    finish { (Time.now + 1.day) }
     activity { |c| c.association(:activity) }
   end
 
   factory :activity do
     sequence(:name) { |n| "Atividade n. #{n}" }
-    summary 'Curso sobre isso e aquilo'
-    description 'Curso que acontece no Holociclo'
-    activity_type 'Curso'
+    summary { 'Curso sobre isso e aquilo' }
+    description { 'Curso que acontece no Holociclo' }
+    activity_type { 'Curso' }
   end
 
   factory :participation do
     person { |c| c.association(:person) }
     event { |c| c.association(:event) }
-    status Participation.statuses[:enrolled]
-    p_type Participation.p_types[:teacher]
+    status { Participation.statuses[:enrolled] }
+    p_type { Participation.p_types[:teacher] }
   end
 
   factory :tmk do
@@ -108,7 +108,7 @@ FactoryGirl.define do
     from_who { |c| c.association(:person) }
     event { |c| c.association(:event) }
     contact_date { Time.now }
-    contact_type 'Telefônico'
+    contact_type { 'Telefônico' }
   end
 
   factory :resource_asset do
@@ -120,7 +120,7 @@ FactoryGirl.define do
         asset.assetable_type = 'Event'
         asset.save
       end
-      asset_type :participant_material
+      asset_type { :participant_material }
     end
 
     factory :asset_event_instructor_material do
@@ -130,7 +130,7 @@ FactoryGirl.define do
         asset.assetable_type = 'Event'
         asset.save
       end
-      asset_type :instructor_material
+      asset_type { :instructor_material }
     end
 
   end

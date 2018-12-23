@@ -74,7 +74,7 @@ RSpec.configure do |config|
   end
 
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include Capybara::DSL
 
   Capybara.asset_host = 'http://localhost:3000'

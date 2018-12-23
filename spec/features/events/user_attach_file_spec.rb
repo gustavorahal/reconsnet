@@ -19,8 +19,10 @@ feature 'Anexo de arquivo a evento' do
     add_asset(event, :participant_material)
     add_asset(event, :instructor_material)
 
-    expect(page).to have_content 'Material do Participante capybara.pdf'
-    expect(page).to have_content 'Material do Docente capybara.pdf'
+    visit event_path(event)
+
+    expect(page).to have_content "Material do Participante\ncapybara.pdf"
+    expect(page).to have_content "Material do Docente\ncapybara.pdf"
   end
 
   scenario 'participante pode ver material do participante mas não do docente' do
@@ -35,8 +37,8 @@ feature 'Anexo de arquivo a evento' do
 
     sign_in(user)
     visit event_path(event)
-    expect(page).to have_content 'Material do Participante capybara.pdf'
-    expect(page).to_not have_content 'Material do Docente capybara.pdf'
+    expect(page).to have_content  "Material do Participante\ncapybara.pdf"
+    expect(page).to_not have_content "Material do Docente\ncapybara.pdf"
   end
 
   scenario 'visitante não pode ver material do participante nem do docente' do
@@ -50,8 +52,8 @@ feature 'Anexo de arquivo a evento' do
 
     sign_in(user)
     visit event_path(event)
-    expect(page).to_not have_content 'Material do Participante capybara.pdf'
-    expect(page).to_not have_content 'Material do Docente capybara.pdf'
+    expect(page).to_not have_content "Material do Participante\ncapybara.pdf"
+    expect(page).to_not have_content "Material do Docente\ncapybara.pdf"
   end
 
   scenario 'docente GLOBAL pode ver material do participante e do docente' do
@@ -66,8 +68,8 @@ feature 'Anexo de arquivo a evento' do
 
     sign_in(user)
     visit event_path(event)
-    expect(page).to have_content 'Material do Participante capybara.pdf'
-    expect(page).to have_content 'Material do Docente capybara.pdf'
+    expect(page).to have_content "Material do Participante\ncapybara.pdf"
+    expect(page).to have_content "Material do Docente\ncapybara.pdf"
   end
 
 end
