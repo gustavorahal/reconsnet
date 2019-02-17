@@ -1,5 +1,5 @@
 
-<%= bootstrap_form_for @volunteer, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
+<%= bootstrap_form_for @volunteer, layout: :horizontal, label_col: 'col-2', control_col: 'col-6' do |f| %>
 
     <% if @volunteer.errors[:base].present? %>
         <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo. ' + @volunteer.errors[:base][0] %>
@@ -8,10 +8,10 @@
     <% end %>
 
     <%= f.collection_select :person_id, Person.all.order('name'), :id, :name, label: 'Pessoa',
-                            control_col: 'col-sm-4', include_blank: true, default: nil %>
+                            control_col: 'col-4', include_blank: true, default: nil %>
     <%= f.date_select :admission, label: 'Admissão' %>
     <%= f.select :area_of_operation, Volunteer::AREAS, label: 'Área de atuação',
-                 control_col: 'col-sm-4' %>
+                 control_col: 'col-4' %>
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>

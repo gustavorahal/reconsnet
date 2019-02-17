@@ -5,35 +5,31 @@
         Ações <span class="caret"></span>
       </button>
 
-      <ul class="dropdown-menu dropdown-menu-right" role="menu">
+      <div class="dropdown-menu dropdown-menu-right">
         <% unless @event.archived %>
             <% if policy(@event).edit? %>
-                <li>
-                  <%= link_to 'Editar', edit_event_path(@event) %>
-                </li>
+              <%= link_to 'Editar', edit_event_path(@event), class: 'dropdown-item' %>
             <% end %>
 
             <% if policy(@event).destroy? %>
                 <% @event.safely_destroyable? ? disabled = false : disabled = true %>
-                <li>
-                  <%= link_to 'Deletar',
+                <%= link_to 'Deletar',
                               event_path(@event, page: params[:page], query: params[:query], order: params[:order]),
                               method: :delete,
                               data: { confirm: "Você tem certeza que deseja deletar \"#{@event.to_s}\"?" },
-                              disabled: disabled %>
-                </li>
+                              disabled: disabled, class: 'dropdown-item' %>
             <% end %>
         <% end %>
 
-        <li class="divider"></li>
+        <div class="dropdown-divider"></div>
 
         <% if policy(@event).roles? %>
-            <li><%= link_to 'Permissões', roles_event_path(@event) %></li>
+            <%= link_to 'Permissões', roles_event_path(@event), class: 'dropdown-item' %>
         <% end %>
         <% if policy(@event).show? %>
-            <li><%= link_to 'Histórico de alterações', versions_event_path(@event) %></li>
+            <%= link_to 'Histórico de alterações', versions_event_path(@event), class: 'dropdown-item' %>
         <% end %>
 
-      </ul>
+      </div>
     </div>
 <% end %>

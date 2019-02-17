@@ -5,11 +5,11 @@
     <% if @event.archived? %>
 
         <%= link_to "<i class=\"fa fa-folder-open\"></i> Desarquivar".html_safe,
-                    unarchive_event_path, method: :put, class: 'btn btn-default',
+                    unarchive_event_path, method: :put, class: 'btn btn-secondary',
                     data: { confirm: "Você tem certeza que deseja desarquivar \"#{@event.to_s}\"?" } %>
     <% else %>
 
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
           <i class="fa fa-folder"></i> Arquivar
         </button>
 
@@ -43,7 +43,7 @@
               </div>
 
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                 <% if archivable %>
                     <%= link_to 'Prosseguir com arquivamento', archive_event_path, method: :put, class: 'btn btn-success' %>
                 <% end %>

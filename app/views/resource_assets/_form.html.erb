@@ -1,5 +1,5 @@
 <%= bootstrap_form_for @resource_asset, html: { multipart: true },
-                       layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
+                       layout: :horizontal, label_col: 'col-2', control_col: 'col-6' do |f| %>
 
     <%= hidden_field_tag :assetable_id, @assetable.id %>
     <%= hidden_field_tag :assetable_type, @assetable.class.name %>
@@ -20,7 +20,7 @@
         <%= f.hidden_field :asset_type, value: params[:asset_type] %>
     <% else %>
         <%= f.select :asset_type, ResourceAsset.asset_types.keys.to_a.map { |w| [I18n.t("asset_types.#{w}"), w] },
-                     include_blank: true, control_col: 'col-sm-3' %>
+                     include_blank: true, control_col: 'col-3' %>
     <% end %>
 
     <%= f.form_group do %>

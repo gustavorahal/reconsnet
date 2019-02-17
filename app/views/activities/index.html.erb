@@ -8,7 +8,7 @@
 
 <% @parent_activities.each do |parent_activity| %>
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-12">
       <h3><%= parent_activity.name %>
         <small><%= link_to fa_icon('angle-double-right', text: 'saiba mais', right: true), activity_path(parent_activity) %></small>
       </h3>
@@ -18,7 +18,7 @@
 
   <div class="row">
     <% parent_activity.children.order(:name).each do |activity| %>
-      <div class="col-sm-6 col-md-4">
+      <div class="col-4">
         <%= render 'common/activity_summary', activity: activity %>
       </div>
     <% end %>
@@ -29,7 +29,7 @@
 
 
 <div class="row">
-  <div class="col-sm-12">
+  <div class="col-12">
     <h3>Outras atividades</h3>
     <br>
   </div>
@@ -38,7 +38,7 @@
 
 <div class="row">
   <% @orphan_activities.order(:name).each do |activity| %>
-      <div class="col-sm-6 col-md-4">
+      <div class="col-4">
         <%= render 'common/activity_summary', activity: activity %>
       </div>
   <% end %>

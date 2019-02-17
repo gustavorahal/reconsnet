@@ -18,10 +18,9 @@ gem 'jquery-rails'
 gem 'aws-sdk-s3', require: false
 
 # UI/Web
-gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap', '~> 4.2.1'
 gem 'font-awesome-rails'
-gem 'autoprefixer-rails', '>= 5.2.1' # recommended for bootstrap-sass
-gem 'bootstrap_form', '~> 2.7' # for bootstrap v3
+gem 'bootstrap_form', '>= 4.1.0'
 gem 'mini_magick' # for activestorage to create variation of a image
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'

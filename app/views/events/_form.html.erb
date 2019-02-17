@@ -1,5 +1,5 @@
 
-<%= bootstrap_form_for @event, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
+<%= bootstrap_form_for @event, layout: :horizontal, label_col: 'col-2', control_col: 'col-6' do |f| %>
 
     <% if @event.errors[:base].present? %>
         <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo. ' + @event.errors[:base][0] %>
@@ -13,7 +13,7 @@
             <%= @activity.name %>
         <% end %>
     <% else %>
-        <%= f.collection_select :activity_id, Activity.all.order('name'), :id, :name, control_col: 'col-sm-4' %>
+        <%= f.collection_select :activity_id, Activity.all.order('name'), :id, :name, control_col: 'col-4' %>
     <% end %>
 
     <%= f.text_field :name, placeholder: @activity ? @activity.name : '',

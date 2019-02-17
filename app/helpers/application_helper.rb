@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def active_class(link_path)
+    current_page?(link_path) ? "active" : ""
+  end
+
   def date_display(date)
     if date.year == Time.now.year
       I18n.l date, format: :short

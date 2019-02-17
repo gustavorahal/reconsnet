@@ -2,7 +2,7 @@
 <%= render 'common/page_title', titulo: 'Editar usuário' %>
 
 
-<%= bootstrap_form_for @user, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
+<%= bootstrap_form_for @user, layout: :horizontal, label_col: 'col-2', control_col: 'col-6' do |f| %>
 
     <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
 
@@ -12,7 +12,7 @@
 
     <%= f.collection_select :person_id, Person.all.order('name'), :id, :name, label: 'Pessoa',
                             include_blank: true, default: nil,
-                            control_col: 'col-sm-4', help: 'Associe uma pessoa a este perfil de usuário' %>
+                            control_col: 'col-4', help: 'Associe uma pessoa a este perfil de usuário' %>
 
     <% roles = @user.roles.pluck(:name) %>
     <%= f.form_group do %>

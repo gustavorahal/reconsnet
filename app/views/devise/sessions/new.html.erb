@@ -2,10 +2,10 @@
 <%= render 'common/page_title', titulo: 'Login' %>
 
 <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name),
-                       layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-4') do |f| %>
+                       layout: :horizontal, label_col: 'col-2', control_col: 'col-4') do |f| %>
 
     <%= f.email_field :email, autofocus: true %>
-    <%= f.password_field :password, label: 'Senha', control_col: 'col-sm-2' %>
+    <%= f.password_field :password, label: 'Senha', control_col: 'col-2' %>
 
     <% if devise_mapping.rememberable? -%>
         <%= f.form_group do %>

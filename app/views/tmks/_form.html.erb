@@ -1,5 +1,5 @@
 
-<%= bootstrap_form_for @tmk, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
+<%= bootstrap_form_for @tmk, layout: :horizontal, label_col: 'col-2', control_col: 'col-6' do |f| %>
 
     <% if @tmk.errors[:base].present? %>
         <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo. ' + @tmk.errors[:base][0] %>
@@ -23,7 +23,7 @@
         <% end %>
     <% else %>
         <%= f.collection_select :with_who_id, Person.all.order('name'), :id, :name,
-                                control_col: 'col-sm-3',
+                                control_col: 'col-3',
                                 include_blank: true, default: nil %>
     <% end %>
 
@@ -41,10 +41,10 @@
 
 
     <%= f.collection_select :from_who_id, Person.all.order('name'), :id, :name,
-                            control_col: 'col-sm-3',
+                            control_col: 'col-3',
                             selected: @tmk.persisted? ? @tmk.from_who_id : Person.find_by(email: current_user.email).id %>
 
-    <%= f.select :contact_type, Tmk::CONTACT_TYPES, control_col: 'col-sm-3' %>
+    <%= f.select :contact_type, Tmk::CONTACT_TYPES, control_col: 'col-3' %>
 
     <%= f.datetime_select :contact_date, minute_step: 5 %>
 

@@ -3,11 +3,11 @@
 
 
 <%= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post },
-                       layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-6') do |f| %>
+                       layout: :horizontal, label_col: 'col-2', control_col: 'col-6') do |f| %>
 
     <%= devise_error_messages! %>
 
-    <%= f.email_field :email, autofocus: true, control_col: 'col-sm-4' %>
+    <%= f.email_field :email, autofocus: true, control_col: 'col-4' %>
 
     <%= f.form_group do %>
         <%= f.submit 'Envie-me instruções para reset de senha', class: 'btn btn-primary' %>

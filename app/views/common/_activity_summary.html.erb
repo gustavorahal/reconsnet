@@ -10,21 +10,19 @@ Mostra informações sobre uma atividade e destaca/mostra quando ela ocorrerá (
 <% next_event = activity.next_event %>
 
 
-<div class="thumbnail" style="height: 380px;">
+<div class="card" style="height: 350px;width: 18rem;">
 
-  <% if activity.avatar.attached? %>
-      <%= image_tag activity.avatar.variant(resize: '350x170') %>
-  <% else %>
-      <%= holder_tag '350x170', activity.name %>
-  <% end %>
-
-  <div class="caption">
-    <h4><%= link_to activity.name, activity_path(activity) %> <%= '<small><span class="label label-primary">interno</small>'.html_safe if activity.internal_only %></h4>
-    <!-- por ora desabilitado... -->
-    <% if next_event and false %>
-        <p class="pull-right"><%= fa_icon 'clock-o' %> Começa em <%= time_ago_in_words next_event.start %></p>
-    <% end %>
-    <p><%= activity.summary %></p>
+  <div class="card-body">
+    <h5 class="card-title">
+      <%= link_to activity.name, activity_path(activity) %> <%= '<small><span class="label label-primary">interno</small>'.html_safe if activity.internal_only %>
+    </h5>
+    <p class="card-text">
+      <%= activity.summary %>
+      <!-- por ora desabilitado... -->
+      <% if next_event and false %>
+        <%= fa_icon 'clock-o' %> Começa em <%= time_ago_in_words next_event.start %>
+      <% end %>
+    </p>
   </div>
 
 </div>

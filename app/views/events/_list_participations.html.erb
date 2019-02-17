@@ -11,7 +11,7 @@
         <em>(<%= I18n.t("participation.types.#{part.p_type}").downcase %>)</em>
       <% end  %>
 
-      <span class="pull-right">
+      <span class="float-right">
         <% if part.present? or part.part_time? %>
             &nbsp;<i class="fa fa-thumbs-up text-success" title="<%= I18n.t("participation.attendance.#{part.attendance}") %>"></i>&nbsp;
         <% elsif part.absent? %>
@@ -39,10 +39,10 @@
             <% end %>
 
             <%= render 'common/btn_edit', url: edit_event_participation_path(@event, part),
-                       btn_label: '', size: 'btn btn-default btn-xs', resource: part %>
+                       btn_label: '', size: 'btn btn-secondary btn-xs', resource: part %>
 
             <%= render 'common/btn_delete', url: event_participation_path(@event, part),
-                       btn_label: '', size: 'btn btn-default btn-xs', resource: part %>
+                       btn_label: '', size: 'btn btn-secondary btn-xs', resource: part %>
 
         <% end %>
       </span>

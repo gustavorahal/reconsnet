@@ -20,12 +20,12 @@
                          placeholder: 'Procurar...',
                          value: @query %>
       <span class="input-group-btn">
-          <button class="btn btn-default" type="submit" id="btn-search">
+          <button class="btn btn-secondary" type="submit" id="btn-search">
             <i class="fa fa-search"></i>
           </button>
 
           <%= link_to "<i class=\"fa fa-times\"></i>".html_safe,
-                    people_path, class: 'btn btn-default' %>
+                    people_path, class: 'btn btn-secondary' %>
       </span>
     </div>
 <% end %>
@@ -38,9 +38,9 @@
 
   <span class="text-muted">Ordenar por: </span>
   <% state = params[:order] == 'name' ? 'active' : '' %>
-  <%= link_to 'Nome', people_path(whitelist_params.merge(order: 'name')), class: "btn btn-default btn-xs #{state}" %>
+  <%= link_to 'Nome', people_path(whitelist_params.merge(order: 'name')), class: "btn btn-secondary btn-xs #{state}" %>
   <% state = params[:order] == 'created_at' ? 'active' : '' %>
-  <%= link_to 'Data de cadastramento', people_path(whitelist_params.merge(order: 'created_at')), class: "btn btn-default btn-xs #{state}" %>
+  <%= link_to 'Data de cadastramento', people_path(whitelist_params.merge(order: 'created_at')), class: "btn btn-secondary btn-xs #{state}" %>
 
   &nbsp;|&nbsp;
 
@@ -50,11 +50,11 @@
   <span class="text-muted">Filtrar por: </span>
   <% if @have_needs_review  %>
     <% state = params[:filter] == 'needs_review' ? 'active' : ''  %>
-    <%= link_to 'Necessita revisão', people_path(whitelist_params.merge(filter: 'needs_review')), class: "btn btn-default btn-xs #{state}" %>
+    <%= link_to 'Necessita revisão', people_path(whitelist_params.merge(filter: 'needs_review')), class: "btn btn-secondary btn-xs #{state}" %>
   <% end %>
 
   <% state = params[:filter] == 'have_phone_number' ? 'active' : ''  %>
-  <%= link_to 'Com telefone', people_path(whitelist_params.merge(filter: 'have_phone_number')), class: "btn btn-default btn-xs #{state}" %>
+  <%= link_to 'Com telefone', people_path(whitelist_params.merge(filter: 'have_phone_number')), class: "btn btn-secondary btn-xs #{state}" %>
 
 
   <!-- Limpar tudo -->

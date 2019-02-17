@@ -16,7 +16,7 @@
             <%= f.hidden_field :needs_review_reason, value: nil %>
             <%= f.hidden_field :needs_review, value: false %>
             <strong>Necessita revisão cadastral</strong>
-            <%= f.submit 'Tudo certo, revisado!', class: 'btn btn-success btn-xs pull-right' %>
+            <%= f.submit 'Tudo certo, revisado!', class: 'btn btn-success btn-xs float-right' %>
             <br/>
             <%= @person.needs_review_reason %>
         <% end %>
@@ -24,10 +24,10 @@
 <% end %>
 
 <div class="row">
-  <div class="col-xs-2">
+  <div class="col-2">
     <% if @person.avatar.attached? %>
         <p class="text-center">
-          <%= image_tag @person.avatar.variant(resize: "180x180"), class: 'img-circle' %>
+          <%= image_tag @person.avatar.variant(resize: "180x180"), class: 'rounded-circle' %>
         </p>
     <% else %>
         <p class="text-center">
@@ -36,7 +36,7 @@
         </p>
     <% end %>
   </div>
-  <div class="col-xs-10">
+  <div class="col-10">
     <address>
       <% unless @person.marketing %>
         <%= '<small class="text-muted">Não deseja receber divulgação</small>'.html_safe %>
@@ -107,11 +107,12 @@
 
 <!-- Participação em eventos -->
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Participação em eventos</h3>
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Participação em eventos</h4>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
+    <div class="card-text">
 
     <% if @enrolls.empty? %>
 
@@ -126,6 +127,7 @@
             </div>
         <% end %>
     <% end %>
+    </div>
   </div>
 </div>
 
@@ -133,15 +135,15 @@
 
 <!-- Contatos TMK -->
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Contatos TMK
-        <div class="pull-right">
-          <%= render 'common/btn_new_tmk', with_who: @person %>
-        </div>
-    </h3>
-  </div>
-  <div class="panel-body">
+<div class="card">
+  <h4 class="card-header">
+    Contatos TMK
+    <div class="float-right">
+      <%= render 'common/btn_new_tmk', with_who: @person %>
+    </div>
+  </h4>
+  <div class="card-body">
+    <div class="card-text">
 
     <% if @tmks.empty? %>
 
@@ -158,6 +160,6 @@
             </div>
         <% end %>
     <% end %>
-
+    </div>
   </div>
 </div>

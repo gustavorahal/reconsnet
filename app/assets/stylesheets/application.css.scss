@@ -17,17 +17,12 @@
 @import "font-awesome";
 
 // Para conteúdo do body aparecer depois do navbar e não embaixo dele
-body { padding-top: 70px; }
+body { padding-top: 90px; }
 
 
 .center-pills {
   display: flex;
   justify-content: center;
-}
-
-.tasks-box {
-  margin: 10px;
-  margin-bottom: 20px;
 }
 
 .vertical-align {
@@ -65,46 +60,24 @@ $colDefault     : #ffffff;
 $colHover       : #ffffff;
 $colHighlight   : #ffffff;
 
+
+/* change the background color */
 .navbar-custom {
   background-color: $bgDefault;
-  border-color: $bgHighlight;
-
-  .navbar-toggle {
-    background-color: $colDefault;
-    .icon-bar {
-      background-color: $bgDefault;
-    }
-  }
-
-  .navbar-brand {
-    color: $colDefault;
-    &:hover, &:focus {
-      color: $colHighlight;
-    }
-  }
-  .navbar-text {
-    color: $colDefault;
-  }
-  .navbar-nav {
-    > li {
-      > a {
-        color: $colDefault;
-        &:hover, &:focus {
-          color: $colHighlight;
-        }
-      }
-    }
-    > .active {
-      > a, > a:hover, > a:focus {
-        color: $colHighlight;
-        background-color: $bgHighlight;
-      }
-    }
-    > .open {
-      > a, > a:hover, > a:focus {
-        color: $colHighlight;
-        background-color: $bgHighlight;
-      }
-    }
-  }
 }
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+  color: rgba(255,255,255,.8);
+}
+/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+  color: #ffffff;
+}
+/* change the color of active or hovered links */
+.navbar-custom .nav-link.active,
+.navbar-custom .nav-link:focus,
+.navbar-custom .nav-link:hover {
+  color: rgba(255,255,255,.5);
+}
+

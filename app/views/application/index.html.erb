@@ -4,7 +4,7 @@
     <h2>Associação Internacional de Pesquisologia <br> para Megaconscientização</h2>
     <p>Autoconscientização via pesquisa </p>
     <br>
-    <p><%= link_to "Saiba Mais #{fa_icon('angle-right')}".html_safe, about_path, class: 'btn btn-default btn-lg' %></p>
+    <p><%= link_to "Saiba Mais #{fa_icon('angle-right')}".html_safe, about_path, class: 'btn btn-secondary btn-lg' %></p>
   </div>
 
 
@@ -21,7 +21,7 @@
     <br><br>
     <div class="row">
         <% @activities.each do |activity| %>
-            <div class="col-sm-6 col-md-4">
+            <div class="col-6 col-4">
               <%= render 'common/activity_summary', activity: activity %>
             </div>
         <% end %>

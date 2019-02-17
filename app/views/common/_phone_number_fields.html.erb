@@ -1,10 +1,10 @@
 <% form_id = f.index + 1 %>
 
 <div class="form-group form-inline tel-fieldset">
-    <label class="col-sm-2 control-label">Telefone</label>
+    <label class="col-2 control-label">Telefone</label>
     <%= f.select :label, PhoneNumber::LABELS, include_blank: true, hide_label: true %>
     <%= f.select :phone_type, PhoneNumber::PHONE_TYPES, include_blank: true, hide_label: true %>
-    <%= f.select :provider, PhoneNumber::PROVIDERS, include_blank: true, control_col: 'col-sm-3',id: "provider_#{form_id}",  hide_label: true %>
+    <%= f.select :provider, PhoneNumber::PROVIDERS, include_blank: true, control_col: 'col-3',id: "provider_#{form_id}",  hide_label: true %>
     <!-- O número de telefone é armazenado normalizado no banco (por conta da gem phony)
     portanto aqui mostramos um formato amigável ao usuário -->
     <% if f.object.persisted? %>

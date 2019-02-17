@@ -1,6 +1,6 @@
 <%= bootstrap_form_for [@event, @participation],
                        layout: :horizontal,
-                       label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
+                       label_col: 'col-2', control_col: 'col-6' do |f| %>
 
     <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
 
@@ -12,7 +12,7 @@
 
     <% if action_name == 'new' and @person.nil? %>
         <%= f.collection_select :person_id, @people,
-                                :id, :name, label: 'Pessoa', control_col: 'col-sm-3',
+                                :id, :name, label: 'Pessoa', control_col: 'col-3',
                                 include_blank: true, default: nil %>
     <% else %> <!--edit -->
         <%= hidden_field_tag 'participation[person_id]', @person.id %>
@@ -25,7 +25,7 @@
                  options_for_select(Participation.statuses.keys.to_a.map { |w| [ I18n.t("participation.status.#{w}"), w] },
                                     @participation.persisted? ? @participation.status : Participation.statuses.key(params[:pstatus].to_i)
                  ),
-                 control_col: 'col-sm-3' %>
+                 control_col: 'col-3' %>
 
     <!-- Só faz sentido marcar presença se participante esta inscrito -->
     <% if @participation.persisted? and @participation.enrolled? %>
@@ -33,13 +33,13 @@
                  options_for_select(Participation.attendances.keys.to_a.map { |w| [ I18n.t("participation.attendance.#{w}"), w] },
                                     @participation.persisted? ? @participation.attendance : Participation.attendances.key(params[:attendance].to_i)
                  ),
-                 control_col: 'col-sm-3', include_blank: true, default: nil %>
+                 control_col: 'col-3', include_blank: true, default: nil %>
 
     <% end %>
 
     <%= f.select :p_type,
                  Participation.p_types.keys.to_a.map { |w| [ I18n.t("participation.types.#{w}"), w] },
-                 label: 'Tipo de participação ', control_col: 'col-sm-3' %>
+                 label: 'Tipo de participação ', control_col: 'col-3' %>
 
     <%= f.form_group do %>
         <%= f.submit 'Salvar' %>

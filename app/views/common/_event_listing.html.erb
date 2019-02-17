@@ -4,14 +4,14 @@
 <table class="table table-striped">
   <thead>
   <tr>
-    <th></th>
-    <th></th>
+    <th scope="col"></th>
+    <th scope="col"></th>
     <% if policy(Event).archive? %>
-        <th class="text-center">Arquivado?</th>
+        <th scope="col" class="text-center">Arquivado?</th>
     <% end %>
     <% if policy(Participation).show? %>
-        <th class="text-center">Presenças</th>
-        <th class="text-center">Presenças acumuladas</th>
+        <th scope="col" class="text-center">Presenças</th>
+        <th scope="col" class="text-center">Presenças acumuladas</th>
     <% end %>
   </tr>
   </thead>
@@ -28,10 +28,13 @@
       <% end %>
 
       <tr>
-        <td class="col-md-1"><em><%= date_str %></em></td>
-        <td class="col-md-4"><%= link_to event.name, event_path(event) %> <%= '<small><span class="label label-primary">interno</small>'.html_safe if event.activity.internal_only %></td>
+        <td class="w-1"><em><%= date_str %></em></td>
+        <td class="w-4">
+          <%= link_to event.name, event_path(event) %>
+          <%= '<span class="badge badge-primary">interno</span>'.html_safe if event.activity.internal_only %>
+        </td>
         <% if policy(Event).archive? %>
-            <td class="text-center col-md-1">
+            <td class="text-center w-1">
               <% if event.archived %>
                   <i class="text-success fa fa-check"></i>
               <% else %>
@@ -40,14 +43,14 @@
             </td>
         <% end %>
         <% if policy(Participation).show? %>
-            <td class="text-center col-md-1">
+            <td class="text-center w-1">
               <strong><%= part_num = event.participations.
                                                     where(status: Participation.statuses[:enrolled]).
                                                     where(attendance: [Participation.attendances[:present],
                                                                        Participation.attendances[:part_time]]).size; part_num %>
               </strong>
             </td>
-            <td class="text-center col-md-1"><%= part_count += part_num; part_count %></td>
+            <td class="text-center w-1"><%= part_count += part_num; part_count %></td>
         <% end %>
       </tr>
   <% end %>

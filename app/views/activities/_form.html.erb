@@ -1,23 +1,23 @@
 
 <%= bootstrap_form_for @activity, layout: :horizontal, html: { multipart: true },
-                       label_col: 'col-sm-2', control_col: 'col-sm-10' do |f| %>
+                       label_col: 'col-2', control_col: 'col-10' do |f| %>
 
     <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
 
-    <%= f.text_field :name, label: 'Nome', control_col: 'col-sm-5' %>
-    <%= f.text_area :summary, label: 'Sumário', control_col: 'col-sm-8', rows: 4, maxlength: 400,
+    <%= f.text_field :name, label: 'Nome', control_col: 'col-5' %>
+    <%= f.text_area :summary, label: 'Sumário', control_col: 'col-8', rows: 4, maxlength: 400,
                      help: 'Descreva em poucas palavras o que é esta atividade. Suporta tags HTML, por exemplo <i></i> para itálico e <b></b> para negrito. <strong>Máximo de 400 caracteres</strong>'.html_safe %>
 
     <%= render 'common/avatar_field', form: f, resource: @activity %>
 
-    <%= f.select :activity_type, Activity::TYPES, label: 'Tipo de atividade', control_col: 'col-sm-3' %>
+    <%= f.select :activity_type, Activity::TYPES, label: 'Tipo de atividade', control_col: 'col-3' %>
     <!-- Por ora não queremos aninhar mais que um nível as atividades portanto excluir atividades
     que tem um pai -->
     <%= f.form_group do %>
         <%= f.check_box :internal_only, label: 'Atividade restrita a voluntários' %>
     <% end %>
     <%= f.collection_select :parent_id, Activity.where(parent: nil).order('name'), :id, :name, label: 'Atividade pai',
-                            control_col: 'col-sm-4', include_blank: true,
+                            control_col: 'col-4', include_blank: true,
                             help: 'Caso esta atividade pertença a uma outra superior, marque aqui.' %>
 
     <%= f.text_area :description, class: 'tinymce', rows: 25, cols: 120, label: 'Descrição',

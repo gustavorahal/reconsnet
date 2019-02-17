@@ -1,40 +1,34 @@
 
 <% if policy(@person).edit? %>
     <div class="btn-group">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Ações <span class="caret"></span>
       </button>
 
-      <ul class="dropdown-menu dropdown-menu-right" role="menu">
+      <div class="dropdown-menu dropdown-menu-right">
         <% if policy(@person).edit? %>
-            <li>
-              <%= link_to 'Editar', edit_person_path(@person) %>
-            </li>
+          <%= link_to 'Editar', edit_person_path(@person), class: 'dropdown-item' %>
         <% end %>
 
         <% if policy(@person).destroy? %>
-            <% @person.safely_destroyable? ? disabled = false : disabled = true%>
-            <li>
-              <%= link_to 'Deletar',
+          <% @person.safely_destroyable? ? disabled = false : disabled = true%>
+          <%= link_to 'Deletar',
                           person_path(@person, page: params[:page], query: params[:query], order: params[:order]),
                           method: :delete,
                           data: { confirm: "Você tem certeza que deseja deletar \"#{@person.to_s}\"?" },
-                          disabled: disabled %>
-            </li>
+                          disabled: disabled, class: 'dropdown-item' %>
         <% end %>
 
         <% unless @person.needs_review %>
-            <li>
-              <a data-toggle="modal" data-target="#myModal" href="#">Marcar como "necessita revisão"</a>
-            </li>
+          <a data-toggle="modal" data-target="#myModal" href="#" class="dropdown-item">Marcar como "necessita revisão"</a>
         <% end %>
 
-        <li class="divider"></li>
+        <div class="dropdown-divider"></div>
 
         <% if policy(@person).show? %>
-            <li><%= link_to 'Histórico de alterações', versions_person_path(@person) %></li>
+          <%= link_to 'Histórico de alterações', versions_person_path(@person), class: 'dropdown-item' %>
         <% end %>
 
-      </ul>
+      </div>
     </div>
 <% end %>

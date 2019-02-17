@@ -1,12 +1,12 @@
 <% form_id = f.index + 1 %>
 
 <div class="form-group">
-  <label class="col-sm-2 control-label">Endereço</label>
-  <div class="col-sm-7">
+  <label class="col-2 control-label">Endereço</label>
+  <div class="col-7">
     <%= f.text_field :line1, placeholder: 'Endereço', id: "line1_#{form_id}", hide_label: true %>
-    <%= f.text_field :city, placeholder: 'Cidade', id: "city_#{form_id}", control_col: 'col-sm-4', hide_label: true %>
-    <%= f.text_field :zip, placeholder: 'CEP', id: "zip_#{form_id}", control_col: 'col-sm-3', hide_label: true %>
-    <%= f.text_field :state, placeholder: 'Estado', id: "state_#{form_id}", control_col: 'col-sm-4', hide_label: true %>
-    <%= f.text_field :country, placeholder: 'País', id: "country_#{form_id}", control_col: 'col-sm-4', hide_label: true %>
+    <%= f.text_field :city, placeholder: 'Cidade', id: "city_#{form_id}", control_col: 'col-4', hide_label: true %>
+    <%= f.text_field :zip, placeholder: 'CEP', id: "zip_#{form_id}", control_col: 'col-3', hide_label: true %>
+    <%= f.text_field :state, placeholder: 'Estado', id: "state_#{form_id}", control_col: 'col-4', hide_label: true %>
+    <%= f.text_field :country, placeholder: 'País', id: "country_#{form_id}", control_col: 'col-4', hide_label: true %>
   </div>
 </div>

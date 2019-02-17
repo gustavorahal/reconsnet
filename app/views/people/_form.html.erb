@@ -1,5 +1,5 @@
 <%= bootstrap_form_for @person, layout: :horizontal, html: { multipart: true },
-                            label_col: 'col-sm-2', control_col: 'col-sm-7' do |f| %>
+                            label_col: 'col-2', control_col: 'col-7' do |f| %>
 
     <% if @person.errors[:base].present? %>
         <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo. ' + @person.errors[:base][0] %>
@@ -11,9 +11,9 @@
 
     <% if @person.avatar.attached? %>
         <div class="form-group">
-          <label class="col-sm-2 control-label"></label>
-          <div class="col-sm-6">
-            <%= image_tag @person.avatar.variant(resize: "100x100"), class: 'img-rounded' %>
+          <label class="col-2 control-label"></label>
+          <div class="col-6">
+            <%= image_tag @person.avatar.variant(resize: "100x100"), class: 'rounded' %>
             <%= f.check_box :avatar_delete, label: 'Deletar foto <small>(Após deletar será possivel adicionar uma nova)</small>'.html_safe %>
           </div>
         </div>
@@ -22,7 +22,7 @@
         <%= f.file_field :avatar, label: label %>
     <% end %>
 
-    <%= f.email_field :email, control_col: 'col-sm-3' %>
+    <%= f.email_field :email, control_col: 'col-3' %>
 
     <%= f.form_group do %>
         <%= f.check_box :marketing, label: 'Receber divulgação',
@@ -30,19 +30,19 @@
                         layout: :inline %>
     <% end %>
 
-    <%= f.select :gender, Person::GENDERS, include_blank: true, control_col: 'col-sm-3' %>
+    <%= f.select :gender, Person::GENDERS, include_blank: true, control_col: 'col-3' %>
 
     <%= f.select :relationship, Person.relationships.keys.to_a.map { |w| [ I18n.t("relationship.#{w}"), w] },
-                 include_blank: true, control_col: 'col-sm-3' %>
+                 include_blank: true, control_col: 'col-3' %>
 
     <%= f.date_select :date_of_birth, start_year: 1930, end_year: Date.today.year, include_blank: true %>
-    <%= f.text_field :occupation, control_col: 'col-sm-3' %>
+    <%= f.text_field :occupation, control_col: 'col-3' %>
     <%= f.select :scholarity, Person::SCHOLARITIES,
-                 include_blank: true, control_col: 'col-sm-3' %>
+                 include_blank: true, control_col: 'col-3' %>
     <%= f.select :nationality, Person::NATIONALITIES, selected: 'Brasileiro',
-                 include_blank: true, label: 'Nacionalidade', control_col: 'col-sm-3' %>
-    <%= f.text_field :cpf, control_col: 'col-sm-3', placeholder: '000.000.000-00' %>
-    <%= f.text_field :rg, control_col: 'col-sm-3', help: 'Número e orgão expeditor' %>
+                 include_blank: true, label: 'Nacionalidade', control_col: 'col-3' %>
+    <%= f.text_field :cpf, control_col: 'col-3', placeholder: '000.000.000-00' %>
+    <%= f.text_field :rg, control_col: 'col-3', help: 'Número e orgão expeditor' %>
 
     <%= f.fields_for :phone_numbers do |phone_form| %>
         <%= render :partial => 'common/phone_number_fields', :locals => {:f => phone_form} %>

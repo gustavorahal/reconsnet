@@ -13,12 +13,12 @@
                          placeholder: 'Procurar...',
                          value: @query %>
       <span class="input-group-btn">
-          <button class="btn btn-default" type="submit" id="btn-search">
+          <button class="btn btn-secondary" type="submit" id="btn-search">
             <span class="fa fa-search"></span>
           </button>
 
         <%= link_to "<i class=\"fa fa-times\"></i>".html_safe,
-                    tmks_path, class: 'btn btn-default' %>
+                    tmks_path, class: 'btn btn-secondary' %>
       </span>
     </div>
 <% end %>
@@ -27,17 +27,15 @@
 <!-- Filtro por evento -->
 
 <div class="dropdown">
-<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-  Filtrar por evento
-  <span class="caret"></span>
-</button>
-<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-  <% @events.each do |event| %>
-      <li role="presentation">
-        <%= link_to event.name_with_date, tmks_path(whitelist_params.merge(event_id: event.id)) %>
-      </li>
-  <% end %>
-</ul>
+  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+    Filtrar por evento
+    <span class="caret"></span>
+  </button>
+  <div class="dropdown-menu"  aria-labelledby="dropdownMenu1">
+    <% @events.each do |event| %>
+      <%= link_to event.name_with_date, tmks_path(whitelist_params.merge(event_id: event.id)), class: 'dropdown-item' %>
+    <% end %>
+  </div>
 </div>
 
 <% if params[:event_id].present? %>
@@ -60,7 +58,7 @@
 
   <% @tmks.order('tmks.contact_date DESC').each do |tmk| %>
       <tr>
-        <td class="col-md-4">
+        <td class="w-4">
           <%= link_to tmk.with_who.name, person_path(tmk.with_who) %>
           <% unless params[:event_id].present? %>
             sobre evento

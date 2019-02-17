@@ -12,12 +12,12 @@
         Abaixo escreva o que precisa ser revisado.
         <br><br>
 
-        <%= bootstrap_form_for @person, label_col: 'col-sm-2', control_col: 'col-sm-6' do |f| %>
+        <%= bootstrap_form_for @person, label_col: 'col-2', control_col: 'col-6' do |f| %>
             <%= f.text_area :needs_review_reason %>
             <%= f.hidden_field :needs_review, value: true %>
 
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
               <%= f.submit 'Marcar', class: 'btn btn-success' %>
             </div>
         <% end %>

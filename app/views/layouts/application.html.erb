@@ -11,51 +11,117 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
 
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#recons-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
+      <a class="navbar-brand" href="<%= root_path %>">
+        <%= image_tag 'reconscientia.png', alt: 'Brand', width: "180" %>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-          <a class="navbar-brand" href="<%= root_path %>">
-            <%= image_tag 'reconscientia.png', style: 'max-width:100%; max-height:100%;', alt: 'Brand' %>
-          </a>
-        </div>
+      <div class="collapse navbar-collapse" id="recons-navbar-collapse-1">
 
-        <div class="collapse navbar-collapse" id="recons-navbar-collapse-1">
+        <ul class="navbar-nav mr-auto">
+          <%= link_to 'Atividades', activities_path , class: "nav-item nav-link #{active_class('/activities')}" %>
+          <%= link_to 'Agenda', events_path , class: "nav-item nav-link #{active_class('/events')}" %>
 
-          <ul class="nav navbar-nav">
-            <%= render 'common/menu/activities_menu' %>
-            <%= render 'common/menu/agenda_menu' %>
-            <% if policy(Tmk).show? %>
-              <%= render 'common/menu/marketing_menu' %>
-            <% end %>
-            <% if policy(Person).show? %>
-              <%= render 'common/menu/people_menu' %>
-            <% end %>
-            <%= render 'common/menu/about_menu' %>
-            <% if current_user and current_user.is_admin? %>
-              <%= render 'common/menu/admin_menu' %>
-            <% end %>
-          </ul>
-          <ul class="nav navbar-nav pull-right">
-            <li>
-              <a style="padding: 11px;" href="https://facebook.com/Reconscientia" target="_blank"><%= fa_icon 'facebook-official 2x' %></a>
+          <!-- <marketing menu> -->
+          <% if policy(Tmk).show? %>
+            <li class="nav-item dropdown <%= 'active' if active_class('/marketing') or active_class('/tmks') %>">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Divulgação <span class="caret"></span>
+              </a>
+              <div class="dropdown-menu">
+                <%= link_to 'TMK', tmks_path , class: 'dropdown-item' %>
+                <%= link_to 'Email marketing', marketing_path, class: 'dropdown-item' %>
+              </div>
             </li>
-            <% if is_volunteer? current_user %>
-                <%= render 'common/menu/help_menu' %>
+          <% end %>
+          <!-- </marketing menu> -->
+
+          <!-- <people menu> -->
+          <% if policy(Person).show? %>
+            <li class="nav-item dropdown <%= 'active' if active_class('/people') or active_class('/volunteers') %>">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Cadastro <span class="caret"></span>
+              </a>
+              <div class="dropdown-menu" >
+                <%= link_to 'Pessoas', people_path, class: 'dropdown-item' %>
+                <%= link_to 'Voluntários', volunteers_path, class: 'dropdown-item' %>
+              </div>
+            </li>
+          <% end %>
+          <!-- </people menu> -->
+
+
+          <!-- <about menu> -->
+          <li class="nav-item dropdown <%= active_class('/inventoriology') %>">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Instituição <span class="caret"></span>
+            </a>
+            <div class="dropdown-menu" >
+              <%= link_to 'Sobre', about_path, class: 'dropdown-item' %>
+              <% if policy(:inventoriology).show? %>
+                <%= link_to 'Inventariologia', inventoriology_path, class: 'dropdown-item' %>
+              <% end %>
+            </div>
+          </li>
+          <!-- </about menu> -->
+
+          <!-- <admin menu> -->
+          <% if current_user and current_user.is_admin? %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Admin <span class="caret"></span>
+              </a>
+              <div class="dropdown-menu" >
+                <%= link_to 'Usuários', users_path, class: 'dropdown-item' %>
+                <%= link_to 'Alterações no site', versions_path, class: 'dropdown-item' %>
+              </div>
+            </li>
+          <% end %>
+          <!-- </admin menu> -->
+        </ul>
+
+
+
+        <!-- PARTE DIREITA -->
+
+        <ul class="navbar-nav my-2">
+          <!-- Facebook icon -->
+          <a style="padding: 11px;" href="https://facebook.com/Reconscientia" target="_blank" class="nav-item nav-link"><%= fa_icon 'facebook-official' %></a>
+
+
+          <% if is_volunteer? current_user %>
+            <%= link_to 'Ajuda', help_path , class: "nav-item nav-link #{active_class('/help')}" %>
+          <% end %>
+
+          <!-- User menu BEGIN -->
+          <% if user_signed_in? %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= current_user.name %> <b class="caret"></b>
+              </a>
+              <div class="dropdown-menu">
+                <%= link_to 'Editar conta', edit_user_registration_path, class: 'dropdown-item' %>
+                <div class="dropdown-divider"></div>
+                <%= link_to 'Sair', destroy_user_session_path, :method =>'delete', class: 'dropdown-item' %>
+              </div>
+            </li>
+          <% else %>
+            <%= link_to 'Entrar', new_user_session_path, class: 'nav-item nav-link' %>
+            <!-- FIXME: solução temporária para não deixar qualquer um criar conta -->
+            <% if current_user and current_user.is_admin? %>
+              <%= link_to 'Criar conta', new_user_registration_path, class: 'nav-item nav-link' %>
             <% end %>
-            <%= render 'common/menu/user_menu' %>
-          </ul>
+          <% end %>
+          <!-- User menu END -->
+        </ul>
 
-        </div> <!-- /.navbar-collapse -->
 
-      </div><!-- /.container-fluid -->
+
+      </div> <!-- /.navbar-collapse -->
 
     </nav>
 
@@ -72,25 +138,25 @@
         <div class="container">
 
           <div class="row">
-            <div class="col-lg-12">
+            <div class="col-12">
               <%= render 'common/flash_msgs' %>
             </div>
           </div>
 
           <div class="row vertical-align">
-            <div class="col-lg-8">
+            <div class="col-8">
               <%= yield :back_link %>
               <%= yield :page_title %>
             </div>
-            <div class="col-lg-4">
-              <div class="pull-right">
+            <div class="col-4">
+              <div class="float-right">
                 <%= yield :actions %>
               </div>
             </div>
           </div>
 
           <div class="row">
-            <div class="col-lg-12"><%= yield %></div>
+            <div class="col-12"><%= yield %></div>
           </div>
 
         </div>
@@ -105,11 +171,11 @@
 
     <div class="row">
 
-      <div class="col-md-3">
+      <div class="col-3">
         <%= image_tag 'logo-cor-transparente.png', style: 'max-width:100%; max-height:100%;' %>
       </div>
 
-      <div class="col-md-5">
+      <div class="col-5">
         <address>
           Rua Rui Barbosa, 820 - sala 601<br>
           Edifício Foz Executive Center, Centro<br>
@@ -117,7 +183,7 @@
         </address>
       </div>
 
-      <div class="col-md-4">
+      <div class="col-4">
         <p><%= fa_icon 'envelope' %> <strong>e-mail: reconscientia@reconscientia.org</strong></p>
         <p><%= fa_icon 'facebook-official' %> <strong>facebook.com/Reconscientia</strong></p>
         <p><%= fa_icon 'whatsapp' %> <strong>(45) 99993-2000</strong></p>

@@ -2,15 +2,15 @@
 <%= render 'common/page_title', titulo: 'Editar conta' %>
 
 <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put },
-                       layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-4') do |f| %>
+                       layout: :horizontal, label_col: 'col-2', control_col: 'col-4') do |f| %>
 
     <%= devise_error_messages! %>
 
     <%= f.static_control :name, label: 'Nome' %>
 
     <div class="form-group">
-      <label class="control-label col-sm-2 required" for="user_name">Papeis</label>
-      <div class="col-sm-4">
+      <label class="control-label col-2 required" for="user_name">Papeis</label>
+      <div class="col-4">
         <p class="form-control-static">
             <%= roles_friendly_display(resource) %>
         </p>
@@ -23,13 +23,13 @@
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>
 
-    <%= f.password_field :password, label: 'Nova senha', control_col: 'col-sm-3',
+    <%= f.password_field :password, label: 'Nova senha', control_col: 'col-3',
                          help: 'deixe em branco se você não quiser mudar sua senha',
                          autocomplete: 'off' %>
-    <%= f.password_field :password_confirmation, label: 'Confirmar nova senha', control_col: 'col-sm-3',
+    <%= f.password_field :password_confirmation, label: 'Confirmar nova senha', control_col: 'col-3',
                          autocomplete: 'off' %>
 
-    <%= f.password_field :current_password, label: 'Senha atual', autocomplete: 'off', control_col: 'col-sm-3',
+    <%= f.password_field :current_password, label: 'Senha atual', autocomplete: 'off', control_col: 'col-3',
                          help: 'precisamos de sua senha atual para confirmar as mudanças' %>
 
     <%= f.form_group do %>

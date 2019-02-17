@@ -1,10 +1,10 @@
 
-<div class="panel panel-default">
+<div class="card">
 
-  <div class="panel-heading">
-    <h3 class="panel-title">Arquivos
+  <h4 class="card-header">
+    Arquivos
       <% unless @event.archived %>
-          <div class="pull-right">
+          <div class="float-right">
 
             <!-- Botão de adição BEGIN -->
 
@@ -13,26 +13,23 @@
                 <%= fa_icon('plus') %>
               </button>
 
-              <ul class="dropdown-menu dropdown-menu-right" role="menu">
+              <div class="dropdown-menu dropdown-menu-right" >
                 <% ResourceAsset.asset_types.keys.to_a.each do |asset_type| %>
-                    <li>
-                      <%= link_to I18n.t("asset_types.#{asset_type}"),
-                                  new_resource_asset_path(assetable_id: @event.id,
-                                                         assetable_type: 'Event', asset_type: asset_type) %>
-                    </li>
-
+                    <%= link_to I18n.t("asset_types.#{asset_type}"),
+                                new_resource_asset_path(assetable_id: @event.id,
+                                                        assetable_type: 'Event', asset_type: asset_type),
+                                class: "dropdown-item" %>
                 <% end %>
-              </ul>
+              </div>
             </div>
 
             <!-- Botão de adição END -->
 
           </div>
       <% end %>
-    </h3>
-  </div>
+  </h4>
 
-  <div class="panel-body">
+  <div class="card-body">
 
     <!-- Listagem de arquivos BEGIN -->
 
@@ -48,7 +45,7 @@
                 <small class="text-muted">
                   em <%= date_display(asset.created_at) %>
                 </small>
-                <span class="pull-right">
+                <span class="float-right">
                   <%= link_to fa_icon('download'), url_for(asset.file), class: 'btn btn-link btn-xs', target: '_blank' %>
                   <% unless @event.archived %>
                       <%= render 'common/btn_delete', btn_label: '', url: resource_asset_path(asset,

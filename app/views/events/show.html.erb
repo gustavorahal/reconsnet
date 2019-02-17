@@ -35,31 +35,32 @@
     Corpo
 
   -->
-  <div class="col-xs-8">
+  <div class="col-8">
     <!-- Participantes -->
     <% if policy(Participation).show? %>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Participantes
-              <div class="pull-right">
-                <%= link_to '<i class="fa fa-envelope"></i> E-mails'.html_safe,
-                            emails_event_path(@event), class: 'btn btn-xs btn-default' %>
-                <% unless @event.archived %>
-                    <%= link_to '<i class="fa fa-users"></i> Gerar lista de presença'.html_safe,
-                            attendance_event_path(@event, format: :pdf), class: 'btn btn-xs btn-default' %>
-                    <%= render 'common/btn_new', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:enrolled]),
-                           btn_label: 'Nova participação', size: 'btn-xs', resource: @event %>
-                <% end %>
-              </div>
-            </h3>
-          </div>
-          <div class="panel-body">
+        <div class="card">
 
+          <h4 class="card-header">
+            Participantes
+            <div class="float-right">
+              <%= link_to '<i class="fa fa-envelope"></i> E-mails'.html_safe,
+                          emails_event_path(@event), class: 'btn btn-xs btn-secondary' %>
+              <% unless @event.archived %>
+                  <%= link_to '<i class="fa fa-users"></i> Gerar lista de presença'.html_safe,
+                          attendance_event_path(@event, format: :pdf), class: 'btn btn-xs btn-secondary' %>
+                  <%= render 'common/btn_new', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:enrolled]),
+                         btn_label: 'Nova participação', size: 'btn-xs', resource: @event %>
+              <% end %>
+            </div>
+          </h4>
+
+          <div class="card-body">
+            <div class="card-text">
             <!--
                 Equipe docente
             -->
             <% organizers = @event.enrolls.where(p_type: Participation::ORGANIZER_P_TYPES)  %>
-            <h5>Equipe Docente <span class="badge"><%= organizers.count %></span></h5>
+            <h5>Equipe Docente <span class="badge badge-secondary"><%= organizers.count %></span></h5>
             <br>
             <%= render 'list_participations',
                        participations: organizers,
@@ -71,7 +72,7 @@
                 Alunos inscritos
             -->
             <% student_enrolls = @event.enrolls.where.not(p_type: Participation::ORGANIZER_P_TYPES) %>
-            <h5>Alunos inscritos <span class="badge"><%= student_enrolls.count %></span></h5>
+            <h5>Alunos inscritos <span class="badge badge-secondary"><%= student_enrolls.count %></span></h5>
             <br>
             <%= render 'list_participations',
                        participations: student_enrolls,
@@ -84,12 +85,13 @@
                 Pré-inscritos
             -->
             <% pre_enrolls = @event.pre_enrolls  %>
-            <h5>Pré-inscritos <span class="badge"><%= pre_enrolls.count %></span></h5>
+            <h5>Pré-inscritos <span class="badge badge-secondary"><%= pre_enrolls.count %></span></h5>
             <br>
             <%= render 'list_participations',
                        participations: pre_enrolls,
                        msg_when_empty: 'Não existem pré-inscritos para este evento' %>
 
+            </div>
 
           </div>
         </div>
@@ -103,28 +105,33 @@
     <% divulge_count = @event.divulge.count  %>
     <% pending_count = interested_count + divulge_count %>
     <% if policy(Participation).show? and !@event.archived and pending_count > 0 %>
-        <div class="panel panel-danger">
-          <div class="panel-heading">
-            <h3 class="panel-title">Pendências <span class="badge"><%= pending_count %></span>
-              <% unless @event.archived %>
-                  <div class="pull-right">
-                    <%= render 'common/btn_new', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:divulge]),
-                               size: 'btn-xs', btn_label: 'Nova participação', resource: @event %>
-                  </div>
+        <div class="card border-danger">
+
+          <h4 class="card-header">
+            Pendências <span class="badge badge-secondary"><%= pending_count %></span>
+            <% unless @event.archived %>
+                <div class="float-right">
+                  <%= render 'common/btn_new', url: new_event_participation_path(@event.id, pstatus: Participation.statuses[:divulge]),
+                             size: 'btn-xs', btn_label: 'Nova participação', resource: @event %>
+                </div>
+            <% end %>
+          </h4>
+
+          <div class="card-body">
+            <div class="card-text">
+              <% if interested_count > 0 %>
+                  <br/>
+                  <%= render 'pending_participations',
+                              title: "Interessados <span class=\"badge badge-secondary\">#{@event.interested.count}</span>",
+                              participations: @event.interested, color: 'border-warning' %>
               <% end %>
-            </h3>
-          </div>
-          <div class="panel-body">
-            <% if interested_count > 0 %>
-                <br/>
-                <%= render 'pending_participations', title: "Interessados <span class=\"badge\">#{@event.interested.count}</span>",
-                       participations: @event.interested, color: 'warning' %>
-            <% end %>
-            <% if divulge_count > 0 %>
-                <br/>
-                <%= render 'pending_participations', title: "Para divulgação <span class=\"badge\">#{@event.divulge.count}</span>",
-                       participations: @event.divulge, color: 'info' %>
-            <% end %>
+              <% if divulge_count > 0 %>
+                  <br/>
+                  <%= render 'pending_participations',
+                              title: "Para divulgação <span class=\"badge badge-secondary\">#{@event.divulge.count}</span>",
+                              participations: @event.divulge, color: 'border-info' %>
+              <% end %>
+            </div>
           </div>
         </div>
     <% end %>
@@ -133,31 +140,31 @@
 
     <!-- TMKs -->
     <% if policy(Tmk).show? %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">TMKs <span class="badge"><%= @event.tmks.count %></span>
-        </h3>
-      </div>
-      <div class="panel-body">
+    <div class="card">
+      <h4 class="card-header">
+        TMKs <span class="badge badge-secondary"><%= @event.tmks.count %></span>
+      </h4>
+      <div class="card-body">
+        <div class="card-text">
+          <% if @event.tmks.empty? %>
 
-        <% if @event.tmks.empty? %>
+              Nenhum TMK foi realizado
 
-            Nenhum TMK foi realizado
+          <% else %>
 
-        <% else %>
+              <% @event.tmks.order('tmks.contact_date DESC').each do |tmk| %>
+                  <div>
+                    <%= tmk_summary_no_event(tmk) %>
+                    <% unless @event.archived %>
+                      <%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
+                    <% end %>
+                  </div>
+                  <br>
+              <% end %>
 
-            <% @event.tmks.order('tmks.contact_date DESC').each do |tmk| %>
-                <div>
-                  <%= tmk_summary_no_event(tmk) %>
-                  <% unless @event.archived %>
-                    <%= render 'common/btn_edit', resource: tmk, size: 'btn-xs', btn_label: '' %>
-                  <% end %>
-                </div>
-                <br>
-            <% end %>
+          <% end %>
 
-        <% end %>
-
+        </div>
       </div>
     </div>
     <% end %>
@@ -173,7 +180,7 @@
 
   -->
 
-  <div class="col-xs-4">
+  <div class="col-4">
 
     <% if policy(ResourceAsset).show_in_event?(@event) %>
         <%= render 'assets' %>

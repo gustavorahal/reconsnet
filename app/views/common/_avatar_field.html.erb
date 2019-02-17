@@ -3,9 +3,9 @@
 
 <% if resource.avatar.attached? %>
     <div class="form-group">
-      <label class="col-sm-2 control-label"></label>
-      <div class="col-sm-6">
-        <%= image_tag resource.avatar.variant(resize: '200x100'), class: 'img-rounded' %>
+      <label class="col-2 control-label"></label>
+      <div class="col-6">
+        <%= image_tag resource.avatar.variant(resize: '200x100'), class: 'rounded' %>
         <%= form.check_box :avatar_delete, label: 'Deletar imagem <small>(Após deletar será possivel adicionar uma nova)</small>'.html_safe %>
       </div>
     </div>
