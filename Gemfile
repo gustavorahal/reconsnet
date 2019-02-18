@@ -27,7 +27,6 @@ gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
 gem 'tinymce-rails-imageupload', '~> 4.0.0.beta'
 gem 'kaminari' # will_paginate, rails 4.1 e pg_search não estavam funcionando bem juntos então a opção pelo kaminari
-gem 'kaminari-bootstrap'
 
 gem 'turbolinks', '~> 5'
 gem 'jquery-turbolinks'
