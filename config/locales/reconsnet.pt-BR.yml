@@ -113,6 +113,8 @@ pt-BR:
       resource_asset:
         file: "Arquivo"
         asset_type: "Tipo"
+      user:
+        name: "Nome"
     errors:
       models:
         phone_number:

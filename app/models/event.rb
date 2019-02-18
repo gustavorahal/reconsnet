@@ -45,7 +45,7 @@ class Event < ApplicationRecord
 
   def name_with_date
     date_str = I18n.l start, format: '%d %b %Y'
-    "#{name} <small>(#{date_str})</small>".html_safe
+    "#{name} (#{date_str})".html_safe
   end
 
 

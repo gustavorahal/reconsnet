@@ -32,9 +32,7 @@
 
     <% if @event %>
         <%= hidden_field_tag 'tmk[event_id]', @event.id %>
-        <%= f.static_control nil, label: 'Evento' do %>
-            <%= @event.name %>
-        <% end %>
+        <%= f.static_control nil, label: 'Evento', value: @event.name %>
     <% else %>
         <%= render 'common/event_select_field', f: f %>
     <% end %>

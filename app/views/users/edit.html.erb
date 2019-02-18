@@ -6,9 +6,7 @@
 
     <%= f.alert_message 'Favor corrigir o(s) erro(s) abaixo.' %>
 
-    <%= f.static_control nil, label: 'Usuário' do %>
-        <%= @user.name %>
-    <% end %>
+    <%= f.static_control :name %>
 
     <%= f.collection_select :person_id, Person.all.order('name'), :id, :name, label: 'Pessoa',
                             include_blank: true, default: nil,

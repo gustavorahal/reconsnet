@@ -9,9 +9,7 @@
 
     <% if @activity %>
         <%= hidden_field_tag :activity_id, @activity.id %>
-        <%= f.static_control nil, label: 'Atividade' do %>
-            <%= @activity.name %>
-        <% end %>
+        <%= f.static_control nil, label: 'Atividade', value: @activity.name %>
     <% else %>
         <%= f.collection_select :activity_id, Activity.all.order('name'), :id, :name, control_col: 'col-4' %>
     <% end %>

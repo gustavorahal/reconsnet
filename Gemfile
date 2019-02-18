@@ -19,7 +19,7 @@ gem 'jquery-rails'
 gem 'aws-sdk-s3', require: false
 
 # UI/Web
-gem 'bootstrap', '~> 4.2.1'
+gem 'bootstrap', '~> 4.3.1'
 gem 'font-awesome-rails'
 gem 'bootstrap_form', '>= 4.1.0'
 gem 'mini_magick' # for activestorage to create variation of a image

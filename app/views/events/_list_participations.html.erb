@@ -39,10 +39,10 @@
             <% end %>
 
             <%= render 'common/btn_edit', url: edit_event_participation_path(@event, part),
-                       btn_label: '', size: 'btn btn-secondary btn-xs', resource: part %>
+                       btn_label: '', size: 'btn btn-outline-secondary btn-xs', resource: part %>
 
             <%= render 'common/btn_delete', url: event_participation_path(@event, part),
-                       btn_label: '', size: 'btn btn-secondary btn-xs', resource: part %>
+                       btn_label: '', size: 'btn btn-outline-secondary btn-xs', resource: part %>
 
         <% end %>
       </span>

@@ -4,14 +4,10 @@
     <%= hidden_field_tag :assetable_id, @assetable.id %>
     <%= hidden_field_tag :assetable_type, @assetable.class.name %>
 
-    <%= f.static_control nil, label: 'Anexar a' do %>
-        <%= @assetable.name %>
-    <% end %>
+    <%= f.static_control nil, label: 'Anexar a', value: @assetable.name %>
 
     <% if @resource_asset.persisted? %>
-        <%= f.static_control nil, label: 'Arquivo' do %>
-            <%= @resource_asset.file.filename %>
-        <% end %>
+        <%= f.static_control nil, label: 'Arquivo', value: @resource_asset.file.filename %>
     <% else %>
         <%= f.file_field :file %>
     <% end %>

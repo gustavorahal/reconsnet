@@ -6,9 +6,7 @@
 
     <%= hidden_field_tag 'participation[event_id]', @event.id %>
 
-    <%= f.static_control nil, label: 'Evento' do %>
-        <%= @event.name_with_date %>
-    <% end %>
+    <%= f.static_control label: 'Evento', value: @event.name_with_date %>
 
     <% if action_name == 'new' and @person.nil? %>
         <%= f.collection_select :person_id, @people,
@@ -16,9 +14,7 @@
                                 include_blank: true, default: nil %>
     <% else %> <!--edit -->
         <%= hidden_field_tag 'participation[person_id]', @person.id %>
-        <%= f.static_control nil, label: 'Pessoa' do %>
-            <%= @person.name %>
-        <% end %>
+        <%= f.static_control label: 'Pessoa', value: @person.name %>
     <% end %>
 
     <%= f.select :status,
