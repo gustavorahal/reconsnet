@@ -17,6 +17,9 @@
 //= require bootstrap
 //= require tinymce-jquery
 //= require holder
+// bs-custom-file-input é usado por bootstrap file browser para mostrar
+// nome do arquivo quando selecionado para upload
+//= require bs-custom-file-input
 //= require_tree .
 //= require turbolinks
 

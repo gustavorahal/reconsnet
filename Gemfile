@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.2'
+gem 'rails', '~> 5.2.3'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
@@ -21,7 +21,7 @@ gem 'aws-sdk-s3', require: false
 # UI/Web
 gem 'bootstrap', '~> 4.3.1'
 gem 'font-awesome-rails'
-gem 'bootstrap_form', '>= 4.1.0'
+gem 'bootstrap_form', '>= 4.2.0'
 gem 'mini_magick' # for activestorage to create variation of a image
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
