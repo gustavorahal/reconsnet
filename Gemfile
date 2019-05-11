@@ -1,18 +1,22 @@
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
 ruby "2.6.1"
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
-end
-
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+# Defaults stuff than usually com with a new rails app
 gem 'rails', '~> 5.2.3'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
+gem 'turbolinks', '~> 5'
+gem 'jbuilder', '~> 2.5'
+# Use ActiveModel has_secure_password
+gem 'bcrypt', '~> 3.1.7'
+
 gem 'coffee-rails', '~> 4.2'
+
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'mini_racer'
 gem 'jquery-rails'
@@ -28,7 +32,6 @@ gem 'tinymce-rails-langs'
 gem 'tinymce-rails-imageupload', '~> 4.0.0.beta'
 gem 'kaminari' # will_paginate, rails 4.1 e pg_search não estavam funcionando bem juntos então a opção pelo kaminari
 
-gem 'turbolinks', '~> 5'
 gem 'jquery-turbolinks'
 gem 'holder_rails'
 
@@ -36,9 +39,6 @@ gem 'pundit'
 gem 'rolify'
 gem 'devise'
 gem 'paper_trail'
-
-# Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.1.0', require: false
 
 # mailchimp api wrapper
 gem 'gibbon'
@@ -54,8 +54,6 @@ gem 'sinatra', :require => nil # para web do sidekiq
 # para manipulação de números de telefone
 gem 'phony_rails'
 
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -65,26 +63,28 @@ end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'capybara'
+end
+
+group :development do
+  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
+  gem 'web-console', '>= 3.3.0'
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'annotate'
+end
+
+group :test do
+  # Adds support for Capybara system testing and selenium driver
+  gem 'capybara', '>= 2.15'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'launchy' # for save_and_open_page
   gem 'poltergeist'
   gem 'rspec-rails'
 end
-
-group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'listen', '~> 3.0.5'
-  gem 'annotate'
-  gem 'spring'
-  gem 'spring-commands-rspec'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'web-console', '>= 3.3.0'
-end
-
-# Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.7'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
