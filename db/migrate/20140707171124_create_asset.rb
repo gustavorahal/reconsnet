@@ -3,7 +3,6 @@ class CreateAsset < ActiveRecord::Migration[4.2]
     create_table :assets do |t|
       t.string :name
       t.string :description
-      t.attachment :file
 
       t.integer :assetable_id
       t.string :assetable_type
