@@ -4,7 +4,7 @@
 <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put },
                        layout: :horizontal, label_col: 'col-2', control_col: 'col-4') do |f| %>
 
-    <%= devise_error_messages! %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
     <%= f.static_control :name, label: 'Nome' %>
 

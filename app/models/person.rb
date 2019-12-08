@@ -89,7 +89,7 @@ class Person < ApplicationRecord
     order_str = ''
     case order
       when 'created_at' then order_str = 'people.created_at DESC'
-      else order_str = 'LOWER(people.name)'
+      else order_str = 'people.name'
     end
 
     if query.present?

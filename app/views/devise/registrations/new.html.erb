@@ -3,7 +3,7 @@
 <%= bootstrap_form_for(resource, :as => resource_name, :url => registration_path(resource_name),
                        layout: :horizontal, label_col: 'col-2', control_col: 'col-4') do |f| %>
 
-    <%= devise_error_messages! %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
     <%= f.text_field :name, label: 'Nome', autofocus: true %>
     <%= f.email_field :email %>
