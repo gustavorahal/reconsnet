@@ -27,8 +27,8 @@ class Participation < ApplicationRecord
                 teacher_theme: 7,
                 teacher_intro: 8 }
 
-
-  enum attendance: { present: 0, part_time: 1, absent: 2}
+  # prefix "present" with "part" so it does no conflict with ActiveRecord .present? method
+  enum attendance: { part_present: 0, part_time: 1, absent: 2}
 
   # Participation types that are considered event organizers
   ORGANIZER_P_TYPES = [ p_types[:teacher],

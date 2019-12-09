@@ -12,7 +12,7 @@
       <% end  %>
 
       <span class="float-right">
-        <% if part.present? or part.part_time? %>
+        <% if part.part_present? or part.part_time? %>
             &nbsp;<i class="fa fa-thumbs-up text-success" title="<%= I18n.t("participation.attendance.#{part.attendance}") %>"></i>&nbsp;
         <% elsif part.absent? %>
             &nbsp;<i class="fa fa-thumbs-down text-danger" title="<%= I18n.t("participation.attendance.#{part.attendance}") %>"></i>&nbsp;
@@ -25,7 +25,7 @@
                 <small>
                   <%= link_to '<i class="fa fa-thumbs-up text-success"></i> Presente'.html_safe,
                               record_attendance_event_participation_path(@event, part,
-                                                                         attendance: Participation.attendances[:present]),
+                                                                         attendance: Participation.attendances[:part_present]),
                                                                          method: :put, class: 'btn btn-link btn-xs' %>
                   <%= link_to '<i class="fa fa-thumbs-up text-success"></i> Presente meio período'.html_safe,
                               record_attendance_event_participation_path(@event, part,

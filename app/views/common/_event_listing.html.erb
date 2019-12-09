@@ -46,7 +46,7 @@
             <td class="text-center w-1">
               <strong><%= part_num = event.participations.
                                                     where(status: Participation.statuses[:enrolled]).
-                                                    where(attendance: [Participation.attendances[:present],
+                                                    where(attendance: [Participation.attendances[:part_present],
                                                                        Participation.attendances[:part_time]]).size; part_num %>
               </strong>
             </td>

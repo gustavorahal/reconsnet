@@ -4,32 +4,30 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "2.6.4"
 
 # Defaults stuff than usually com with a new rails app
-gem 'rails', '~> 5.2.4'
+gem 'rails', '~> 6.0.1'
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 3.11'
-gem 'sass-rails', '~> 5.0'
+gem 'puma', '~> 4.1'
+gem 'sass-rails', '>= 6'
+gem 'webpacker', '~> 4.0'
 gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.7'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-
-gem 'coffee-rails', '~> 4.2'
+gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
-gem 'mini_racer'
 gem 'jquery-rails'
 gem 'aws-sdk-s3', require: false
 
 # UI/Web
-gem 'bootstrap', '~> 4.3.1'
+gem 'bootstrap', '~> 4.4.1'
+gem 'bootstrap_form', '>= 4.3.0'
 gem 'font-awesome-rails'
-gem 'bootstrap_form', '>= 4.2.0'
 gem 'mini_magick' # for activestorage to create variation of a image
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
-gem 'tinymce-rails-imageupload', '~> 4.0.0.beta'
 gem 'kaminari' # will_paginate, rails 4.1 e pg_search não estavam funcionando bem juntos então a opção pelo kaminari
 
 gem 'jquery-turbolinks'
@@ -82,6 +80,7 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'launchy' # for save_and_open_page
+  gem 'webdrivers'
   gem 'poltergeist'
   gem 'rspec-rails'
 end

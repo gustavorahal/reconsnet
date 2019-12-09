@@ -944,6 +944,14 @@ CREATE INDEX index_volunteers_on_person_id ON public.volunteers USING btree (per
 
 
 --
+-- Name: active_storage_attachments fk_rails_c3b3935057; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_attachments
+    ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -982,6 +990,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20160108222336'),
 ('20160424041349'),
 ('20170418084352'),
-('20180510190651');
+('20180510190651'),
+('20191208211043');
 
 

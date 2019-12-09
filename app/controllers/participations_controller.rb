@@ -60,7 +60,7 @@ class ParticipationsController < ApplicationController
 
 
   def record_attendance
-    if params[:attendance].present?
+    if params[:attendance].part_present?
       @participation.attendance = params[:attendance].to_i
       if @participation.save
         redirect_to event_path(@participation.event)

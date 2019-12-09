@@ -12,9 +12,9 @@ feature 'Arquivamento de evento' do
   scenario 'evento não tem restrições para ser arquivado' do
     event = create(:event)
     part1 = create :participation, p_type: Participation.p_types[:student], event: event,
-                   attendance: Participation.attendances[:present]
+                   attendance: Participation.attendances[:part_present]
     part2 = create :participation, p_type: Participation.p_types[:teacher], event: event,
-                   attendance: Participation.attendances[:present]
+                   attendance: Participation.attendances[:part_present]
     asset = create :resource_asset, asset_type: ResourceAsset.asset_types[:attendance_list],
                    assetable_id: event.id, assetable_type: 'Event'
 
@@ -53,9 +53,9 @@ feature 'Arquivamento de evento' do
   scenario 'evento não tem lista de presença anexada' do
     event = create(:event)
     part1 = create :participation, p_type: Participation.p_types[:student], event: event,
-                   attendance: Participation.attendances[:present]
+                   attendance: Participation.attendances[:part_present]
     part2 = create :participation, p_type: Participation.p_types[:teacher], event: event,
-                   attendance: Participation.attendances[:present]
+                   attendance: Participation.attendances[:part_present]
     asset = create :resource_asset, asset_type: ResourceAsset.asset_types[:participant_material],
                    assetable_id: event.id, assetable_type: 'Event'
 
