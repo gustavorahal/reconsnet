@@ -1,5 +1,19 @@
 # Reconsnet
 
+## About This Project
+
+Reconsnet is a Rails application I built for Reconscientia, a nonprofit organization, starting in 2014 and maintained through 2019. It served as both the public website and internal management system for the organization, was live for several years, and was used by roughly fifteen people to coordinate day-to-day nonprofit operations.
+
+This was a real production system for a small organization, not a commercial product or a software business. It was built pragmatically around the organization's needs and evolved over time as those needs became clearer.
+
+The application includes features for managing people, contact information, volunteers, activities, events, event participation and attendance, tasks, internal notes, role-based authorization, file attachments, email marketing integration, audit/version history, and generated PDFs such as event attendance materials.
+
+The public version of this repository has been sanitized to remove private credentials and operationally sensitive history.
+
+## Historical Project Notes
+
+The notes below are preserved from the original project documentation.
+
 Website e intranet da Reconscientia
 
 
